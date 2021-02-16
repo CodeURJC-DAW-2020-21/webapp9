@@ -1,0 +1,151 @@
+/*--------------------------------------------------------------
+  Template Name: Tmart-Minimalist eCommerce HTML5 Template.
+  Template URI: #
+  Description: Tmart is a unique website template designed in HTML with a simple & beautiful look. There is an excellent solution for creating clean, wonderful and trending material design corporate, corporate any other purposes websites.
+  Author: Theme365
+  Version: 1.0
+---------------------------------------------------------------*/
+
+/* ----------------------------------------------------
+	You can put your custom css code here: 
+-------------------------------------------------------*/
+
+/* ----------------------------------------------------
+	Reservation 
+-------------------------------------------------------*/
+.gaming-img{
+  width: 22%;
+  height: 22%;
+  margin-left: 70px;
+  margin-top: 70px;
+  border-radius: 25px;
+}
+
+.gaming-head{
+  display: flex;
+  margin: 10px;
+  
+}
+
+.gaming-text{
+  width: 50%;
+  margin-right: 70px;
+  margin-top: 70px;
+  margin-left: 50px;
+}
+.gaming-h1{
+  margin-top: 60px;
+  text-align: center;
+  font-size: 70px;
+}
+
+.gaming-reservation{
+  display: block;
+  margin: 30px;
+}
+
+.gaming-reservation input{
+  margin-top: 3em;
+}
+
+.gaming-select{
+  font-size: 30px;
+}
+
+.gaming-head{
+  display: flex;
+  margin: 30px;
+  text-align: center;
+}
+.gaming-platform{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  margin-top: 1em;
+}
+.gaming-platform button{
+  margin-bottom: 0.5em;
+}
+.iconify { 
+  width: 20px; 
+  height: 20px; 
+  vertical-align: middle;
+}
+.gaming-time{
+  margin-top: 2em;
+}
+.gaming-hour{
+  display: flex;
+  flex-direction:row;
+}
+.gaming-hour button{
+  margin: 2px 2px 2px 2px;
+  width: 120%;
+}
+
+.gaming-confirm{
+  margin-top: 7em;
+  margin-left: 2em;
+}
+.description-title > h3{
+  color: white;
+  font-size: 20px;
+  padding: 15px 10px 15px 35px;
+  left: 12px;
+  background-color: #FF0000;
+}
+
+#imagen-central{
+  padding-left: 15%;
+  width: 90%;
+}
+
+.left-aligned {
+  text-align: left;
+}
+
+.center-aligned {
+  text-align: center;
+}
+
+.right-float {
+  text-align: right;
+  float: right;
+}
+
+.title__line {
+  font-weight: bolder;
+}
+
+.availab {
+  font-weight: bolder;
+  font-size: large;
+}
+
+.event-img {
+  float: left;
+  width: 500px;
+  margin: 30px 30px 30px 30px;
+  border-radius: 25px;
+}
+
+.img-item {
+  display: inline;
+  margin: 20px;
+}
+
+.event-small-img {
+  width: 15%;
+  vertical-align: top;
+  border-radius: 15px;
+}
+
+.date {
+    margin: 25px;
+    display: inline;
+}
+
+.more-images {
+  margin: -50px 20px 20px 70px
+}
