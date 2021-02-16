@@ -35,9 +35,9 @@ Web app for a gaming center called ***Ultra Game Center***
 
 **Entities:**
 
-- Event: date, location, game, prize, price.
+- Event: date, location, game, prize, likes (nº of people attending).
 
-- Merchandising: price, delivery and products availability.
+- Booking: number of table, date, hour. 
 
 - Gaming table: number, status, type.
 
@@ -83,4 +83,4 @@ Web app for a gaming center called ***Ultra Game Center***
 
 **Advanced query or algorithm:**
 
-- Based on the user's purchases, related merchandising will appear at the top of the list.
+- Based on the events that the user has liked, those events which users similar to him have also liked will appear first.
