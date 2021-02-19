@@ -145,3 +145,33 @@
 .more-images {
   margin: -50px 20px 20px 70px
 }
+
+.profile-img{
+  float: left;
+  width: 300px;
+  margin: 30px 30px 30px 30px;
+  border-radius: 25px;
+}
+
+.user-info-column{
+  display: flex;
+  margin: 10px;
+}
+
+.user-display-info{
+  margin: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user-display-info li{
+  border-color: aqua;
+}
+
+.user-info{
+  font-size: 30px;
+  padding: 10px;
+  color: white;
+  background-color: red;
+}
+
