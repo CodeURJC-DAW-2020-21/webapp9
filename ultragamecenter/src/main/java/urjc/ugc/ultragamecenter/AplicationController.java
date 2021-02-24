@@ -11,37 +11,37 @@ public class AplicationController{
         return "IndexTemplate";
     }
 
-    @GetMapping("/Admin")
+    @GetMapping("/admin")
     public String getAdmin(Model model){
         model.addAttribute("nombre2","Admin");
         return "AdminTemplate";
     }
 
-    @GetMapping("/User")
+    @GetMapping("/user")
     public String getUser(Model model){
         model.addAttribute("nombre3","User Page");
         return "UserTemplate";
     }
 
-    @GetMapping("/Register")
+    @GetMapping("/register")
     public String getLoginRegister(Model model){
         model.addAttribute("nombre4","Register Page");
         return "LoginRegisterTemplate";
     }
 
-    @GetMapping("/Reservation")
+    @GetMapping("/reservation")
     public String getReservation(Model model){
         model.addAttribute("nombre5","Reservation Page");
         return "ReservationTemplate";
     }
 
-    @GetMapping("/SingleEvent")
+    @GetMapping("/singleevent")
     public String getSingleEvent(Model model){
         model.addAttribute("nombre6","SingleEvent Page");
         return "SingleEventTemplate";
     }
 
-    @GetMapping("/Events")
+    @GetMapping("/events")
     public String getEvents(Model model){
         model.addAttribute("nombre","Events Page");
         return "EventsTemplate";
