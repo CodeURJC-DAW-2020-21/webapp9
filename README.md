@@ -55,7 +55,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 
 
-**Images**
+**Images:**
 
 - Images related to the merchandising / events.
 
@@ -63,7 +63,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
   
 
-**Graphs**
+**Graphs:**
 
 - Graphs which represent the number of users that are going to attend an event.
 
@@ -84,3 +84,32 @@ Web app for a gaming center called ***Ultra Game Center***
 **Advanced query or algorithm:**
 
 - Based on the events that the user has liked, those events which users similar to him have also liked will appear first.
+
+
+
+## PHASE 1: Website structure by HTML and CSS
+
+
+  
+**Table of contents**:
+  - Home page: presentation of the website.
+  
+  - Reservation: allows users to book a table.
+  
+  - Events: shows all events.
+  
+  - Single event: shows the information of a specific event.
+ 
+  - Register: allows the non-registered users to create a profile.
+  
+  - Login: allows the visitor to log in the website.
+  
+  - User profile: allows the users to see and modify their profile.
+  
+  - Admin profile: allows the admins to see and modify their profile.
+  
+  - Graphs page: allows the admins to see graphical information about their events.
+  
+  - Footer: shows the visitor contact information and a map of our location.
+  
+**Navigation Diagram**: 
