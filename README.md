@@ -93,24 +93,24 @@ Web app for a gaming center called ***Ultra Game Center***
   
 **Table of contents**:
   - Home page: presentation of the website.
-  ![Home page](readme-photos/home.JPG)
+  ![Home page](readme-photos/home.PNG)
   
   - Reservation: allows users to book a table.
-  ![Reservation](readme-photos/reservas.JPG)
+  ![Reservation](readme-photos/reservas.PNG)
   
   - Events: shows all events.
   
   - Single event: shows the information of a specific event.
-  ![Single event](readme-photos/SingleEvent.JPG)
+  ![Single event](readme-photos/SingleEvent.PNG)
  
   - Register: allows the non-registered users to create a profile.
-  ![Register](readme-photos/LoginRegister.JPG)
+  ![Register](readme-photos/LoginRegister.PNG)
   
   - Login: allows the visitor to log in the website.
-  ![Register](readme-photos/LoginRegister.JPG)
+  ![Register](readme-photos/LoginRegister.PNG)
   
   - User profile: allows the users to see and modify their profile.
-  ![User](readme-photos/user.JPG)
+  ![User](readme-photos/user.PNG)
   
   - Admin profile: allows the admins to see and modify their profile.
   
@@ -123,6 +123,6 @@ Web app for a gaming center called ***Ultra Game Center***
   - Graphs page: allows the admins to see graphical information about their events.
   
   - Footer: shows the visitor contact information and a map of our location.
-  ![Footer](readme-photos/Footer.JPG)
+  ![Footer](readme-photos/Footer.PNG)
   
 **Navigation Diagram**: 
