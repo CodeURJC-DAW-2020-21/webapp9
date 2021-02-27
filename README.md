@@ -108,6 +108,12 @@ Web app for a gaming center called ***Ultra Game Center***
   
   - Admin profile: allows the admins to see and modify their profile.
   
+  - Admin Events: allows the admins to see info about their events.
+  ![Admin events](readme-photos/admin-events.JPG) 
+  
+  - Admin Reservation: allows the admins to see all the reservations and interact with them.
+  ![Admin reservation](readme-photos/admin-reservation.JPG)
+  
   - Graphs page: allows the admins to see graphical information about their events.
   
   - Footer: shows the visitor contact information and a map of our location.
