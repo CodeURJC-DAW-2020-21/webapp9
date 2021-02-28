@@ -136,9 +136,9 @@ Web app for a gaming center called ***Ultra Game Center***
   
   - Footer: shows the visitor contact information and a map of our location.
   
-  ![Footer](readme-photos/Footer.PNG)
+  ![Footer](readme-photos/footer.PNG)
   
 **Navigation Diagram**: 
 
-  ![Navigation Diagram](readme-photos/Diagrama_de_navegacion.PNG)
+  ![Navigation Diagram](readme-photos/Diagrama_de_navegacion.png)
 
