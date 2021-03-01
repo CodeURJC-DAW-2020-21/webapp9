@@ -516,12 +516,11 @@ select {
 }
 input:focus {
     background: transparent;
-    border: 1px solid #ff4136;
+    border: 1px solid;
 }
 textarea {
     resize: none;
-    background: #ff4136;
-    border: 1px solid #ff4136;
+
     padding: 10px;
     width: 100%;
     font-size: 14px;
