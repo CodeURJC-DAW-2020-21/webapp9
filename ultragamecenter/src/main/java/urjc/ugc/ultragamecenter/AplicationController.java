@@ -72,7 +72,7 @@ public class AplicationController {
 
     @GetMapping("/all")
     public String getAllUsers(Model model) {
-        List<Event> lista = new ArrayList<>();
+        List<Event> lista;
         lista = eventRepository.findAll();
         model.addAttribute("pepa",lista.get(0).getName());
         model.addAttribute("pepo", lista.get(0).getDescription());

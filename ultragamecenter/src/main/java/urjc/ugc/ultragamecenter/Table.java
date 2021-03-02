@@ -12,12 +12,21 @@ public class Table {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String type;
-    private final String possibleTypes[]={"PS4","PC","XBOX"};
+    private static String possibleTypes[]={"PS4","PC","XBOX"};
     private Boolean free;
 
     public Table(String type, Boolean free) {
         this.type = type;
         this.free = free;
+    }
+
+    public static String getRandomType(){
+        int c= (int)(Math.random()*3);
+        return possibleTypes[c];
+    }
+
+    public static String[] getTypes() {
+        return possibleTypes;
     }
 
     public Long getId(){

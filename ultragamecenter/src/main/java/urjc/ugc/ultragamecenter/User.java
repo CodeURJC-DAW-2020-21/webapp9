@@ -23,7 +23,7 @@ public class User {
     private ArrayList<Event> eventsLikeIt;
     private ArrayList<Table> reservatedTables;
     private String rol;
-    private final String possibleRoles[]={"Admin","User"};
+    private final static String possibleRoles[]={"Admin","User"};
 
     public User(String name, String passwordHash, String lastName, String email, String rol) {
         this.name = name;
@@ -34,7 +34,10 @@ public class User {
         this.reservatedTables = new ArrayList<Table>();
         this.rol = rol;
     }
-    
+
+    public static String[] getRoles(){
+        return possibleRoles;
+    }
 
     public Long getId(){
         return this.id;
