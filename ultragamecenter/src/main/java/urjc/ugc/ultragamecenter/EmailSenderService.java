@@ -18,10 +18,10 @@ public class EmailSenderService {
 
     public Boolean SendEmail(String to,String message,String subject){
         Properties propiedad= new Properties();
-        pripiedad.setProperty("mail.smtp.host","smtp.gmail.com");
-        pripiedad.setProperty("mail.smtp.starttls.enable","true");
-        pripiedad.setproperty("mail.smtp.port","587");
-        propiedad.setproperty("mail.smtp.auth","true");
+        propiedad.setProperty("mail.smtp.host","smtp.gmail.com");
+        propiedad.setProperty("mail.smtp.starttls.enable","true");
+        propiedad.setProperty("mail.smtp.port","587");
+        propiedad.setProperty("mail.smtp.auth","true");
         Session sesion= Session.getDefaultInstance(propiedad);
         MimeMessage mail = new MimeMessage(sesion);
 
@@ -30,7 +30,7 @@ public class EmailSenderService {
         mail.setSubject(subject);
         mail.setText(message);
         Transport transport= sesion.getTransport("smtp");
-        transport.connecto(from,password);
+        transport.connect(from,password);
         transport.sendMessage(mail,mail.getRecipients(Message.RecipientType.TO));
         transport.close();
     }

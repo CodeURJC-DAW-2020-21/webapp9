@@ -1,6 +1,5 @@
 package urjc.ugc.ultragamecenter;
 
-import java.util.Dictionary;
 
 public class Table {
     private Long id;
