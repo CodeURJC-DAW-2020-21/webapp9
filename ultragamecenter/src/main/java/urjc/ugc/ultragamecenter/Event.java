@@ -18,6 +18,14 @@ public class Event {
     //private ArrayList<User> assistants;
     private Integer capacity;
 
+    public Event(){}
+    public Event(String name, String description, Integer likes){
+        
+        this.name=name;
+        this.description=description;
+        this.likes=likes;
+    }
+    
     public Long getId(){
         return this.id;
     }
@@ -34,5 +42,10 @@ public class Event {
         return this.capacity;
     }
     
+
+    @Override
+	public String toString() {
+		return "Event [id=" + id + ", Name=" + name + ", Description=" + description + ", likes=" + likes+"]";
+	}
 
 }
