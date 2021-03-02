@@ -12,6 +12,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,6 +24,17 @@ public class User {
     private ArrayList<Table> reservatedTables;
     private String rol;
     private final String possibleRoles[]={"Admin","User"};
+
+    public User(String name, String passwordHash, String lastName, String email, String rol) {
+        this.name = name;
+        this.passwordHash = passwordHash;
+        this.lastName = lastName;
+        this.email = email;
+        this.eventsLikeIt = new ArrayList<Event>();
+        this.reservatedTables = new ArrayList<Table>();
+        this.rol = rol;
+    }
+    
 
     public Long getId(){
         return this.id;
@@ -44,13 +56,21 @@ public class User {
         return this.passwordHash;
     }
 
-    public ArrayList<Event> getEventos() {
+    public ArrayList<Event> getEvents() {
 		return this.eventsLikeIt;
 	}
+
+    public void addEvent(Event event){
+        this.eventsLikeIt.add(event);
+    }
 
     public ArrayList<Table> getTables() {
 		return this.reservatedTables;
 	}
+
+    public void addTable(Table table){
+        this.reservatedTables.add(table);
+    }
 
     @Override
 	public String toString() {
@@ -58,5 +78,7 @@ public class User {
 				+ ", envets liked=" + eventsLikeIt + ", password=" + passwordHash + ", Tables=" + reservatedTables + ", roles=" + rol
 				+"]";
 	}
+
+
 
 }
