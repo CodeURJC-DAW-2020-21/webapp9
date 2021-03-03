@@ -1,6 +1,7 @@
 package urjc.ugc.ultragamecenter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AplicationController {
     
     @Autowired
-    EventRepository eventRepository;
+    EventRepository eRepository;
+
+    @Autowired
+    UserRepository urepository;
+
+    @Autowired
+    TableRepository trepository;
+
+    @Autowired
+    TableReservationRepository trrepository;
 
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -63,19 +73,32 @@ public class AplicationController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         Event event = new Event("Fornite","fornite x marvel",2);
+        User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com", "friki");
+        Tablegame table = new Tablegame("PC", false);
+        Date objDate = new Date();
+        TableReservation tr = new TableReservation(table.getId(), "234567876", objDate,objDate);
         //eventItem event = new eventItem();
         //event.setName("Fornite");
         //event.setDesc("fornite x marvel");
-        eventRepository.save(event);
+        eRepository.save(event);
+        urepository.save(user);
+        trrepository.save(tr);
+        trepository.save(table);
         return "Save";
     }
 
     @GetMapping("/all")
     public String getAllUsers(Model model) {
-        List<Event> lista;
-        lista = eventRepository.findAll();
-        model.addAttribute("pepa",lista.get(0).getName());
-        model.addAttribute("pepo", lista.get(0).getDescription());
+        //List<Event> lista;
+        //lista = eventRepository.findAll();
+        Event e = eRepository.findByid(2);
+        User u = urepository.findByid(3);
+        Tablegame t = trepository.findByid(5);
+        TableReservation tr = trrepository.findByid(4);
+        model.addAttribute("a1",u.toString());
+        model.addAttribute("a2",e.toString());
+        model.addAttribute("a3",t.toString());
+        model.addAttribute("a4",tr.toString());
         return "test";
     }
 
