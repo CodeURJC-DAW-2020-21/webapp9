@@ -4,9 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Table {
+@Table(name="Table_Games")
+public class Tablegame {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,7 +17,9 @@ public class Table {
     private static String possibleTypes[]={"PS4","PC","XBOX"};
     private Boolean free;
 
-    public Table(String type, Boolean free) {
+    public Tablegame(){}
+
+    public Tablegame(String type, Boolean free) {
         this.type = type;
         this.free = free;
     }
@@ -53,6 +57,10 @@ public class Table {
         this.free = free;
     }
 
+    @Override
+	public String toString() {
+		return "Tabel game [id=" + id + ", Type=" + type + ", free=" + free +"]";
+	}
 
 
 }

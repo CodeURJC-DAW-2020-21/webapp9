@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 
 
 @Entity
+@Table(name="Users")
 public class User {
 
     @Id
@@ -21,17 +23,19 @@ public class User {
     private String lastName;
     private String email;
     private ArrayList<Event> eventsLikeIt;
-    private ArrayList<Table> reservatedTables;
+    private ArrayList<Tablegame> reservatedTables;
     private String rol;
     private final static String possibleRoles[]={"Admin","User"};
 
+    public User(){}
+    
     public User(String name, String passwordHash, String lastName, String email, String rol) {
         this.name = name;
         this.passwordHash = passwordHash;
         this.lastName = lastName;
         this.email = email;
         this.eventsLikeIt = new ArrayList<Event>();
-        this.reservatedTables = new ArrayList<Table>();
+        this.reservatedTables = new ArrayList<Tablegame>();
         this.rol = rol;
     }
 
@@ -67,11 +71,11 @@ public class User {
         this.eventsLikeIt.add(event);
     }
 
-    public ArrayList<Table> getTables() {
+    public ArrayList<Tablegame> getTables() {
 		return this.reservatedTables;
 	}
 
-    public void addTable(Table table){
+    public void addTable(Tablegame table){
         this.reservatedTables.add(table);
     }
 

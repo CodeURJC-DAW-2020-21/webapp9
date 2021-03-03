@@ -2,11 +2,13 @@ package urjc.ugc.ultragamecenter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.Date;
 
 @Entity
+@Table(name="Reservation")
 public class TableReservation {
 
     @Id
@@ -17,7 +19,7 @@ public class TableReservation {
     private Date date;
     private Date hour;
 
-    
+    public TableReservation(){}
     public TableReservation(Long id_table, String referenced_code, Date date, Date hour) {
         this.id_table = id_table;
         this.referenced_code = referenced_code;
@@ -54,7 +56,10 @@ public class TableReservation {
     }
 
 
-
+    @Override
+	public String toString() {
+		return "Table reservation [id=" + id + ",id_table=" + id_table + ", Referenced_code=" + referenced_code + ", date=" + date +", hour="+hour+"]";
+	}
     
     
 }
