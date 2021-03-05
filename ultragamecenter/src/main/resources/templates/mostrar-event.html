@@ -1,0 +1,41 @@
+
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<!-- Owl Carousel main css -->
+<link rel="stylesheet" href="../css/owl.carousel.min.css">
+<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+<!-- This core.css file contents all plugings css file. -->
+<link rel="stylesheet" href="../css/core.css">
+<!-- Theme shortcodes/elements style -->
+<link rel="stylesheet" href="../css/shortcode/shortcodes.css">
+<!-- Theme main style -->
+<link rel="stylesheet" href="../css/style.css">
+<!-- Responsive css -->
+<link rel="stylesheet" href="../css/responsive.css">
+<!-- User style -->
+<link rel="stylesheet" href="../css/custom.css">
+<head>
+    <h1>
+        Events
+    </h1>
+</head>
+
+<body>
+    <dis class="eventContainer">
+        {{#events}}
+        <div class="event">
+            <div class="eventTitlePicture">
+                <div class="eventTitle"><h1>{{name}}</h1></div>
+                <div class="eventImage">
+                    <img src="images/Events/teamG2.png" alt="G2 Team">
+                </div>
+            </div>
+    
+            <div class="eventDescription">
+                <p>Fecha: {{likes}}</p>
+                <p>{{description}}</p>
+            </div>
+        </div>
+        {{/events}}
+    </dis>
+    
+</body>

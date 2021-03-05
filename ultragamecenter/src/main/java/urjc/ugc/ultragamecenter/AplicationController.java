@@ -102,4 +102,10 @@ public class AplicationController {
         return "test";
     }
 
+    @GetMapping("/allevents")
+    public String getAllEvent(Model model){
+        model.addAttribute("events",eRepository.findAll());
+        return "mostrar-event";
+    }
+
 }
