@@ -22,7 +22,7 @@ public class UserController {
         return "LoginRegisterTemplate";
     }
 	
-	@PostMapping("/add-user")
+	/*@PostMapping("/add-user")
 	public String addUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String telephone, @RequestParam String password, Model model) {
 		
 		//Encriptar el pasword ahí :D
@@ -37,14 +37,14 @@ public class UserController {
 		
 		return "register";
 
-	}
+	}*/
 	
-	@GetMapping("/users")
+	/*@GetMapping("/users")
 	public Iterable<User> listUsers() {
 	
 		return userRepo.findAll();
 	}
-	
+	*/
 	@GetMapping("/login")
 	public String login(Model model, HttpSession sesion) {
 		
