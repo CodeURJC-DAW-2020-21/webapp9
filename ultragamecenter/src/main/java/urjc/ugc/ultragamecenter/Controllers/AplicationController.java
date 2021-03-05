@@ -1,5 +1,4 @@
-package urjc.ugc.ultragamecenter;
-
+package urjc.ugc.ultragamecenter.Controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import urjc.ugc.ultragamecenter.Models.*;
+import urjc.ugc.ultragamecenter.Repositories.*;
 
 
 
@@ -42,12 +44,6 @@ public class AplicationController {
     public String getUser(Model model) {
         model.addAttribute("nombre3", "User Page");
         return "UserTemplate";
-    }
-
-    @GetMapping("/register")
-    public String getLoginRegister(Model model) {
-        model.addAttribute("nombre4", "Register Page");
-        return "LoginRegisterTemplate";
     }
 
     @GetMapping("/reservation")
@@ -107,5 +103,6 @@ public class AplicationController {
         model.addAttribute("events",eRepository.findAll());
         return "mostrar-event";
     }
+
 
 }

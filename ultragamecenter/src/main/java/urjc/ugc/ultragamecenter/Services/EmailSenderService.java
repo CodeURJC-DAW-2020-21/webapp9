@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter;
+package urjc.ugc.ultragamecenter.Services;
 
 import java.util.Properties;
 import javax.mail.Message;

@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter;
+package urjc.ugc.ultragamecenter.Repositories;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
