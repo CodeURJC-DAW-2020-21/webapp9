@@ -1,4 +1,8 @@
 package urjc.ugc.ultragamecenter.Controllers;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +24,7 @@ public class UserController {
         return "LoginRegisterTemplate";
     }
 	
-	@PostMapping("/add-user")
+	/*@PostMapping("/add-user")
 	public String addUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String telephone, @RequestParam String password, Model model) {
 		
 		//Encriptar el pasword ahí :D
@@ -37,14 +41,14 @@ public class UserController {
 		
 		return "register";
 
-	}
+	}*/
 	
-	@GetMapping("/users")
+	/*@GetMapping("/users")
 	public Iterable<User> listUsers() {
 	
 		return userRepo.findAll();
 	}
-	
+	*/
 	@GetMapping("/login")
 	public String login(Map<String, Object> model, HttpSession sesion) {
 		model.put("title", "Iniciar sesión");
@@ -56,4 +60,4 @@ public class UserController {
 
 
 }
-}
+

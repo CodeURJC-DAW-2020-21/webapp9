@@ -2,11 +2,15 @@ package urjc.ugc.ultragamecenter.Models;
 
 import java.util.ArrayList;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import java.util.List;
 
 
 
@@ -24,25 +28,23 @@ public class User {
     private String email;
     private ArrayList<Event> eventsLikeIt;
     private ArrayList<Tablegame> reservatedTables;
-    private String rol;
-    private final static String possibleRoles[]={"Admin","User"};
+
+    @ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
 
     public User(){}
     
-    public User(String name, String passwordHash, String lastName, String email, String rol) {
+    public User(String name, String passwordHash, String lastName, String email, String... roles) {
         this.name = name;
         this.passwordHash = passwordHash;
         this.lastName = lastName;
         this.email = email;
         this.eventsLikeIt = new ArrayList<Event>();
         this.reservatedTables = new ArrayList<Tablegame>();
-        this.rol = rol;
+        this.roles = List.of(roles);
     }
 
-    public static String[] getRoles(){
-        return possibleRoles;
-    }
-
+    
     public Long getId(){
         return this.id;
     }
@@ -75,6 +77,14 @@ public class User {
 		return this.reservatedTables;
 	}
 
+    public List<String> getRoles() {
+		return roles;
+	}
+
+    public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+
     public void addTable(Tablegame table){
         this.reservatedTables.add(table);
     }
@@ -82,7 +92,7 @@ public class User {
     @Override
 	public String toString() {
 		return "User [id=" + id + ", Name=" + name + ", lastName=" + lastName + ", email=" + email
-				+ ", envets liked=" + eventsLikeIt + ", password=" + passwordHash + ", Tables=" + reservatedTables + ", roles=" + rol
+				+ ", envets liked=" + eventsLikeIt + ", password=" + passwordHash + ", Tables=" + reservatedTables + ", roles=" + roles
 				+"]";
 	}
 
