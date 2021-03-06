@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
-
-
+import urjc.ugc.ultragamecenter.Components.*;
 
 @Controller
 public class AplicationController {
@@ -28,6 +27,9 @@ public class AplicationController {
     @Autowired
     TableReservationRepository trrepository;
 
+    @Autowired
+    UserComponent loggedUser;
+
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("nombre", "Index");
@@ -43,6 +45,8 @@ public class AplicationController {
     @GetMapping("/user")
     public String getUser(Model model) {
         model.addAttribute("nombre3", "User Page");
+        model.addAttribute("events",loggedUser.getLoggedUser().getEvents());
+        model.addAttribute("tables",loggedUser.getLoggedUser().getTables());
         return "UserTemplate";
     }
 
@@ -61,6 +65,7 @@ public class AplicationController {
     @GetMapping("/events")
     public String getEvents(Model model) {
         model.addAttribute("nombre", "Events Page");
+        model.addAttribute("events",eRepository.findAll());
         return "EventsTemplate";
     }
 
@@ -97,12 +102,4 @@ public class AplicationController {
         model.addAttribute("a4",tr.toString());
         return "test";
     }
-
-    @GetMapping("/allevents")
-    public String getAllEvent(Model model){
-        model.addAttribute("events",eRepository.findAll());
-        return "mostrar-event";
-    }
-
-
 }
