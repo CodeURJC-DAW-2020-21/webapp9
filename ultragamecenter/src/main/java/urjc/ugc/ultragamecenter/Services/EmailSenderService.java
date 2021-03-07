@@ -1,6 +1,8 @@
 package urjc.ugc.ultragamecenter.Services;
 
 import java.util.Properties;
+import java.util.regex.Pattern;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -10,10 +12,11 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSenderService {
 
-    private String from = "";
-    private String password = "";
+    private static String from = "";
+    private static String password = "";
+    public static Pattern isEmail= Pattern.compile("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)");
 
-    public Boolean sendEmail(String to, String message, String subject) {
+    public static Boolean sendEmail(String to, String message, String subject) {
         Properties propiedad = new Properties();
         propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");
         propiedad.setProperty("mail.smtp.starttls.enable", "true");

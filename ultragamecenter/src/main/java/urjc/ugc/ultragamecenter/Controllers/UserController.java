@@ -31,7 +31,7 @@ public class UserController {
 		
 		User user = new User( name,  passwordHash, surname, email, "User");
 		
-		//Guardar el usuario aqui
+		urepository.save(user);
 		
 		
 		

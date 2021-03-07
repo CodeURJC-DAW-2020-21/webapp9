@@ -1,6 +1,8 @@
 package urjc.ugc.ultragamecenter.Models;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import javax.persistence.ElementCollection;
@@ -29,11 +31,34 @@ public class User {
     private ArrayList<Event> eventsLikeIt;
     private ArrayList<Tablegame> reservatedTables;
     private HashMap<EventLavelType, Double> affinity;
+    private ArrayList<Event> recomendated;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
     public User() {
+    }
+
+    private Double getAffinity(Event e){
+        Double aux=0.0;
+        for (EventLavelType lavel : e.getLavels()) {
+            if(affinity.containsKey(lavel)){
+                aux+=affinity.get(lavel);
+            } else{
+                affinity.put(lavel, 0.5);
+            }
+        }
+        return aux;
+    }
+
+    public void refresh(Event e){
+        Double aux= getAffinity(e);
+        Double comparator=getAffinity(recomendated.get(recomendated.size()-1));
+        if(comparator<aux){
+            recomendated.remove(recomendated.size()-1);
+            recomendated.add(e);
+            recomendated.sort((e1,e2)-> (int)(100*(getAffinity(e1)-getAffinity(e2))));
+        }
     }
 
     public User(String name, String passwordHash, String lastName, String email, String... roles) {
@@ -101,12 +126,12 @@ public class User {
         for (EventLavelType x : EventLavelType.values()) {
             if (e.getLavels().contains(x)) {
                 if (this.affinity.containsKey(x)) {
-                    this.affinity.put(x, this.affinity.get(x)*this.affinity.get(x));
+                    this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
                 } else {
-                    this.affinity.put(x, 0.5);
+                    this.affinity.put(x, Math.sqrt(0.5));
                 }
             } else {
-                this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
+                this.affinity.put(x, this.affinity.get(x)*this.affinity.get(x));
             }
         }
     }

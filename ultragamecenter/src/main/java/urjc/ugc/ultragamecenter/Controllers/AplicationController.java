@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
-
+import urjc.ugc.ultragamecenter.Services.EmailSenderService;
 import urjc.ugc.ultragamecenter.Types.EventLavelType;
 import urjc.ugc.ultragamecenter.Types.TableType;
 
@@ -18,6 +19,7 @@ import urjc.ugc.ultragamecenter.Components.*;
 
 @Controller
 public class AplicationController {
+
     
     @Autowired
     EventRepository eRepository;
@@ -72,6 +74,41 @@ public class AplicationController {
         model.addAttribute("events",eRepository.findAll());
         return "EventsTemplate";
     }
+
+
+    @GetMapping("/add-event")
+    public String addEvent(@RequestParam String name, @RequestParam String description, Model model, @RequestParam EventLavelType... lavels){
+        Event event = new Event(name,description,lavels);
+        eRepository.save(event);
+        return "events";
+    }
+
+    @GetMapping("/add-table")
+    public String addTable(@RequestParam TableType tableType, Model model){
+        Tablegame table = new Tablegame(tableType, false);
+        trepository.save(table);
+        return "reservation";
+    }
+
+    @GetMapping("/add-table-reservation")
+    public String addTableReservation(@RequestParam Tablegame table,@RequestParam Date initialDate, @RequestParam Date endDate,String email, Model model){
+        //Coger de la base de datos una identificación que no esté(por ejemplo la más mayor +1)
+        //y ponerla 
+        String ReservationCode="234567876";
+        TableReservation tr = new TableReservation(table.getId(), ReservationCode, initialDate,endDate);
+        if(email!=""){
+            if(EmailSenderService.isEmail.matcher(email).matches()){
+                EmailSenderService.sendEmail(email, "Congratulations, this is your ReservationCode of one of our best tables, enjoy it bruh", ReservationCode);
+            }
+
+        }
+        trrepository.save(tr);
+        return "reservation";
+    }
+
+
+
+
 
     @GetMapping("/add") // Map ONLY POST Requests
     public String add(Model model) {
