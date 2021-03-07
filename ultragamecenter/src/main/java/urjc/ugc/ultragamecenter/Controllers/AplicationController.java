@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
+import urjc.ugc.ultragamecenter.Types.EventLavelType;
+import urjc.ugc.ultragamecenter.Types.TableType;
 
 
 
@@ -68,9 +70,9 @@ public class AplicationController {
     public String add(Model model) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        Event event = new Event("Fornite","fornite x marvel",2);
+        Event event = new Event("Fornite","fornite x marvel",EventLavelType.MOBA,EventLavelType.SHOOTER);
         User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com", "friki");
-        Tablegame table = new Tablegame("PC", false);
+        Tablegame table = new Tablegame(TableType.PC, false);
         Date objDate = new Date();
         TableReservation tr = new TableReservation(table.getId(), "234567876", objDate,objDate);
         //eventItem event = new eventItem();

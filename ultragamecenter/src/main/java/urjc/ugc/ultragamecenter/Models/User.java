@@ -1,6 +1,7 @@
 package urjc.ugc.ultragamecenter.Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -10,13 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import urjc.ugc.ultragamecenter.Types.EventLavelType;
+
 import java.util.List;
 
-
-
-
 @Entity
-@Table(name="Users")
+@Table(name = "Users")
 public class User {
 
     @Id
@@ -28,12 +28,14 @@ public class User {
     private String email;
     private ArrayList<Event> eventsLikeIt;
     private ArrayList<Tablegame> reservatedTables;
+    private HashMap<EventLavelType, Double> affinity;
 
     @ElementCollection(fetch = FetchType.EAGER)
-	private List<String> roles;
+    private List<String> roles;
 
-    public User(){}
-    
+    public User() {
+    }
+
     public User(String name, String passwordHash, String lastName, String email, String... roles) {
         this.name = name;
         this.passwordHash = passwordHash;
@@ -44,58 +46,69 @@ public class User {
         this.roles = List.of(roles);
     }
 
-    
-    public Long getId(){
+    public Long getId() {
         return this.id;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return this.lastName;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return this.email;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return this.passwordHash;
     }
 
     public ArrayList<Event> getEvents() {
-		return this.eventsLikeIt;
-	}
+        return this.eventsLikeIt;
+    }
 
-    public void addEvent(Event event){
+    public void addEvent(Event event) {
         this.eventsLikeIt.add(event);
     }
 
     public ArrayList<Tablegame> getTables() {
-		return this.reservatedTables;
-	}
+        return this.reservatedTables;
+    }
 
     public List<String> getRoles() {
-		return roles;
-	}
+        return roles;
+    }
 
     public void setRoles(List<String> roles) {
-		this.roles = roles;
-	}
+        this.roles = roles;
+    }
 
-    public void addTable(Tablegame table){
+    public void addTable(Tablegame table) {
         this.reservatedTables.add(table);
     }
 
     @Override
-	public String toString() {
-		return "User [id=" + id + ", Name=" + name + ", lastName=" + lastName + ", email=" + email
-				+ ", envets liked=" + eventsLikeIt + ", password=" + passwordHash + ", Tables=" + reservatedTables + ", roles=" + roles
-				+"]";
-	}
+    public String toString() {
+        return "User [id=" + id + ", Name=" + name + ", lastName=" + lastName + ", email=" + email + ", envets liked="
+                + eventsLikeIt + ", password=" + passwordHash + ", Tables=" + reservatedTables + ", roles=" + roles
+                + "]";
+    }
 
-
+    public void likedEvent(Event e) {
+        for (EventLavelType x : EventLavelType.values()) {
+            if (e.getLavels().contains(x)) {
+                if (this.affinity.containsKey(x)) {
+                    this.affinity.put(x, this.affinity.get(x)*this.affinity.get(x));
+                } else {
+                    this.affinity.put(x, 0.5);
+                }
+            } else {
+                this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
+            }
+        }
+    }
 
 }

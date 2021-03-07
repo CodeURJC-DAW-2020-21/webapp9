@@ -1,11 +1,13 @@
 package urjc.ugc.ultragamecenter.Models;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import urjc.ugc.ultragamecenter.Types.EventLavelType;
 
 @Entity
 @Table(name="Event")
@@ -17,15 +19,23 @@ public class Event {
     private String name;
     private String description;
     private Integer likes;
+    private ArrayList<EventLavelType> lavels;
     //private ArrayList<User> assistants;
     private Integer capacity;
 
     public Event(){}
-    public Event(String name, String description, Integer likes){
+    public Event(String name, String description, EventLavelType... lavels){
         
         this.name=name;
         this.description=description;
-        this.likes=likes;
+        this.likes=0;
+        for (EventLavelType var : lavels) {
+            this.lavels.add(var);
+        }
+    }
+
+    public ArrayList<EventLavelType> getLavels(){
+        return lavels;
     }
     
     public Long getId(){

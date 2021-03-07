@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import urjc.ugc.ultragamecenter.Types.TableType;
+
 @Entity
 @Table(name="Table_Games")
 public class Tablegame {
@@ -13,24 +15,18 @@ public class Tablegame {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String type;
-    private static String possibleTypes[]={"PS4","PC","XBOX"};
+    private TableType type;
     private Boolean free;
 
     public Tablegame(){}
 
-    public Tablegame(String type, Boolean free) {
+    public Tablegame(TableType type, Boolean free) {
         this.type = type;
         this.free = free;
     }
 
-    public static String getRandomType(){
-        int c= (int)(Math.random()*3);
-        return possibleTypes[c];
-    }
-
-    public static String[] getTypes() {
-        return possibleTypes;
+    public static TableType[] getTypes() {
+        return TableType.values();
     }
 
     public Long getId(){
@@ -41,11 +37,11 @@ public class Tablegame {
         this.id = id;
     }
 
-    public String getType(){
+    public TableType getType(){
         return this.type;
     }
 
-    public void setType(String type){
+    public void setType(TableType type){
         this.type = type;
     }
 
