@@ -80,29 +80,21 @@
         <div class="user-display-info">
             <h3 class="user-info" >Mis Reservas</h3>
             <ul>
+                {{#tables}}
                 <li>
-                    <p>PlayStation 5</p>
+                    <p>{{type}}</p>
                 </li>
-                <li>
-                    <p>XBOX</p>
-                </li>
-                <li>
-                    <p>Switch</p>
-                </li>
+                {{/tables}}
             </ul>
         </div>
         <div class="user-display-info">
             <h3 class="user-info">Mis Eventos</h3>
             <ul>
+                {{#events}}
                 <li>
-                    <p>PlayStation 5</p>
+                    <p>name</p>
                 </li>
-                <li>
-                    <p>XBOX</p>
-                </li>
-                <li>
-                    <p>Switch</p>
-                </li>
+                {{/events}}
             </ul>
         </div>
     </div>

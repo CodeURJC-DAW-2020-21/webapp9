@@ -59,40 +59,21 @@
 
 
 <dis class="eventContainer">
+    {{#events}}
     <div class="event">
         <div class="eventTitlePicture">
-            <div class="eventTitle"><h1>Conferencia G2</h1></div>
+            <div class="eventTitle"><h1>{{name}}</h1></div>
             <div class="eventImage">
                 <img src="images/Events/teamG2.png" alt="G2 Team">
             </div>
         </div>
 
         <div class="eventDescription">
-            <p>Fecha: 20/05/2021</p>
-            <p>Tendremos al equipo de eSport G2 dando una conferencia donde hablaran de su carrera
-                deportiva y de como gestionan el estres que pruduce jugar a nivel competitivo
-            </p>
+            <p>Fecha: {{likes}}</p>
+            <p>{{description}}</p>
         </div>
     </div>
-
-    <div class="event">
-        <div class="eventTitlePicture">
-            <div class="eventTitle"><h1>Retransmisión mundial LoL</h1></div>
-        
-            <div class="eventImage">
-                <img src="images/Events/Worlds_2021.png" alt="G2 Team">
-            </div>
-        </div>
-        
-
-        <div class="eventDescription">
-            <p>Fecha: 20/05/2021</p>
-            <p>Para acabar la temportada como se merece, retransmitiremos el mundial
-                de LoL con Ibai como invitado especial. ¿Qué equipo saldra vencedor en esta edición?
-                Si quieres saberlo no te pierdas este evento 
-            </p>
-        </div>
-    </div>
+    {{/events}}
     <footer class="htc__foooter__area gray-bg">
         <div class="container">
             <div class="row">
