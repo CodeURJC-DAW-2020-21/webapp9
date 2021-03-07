@@ -64,12 +64,16 @@
         <div class="eventTitlePicture">
             <div class="eventTitle"><h1>{{name}}</h1></div>
             <div class="eventImage">
-                <img src="images/Events/teamG2.png" alt="G2 Team">
+                {{#bannerUlr}}
+                <img src="{{bannerUrl}}" alt="G2 Team">
+                {{/bannerUlr}}
             </div>
         </div>
 
         <div class="eventDescription">
-            <p>Fecha: {{likes}}</p>
+            {{#date}}
+            <p>Fecha: {{date}}</p>
+            {{/date}}
             <p>{{description}}</p>
         </div>
     </div>
