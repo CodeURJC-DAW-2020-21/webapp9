@@ -26,17 +26,16 @@ public class Event {
     //private ArrayList<User> assistants;
     private Integer capacity;
 
-    public Event(){}
-    public Event(String name, String description, EventLavelType... lavels, Date date, String bannerUrl){
+    public Event(String name, String description, Date date2, String bannerUrl){
         
         this.name=name;
         this.description=description;
         this.likes=0;
-        for (EventLavelType var : lavels) {
-            this.lavels.add(var);
-        }
-        this.date = date;
+        this.date = date2;
         this.bannerUrl = bannerUrl;
+    }
+
+    public Event(String name2, String description2, java.util.Date date2, String bannerUrl2) {
     }
 
     public ArrayList<EventLavelType> getLavels(){
@@ -77,6 +76,9 @@ public class Event {
     }
     public void setBannerUrl(String bannerUrl) {
         this.bannerUrl = bannerUrl;
+    }
+    public void putLavel(EventLavelType lavel){
+        this.lavels.add(lavel);
     }
 
 }

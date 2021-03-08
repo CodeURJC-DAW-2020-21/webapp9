@@ -1,4 +1,6 @@
 package urjc.ugc.ultragamecenter.Controllers;
+
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +22,6 @@ import urjc.ugc.ultragamecenter.Components.*;
 @Controller
 public class AplicationController {
 
-    
     @Autowired
     EventRepository eRepository;
 
@@ -51,8 +52,8 @@ public class AplicationController {
     @GetMapping("/user")
     public String getUser(Model model) {
         model.addAttribute("nombre3", "User Page");
-        model.addAttribute("events",loggedUser.getLoggedUser().getEvents());
-        model.addAttribute("tables",loggedUser.getLoggedUser().getTables());
+        model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
+        model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
         return "UserTemplate";
     }
 
@@ -71,57 +72,60 @@ public class AplicationController {
     @GetMapping("/events")
     public String getEvents(Model model) {
         model.addAttribute("nombre", "Events Page");
-        model.addAttribute("events",eRepository.findAll());
+        model.addAttribute("events", eRepository.findAll());
         return "EventsTemplate";
     }
 
-
     @GetMapping("/add-event")
-    public String addEvent(@RequestParam String name, @RequestParam String description, Model model, @RequestParam EventLavelType... lavels){
-        Event event = new Event(name,description,lavels);
+    public String addEvent(@RequestParam String name, @RequestParam String description, @RequestParam Date date,
+            @RequestParam String bannerUrl, Model model, @RequestParam EventLavelType... lavels) {
+        Event event = new Event(name, description, date, bannerUrl);
+        for (EventLavelType var : lavels) {
+            event.putLavel(var);
+        }
         eRepository.save(event);
         return "events";
     }
 
     @GetMapping("/add-table")
-    public String addTable(@RequestParam TableType tableType, Model model){
+    public String addTable(@RequestParam TableType tableType, Model model) {
         Tablegame table = new Tablegame(tableType, false);
         trepository.save(table);
         return "reservation";
     }
 
     @GetMapping("/add-table-reservation")
-    public String addTableReservation(@RequestParam Tablegame table,@RequestParam Date initialDate, @RequestParam Date endDate,String email, Model model){
-        //Coger de la base de datos una identificación que no esté(por ejemplo la más mayor +1)
-        //y ponerla 
-        String ReservationCode="234567876";
-        TableReservation tr = new TableReservation(table.getId(), ReservationCode, initialDate,endDate);
-        if(email!=""){
-            if(EmailSenderService.isEmail.matcher(email).matches()){
-                EmailSenderService.sendEmail(email, "Congratulations, this is your ReservationCode of one of our best tables, enjoy it bruh", ReservationCode);
-            }
-
+    public String addTableReservation(@RequestParam Tablegame table, @RequestParam Date initialDate,
+            @RequestParam Date endDate, String email, Model model) {
+        // Coger de la base de datos una identificación que no esté(por ejemplo la más
+        // mayor +1)
+        // y ponerla
+        String ReservationCode = "234567876";
+        TableReservation tr = new TableReservation(table.getId(), ReservationCode, initialDate, endDate);
+        if (!(email.equals("")) && EmailSenderService.isEmail.matcher(email).matches()) {
+            EmailSenderService.sendEmail(email,
+                    "Congratulations, this is your ReservationCode of one of our best tables, enjoy it bruh",
+                    ReservationCode);
         }
         trrepository.save(tr);
         return "reservation";
     }
 
-
-
-
+    }
 
     @GetMapping("/add") // Map ONLY POST Requests
     public String add(Model model) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        Event event = new Event("Fornite","fornite x marvel",EventLavelType.MOBA,EventLavelType.SHOOTER);
+        Event event = new Event("Fornite", "fornite x marvel", Date.from(Instant.now()), "Hola");
+        event.putLavel(EventLavelType.MOBA);
+        event.putLavel(EventLavelType.SHOOTER);
         User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com", "friki");
         Tablegame table = new Tablegame(TableType.PC, false);
-        Date objDate = new Date();
-        TableReservation tr = new TableReservation(table.getId(), "234567876", objDate,objDate);
-        //eventItem event = new eventItem();
-        //event.setName("Fornite");
-        //event.setDesc("fornite x marvel");
+        TableReservation tr = new TableReservation(table.getId(), "234567876", Date.from(Instant.now()), Date.from(Instant.now()));
+        // eventItem event = new eventItem();
+        // event.setName("Fornite");
+        // event.setDesc("fornite x marvel");
         eRepository.save(event);
         urepository.save(user);
         trrepository.save(tr);
@@ -131,16 +135,16 @@ public class AplicationController {
 
     @GetMapping("/all")
     public String getAllUsers(Model model) {
-        //List<Event> lista;
-        //lista = eventRepository.findAll();
+        // List<Event> lista;
+        // lista = eventRepository.findAll();
         Event e = eRepository.findByid(2);
         User u = urepository.findByid(3);
         Tablegame t = trepository.findByid(5);
         TableReservation tr = trrepository.findByid(4);
-        model.addAttribute("a1",u.toString());
-        model.addAttribute("a2",e.toString());
-        model.addAttribute("a3",t.toString());
-        model.addAttribute("a4",tr.toString());
+        model.addAttribute("a1", u.toString());
+        model.addAttribute("a2", e.toString());
+        model.addAttribute("a3", t.toString());
+        model.addAttribute("a4", tr.toString());
         return "test";
     }
 }
