@@ -26,17 +26,18 @@ public class Event {
     //private ArrayList<User> assistants;
     private Integer capacity;
 
-    public Event(String name, String description, Date date2, String bannerUrl){
+    public Event(String name, String description, String date2, String bannerUrl){
         
         this.name=name;
         this.description=description;
         this.likes=0;
-        this.date = date2;
+        this.date = Date.valueOf(date2);
         this.bannerUrl = bannerUrl;
+        this.lavels = new ArrayList<EventLavelType>();
     }
 
-    public Event(String name2, String description2, java.util.Date date2, String bannerUrl2) {
-    }
+    /*public Event(String name2, String description2, java.util.Date date2, String bannerUrl2) {
+    }*/
 
     public ArrayList<EventLavelType> getLavels(){
         return lavels;

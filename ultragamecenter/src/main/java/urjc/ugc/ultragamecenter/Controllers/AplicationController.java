@@ -77,7 +77,7 @@ public class AplicationController {
     }
 
     @GetMapping("/add-event")
-    public String addEvent(@RequestParam String name, @RequestParam String description, @RequestParam Date date,
+    public String addEvent(@RequestParam String name, @RequestParam String description, @RequestParam String date,
             @RequestParam String bannerUrl, Model model, @RequestParam EventLavelType... lavels) {
         Event event = new Event(name, description, date, bannerUrl);
         for (EventLavelType var : lavels) {
@@ -111,13 +111,13 @@ public class AplicationController {
         return "reservation";
     }
 
-    }
+    
 
     @GetMapping("/add") // Map ONLY POST Requests
     public String add(Model model) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        Event event = new Event("Fornite", "fornite x marvel", Date.from(Instant.now()), "Hola");
+        Event event = new Event("Fornite", "fornite x marvel", "2015-03-15", "Hola");
         event.putLavel(EventLavelType.MOBA);
         event.putLavel(EventLavelType.SHOOTER);
         User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com", "friki");
