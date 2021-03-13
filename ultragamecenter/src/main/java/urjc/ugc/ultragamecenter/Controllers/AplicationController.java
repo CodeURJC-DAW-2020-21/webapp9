@@ -47,6 +47,8 @@ public class AplicationController {
     @GetMapping("/admin")
     public String getAdmin(Model model) {
         model.addAttribute("nombre", "Admin");
+        model.addAttribute("events", eRepository.findAll());
+        model.addAttribute("reservations", trrepository.findAll());
         return "AdminTemplate";
     }
 
