@@ -26,6 +26,8 @@ public class Event {
     //private ArrayList<User> assistants;
     private Integer capacity;
 
+    public Event(){}
+    
     public Event(String name, String description, String date2, String bannerUrl){
         
         this.name=name;
