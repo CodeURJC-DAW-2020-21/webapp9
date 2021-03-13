@@ -12,7 +12,7 @@ public class UserComponent {
 	private User user;
 
 	public User getLoggedUser() {
-		return user;
+		return this.user;
 	}
 
 	public void setLoggedUser(User user) {
@@ -21,6 +21,15 @@ public class UserComponent {
 
 	public boolean isLoggedUser() {
 		return this.user != null;
+	}
+
+	public boolean isAdmin(){
+		for(int i=0; i<=this.user.getRoles().size();i++){
+			if (this.user.getRoles().get(i)=="ROLE_ADMIN"){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

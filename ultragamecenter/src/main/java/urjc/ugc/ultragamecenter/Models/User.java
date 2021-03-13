@@ -28,6 +28,7 @@ public class User {
     private String passwordHash;
     private String lastName;
     private String email;
+    private String address;
     private ArrayList<Event> eventsLikeIt;
     private ArrayList<Tablegame> reservatedTables;
     private HashMap<EventLavelType, Double> affinity;
@@ -61,7 +62,7 @@ public class User {
         }
     }
 
-    public User(String name, String passwordHash, String lastName, String email, String... roles) {
+    public User(String name, String passwordHash, String lastName, String email,String address, String... roles) {
         this.name = name;
         this.passwordHash = passwordHash;
         this.lastName = lastName;
@@ -69,6 +70,7 @@ public class User {
         this.eventsLikeIt = new ArrayList<Event>();
         this.reservatedTables = new ArrayList<Tablegame>();
         this.roles = List.of(roles);
+        this.address=address;
     }
 
     public Long getId() {
@@ -115,10 +117,16 @@ public class User {
         this.reservatedTables.add(table);
     }
 
+    public void setAddress(String address){
+        this.address=address;
+    }
+    public String getAddress(){
+        return this.address;
+    }
     @Override
     public String toString() {
-        return "User [id=" + id + ", Name=" + name + ", lastName=" + lastName + ", email=" + email + ", envets liked="
-                + eventsLikeIt + ", password=" + passwordHash + ", Tables=" + reservatedTables + ", roles=" + roles
+        return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email +", address=" + this.address + ", envets liked="
+                + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables=" + this.reservatedTables + ", roles=" + this.roles
                 + "]";
     }
 

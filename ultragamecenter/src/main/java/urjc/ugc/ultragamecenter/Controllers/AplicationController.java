@@ -45,7 +45,7 @@ public class AplicationController {
 
     @GetMapping("/admin")
     public String getAdmin(Model model) {
-        model.addAttribute("nombre2", "Admin");
+        model.addAttribute("nombre", "Admin");
         return "AdminTemplate";
     }
 
@@ -120,7 +120,7 @@ public class AplicationController {
         Event event = new Event("Fornite", "fornite x marvel", "2015-03-15", "Hola");
         event.putLavel(EventLavelType.MOBA);
         event.putLavel(EventLavelType.SHOOTER);
-        User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com", "friki");
+        User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com","calle de la desesperacion", "friki");
         Tablegame table = new Tablegame(TableType.PC, false);
         TableReservation tr = new TableReservation(table.getId(), "234567876", Date.from(Instant.now()), Date.from(Instant.now()));
         // eventItem event = new eventItem();
