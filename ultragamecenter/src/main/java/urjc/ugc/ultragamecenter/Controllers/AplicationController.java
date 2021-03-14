@@ -1,24 +1,30 @@
 package urjc.ugc.ultragamecenter.Controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.net.MalformedURLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
 import javax.servlet.http.HttpSession;
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
 import urjc.ugc.ultragamecenter.Services.EmailSenderService;
 import urjc.ugc.ultragamecenter.Types.EventLavelType;
 import urjc.ugc.ultragamecenter.Types.TableType;
-
+import org.springframework.http.HttpHeaders;
 import urjc.ugc.ultragamecenter.Components.*;
 
 @Controller
@@ -38,6 +44,8 @@ public class AplicationController {
 
     @Autowired
     UserComponent loggedUser;
+
+    private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
 
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -132,9 +140,6 @@ public class AplicationController {
         Tablegame table = new Tablegame(TableType.PC, false);
         TableReservation tr = new TableReservation(table.getId(), "234567876", Date.from(Instant.now()),
                 Date.from(Instant.now()));
-        // eventItem event = new eventItem();
-        // event.setName("Fornite");
-        // event.setDesc("fornite x marvel");
         eRepository.save(event);
         urepository.save(user);
         trrepository.save(tr);
@@ -144,8 +149,6 @@ public class AplicationController {
 
     @GetMapping("/all")
     public String getAllUsers(Model model) {
-        // List<Event> lista;
-        // lista = eventRepository.findAll();
         Event e = eRepository.findByid(2);
         User u = urepository.findByid(3);
         Tablegame t = trepository.findByid(5);
@@ -196,13 +199,24 @@ public class AplicationController {
 	}
 
     @PostMapping("/editProfile")
-	public String editProfile(@RequestParam String name, @RequestParam String surname,@RequestParam String adress, HttpSession sesion) {
+	public String editProfile(@RequestParam String name, @RequestParam String surname,@RequestParam String adress, @RequestParam MultipartFile image, HttpSession sesion) throws IOException {
 		User aux = this.loggedUser.getLoggedUser();
+        Files.createDirectories(IMAGES_FOLDER);
+        Path imagePath = IMAGES_FOLDER.resolve("image"+aux.getEmail()+".jpg");
+        image.transferTo(imagePath);
 		aux.setAddress(adress);
         aux.setLastName(surname);
         aux.setName(name);
         urepository.save(aux);
 		return "EditProfileTemplate";
-        
+	}
+    @GetMapping("/get-user-image")	
+	public ResponseEntity<Object> downloadImage(Model model) throws MalformedURLException {
+        User aux = this.loggedUser.getLoggedUser();
+		Path imagePath = IMAGES_FOLDER.resolve("image"+aux.getEmail()+".jpg");
+		
+		Resource image = new UrlResource(imagePath.toUri());
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(image);		
 	}
 }
