@@ -150,4 +150,22 @@ public class AplicationController {
         model.addAttribute("a4", tr.toString());
         return "test";
     }
+
+    @GetMapping("/borrar-reserva")
+    public String borrarReserva(@RequestParam String id, Model model){
+        TableReservation reserva = trrepository.findByid(Long.parseLong(id));
+        trrepository.delete(reserva);
+        model.addAttribute("events", eRepository.findAll());
+        model.addAttribute("reservations", trrepository.findAll());
+        return "AdminTemplate";
+    }
+
+    @GetMapping("/borrar-evento")
+    public String borrarEvento(@RequestParam String id, Model model){
+        Event evento = eRepository.findByid(Long.parseLong(id));
+        eRepository.delete(evento);
+        model.addAttribute("events", eRepository.findAll());
+        model.addAttribute("reservations", trrepository.findAll());
+        return "AdminTemplate";
+    }
 }
