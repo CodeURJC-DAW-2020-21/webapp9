@@ -17,11 +17,7 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepo;
 
-	@GetMapping("/register")
-	public String getLoginRegister(Model model) {
-		model.addAttribute("nombre4", "Register Page");
-		return "LoginRegisterTemplate";
-	}
+	
 
 	@PostMapping("/registerUser")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String email, @RequestParam String password, HttpSession sesion) {
@@ -33,12 +29,6 @@ public class UserController {
 			userRepo.save(user);
 		}
 		return "LoginRegisterTemplate";
-	}
-
-	@GetMapping("/login")
-	public String login(Model model, HttpSession sesion) {
-
-		return "register";
 	}
 	
 

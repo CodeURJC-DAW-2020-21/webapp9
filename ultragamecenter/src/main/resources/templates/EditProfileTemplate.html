@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Inicio Sesión</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    
+
     <!-- All css files are included here. -->
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -33,72 +33,92 @@
 
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-     <!-- header icons js-->
-     <script src="https://kit.fontawesome.com/7155903fc6.js" crossorigin="anonymous"></script>
+    <!-- header icons js-->
+    <script src="https://kit.fontawesome.com/7155903fc6.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <header id="header" class="htc-header header--3 bg__white">
-        <!-- Start Mainmenu Area -->
-        <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
-                        <div class="logo">
-                            <div class="logoImage">
-                                <a href="#">
-                                <img src="images/logo/UGC1.png" alt="logo">
-                                </a>
-                            </div>
-                            
-                            <div class="pagetTitle"><h2 class="pageTitle-text"> | HOME</h1></div>
-                        </div>
-                    </div>
-                    <!-- Start MAinmenu Ares -->
-                    <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
-                        <nav class="mainmenu__nav hidden-xs hidden-sm">
-                            <ul class="main__menu">
-                                <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>                                
-                                <li class="drop"><a href="/events"><i class="fas fa-gamepad"></i> Eventos</a></li>
-                                <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-    </header>
-        <section class="categories-slider-area bg__white">
-            <div class="container">
-                <div class="row">
-                    <!-- Start Left Feature -->
-                    <div class="col-md-9 col-lg-9 col-sm-8 col-xs-12 float-left-style">
-                        <!-- Start Slider Area -->
-                        <img id="imagen-central" src="images/others/foto-local.png">
-                        <!-- Start Slider Area -->
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 float-right-style">
-                        <div class="mrg-xs">
-                            <div class="description-title">
-                                <h3> About Us</h3>
-                            </div>
-                            <div class="">
-                                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore gna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.
-                                </h3>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Body main wrapper start -->
+    <div class="wrapper fixed__footer">
+        <header id="header" class="htc-header header--3 bg__white">
+            <!-- Start Mainmenu Area -->
+            <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                            <div class="logo">
+                                <div class="logoImage">
+                                    <a href="/">
+                                    <img src="images/logo/UGC1.png" alt="logo">
+                                    </a>
+                                </div>
+                                
+                                <div class="pagetTitle"><h2 class="pageTitle-text"> | EDITAR PERFIL</h1></div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Left Feature -->
-                </div>
-            </div>
-        </section>
-        <!-- End Feature Product -->
+                        <!-- Start MAinmenu Ares -->
+                        <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                            <nav class="mainmenu__nav hidden-xs hidden-sm">
+                                <ul class="main__menu">
+                                    <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>                                
+                                    <li class="drop"><a href="/eventss"><i class="fas fa-gamepad"></i> Eventos</a></li>
+                                    <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+        </header>
+        <hr>
+        <div class="body__overlay"></div>
         
-        <!-- End Footer Area -->
-    </div>
-    <!-- Body main wrapper end -->
-    <!-- QUICKVIEW PRODUCT -->
-        <!-- END Modal -->
+        <!-- Start Login Register Area -->
+        
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <ul class="login__register__menu" role="tablist">
+                            <li role="presentation" class="login active"><a href="#editProfile" role="tab"
+                                    data-toggle="tab">Perfil</a></li>
+                            <li role="presentation" class="register"><a href="#editPassword" role="tab"
+                                    data-toggle="tab">Contraseña</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Start Login Register Content -->
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="htc__login__register__wrap">
+                            <!-- Start Single Content -->
+                            <div id="editProfile" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+                                <form class="login" method="post" action="/editProfile">
+                                    <input type="text" placeholder="Nombre*" name="name">
+                                    <input type="text" placeholder="Apellidos*" name="surname">
+                                    <input type="text" placeholder="Dirección*" name="adress">
+                                    <input type='submit' value='Guardar'/>
+                                </form>
+                            </div>
+                            <!-- End Single Content -->
+                            <!-- Start Single Content -->
+                            <div id="editPassword" role="tabpanel" class="single__tabs__panel tab-pane fade">
+                                <form action="/editPassword" class="login" method="post">
+                                    <input type="password" placeholder="Contraseña*" name="password">
+                                    <input type="password" placeholder="Repite tu contraseña*" name="password_repeated">
+                                    <input type="password" placeholder="Contraseña nueva*" name="new_password">
+                                    <input type='submit' value='Guardar'/>
+                                </form>
+                            </div>
+                            <!-- End Single Content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Login Register Content -->
+            </div>
+        </div>
+        <!-- End Login Register Area -->
+        <!-- Start Footer Area -->
         <footer class="htc__foooter__area gray-bg">
             <div class="container">
                 <div class="row">
@@ -107,7 +127,7 @@
                         <div class="col-md-3 col-lg-3 col-sm-6">
                             <div class="ft__widget">
                                 <div class="ft__logo">
-                                    <a href="#">
+                                    <a href="/">
                                         <img src="images/logo/logo.png" alt="footer logo">
                                     </a>
                                 </div>
@@ -166,8 +186,9 @@
                 <!-- End Copyright Area -->
             </div>
         </footer>
+        <!-- End Footer Area -->
     </div>
-    <!-- END QUICKVIEW PRODUCT -->
+    <!-- Body main wrapper end -->
     <!-- Placed js at the end of the document so the pages load faster -->
 
     <!-- jquery latest version -->

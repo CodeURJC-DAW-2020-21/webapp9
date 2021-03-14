@@ -62,15 +62,15 @@ public class User {
         }
     }
 
-    public User(String name,  String password, String lastName, String email, String address, String... roles) {
+    public User(String name,  String password, String email, String... roles) {
         this.name = name;
         this.passwordHash = password;
-        this.lastName = lastName;
+        this.lastName = "";
         this.email = email;
         this.eventsLikeIt = new ArrayList<Event>();
         this.reservatedTables = new ArrayList<Tablegame>();
         this.roles = List.of(roles);
-        this.address=address;
+        this.address="";
     }
 
     public Long getId() {
@@ -142,6 +142,18 @@ public class User {
                 this.affinity.put(x, this.affinity.get(x)*this.affinity.get(x));
             }
         }
+    }
+
+    public void setPassword(String new_password) {
+        this.passwordHash=new_password;
+    }
+
+    public void setLastName(String surname) {
+        this.lastName=surname;
+    }
+
+    public void setName(String name2) {
+        this.name=name2;
     }
 
 }

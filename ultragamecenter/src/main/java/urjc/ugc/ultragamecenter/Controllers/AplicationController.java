@@ -59,9 +59,11 @@ public class AplicationController {
         
         model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
         model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
-        model.addAttribute("Correo", loggedUser.getLoggedUser().getEmail());
-        model.addAttribute("Calle", loggedUser.getLoggedUser().getAddress());
-        model.addAttribute("Nombre", loggedUser.getLoggedUser().getName());
+        model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
+        model.addAttribute("Address", loggedUser.getLoggedUser().getAddress());
+        model.addAttribute("Name", loggedUser.getLoggedUser().getName());
+        model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
+        
         return "UserTemplate";
     }
 
@@ -155,13 +157,52 @@ public class AplicationController {
         return "test";
     }
 
+    @GetMapping("/profile")
+    public String getProfile(Model model) {
+        if(this.loggedUser.getLoggedUser()!=null){
+            return getUser(model);
+        } else{
+            return getLoginRegister(model);
+        }
+    }
+
+    @GetMapping("/edit-profile")
+    public String editProfile(Model model) {
+        return "EditProfileTemplate";
+    }
+
+    @GetMapping("/register")
+	public String getLoginRegister(Model model) {
+		model.addAttribute("nombre4", "Register Page");
+		return "LoginRegisterTemplate";
+	}
+
     @PostMapping("/logginUser")
-	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion) {
+	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion,Model model) {
 		User aux = urepository.findByEmail(email);
 		if (aux.getPassword().equals(password)) {
 			this.loggedUser.setLoggedUser(aux);
-            
 		} 
-		return "LoginRegisterTemplate";
+		return getProfile(model);
+	}
+    @PostMapping("/editPassword")
+	public String editPassword(@RequestParam String password, @RequestParam String password_repeated, @RequestParam String new_password, HttpSession sesion) {
+		User aux = this.loggedUser.getLoggedUser();
+		if (aux.getPassword().equals(password)&&password.equals(password_repeated)) {
+			aux.setPassword(new_password);
+		}
+        urepository.save(aux); 
+		return "EditProfileTemplate";
+	}
+
+    @PostMapping("/editProfile")
+	public String editProfile(@RequestParam String name, @RequestParam String surname,@RequestParam String adress, HttpSession sesion) {
+		User aux = this.loggedUser.getLoggedUser();
+		aux.setAddress(adress);
+        aux.setLastName(surname);
+        aux.setName(name);
+        urepository.save(aux);
+		return "EditProfileTemplate";
+        
 	}
 }

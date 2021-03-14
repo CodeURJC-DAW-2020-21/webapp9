@@ -66,9 +66,10 @@
                                 <ul class="main__menu">
                                     <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>                                
                                     <li class="drop"><a href="/events"><i class="fas fa-gamepad"></i> Eventos</a></li>
-                                    <li><a href="#"><i class="fas fa-user-alt"></i> Perfil</a></li>
+                                    <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
                                 </ul>
                             </nav>
+                        </div>
         </header>
 
         <div class="body__overlay"></div>
@@ -93,7 +94,7 @@
                             <!-- Start Single Content -->
                             <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
                                 <form class="login" method="post" action="/logginUser">
-                                    <input type="text" placeholder="Email*" name="email">
+                                    <input type="email" placeholder="Email*" name="email">
                                     <input type="password" placeholder="Password*" name="password">
                                     <input type='submit' value='Guardar'/>
                                 </form>
