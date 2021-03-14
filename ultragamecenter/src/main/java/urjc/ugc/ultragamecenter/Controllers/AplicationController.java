@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import javax.servlet.http.HttpSession;
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
 import urjc.ugc.ultragamecenter.Services.EmailSenderService;
@@ -55,8 +56,12 @@ public class AplicationController {
     @GetMapping("/user")
     public String getUser(Model model) {
         model.addAttribute("nombre3", "User Page");
+        
         model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
         model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
+        model.addAttribute("Correo", loggedUser.getLoggedUser().getEmail());
+        model.addAttribute("Calle", loggedUser.getLoggedUser().getAddress());
+        model.addAttribute("Nombre", loggedUser.getLoggedUser().getName());
         return "UserTemplate";
     }
 
@@ -114,8 +119,6 @@ public class AplicationController {
         return "reservation";
     }
 
-    
-
     @GetMapping("/add") // Map ONLY POST Requests
     public String add(Model model) {
         // @ResponseBody means the returned String is the response, not a view name
@@ -123,9 +126,10 @@ public class AplicationController {
         Event event = new Event("Fornite", "fornite x marvel", "2015-03-15", "Hola");
         event.putLavel(EventLavelType.MOBA);
         event.putLavel(EventLavelType.SHOOTER);
-        User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com","calle de la desesperacion", "friki");
+        User user = new User("pepe", "pepemola", "Elez", "elpepe@gmail.com", "calle de la desesperacion", "friki");
         Tablegame table = new Tablegame(TableType.PC, false);
-        TableReservation tr = new TableReservation(table.getId(), "234567876", Date.from(Instant.now()), Date.from(Instant.now()));
+        TableReservation tr = new TableReservation(table.getId(), "234567876", Date.from(Instant.now()),
+                Date.from(Instant.now()));
         // eventItem event = new eventItem();
         // event.setName("Fornite");
         // event.setDesc("fornite x marvel");
@@ -150,4 +154,14 @@ public class AplicationController {
         model.addAttribute("a4", tr.toString());
         return "test";
     }
+
+    @PostMapping("/logginUser")
+	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion) {
+		User aux = urepository.findByEmail(email);
+		if (aux.getPassword().equals(password)) {
+			this.loggedUser.setLoggedUser(aux);
+            
+		} 
+		return "LoginRegisterTemplate";
+	}
 }

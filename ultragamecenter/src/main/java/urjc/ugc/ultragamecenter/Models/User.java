@@ -62,9 +62,9 @@ public class User {
         }
     }
 
-    public User(String name, String passwordHash, String lastName, String email,String address, String... roles) {
+    public User(String name,  String password, String lastName, String email, String address, String... roles) {
         this.name = name;
-        this.passwordHash = passwordHash;
+        this.passwordHash = password;
         this.lastName = lastName;
         this.email = email;
         this.eventsLikeIt = new ArrayList<Event>();
