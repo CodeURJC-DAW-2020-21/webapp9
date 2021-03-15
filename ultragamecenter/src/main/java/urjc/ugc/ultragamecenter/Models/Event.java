@@ -30,11 +30,10 @@ public class Event {
     public Event(){}
     
     public Event(String name, String description, String date2, String bannerUrl, Integer capacity) throws ParseException{
-        
+        this.date=Date.valueOf(date2);
         this.name=name;
         this.description=description;
         this.likes=0;
-        this.date = Date.valueOf(date2);
         this.bannerUrl = bannerUrl;
         this.lavels = new ArrayList<EventLavelType>();
         this.capacity = capacity;

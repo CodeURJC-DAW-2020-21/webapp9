@@ -61,7 +61,7 @@
     </header>
 
 
-<dis class="eventContainer">
+<div class="eventContainer">
     {{#events}}
     <div class="event">
         <div class="eventTitlePicture">
@@ -72,13 +72,15 @@
                 {{/bannerUlr}}
             </div>
         </div>
-
+        
         <div class="eventDescription">
             {{#date}}
             <p>Fecha: {{date}}</p>
             {{/date}}
             <p>{{description}}</p>
         </div>
+        <button class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '/events/see-event?id={{id}}';">Like</button>
+        <button class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
     </div>
     {{/events}}
     <footer class="htc__foooter__area gray-bg">

@@ -110,6 +110,20 @@ public class UserController {
 		return "GraphsEventsTemplate";
 	}
 
+	@GetMapping("/events/see-event")
+	public String seeEvent(@RequestParam String id, Model model) {
+		Event event = eRepository.findByid(Long.parseLong(id));
+		
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		model.addAttribute("image", event.getBannerUrl());
+		model.addAttribute("name", event.getName());
+		model.addAttribute("description", event.getDescription());
+		model.addAttribute("date", event.getDate());
+		model.addAttribute("capacity", event.getCapacity());
+		return "SingleEventTemplate";
+	}
+
 	@GetMapping("/admin/graph-tables")
 	public String graphTables(Model model) {
 		List<TableReservation> reservations = trrepository.findAll();
