@@ -45,7 +45,6 @@
                                     <img src="images/logo/UGC1.png" alt="logo">
                                 </a>
                             </div>
-
                             <div class="pagetTitle">
                                 <h2 class="pageTitle-text"> | ADMIN
                             </div>
@@ -108,10 +107,10 @@
                                             {{likes}} <i class="fas fa-heart"></i>
                                             <button
                                                 class="btn-transition btn btn-outline-danger left-margin">Editar</button>
-                                            <button
-                                                class="btn-transition btn btn-outline-danger left-margin">Gráficos</button>
-                                            <button
-                                                class="btn-transition btn btn-outline-danger left-margin">Cancelar</button>
+                                            <button class="btn-transition btn btn-outline-danger left-margin"
+                                                onclick="location.href= '/admin/graph-event?id={{id}}';">Gráficos</button>
+                                            <button class="btn-transition btn btn-outline-danger left-margin"
+                                                onclick="location.href= '/admin/delete-event?id={{id}}'">Eliminar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -125,15 +124,12 @@
                 </ul>
             </div>
         </div>
-
-
         <div id="reservas" class="tab-pane">
-            <label class="body-tabs-container" for="start">Fecha de Inicio:</label>
-            <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
-
-            <label for="end">Fecha de Fin:</label>
-            <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
-
+            <div class="add-event-btn-container">
+                <button class="mb-2 mr-2 btn-transition btn btn-outline-focus"
+                    onclick="location.href= '/admin/graph-tables'">Gráficos <i
+                    class="fa fa-bar-chart"></i></button>
+            </div>
             <div class="event">
                 <div class="divider mt-0" style="margin-bottom: 30px"></div>
                 <ul>{{#reservations}}
@@ -144,14 +140,14 @@
                                     <div class="widget-content-left">
                                         <div class="widget-heading">Código de referencia: {{referenced_code}}</div>
                                         <div class="widget-subheading">
-                                            <i class="fas fa-calendar"></i> {{date}} / {{hour}}
+                                            <i class="fas fa-calendar"></i> {{date}}
                                         </div>
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-content">
                                             <i class="fab fa-playstation"></i>
-                                            <button
-                                                class="btn-transition btn btn-outline-danger left-margin">Cancelar</button>
+                                            <button class="btn-transition btn btn-outline-danger left-margin"
+                                                onclick="location.href= '/admin/delete-reservation?id={{id}}'">Eliminar</button>
                                         </div>
                                     </div>
                                 </div>
