@@ -23,7 +23,6 @@ public class Event {
     private String bannerUrl;
     private Integer likes;
     private ArrayList<EventLavelType> lavels;
-    //private ArrayList<User> assistants;
     private Integer capacity;
 
     public Event(){}
@@ -37,9 +36,6 @@ public class Event {
         this.bannerUrl = bannerUrl;
         this.lavels = new ArrayList<EventLavelType>();
     }
-
-    /*public Event(String name2, String description2, java.util.Date date2, String bannerUrl2) {
-    }*/
 
     public ArrayList<EventLavelType> getLavels(){
         return lavels;

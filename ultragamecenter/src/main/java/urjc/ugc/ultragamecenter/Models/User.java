@@ -55,10 +55,10 @@ public class User {
         }
     }
 
-    public User(String name,  String password, String email) {
+    public User(String name, String lastname, String password, String email) {
         this.name = name;
+        this.lastName = lastname;
         this.passwordHash = password;
-        this.lastName = "";
         this.email = email;
         this.eventsLikeIt = new ArrayList<Event>();
         this.reservatedTables = new ArrayList<Tablegame>();

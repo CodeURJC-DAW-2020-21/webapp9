@@ -69,13 +69,9 @@ public class AplicationController {
     public String add(Model model) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        Event event = new Event("Fornite", "fornite x marvel", "2015-03-15", "Hola");
-        event.putLavel(EventLavelType.MOBA);
-        event.putLavel(EventLavelType.SHOOTER);
         Tablegame table = new Tablegame(TableType.PC, false);
         TableReservation tr = new TableReservation(table.getId(), "234567876", Date.from(Instant.now()),
                 Date.from(Instant.now()));
-        eRepository.save(event);
         trrepository.save(tr);
         trepository.save(table);
         return "Save";
