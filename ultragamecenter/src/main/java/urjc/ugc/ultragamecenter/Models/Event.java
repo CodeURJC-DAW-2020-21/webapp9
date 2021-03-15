@@ -29,7 +29,7 @@ public class Event {
 
     public Event(){}
     
-    public Event(String name, String description, String date2, String bannerUrl, Integer capacity) throws ParseException{
+    public Event(String name, String description, String date2, String bannerUrl, Integer capacity){
         
         this.name=name;
         this.description=description;
