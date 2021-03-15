@@ -208,13 +208,13 @@ public class UserController {
 	}
 
 	@PostMapping("/registerUser")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String email, @RequestParam String password,
+	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email, @RequestParam String password,
 			HttpSession sesion, Model model) {
 		User aux = urepository.findByEmail(email);
 		if (aux != null) {
 			model.addAttribute("Registered", "Ya hay un usuario registrado con ese correo");
 		} else {
-			User user = new User(name, password, email);
+			User user = new User(name, lastName, password, email);
 			urepository.save(user);
 			model.addAttribute("Registered", "Te has registrado correctamente :D");
 		}
