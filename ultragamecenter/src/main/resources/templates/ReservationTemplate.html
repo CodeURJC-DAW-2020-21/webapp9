@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesas</title>
-    
+
     <!-- All css files are included here. -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Owl Carousel main css -->
@@ -29,6 +30,7 @@
     <!-- header icons js-->
     <script src="https://kit.fontawesome.com/7155903fc6.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <header id="header" class="htc-header header--3 bg__white">
         <!-- Start Mainmenu Area -->
@@ -39,18 +41,20 @@
                         <div class="logo">
                             <div class="logoImage">
                                 <a href="/">
-                                <img src="./images/logo/UGC1.png" alt="logo">
+                                    <img src="./images/logo/UGC1.png" alt="logo">
                                 </a>
                             </div>
-                            
-                            <div class="pagetTitle"><h2 class="pageTitle-text"> | MESAS</h1></div>
+
+                            <div class="pagetTitle">
+                                <h2 class="pageTitle-text"> | MESAS</h1>
+                            </div>
                         </div>
                     </div>
                     <!-- Start MAinmenu Ares -->
                     <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
                         <nav class="mainmenu__nav hidden-xs hidden-sm">
                             <ul class="main__menu">
-                                <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>                                
+                                <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>
                                 <li class="drop"><a href="/events"><i class="fas fa-gamepad"></i> Eventos</a></li>
                                 <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
                                 <li class="drop"><a href="/admin"> {{Admin}}</a></li>
@@ -63,48 +67,57 @@
 
     <!--Start h1-->
     <div class="gaming-head">
-            <img class="gaming-img" src="./images/reservation/gaming-center.jpg" alt="Gaming Center">
-        <p class="gaming-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <img class="gaming-img" src="./images/reservation/gaming-center.jpg" alt="Gaming Center">
+        <p class="gaming-text">
+            Lo más importante y fundamental de nuestra empresa es poder ofreceros a todos un sitio, no solo de reunión,
+            sino que también de disfrute en solitario, conociendo a los mejores de todo Móstoles en títulos como League
+            of Legends, Counter Strike y muchísimos más, pudiendo tener un PC propio de forma temporal, una XBOX de
+            nueva generación o una nueva Play Station 5. Esta parte de nuestra página es para reservar la mesa para que
+            vengáis más tarde a disfrutar, sin reserva no se puede hacer nada, a si que hazla con cautela, te esperamos
+            para que disfrutes :D.</p>
     </div>
-    <h1 class="gaming-h1">Reserva tu mesa</h1> 
+    <h1 class="gaming-h1">Reserva tu mesa</h1>
     <!--End h1-->
     <!--Start select reservation-->
     <div class="gaming-head">
-            <div class="gaming-reservation">
-                <h3 class="gaming-select">Seleccione plataforma</h3>
-                <div class="gaming-platform">
-                    <button type="button" class="btn btn-danger"><span class="iconify" data-icon="tabler:devices-pc" data-inline="false"></span> PC</button>
-                    <button type="button" class="btn btn-primary"><span class="iconify" data-icon="mdi-sony-playstation" data-inline="false"></span> PlayStation </button>
-                    <button type="button" class="btn btn-success"><span class="iconify" data-icon="cib:xbox" data-inline="false"></span> XBOX</button>
+        <div class="gaming-reservation">
+            <h3 class="gaming-select">Seleccione plataforma</h3>
+            <div class="gaming-platform">
+                <button type="button" class="btn btn-danger"><span class="iconify" data-icon="tabler:devices-pc"
+                        data-inline="false"></span> PC</button>
+                <button type="button" class="btn btn-primary"><span class="iconify" data-icon="mdi-sony-playstation"
+                        data-inline="false"></span> PlayStation </button>
+                <button type="button" class="btn btn-success"><span class="iconify" data-icon="cib:xbox"
+                        data-inline="false"></span> XBOX</button>
+            </div>
+        </div>
+        <div class="gaming-reservation">
+            <h3 class="gaming-select">Seleccione fecha</h3>
+            <input type="date" id="start" name="trip-start" value="2021-01-01" min="2021-01-01" max="2021-12-31">
+        </div>
+        <div class="gaming-reservation">
+            <h3 class="gaming-select">Seleccione hora</h3>
+            <div class="gaming-time">
+                <div class="gaming-hour">
+                    <button type="button" class="btn btn-danger">10:00-11:00</button>
+                    <button type="button" class="btn btn-danger">11:00-12:00</button>
+                    <button type="button" class="btn btn-danger">12:00-13:00</button>
+                </div>
+                <div class="gaming-hour">
+                    <button type="button" class="btn btn-danger">13:00-14:00</button>
+                    <button type="button" class="btn btn-danger">17:00-18:00</button>
+                    <button type="button" class="btn btn-danger">18:00-19:00</button>
+                </div>
+                <div class="gaming-hour">
+                    <button type="button" class="btn btn-danger">19:00-20:00</button>
+                    <button type="button" class="btn btn-danger">20:00-21:00</button>
+                    <button type="button" class="btn btn-danger">21:00-22:00</button>
                 </div>
             </div>
-            <div class="gaming-reservation">
-                <h3 class="gaming-select">Seleccione fecha</h3>
-                <input type="date" id="start" name="trip-start" value="2021-01-01" min="2021-01-01" max="2021-12-31">
-            </div>
-            <div class="gaming-reservation">
-                <h3 class="gaming-select">Seleccione hora</h3>
-                <div class="gaming-time">
-                    <div class="gaming-hour">
-                        <button type="button" class="btn btn-danger">10:00-11:00</button>
-                        <button type="button" class="btn btn-danger">11:00-12:00</button>
-                        <button type="button" class="btn btn-danger">12:00-13:00</button>
-                    </div>
-                    <div class="gaming-hour">
-                        <button type="button" class="btn btn-danger">13:00-14:00</button>
-                        <button type="button" class="btn btn-danger">17:00-18:00</button>
-                        <button type="button" class="btn btn-danger">18:00-19:00</button>
-                    </div>
-                    <div class="gaming-hour">
-                        <button type="button" class="btn btn-danger">19:00-20:00</button>
-                        <button type="button" class="btn btn-danger">20:00-21:00</button>
-                        <button type="button" class="btn btn-danger">21:00-22:00</button>
-                    </div>
-                </div>
-            </div>
-            <div class="gaming-confirm">
-                <button type="button" class="btn btn-danger">Confirmar Reserva</button>
-            </div>
+        </div>
+        <div class="gaming-confirm">
+            <button type="button" class="btn btn-danger">Confirmar Reserva</button>
+        </div>
 
     </div>
     <footer class="htc__foooter__area gray-bg">
@@ -153,7 +166,10 @@
                     <!-- Start Single Footer Widget -->
                     <div class="col-md-3 col-lg-2 col-sm-6 smt-30 xmt-30">
                         <div class="ft__widget">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3041.3350536810062!2d-3.876692920194084!3d40.334912807474964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd418e704c29378f%3A0xd5cab72455ccc6ac!2sAulario%20II%20Campus%20De%20M%C3%B3stoles%2C%20Universidad%20Rey%20Juan%20Carlos!5e0!3m2!1ses!2ses!4v1613500798231!5m2!1ses!2ses" width="800" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3041.3350536810062!2d-3.876692920194084!3d40.334912807474964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd418e704c29378f%3A0xd5cab72455ccc6ac!2sAulario%20II%20Campus%20De%20M%C3%B3stoles%2C%20Universidad%20Rey%20Juan%20Carlos!5e0!3m2!1ses!2ses!4v1613500798231!5m2!1ses!2ses"
+                                width="800" height="400" frameborder="0" style="border:0;" allowfullscreen=""
+                                aria-hidden="false" tabindex="0"></iframe>
                         </div>
                     </div>
                 </div>
