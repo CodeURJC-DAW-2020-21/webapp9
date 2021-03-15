@@ -105,10 +105,10 @@
                                             {{likes}} <i class="fas fa-heart"></i>
                                             <button
                                                 class="btn-transition btn btn-outline-danger left-margin">Editar</button>
-                                            <a
-                                                class="btn-transition btn btn-outline-danger left-margin" href="/admin/graph-event?id={{id}}">Gráficos</a>
-                                            <a
-                                                class="btn-transition btn btn-outline-danger left-margin" href="/admin/delete-event?id={{id}}">Cancelar</a>
+                                            <button class="btn-transition btn btn-outline-danger left-margin"
+                                                onclick="location.href= '/admin/graph-event?id={{id}}';">Gráficos</button>
+                                            <button class="btn-transition btn btn-outline-danger left-margin"
+                                                onclick="location.href= '/admin/delete-event?id={{id}}'">Eliminar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -122,9 +122,12 @@
                 </ul>
             </div>
         </div>
-
-
         <div id="reservas" class="tab-pane">
+            <div class="add-event-btn-container">
+                <button class="mb-2 mr-2 btn-transition btn btn-outline-focus"
+                    onclick="location.href= '/admin/graph-tables'">Gráficos <i
+                    class="fa fa-bar-chart"></i></button>
+            </div>
             <div class="event">
                 <div class="divider mt-0" style="margin-bottom: 30px"></div>
                 <ul>{{#reservations}}
@@ -141,8 +144,8 @@
                                     <div class="widget-content-right">
                                         <div class="widget-content">
                                             <i class="fab fa-playstation"></i>
-                                            <a
-                                                class="btn-transition btn btn-outline-danger left-margin" href="/admin/delete-reservation?id={{id}}">Cancelar</a>
+                                            <button class="btn-transition btn btn-outline-danger left-margin"
+                                                onclick="location.href= '/admin/delete-reservation?id={{id}}'">Eliminar</button>
                                         </div>
                                     </div>
                                 </div>
