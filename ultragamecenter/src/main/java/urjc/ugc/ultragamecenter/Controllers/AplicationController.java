@@ -1,13 +1,16 @@
 package urjc.ugc.ultragamecenter.Controllers;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
 import urjc.ugc.ultragamecenter.Services.EmailSenderService;
@@ -29,98 +32,6 @@ public class AplicationController {
 
     
 
-    
-
-    
-
-    @GetMapping("/admin/graph-event")
-    public String graphEvent(@RequestParam String id, Model model){
-        Event event = eRepository.findByid(Long.parseLong(id));
-        Integer likes = event.getlikes();
-        model.addAttribute("likes",likes);
-        Integer plazasLibres = event.getCapacity()-likes;
-        model.addAttribute("plazasLibres",plazasLibres);
-        return "GraphsEventsTemplate";
-    }
-
-    @GetMapping("/admin/graph-tables")
-    public String graphTables(Model model){
-        List<TableReservation> reservations = trrepository.findAll();
-        
-        Integer numPC = 0;
-        Integer numXBOX_ONE = 0;
-        Integer numPS5 = 0;
-
-        for (TableReservation tableReservation : reservations) {
-            Tablegame table = trepository.findByid(tableReservation.getId_table());
-
-            switch(table.getType()){
-                case PC: numPC ++; break;
-                case XBOX_ONE: numXBOX_ONE++; break;
-                case PS5: numPS5++; break;
-            }
-        }
-        model.addAttribute("numPC",numPC);
-        model.addAttribute("numXBOX_ONE",numXBOX_ONE);
-        model.addAttribute("numPS5",numPS5);
-        return "GrapsTablesTemplate";
-    }
-
-    @GetMapping("/admin/delete-reservation")
-    public String borrarReserva(@RequestParam String id, Model model){
-        TableReservation reserva = trrepository.findByid(Long.parseLong(id));
-        trrepository.delete(reserva);
-        model.addAttribute("events", eRepository.findAll());
-        model.addAttribute("reservations", trrepository.findAll());
-        return "AdminTemplate";
-    }
-
-    @GetMapping("/admin/delete-event")
-    public String borrarEvento(@RequestParam String id, Model model){
-        Event evento = eRepository.findByid(Long.parseLong(id));
-        eRepository.delete(evento);
-        model.addAttribute("events", eRepository.findAll());
-        model.addAttribute("reservations", trrepository.findAll());
-        return "AdminTemplate";
-    }
-
-    @GetMapping("/user")
-    public String getUser(Model model) {
-        model.addAttribute("nombre3", "User Page");
-        model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
-        model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
-        return "UserTemplate";
-    }
-
-    @GetMapping("/reservation")
-    public String getReservation(Model model) {
-        model.addAttribute("nombre5", "Reservation Page");
-        return "ReservationTemplate";
-    }
-
-    @GetMapping("/singleevent")
-    public String getSingleEvent(Model model) {
-        model.addAttribute("nombre6", "SingleEvent Page");
-        return "SingleEventTemplate";
-    }
-
-    @GetMapping("/events")
-    public String getEvents(Model model) {
-        model.addAttribute("nombre", "Events Page");
-        model.addAttribute("events", eRepository.findAll());
-        return "EventsTemplate";
-    }
-
-    @GetMapping("/add-event")
-    public String addEvent(@RequestParam String name, @RequestParam String description, @RequestParam String date,
-            @RequestParam String bannerUrl, Model model, @RequestParam EventLavelType... lavels) {
-        Event event = new Event(name, description, date, bannerUrl);
-        for (EventLavelType var : lavels) {
-            event.putLavel(var);
-        }
-        eRepository.save(event);
-        return "events";
-    }
 
     @GetMapping("/add-table")
     public String addTable(@RequestParam TableType tableType, Model model) {
@@ -165,6 +76,8 @@ public class AplicationController {
         model.addAttribute("a4", tr.toString());
         return "test";
     }
+
+    
 
 
 }

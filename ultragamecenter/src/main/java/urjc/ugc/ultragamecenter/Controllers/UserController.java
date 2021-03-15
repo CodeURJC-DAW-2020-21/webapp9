@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
+import java.text.ParseException;
+import java.util.List;
 import java.net.MalformedURLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +48,8 @@ public class UserController {
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
-		
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre", "Index");
 		return "IndexTemplate";
@@ -54,7 +57,7 @@ public class UserController {
 
 	@GetMapping("/admin")
 	public String getAdmin(Model model) {
-		
+
 		if (this.loggedUser.isAdmin()) {
 			model.addAttribute("Admin", "Administrador");
 			model.addAttribute("Logout", "Cerrar sesión");
@@ -71,8 +74,8 @@ public class UserController {
 
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
-		
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre5", "Reservation Page");
 		return "ReservationTemplate";
@@ -80,8 +83,8 @@ public class UserController {
 
 	@GetMapping("/singleevent")
 	public String getSingleEvent(Model model) {
-		
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre6", "SingleEvent Page");
 		return "SingleEventTemplate";
@@ -90,24 +93,93 @@ public class UserController {
 
 	@GetMapping("/events")
 	public String getEvents(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre", "Events Page");
 		model.addAttribute("events", eRepository.findAll());
 		return "EventsTemplate";
 	}
 
+	@GetMapping("/admin/graph-event")
+	public String graphEvent(@RequestParam String id, Model model) {
+		Event event = eRepository.findByid(Long.parseLong(id));
+		Integer likes = event.getlikes();
+		model.addAttribute("likes", likes);
+		Integer plazasLibres = event.getCapacity() - likes;
+		model.addAttribute("plazasLibres", plazasLibres);
+		return "GraphsEventsTemplate";
+	}
+
+	@GetMapping("/admin/graph-tables")
+	public String graphTables(Model model) {
+		List<TableReservation> reservations = trrepository.findAll();
+
+		Integer numPC = 0;
+		Integer numXBOX_ONE = 0;
+		Integer numPS5 = 0;
+
+		for (TableReservation tableReservation : reservations) {
+			Tablegame table = trepository.findByid(tableReservation.getId_table());
+
+			switch (table.getType()) {
+			case PC:
+				numPC++;
+				break;
+			case XBOX_ONE:
+				numXBOX_ONE++;
+				break;
+			case PS5:
+				numPS5++;
+				break;
+			}
+		}
+		model.addAttribute("numPC", numPC);
+		model.addAttribute("numXBOX_ONE", numXBOX_ONE);
+		model.addAttribute("numPS5", numPS5);
+		return "GrapsTablesTemplate";
+	}
+
+	@GetMapping("/admin/delete-reservation")
+	public String borrarReserva(@RequestParam String id, Model model) {
+		TableReservation reserva = trrepository.findByid(Long.parseLong(id));
+		trrepository.delete(reserva);
+		model.addAttribute("events", eRepository.findAll());
+		model.addAttribute("reservations", trrepository.findAll());
+		return getAdmin(model);
+	}
+
+	@GetMapping("/admin/delete-event")
+	public String borrarEvento(@RequestParam String id, Model model) {
+		Event evento = eRepository.findByid(Long.parseLong(id));
+		if (evento != null) {
+			eRepository.delete(evento);
+		}
+		model.addAttribute("events", eRepository.findAll());
+		model.addAttribute("reservations", trrepository.findAll());
+		return getAdmin(model);
+	}
+
+	@GetMapping("/Event-Adder")
+	public String getEventAdder(Model model) {
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		if (this.loggedUser.isAdmin()) {
+			return "EventCreatorTemplate";
+		}
+		return getProfile(model);
+	}
+
 	@GetMapping("/user")
 	public String getUser(Model model) {
-		if(this.loggedUser.isLoggedUser()){
+		if (this.loggedUser.isLoggedUser()) {
 			model.addAttribute("Logout", "Cerrar sesión");
-			model.addAttribute("Admin", this.loggedUser.isAdmin()  ? "Administrador" : "");
+			model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 			model.addAttribute("nombre3", "User Page");
 			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
 			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
-			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());			
+			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
 			return "UserTemplate";
 		} else {
 			return getProfile(model);
@@ -131,9 +203,9 @@ public class UserController {
 
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		
+
 		String name = loggedUser.getLoggedUser().getName();
 		String surname = loggedUser.getLoggedUser().getLastName();
 		model.addAttribute("Name", name.equals("") ? "Nombre*" : name);
@@ -144,8 +216,8 @@ public class UserController {
 
 	@GetMapping("/register")
 	public String getLoginRegister(Model model) {
-		
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("nombre4", "Register Page");
 		model.addAttribute("Registered", "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
@@ -153,21 +225,22 @@ public class UserController {
 	}
 
 	@GetMapping("/loggout")
-	public String LoggOut( HttpSession sesion, Model model) {
+	public String LoggOut(HttpSession sesion, Model model) {
 		this.loggedUser.logOut();
 		return getProfile(model);
 	}
 
 	@PostMapping("/logginUser")
-	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion, Model model) {
+	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion,
+			Model model) {
 		User aux = urepository.findByEmail(email);
-		if(aux!=null){
+		if (aux != null) {
 			if (aux.getPassword().equals(password)) {
 				this.loggedUser.setLoggedUser(aux);
-			} else{
+			} else {
 				model.addAttribute("Registered", "La contraseña va a ser que no es");
 			}
-		} else{
+		} else {
 			model.addAttribute("Registered", "Esa cuenta no existe");
 		}
 		return getProfile(model);
@@ -213,6 +286,15 @@ public class UserController {
 			model.addAttribute("Registered", "Te has registrado correctamente :D");
 		}
 		return getLoginRegister(model);
+	}
+
+	@PostMapping("/createEvent")
+	public String registrarUsuario(@RequestParam String name, @RequestParam String description, @RequestParam Integer capacity, @RequestParam String labels,@RequestParam String end,
+			HttpSession sesion, Model model) throws ParseException {
+		Event event = new Event(name,description,end,"",capacity);
+
+		eRepository.save(event);
+		return getAdmin(model);
 	}
 
 	

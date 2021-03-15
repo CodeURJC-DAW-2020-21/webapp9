@@ -1,6 +1,8 @@
 package urjc.ugc.ultragamecenter.Models;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +29,7 @@ public class Event {
 
     public Event(){}
     
-    public Event(String name, String description, String date2, String bannerUrl, Integer capacity){
+    public Event(String name, String description, String date2, String bannerUrl, Integer capacity) throws ParseException{
         
         this.name=name;
         this.description=description;
