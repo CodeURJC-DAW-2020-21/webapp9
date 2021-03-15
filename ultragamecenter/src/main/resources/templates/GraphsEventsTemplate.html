@@ -35,6 +35,16 @@
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- header icons js-->
     <script src="https://kit.fontawesome.com/7155903fc6.js" crossorigin="anonymous"></script>
+
+    <script src="/assets/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+
+
+
+
+
+    
 </head>
 
 <body>
@@ -60,44 +70,12 @@
                             <ul class="main__menu">
                                 <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>                                
                                 <li class="drop"><a href="/events"><i class="fas fa-gamepad"></i> Eventos</a></li>
-                                <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
-                                <li class="drop"><a href="/admin"> {{Admin}}</a></li>
-                                <li class="drop"><a href="/loggout"> {{Logout}}</a></li>
+                                <li><a href="/register"><i class="fas fa-user-alt"></i> Perfil</a></li>
                             </ul>
                         </nav>
-                    </div>
     </header>
-        <section class="categories-slider-area bg__white">
-            <div class="container">
-                <div class="row">
-                    <!-- Start Left Feature -->
-                    <div class="col-md-9 col-lg-9 col-sm-8 col-xs-12 float-left-style">
-                        <!-- Start Slider Area -->
-                        <img id="imagen-central" src="images/others/foto-local.png">
-                        <!-- Start Slider Area -->
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 float-right-style">
-                        <div class="mrg-xs">
-                            <div class="description-title">
-                                <h3> Sobre Nosotros</h3>
-                            </div>
-                            <div class="">
-                                <h3>Somos un gran establecimiento conocido en todo Móstoles dedicado a aquella gente que
-                                    quiere jugar en el mayor rendimiento y no tiene los equipos para ello, permitimos que
-                                    puedan jugar y disfrutar de la mayor calidad de videojuegos y consolas del mercado actual.
-                                    No olvidar también que nos dedicamos a eventos para hacer de esta una experiencia agradable
-                                    para todos los públicos, estáis todos invitados, esperamos que disfrutéis.
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Left Feature -->
-                </div>
-            </div>
-        </section>
-        <!-- End Feature Product -->
-        
-        <!-- End Footer Area -->
+    <div>
+        <img src="https://chart.googleapis.com/chart?cht=p&chs=500x200&chd=t:{{likes}},{{plazasLibres}}&chl=Likes ({{likes}})|Plazas libres ({{plazasLibres}})&chco=FF0000,ebe1c9">
     </div>
     <!-- Body main wrapper end -->
     <!-- QUICKVIEW PRODUCT -->
