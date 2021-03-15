@@ -67,6 +67,7 @@
                                     <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>                                
                                     <li class="drop"><a href="/eventss"><i class="fas fa-gamepad"></i> Eventos</a></li>
                                     <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
+                                    <li class="drop"><a href="/admin"> {{Admin}}</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -94,9 +95,9 @@
                             <!-- Start Single Content -->
                             <div id="editProfile" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
                                 <form class="login" method="post" action="/editProfile">
-                                    <input type="text" placeholder="Nombre*" name="name">
-                                    <input type="text" placeholder="Apellidos*" name="surname">
-                                    <input type="text" placeholder="Dirección*" name="adress">
+                                    <input type="text" placeholder="{{Name}}" name="name">
+                                    <input type="text" placeholder="{{Surname}}" name="surname">
+                                    <input type="text" placeholder="{{Address}}" name="adress">
                                     <input type='file' name='image' accept=".jpg, .jpeg"/>
                                     <input type='submit' value='Guardar'/>
                                 </form>

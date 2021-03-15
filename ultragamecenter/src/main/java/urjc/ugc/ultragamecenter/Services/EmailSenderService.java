@@ -12,8 +12,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSenderService {
 
-    private static String from = "";
-    private static String password = "";
+    private static String from = "amigoinvisiblejava@gmail.com";
+    private static String password = "averoppppfdgznju";
     public static Pattern isEmail= Pattern.compile("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)");
 
     public static Boolean sendEmail(String to, String message, String subject) {

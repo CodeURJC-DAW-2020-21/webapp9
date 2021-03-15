@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.Types.RoleType;
 
 @Component
 @SessionScope
@@ -24,12 +25,11 @@ public class UserComponent {
 	}
 
 	public boolean isAdmin(){
-		for(int i=0; i<=this.user.getRoles().size();i++){
-			if (this.user.getRoles().get(i)=="ROLE_ADMIN"){
-				return true;
-			}
-		}
-		return false;
+		return isLoggedUser() && this.user.getRoles().equals(RoleType.ADMINISTRATOR);
 	}
+
+    public RoleType getRole() {
+        return this.user.getRoles();
+    }
 
 }

@@ -1,21 +1,16 @@
 package urjc.ugc.ultragamecenter.Models;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import urjc.ugc.ultragamecenter.Types.EventLavelType;
-
-import java.util.List;
+import urjc.ugc.ultragamecenter.Types.RoleType;
 
 @Entity
 @Table(name = "Users")
@@ -33,9 +28,7 @@ public class User {
     private ArrayList<Tablegame> reservatedTables;
     private HashMap<EventLavelType, Double> affinity;
     private ArrayList<Event> recomendated;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles;
+    private RoleType rol;
 
     public User() {
     }
@@ -62,14 +55,25 @@ public class User {
         }
     }
 
-    public User(String name,  String password, String email, String... roles) {
+    public User(String name,  String password, String email) {
         this.name = name;
         this.passwordHash = password;
         this.lastName = "";
         this.email = email;
         this.eventsLikeIt = new ArrayList<Event>();
         this.reservatedTables = new ArrayList<Tablegame>();
-        this.roles = List.of(roles);
+        this.rol = RoleType.REGISTERED_USER;
+        this.address="";
+    }
+
+    public User(String name,  String password, String email, RoleType role) {
+        this.name = name;
+        this.passwordHash = password;
+        this.lastName = "";
+        this.email = email;
+        this.eventsLikeIt = new ArrayList<Event>();
+        this.reservatedTables = new ArrayList<Tablegame>();
+        this.rol = role;
         this.address="";
     }
 
@@ -105,12 +109,12 @@ public class User {
         return this.reservatedTables;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public RoleType getRoles() {
+        return rol;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setRoles(RoleType roles) {
+        this.rol = roles;
     }
 
     public void addTable(Tablegame table) {
@@ -126,7 +130,7 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email +", address=" + this.address + ", envets liked="
-                + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables=" + this.reservatedTables + ", roles=" + this.roles
+                + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables=" + this.reservatedTables + ", rol=" + this.rol
                 + "]";
     }
 
