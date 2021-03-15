@@ -46,21 +46,26 @@ public class UserController {
 
 	private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
 
+	public void setHeader(Model model){
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
+		model.addAttribute("Logout-ico", this.loggedUser.isLoggedUser() ? "fa fa-sign-out" : "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		model.addAttribute("Admin-ico", this.loggedUser.isAdmin() ? "fa fa-star" : "");
+		
+	}
+
 	@GetMapping("/")
 	public String getIndex(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre", "Index");
+		setHeader(model);
+		model.addAttribute("site", "INICIO");
 		return "IndexTemplate";
 	}
 
 	@GetMapping("/admin")
 	public String getAdmin(Model model) {
-
+		model.addAttribute("site", "ADMIN");
+		setHeader( model);
 		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-			model.addAttribute("Logout", "Cerrar sesión");
 			model.addAttribute("nombre", "Admin");
 			model.addAttribute("events", eRepository.findAll());
 			model.addAttribute("reservations", trrepository.findAll());
@@ -74,34 +79,30 @@ public class UserController {
 
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre5", "Reservation Page");
+		model.addAttribute("site", "MESAS");
+		setHeader( model);
 		return "ReservationTemplate";
 	}
 
 	@GetMapping("/singleevent")
 	public String getSingleEvent(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre6", "SingleEvent Page");
+		model.addAttribute("site", "EVENTO");
+		setHeader( model);
 		return "SingleEventTemplate";
 
 	}
 
 	@GetMapping("/events")
 	public String getEvents(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre", "Events Page");
+		setHeader( model);
+		model.addAttribute("site", "EVENTOS");
 		model.addAttribute("events", eRepository.findAll());
 		return "EventsTemplate";
 	}
 
 	@GetMapping("/admin/graph-event")
 	public String graphEvent(@RequestParam String id, Model model) {
+		model.addAttribute("site", "GRAFICO");
 		Event event = eRepository.findByid(Long.parseLong(id));
 		Integer likes = event.getlikes();
 		model.addAttribute("likes", likes);
@@ -114,15 +115,14 @@ public class UserController {
 	public String seeEvent(@RequestParam String id, Model model) {
 		Event event = eRepository.findByid(Long.parseLong(id));
 
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		setHeader( model);
 		model.addAttribute("image", event.getBannerUrl());
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
 		model.addAttribute("date", event.getDate());
 		model.addAttribute("capacity", event.getCapacity() - event.getlikes());
 		model.addAttribute("id", event.getId());
-		return "SingleEventTemplate";
+		return getSingleEvent(model);
 	}
 
 	@GetMapping("/like")
@@ -132,7 +132,7 @@ public class UserController {
 		if (this.loggedUser.isLoggedUser() && !this.loggedUser.hasLiked(event)) {
 			this.loggedUser.like(event);
 			eRepository.save(event);
-		} else{
+		} else {
 			return getProfile(model);
 		}
 
@@ -172,6 +172,7 @@ public class UserController {
 	public String borrarReserva(@RequestParam String id, Model model) {
 		TableReservation reserva = trrepository.findByid(Long.parseLong(id));
 		trrepository.delete(reserva);
+
 		model.addAttribute("events", eRepository.findAll());
 		model.addAttribute("reservations", trrepository.findAll());
 		return getAdmin(model);
@@ -190,8 +191,7 @@ public class UserController {
 
 	@GetMapping("/Event-Adder")
 	public String getEventAdder(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		setHeader( model);
 		if (this.loggedUser.isAdmin()) {
 			return "EventCreatorTemplate";
 		}
@@ -201,9 +201,9 @@ public class UserController {
 	@GetMapping("/user")
 	public String getUser(Model model) {
 		if (this.loggedUser.isLoggedUser()) {
-			model.addAttribute("Logout", "Cerrar sesión");
-			model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-			model.addAttribute("nombre3", "User Page");
+			setHeader( model);
+			model.addAttribute("site", "PERFIL");
+
 			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
 			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
@@ -232,8 +232,8 @@ public class UserController {
 
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		model.addAttribute("site", "EDITAR PERFIL");
+		setHeader( model);
 
 		String name = loggedUser.getLoggedUser().getName();
 		String surname = loggedUser.getLoggedUser().getLastName();
@@ -245,11 +245,9 @@ public class UserController {
 
 	@GetMapping("/register")
 	public String getLoginRegister(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("nombre4", "Register Page");
+		model.addAttribute("site", "INICIAR SESION");
 		model.addAttribute("Registered", "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		setHeader( model);
 		return "LoginRegisterTemplate";
 	}
 
