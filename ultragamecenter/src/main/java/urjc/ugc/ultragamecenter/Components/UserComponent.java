@@ -32,4 +32,8 @@ public class UserComponent {
         return this.user.getRoles();
     }
 
+    public void logOut() {
+		this.user=null;
+    }
+
 }
