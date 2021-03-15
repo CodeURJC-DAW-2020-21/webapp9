@@ -45,16 +45,9 @@ public class UserController {
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
-		if(this.loggedUser.isLoggedUser()){
-			model.addAttribute("Logout", "Cerrar sesión");
-		} else{
-			model.addAttribute("Logout", "");
-		}
-		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-		} else {
-			model.addAttribute("Admin", "");
-		}
+		
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre", "Index");
 		return "IndexTemplate";
 	}
@@ -78,32 +71,18 @@ public class UserController {
 
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
-		if(this.loggedUser.isLoggedUser()){
-			model.addAttribute("Logout", "Cerrar sesión");
-		} else{
-			model.addAttribute("Logout", "");
-		}
-		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-		} else {
-			model.addAttribute("Admin", "");
-		}
+		
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre5", "Reservation Page");
 		return "ReservationTemplate";
 	}
 
 	@GetMapping("/singleevent")
 	public String getSingleEvent(Model model) {
-		if(this.loggedUser.isLoggedUser()){
-			model.addAttribute("Logout", "Cerrar sesión");
-		} else{
-			model.addAttribute("Logout", "");
-		}
-		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-		} else {
-			model.addAttribute("Admin", "");
-		}
+		
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre6", "SingleEvent Page");
 		return "SingleEventTemplate";
 
@@ -111,16 +90,8 @@ public class UserController {
 
 	@GetMapping("/events")
 	public String getEvents(Model model) {
-		if(this.loggedUser.isLoggedUser()){
-			model.addAttribute("Logout", "Cerrar sesión");
-		} else{
-			model.addAttribute("Logout", "");
-		}
-		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-		} else {
-			model.addAttribute("Admin", "");
-		}
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("nombre", "Events Page");
 		model.addAttribute("events", eRepository.findAll());
 		return "EventsTemplate";
@@ -130,26 +101,14 @@ public class UserController {
 	public String getUser(Model model) {
 		if(this.loggedUser.isLoggedUser()){
 			model.addAttribute("Logout", "Cerrar sesión");
-		}
-		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
+			model.addAttribute("Admin", this.loggedUser.isAdmin()  ? "Administrador" : "");
 			model.addAttribute("nombre3", "User Page");
 			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
 			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
 			model.addAttribute("Address", loggedUser.getLoggedUser().getAddress());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
-			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
-			return "UserTemplate";
-		} else if (this.loggedUser.isLoggedUser()) {
-			model.addAttribute("Admin", "");
-			model.addAttribute("nombre3", "User Page");
-			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
-			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
-			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
-			model.addAttribute("Address", loggedUser.getLoggedUser().getAddress());
-			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
-			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
+			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());			
 			return "UserTemplate";
 		} else {
 			return getProfile(model);
@@ -158,13 +117,7 @@ public class UserController {
 
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
-
-		
-		if (!this.loggedUser.isLoggedUser()) {
-			return getLoginRegister(model);
-		} else {
-			return getUser(model);
-		}
+		return this.loggedUser.isLoggedUser() ? getUser(model) : getLoginRegister(model);
 	}
 
 	@GetMapping("/get-user-image")
@@ -179,52 +132,26 @@ public class UserController {
 
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
-		if(this.loggedUser.isLoggedUser()){
-			model.addAttribute("Logout", "Cerrar sesión");
-		} else{
-			model.addAttribute("Logout", "");
-		}
-		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-		} else {
-			model.addAttribute("Admin", "");
-		}
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		
 		String name = loggedUser.getLoggedUser().getName();
 		String surname = loggedUser.getLoggedUser().getLastName();
 		String address = loggedUser.getLoggedUser().getAddress();
-		if (name.equals("")) {
-			model.addAttribute("Name", "Nombre*");
-		} else {
-			model.addAttribute("Name", name);
-		}
-		if (name.equals("")) {
-			model.addAttribute("Surname", "Apellidos*");
-		} else {
-			model.addAttribute("Surname", surname);
-		}
-		if (name.equals("")) {
-			model.addAttribute("Address", "Dirección*");
-		} else {
-			model.addAttribute("Address", address);
-		}
+		model.addAttribute("Name", name.equals("") ? "Nombre*" : name);
+		model.addAttribute("Surname", name.equals("") ? "Apellidos*" : surname);
+		model.addAttribute("Address", name.equals("") ? "Dirección*" : address);
+
 		return "EditProfileTemplate";
 	}
 
 	@GetMapping("/register")
 	public String getLoginRegister(Model model) {
-		if(this.loggedUser.isLoggedUser()){
-			model.addAttribute("Logout", "Cerrar sesión");
-		} else{
-			model.addAttribute("Logout", "");
-		}
+		
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión": "");
 		model.addAttribute("nombre4", "Register Page");
 		model.addAttribute("Registered", "");
-		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-		} else {
-			model.addAttribute("Admin", "");
-		}
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		return "LoginRegisterTemplate";
 	}
 
@@ -235,11 +162,16 @@ public class UserController {
 	}
 
 	@PostMapping("/logginUser")
-	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion,
-			Model model) {
+	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion, Model model) {
 		User aux = urepository.findByEmail(email);
-		if (aux.getPassword().equals(password)) {
-			this.loggedUser.setLoggedUser(aux);
+		if(aux!=null){
+			if (aux.getPassword().equals(password)) {
+				this.loggedUser.setLoggedUser(aux);
+			} else{
+				model.addAttribute("Registered", "La contraseña va a ser que no es");
+			}
+		} else{
+			model.addAttribute("Registered", "Esa cuenta no existe");
 		}
 		return getProfile(model);
 	}
