@@ -106,7 +106,6 @@ public class UserController {
 			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
 			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
-			model.addAttribute("Address", loggedUser.getLoggedUser().getAddress());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
 			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());			
 			return "UserTemplate";
@@ -137,10 +136,8 @@ public class UserController {
 		
 		String name = loggedUser.getLoggedUser().getName();
 		String surname = loggedUser.getLoggedUser().getLastName();
-		String address = loggedUser.getLoggedUser().getAddress();
 		model.addAttribute("Name", name.equals("") ? "Nombre*" : name);
 		model.addAttribute("Surname", name.equals("") ? "Apellidos*" : surname);
-		model.addAttribute("Address", name.equals("") ? "Dirección*" : address);
 
 		return "EditProfileTemplate";
 	}
@@ -188,15 +185,12 @@ public class UserController {
 	}
 
 	@PostMapping("/editProfile")
-	public String editProfile(@RequestParam String name, @RequestParam String surname, @RequestParam String adress,
+	public String editProfile(@RequestParam String name, @RequestParam String surname,
 			@RequestParam MultipartFile image, HttpSession sesion) throws IOException {
 		User aux = this.loggedUser.getLoggedUser();
 		Files.createDirectories(IMAGES_FOLDER);
 		Path imagePath = IMAGES_FOLDER.resolve("image" + aux.getEmail() + ".jpg");
 		image.transferTo(imagePath);
-		if (!adress.equals("")) {
-			aux.setAddress(adress);
-		}
 		if (!surname.equals("")) {
 			aux.setLastName(surname);
 		}
