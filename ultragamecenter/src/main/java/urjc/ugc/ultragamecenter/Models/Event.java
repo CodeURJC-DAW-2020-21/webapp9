@@ -86,4 +86,8 @@ public class Event {
         this.capacity = capacity;
     }
 
+    public void like() {
+        this.likes ++;
+    }
+
 }

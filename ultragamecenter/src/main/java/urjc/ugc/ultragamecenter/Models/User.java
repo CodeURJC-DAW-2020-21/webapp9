@@ -32,25 +32,25 @@ public class User {
     public User() {
     }
 
-    private Double getAffinity(Event e){
-        Double aux=0.0;
+    private Double getAffinity(Event e) {
+        Double aux = 0.0;
         for (EventLavelType lavel : e.getLavels()) {
-            if(affinity.containsKey(lavel)){
-                aux+=affinity.get(lavel);
-            } else{
+            if (affinity.containsKey(lavel)) {
+                aux += affinity.get(lavel);
+            } else {
                 affinity.put(lavel, 0.5);
             }
         }
         return aux;
     }
 
-    public void refresh(Event e){
-        Double aux= getAffinity(e);
-        Double comparator=getAffinity(recomendated.get(recomendated.size()-1));
-        if(comparator<aux){
-            recomendated.remove(recomendated.size()-1);
+    public void refresh(Event e) {
+        Double aux = getAffinity(e);
+        Double comparator = getAffinity(recomendated.get(recomendated.size() - 1));
+        if (comparator < aux) {
+            recomendated.remove(recomendated.size() - 1);
             recomendated.add(e);
-            recomendated.sort((e1,e2)-> (int)(100*(getAffinity(e1)-getAffinity(e2))));
+            recomendated.sort((e1, e2) -> (int) (100 * (getAffinity(e1) - getAffinity(e2))));
         }
     }
 
@@ -64,7 +64,7 @@ public class User {
         this.rol = RoleType.REGISTERED_USER;
     }
 
-    public User(String name,  String password, String email, RoleType role) {
+    public User(String name, String password, String email, RoleType role) {
         this.name = name;
         this.passwordHash = password;
         this.lastName = "";
@@ -120,35 +120,41 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email + ", envets liked="
-                + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables=" + this.reservatedTables + ", rol=" + this.rol
-                + "]";
+        return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email
+                + ", envets liked=" + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables="
+                + this.reservatedTables + ", rol=" + this.rol + "]";
     }
 
     public void likedEvent(Event e) {
+        Double base = 0.5;
+        e.like();
+        this.eventsLikeIt.add(e);
         for (EventLavelType x : EventLavelType.values()) {
             if (e.getLavels().contains(x)) {
                 if (this.affinity.containsKey(x)) {
                     this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
                 } else {
-                    this.affinity.put(x, Math.sqrt(0.5));
+                    this.affinity.put(x, Math.sqrt(base));
                 }
             } else {
-                this.affinity.put(x, this.affinity.get(x)*this.affinity.get(x));
+                if (this.affinity == null) {
+                    this.affinity = new HashMap();
+                }
+                this.affinity.put(x, base * base);
             }
         }
     }
 
     public void setPassword(String new_password) {
-        this.passwordHash=new_password;
+        this.passwordHash = new_password;
     }
 
     public void setLastName(String surname) {
-        this.lastName=surname;
+        this.lastName = surname;
     }
 
     public void setName(String name2) {
-        this.name=name2;
+        this.name = name2;
     }
 
 }

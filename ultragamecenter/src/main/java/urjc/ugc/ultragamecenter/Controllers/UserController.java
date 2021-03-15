@@ -113,15 +113,30 @@ public class UserController {
 	@GetMapping("/events/see-event")
 	public String seeEvent(@RequestParam String id, Model model) {
 		Event event = eRepository.findByid(Long.parseLong(id));
-		
+
 		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("image", event.getBannerUrl());
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
 		model.addAttribute("date", event.getDate());
-		model.addAttribute("capacity", event.getCapacity());
+		model.addAttribute("capacity", event.getCapacity() - event.getlikes());
+		model.addAttribute("id", event.getId());
 		return "SingleEventTemplate";
+	}
+
+	@GetMapping("/like")
+	public String likeEvent(@RequestParam String id, Model model) {
+
+		Event event = eRepository.findByid(Long.parseLong(id));
+		if (this.loggedUser.isLoggedUser() && !this.loggedUser.hasLiked(event)) {
+			this.loggedUser.like(event);
+			eRepository.save(event);
+		} else{
+			return getProfile(model);
+		}
+
+		return getEvents(model);
 	}
 
 	@GetMapping("/admin/graph-tables")
@@ -289,8 +304,8 @@ public class UserController {
 	}
 
 	@PostMapping("/registerUser")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email, @RequestParam String password,
-			HttpSession sesion, Model model) {
+	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
+			@RequestParam String password, HttpSession sesion, Model model) {
 		User aux = urepository.findByEmail(email);
 		if (aux != null) {
 			model.addAttribute("Registered", "Ya hay un usuario registrado con ese correo");
@@ -303,14 +318,13 @@ public class UserController {
 	}
 
 	@PostMapping("/createEvent")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String description, @RequestParam Integer capacity, @RequestParam String labels,@RequestParam String end,
-			HttpSession sesion, Model model) throws ParseException {
-		Event event = new Event(name,description,end,"",capacity);
+	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
+			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end, HttpSession sesion,
+			Model model) throws ParseException {
+		Event event = new Event(name, description, end, "", capacity);
 
 		eRepository.save(event);
 		return getAdmin(model);
 	}
-
-	
 
 }

@@ -79,7 +79,7 @@
             {{/date}}
             <p>{{description}}</p>
         </div>
-        <button class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '/events/see-event?id={{id}}';">Like</button>
+        <a href="/like?id={{id}}">Like</a>
         <button class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
     </div>
     {{/events}}
