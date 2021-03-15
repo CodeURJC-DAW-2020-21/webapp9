@@ -52,6 +52,34 @@ public class AplicationController {
         return "AdminTemplate";
     }
 
+    @GetMapping("/admin/graph-event")
+    public String graphEvent(@RequestParam String id, Model model){
+        Event event = eRepository.findByid(Long.parseLong(id));
+        Integer likes = event.getlikes();
+        model.addAttribute("likes",likes);
+        Integer plazasLibres = event.getCapacity()-likes;
+        model.addAttribute("plazasLibres",plazasLibres);
+        return "GraphsTemplate";
+    }
+
+    @GetMapping("/admin/delete-reservation")
+    public String borrarReserva(@RequestParam String id, Model model){
+        TableReservation reserva = trrepository.findByid(Long.parseLong(id));
+        trrepository.delete(reserva);
+        model.addAttribute("events", eRepository.findAll());
+        model.addAttribute("reservations", trrepository.findAll());
+        return "AdminTemplate";
+    }
+
+    @GetMapping("/admin/delete-event")
+    public String borrarEvento(@RequestParam String id, Model model){
+        Event evento = eRepository.findByid(Long.parseLong(id));
+        eRepository.delete(evento);
+        model.addAttribute("events", eRepository.findAll());
+        model.addAttribute("reservations", trrepository.findAll());
+        return "AdminTemplate";
+    }
+
     @GetMapping("/user")
     public String getUser(Model model) {
         model.addAttribute("nombre3", "User Page");
@@ -151,21 +179,5 @@ public class AplicationController {
         return "test";
     }
 
-    @GetMapping("/borrar-reserva")
-    public String borrarReserva(@RequestParam String id, Model model){
-        TableReservation reserva = trrepository.findByid(Long.parseLong(id));
-        trrepository.delete(reserva);
-        model.addAttribute("events", eRepository.findAll());
-        model.addAttribute("reservations", trrepository.findAll());
-        return "AdminTemplate";
-    }
 
-    @GetMapping("/borrar-evento")
-    public String borrarEvento(@RequestParam String id, Model model){
-        Event evento = eRepository.findByid(Long.parseLong(id));
-        eRepository.delete(evento);
-        model.addAttribute("events", eRepository.findAll());
-        model.addAttribute("reservations", trrepository.findAll());
-        return "AdminTemplate";
-    }
 }

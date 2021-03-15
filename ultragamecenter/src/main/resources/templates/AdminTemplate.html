@@ -45,7 +45,6 @@
                                     <img src="images/logo/UGC1.png" alt="logo">
                                 </a>
                             </div>
-
                             <div class="pagetTitle">
                                 <h2 class="pageTitle-text"> | ADMIN
                             </div>
@@ -106,10 +105,10 @@
                                             {{likes}} <i class="fas fa-heart"></i>
                                             <button
                                                 class="btn-transition btn btn-outline-danger left-margin">Editar</button>
-                                            <button
-                                                class="btn-transition btn btn-outline-danger left-margin">Gráficos</button>
                                             <a
-                                                class="btn-transition btn btn-outline-danger left-margin" href="/borrar-evento?id={{id}}">Cancelar</a>
+                                                class="btn-transition btn btn-outline-danger left-margin" href="/admin/graph-event?id={{id}}">Gráficos</a>
+                                            <a
+                                                class="btn-transition btn btn-outline-danger left-margin" href="/admin/delete-event?id={{id}}">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +142,7 @@
                                         <div class="widget-content">
                                             <i class="fab fa-playstation"></i>
                                             <a
-                                                class="btn-transition btn btn-outline-danger left-margin" href="/borrar-reserva?id={{id}}">Cancelar</a>
+                                                class="btn-transition btn btn-outline-danger left-margin" href="/admin/delete-reservation?id={{id}}">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

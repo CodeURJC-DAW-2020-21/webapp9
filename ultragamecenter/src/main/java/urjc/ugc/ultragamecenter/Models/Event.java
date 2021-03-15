@@ -28,7 +28,7 @@ public class Event {
 
     public Event(){}
     
-    public Event(String name, String description, String date2, String bannerUrl){
+    public Event(String name, String description, String date2, String bannerUrl, Integer capacity){
         
         this.name=name;
         this.description=description;
@@ -36,6 +36,7 @@ public class Event {
         this.date = Date.valueOf(date2);
         this.bannerUrl = bannerUrl;
         this.lavels = new ArrayList<EventLavelType>();
+        this.capacity = capacity;
     }
 
     /*public Event(String name2, String description2, java.util.Date date2, String bannerUrl2) {
@@ -82,6 +83,10 @@ public class Event {
     }
     public void putLavel(EventLavelType lavel){
         this.lavels.add(lavel);
+    }
+
+    public void setCapacity(Integer capacity){
+        this.capacity = capacity;
     }
 
 }
