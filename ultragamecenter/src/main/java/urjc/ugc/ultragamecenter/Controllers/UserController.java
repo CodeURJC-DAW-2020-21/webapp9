@@ -100,6 +100,9 @@ public class UserController {
 
 	@GetMapping("/admin/graph-event")
 	public String graphEvent(@RequestParam String id, Model model) {
+		model.addAttribute("Admin", "Administrador");
+		model.addAttribute("Logout", "Cerrar sesión");
+		model.addAttribute("nombre", "Admin");
 		Event event = eRepository.findByid(Long.parseLong(id));
 		Integer likes = event.getlikes();
 		model.addAttribute("likes", likes);
@@ -110,6 +113,9 @@ public class UserController {
 
 	@GetMapping("/admin/graph-tables")
 	public String graphTables(Model model) {
+		model.addAttribute("Admin", "Administrador");
+		model.addAttribute("Logout", "Cerrar sesión");
+		model.addAttribute("nombre", "Admin");
 		List<TableReservation> reservations = trrepository.findAll();
 
 		Integer numPC = 0;

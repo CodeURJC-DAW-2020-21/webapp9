@@ -56,12 +56,13 @@
                     <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
                         <div class="logo">
                             <div class="logoImage">
-                                <a href="#">
-                                <img src="images/logo/UGC1.png" alt="logo">
+                                <a href="/">
+                                    <img src="images/logo/UGC1.png" alt="logo">
                                 </a>
                             </div>
-                            
-                            <div class="pagetTitle"><h2 class="pageTitle-text"> | HOME</h1></div>
+                            <div class="pagetTitle">
+                                <h2 class="pageTitle-text"> | GRÁFICOS
+                            </div>
                         </div>
                     </div>
                     <!-- Start MAinmenu Ares -->
@@ -70,12 +71,15 @@
                             <ul class="main__menu">
                                 <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>                                
                                 <li class="drop"><a href="/events"><i class="fas fa-gamepad"></i> Eventos</a></li>
-                                <li><a href="/register"><i class="fas fa-user-alt"></i> Perfil</a></li>
+                                <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
+                                <li class="drop"><a href="/admin"> {{Admin}}</a></li>
+                                <li class="drop"><a href="/loggout"> {{Logout}}</a></li>
                             </ul>
                         </nav>
+                    </div>
     </header>
     <div>
-        <img src="https://chart.googleapis.com/chart?cht=p&chs=500x200&chd=t:{{numPC}},{{numXBOX_ONE}},{{numPS5}}&chl=PC ({{numPC}})|XBOX ONE ({{numXBOX_ONE}})|PS5 ({{numPS5}})&chco=1f2123,39ff14,665cbe">
+        <img style="display: block; margin-left: auto; margin-right: auto;" src="https://chart.googleapis.com/chart?cht=p&chs=500x200&chd=t:{{numPC}},{{numXBOX_ONE}},{{numPS5}}&chl=PC ({{numPC}})|XBOX ONE ({{numXBOX_ONE}})|PS5 ({{numPS5}})&chco=1f2123,39ff14,665cbe">
     </div>
     <!-- Body main wrapper end -->
     <!-- QUICKVIEW PRODUCT -->
