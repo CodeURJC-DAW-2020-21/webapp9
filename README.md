@@ -141,4 +141,36 @@ Web app for a gaming center called ***Ultra Game Center***
 **Navigation Diagram**: 
 
   ![Navigation Diagram](readme-photos/Diagrama_de_navegacion.png)
+  
+  
+
+## PHASE 2: Web with HTML generated in server and AJAX
+
+
+
+### Database structure:
+
+
+### Classes and templates diagram
+
+
+### Participation
+
+**Miguel**
+
+-  Completed tasks: 
+
+- 5 most significant commits:
+  1. 
+  2. 
+  3. 
+  4. 
+  5. 
+  
+- 5 files with participation:
+  1. 
+  2. 
+  3. 
+  4. 
+  5.
 
