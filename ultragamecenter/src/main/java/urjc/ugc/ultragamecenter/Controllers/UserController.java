@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.net.MalformedURLException;
 
@@ -42,23 +43,30 @@ public class UserController {
 	@Autowired
 	TableReservationRepository trrepository;
 
+	private Event editedEvent = null;
+
 	private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
+
+	public void setHeader(Model model) {
+		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
+		model.addAttribute("Logout-ico", this.loggedUser.isLoggedUser() ? "fa fa-sign-out" : "");
+		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		model.addAttribute("Admin-ico", this.loggedUser.isAdmin() ? "fa fa-star" : "");
+
+	}
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre", "Index");
+		setHeader(model);
+		model.addAttribute("site", "INICIO");
 		return "IndexTemplate";
 	}
 
 	@GetMapping("/admin")
 	public String getAdmin(Model model) {
-
+		model.addAttribute("site", "ADMIN");
+		setHeader(model);
 		if (this.loggedUser.isAdmin()) {
-			model.addAttribute("Admin", "Administrador");
-			model.addAttribute("Logout", "Cerrar sesión");
 			model.addAttribute("nombre", "Admin");
 			model.addAttribute("events", eRepository.findAll());
 			model.addAttribute("reservations", trrepository.findAll());
@@ -72,43 +80,85 @@ public class UserController {
 
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre5", "Reservation Page");
+		model.addAttribute("site", "MESAS");
+		setHeader(model);
 		return "ReservationTemplate";
 	}
 
 	@GetMapping("/singleevent")
 	public String getSingleEvent(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre6", "SingleEvent Page");
+		model.addAttribute("site", "EVENTO");
+		setHeader(model);
 		return "SingleEventTemplate";
 
 	}
 
 	@GetMapping("/events")
 	public String getEvents(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-		model.addAttribute("nombre", "Events Page");
-		model.addAttribute("events", eRepository.findAll());
+		setHeader(model);
+		model.addAttribute("site", "EVENTOS");
+		model.addAttribute("events", this.loggedUser.sort(eRepository.findAll()));
 		return "EventsTemplate";
+	}
+	//
+
+	@GetMapping("/admin/event-edit")
+	public String editEvent(@RequestParam String id, Model model) {
+		setHeader(model);
+		Event event = eRepository.findByid(Long.parseLong(id));
+		model.addAttribute("name", event.getName());
+		model.addAttribute("description", event.getDescription());
+		String label = "";
+		for (String x : event.getLavels()) {
+			label += x;
+			label += "/";
+		}
+		model.addAttribute("labels", label);
+		model.addAttribute("capacity", event.getCapacity());
+		model.addAttribute("date", event.getDate().toString());
+		model.addAttribute("site", "EV/ED");
+		this.editedEvent = event;
+		return "EventCreatorTemplate";
 	}
 
 	@GetMapping("/admin/graph-event")
 	public String graphEvent(@RequestParam String id, Model model) {
-		model.addAttribute("Admin", "Administrador");
-		model.addAttribute("Logout", "Cerrar sesión");
-		model.addAttribute("nombre", "Admin");
+		model.addAttribute("site", "GRAFICO");
+		setHeader(model);
 		Event event = eRepository.findByid(Long.parseLong(id));
 		Integer likes = event.getlikes();
 		model.addAttribute("likes", likes);
 		Integer plazasLibres = event.getCapacity() - likes;
 		model.addAttribute("plazasLibres", plazasLibres);
 		return "GraphsEventsTemplate";
+	}
+
+	@GetMapping("/events/see-event")
+	public String seeEvent(@RequestParam String id, Model model) {
+		Event event = eRepository.findByid(Long.parseLong(id));
+
+		setHeader(model);
+		model.addAttribute("image", event.getBannerUrl());
+		model.addAttribute("name", event.getName());
+		model.addAttribute("description", event.getDescription());
+		model.addAttribute("date", event.getDate());
+		model.addAttribute("capacity", event.getCapacity() - event.getlikes());
+		model.addAttribute("id", event.getId());
+		return getSingleEvent(model);
+	}
+
+	@GetMapping("/like")
+	public String likeEvent(@RequestParam String id, Model model) {
+
+		Event event = eRepository.findByid(Long.parseLong(id));
+		if (this.loggedUser.isLoggedUser() && !this.loggedUser.hasLiked(event.getId())) {
+			this.loggedUser.like(event);
+			eRepository.save(event);
+		} else {
+			return getProfile(model);
+		}
+
+		return getEvents(model);
 	}
 
 	@GetMapping("/admin/graph-tables")
@@ -135,6 +185,7 @@ public class UserController {
 			case "PS5":
 				numPS5++;
 				break;
+			default:
 			}
 		}
 		model.addAttribute("numPC", numPC);
@@ -147,6 +198,7 @@ public class UserController {
 	public String borrarReserva(@RequestParam String id, Model model) {
 		TableReservation reserva = trrepository.findByid(Long.parseLong(id));
 		trrepository.delete(reserva);
+
 		model.addAttribute("events", eRepository.findAll());
 		model.addAttribute("reservations", trrepository.findAll());
 		return getAdmin(model);
@@ -165,9 +217,14 @@ public class UserController {
 
 	@GetMapping("/Event-Adder")
 	public String getEventAdder(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		setHeader(model);
 		if (this.loggedUser.isAdmin()) {
+			model.addAttribute("name", "Nombre del evento*");
+			model.addAttribute("description", "Descripción del evento");
+			model.addAttribute("labels", "SHOOTER/MOBA/MMO/");
+			model.addAttribute("capacity", "");
+			model.addAttribute("date", "0000-00-00");
+			model.addAttribute("site", "EVENTO+");
 			return "EventCreatorTemplate";
 		}
 		return getProfile(model);
@@ -176,10 +233,13 @@ public class UserController {
 	@GetMapping("/user")
 	public String getUser(Model model) {
 		if (this.loggedUser.isLoggedUser()) {
-			model.addAttribute("Logout", "Cerrar sesión");
-			model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
-			model.addAttribute("nombre3", "User Page");
-			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
+			setHeader(model);
+			List<Event> events=new ArrayList<Event>();
+			for(Long ID: this.loggedUser.getLoggedUser().getEvents()){
+				events.add(eRepository.findByid(ID));
+			}
+			model.addAttribute("events", events);
+			model.addAttribute("site", "PERFIL");
 			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
@@ -207,8 +267,8 @@ public class UserController {
 
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		model.addAttribute("site", "EDITAR PERFIL");
+		setHeader(model);
 
 		String name = loggedUser.getLoggedUser().getName();
 		String surname = loggedUser.getLoggedUser().getLastName();
@@ -220,11 +280,9 @@ public class UserController {
 
 	@GetMapping("/register")
 	public String getLoginRegister(Model model) {
-
-		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
-		model.addAttribute("nombre4", "Register Page");
+		model.addAttribute("site", "INICIAR SESION");
 		model.addAttribute("Registered", "");
-		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
+		setHeader(model);
 		return "LoginRegisterTemplate";
 	}
 
@@ -279,8 +337,8 @@ public class UserController {
 	}
 
 	@PostMapping("/registerUser")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email, @RequestParam String password,
-			HttpSession sesion, Model model) {
+	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
+			@RequestParam String password, HttpSession sesion, Model model) {
 		User aux = urepository.findByEmail(email);
 		if (aux != null) {
 			model.addAttribute("Registered", "Ya hay un usuario registrado con ese correo");
@@ -293,14 +351,34 @@ public class UserController {
 	}
 
 	@PostMapping("/createEvent")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String description, @RequestParam Integer capacity, @RequestParam String labels,@RequestParam String end,
-			HttpSession sesion, Model model) throws ParseException {
-		Event event = new Event(name,description,end,"",capacity);
-
+	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
+			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end, HttpSession sesion,
+			Model model) {
+		Event event;
+		if (this.editedEvent != null) {
+			event = this.editedEvent;
+			this.editedEvent = null;
+			for (String var : labels.split("/")) {
+				event.putLavel(var.toUpperCase());
+				if (!Event.allLabels.contains(var.toUpperCase())) {
+					Event.allLabels.add(var.toUpperCase());
+				}
+			}
+			event.setCapacity(capacity!=0 ? capacity : event.getCapacity());
+			event.setDescription(description.equals("") ? event.getDescription() : description);
+			event.setName(name.equals("") ? event.getName() : name);
+			event.setDate(end.equals("") ? event.getDate().toString() : end);
+		} else {
+			event = new Event(name, description, end, "", capacity);
+			for (String var : labels.split("/")) {
+				event.putLavel(var.toUpperCase());
+				if (!Event.allLabels.contains(var.toUpperCase())) {
+					Event.allLabels.add(var.toUpperCase());
+				}
+			}
+		}
 		eRepository.save(event);
 		return getAdmin(model);
 	}
-
-	
 
 }
