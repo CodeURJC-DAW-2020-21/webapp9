@@ -1,11 +1,13 @@
 package urjc.ugc.ultragamecenter.Models;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 
@@ -25,7 +27,8 @@ public class Event {
     private Integer likes;
     private ArrayList<String> lavels;
     private Integer capacity;
-
+    @Lob
+	private Blob imageFile;
     public Event(){}
     
 
@@ -97,5 +100,13 @@ public class Event {
     public void setName(String object) {
         this.name=object;
     }
+
+    public Blob getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(Blob image) {
+		this.imageFile = image;
+	}
 
 }

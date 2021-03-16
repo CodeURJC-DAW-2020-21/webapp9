@@ -1,5 +1,8 @@
 package urjc.ugc.ultragamecenter;
 
+import java.io.IOException;
+
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,9 @@ import urjc.ugc.ultragamecenter.Models.User;
 import urjc.ugc.ultragamecenter.Models.Event;
 import urjc.ugc.ultragamecenter.Models.Tablegame;
 import urjc.ugc.ultragamecenter.Types.RoleType;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 
 @Controller
@@ -55,6 +61,7 @@ public class InitDataBase implements CommandLineRunner{
             Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "banner1",100);
             event1.putLavel(EventLavelType.MOBA.toString());
             event1.putLavel(EventLavelType.SHOOTER.toString());
+            setEventImage(event1, "/sample_images/tus_zonas_erroneas.jpg");
 
             Event event2 = new Event("LOL", "championship", "2015-03-20", "banner2",100);
             event2.putLavel(EventLavelType.MOBA.toString());
@@ -112,4 +119,9 @@ public class InitDataBase implements CommandLineRunner{
         }
         
     } 
+
+    public void setEventImage(Event event, String classpathResource) throws IOException {
+		Resource image = new ClassPathResource(classpathResource);
+		event.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
+	}
 }
