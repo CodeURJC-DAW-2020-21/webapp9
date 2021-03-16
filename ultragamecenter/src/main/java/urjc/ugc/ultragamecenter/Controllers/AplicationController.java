@@ -1,21 +1,17 @@
 package urjc.ugc.ultragamecenter.Controllers;
 import java.time.Instant;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
 import urjc.ugc.ultragamecenter.Services.EmailSenderService;
-import urjc.ugc.ultragamecenter.Types.EventLavelType;
-import urjc.ugc.ultragamecenter.Types.TableType;
 
 @Controller
 @SpringBootApplication
@@ -34,8 +30,8 @@ public class AplicationController {
 
 
     @GetMapping("/add-table")
-    public String addTable(@RequestParam TableType tableType, Model model) {
-        Tablegame table = new Tablegame(tableType, false);
+    public String addTable(@RequestParam String tableType, Model model) {
+        Tablegame table = new Tablegame(tableType);
         trepository.save(table);
         return "reservation";
     }
@@ -58,7 +54,7 @@ public class AplicationController {
     public String add(Model model) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        Tablegame table = new Tablegame(TableType.PC, false);
+        Tablegame table = new Tablegame("PC");
         TableReservation tr = new TableReservation(table.getId(), "234567876", Date.from(Instant.now()),
                 Date.from(Instant.now()));
         trrepository.save(tr);
@@ -69,7 +65,7 @@ public class AplicationController {
     @GetMapping("/all")
     public String getAllUsers(Model model) {
         Event e = eRepository.findByid(2);
-        Tablegame t = trepository.findByid(5);
+        Tablegame t = trepository.findById(5);
         TableReservation tr = trrepository.findByid(4);
         model.addAttribute("a2", e.toString());
         model.addAttribute("a3", t.toString());

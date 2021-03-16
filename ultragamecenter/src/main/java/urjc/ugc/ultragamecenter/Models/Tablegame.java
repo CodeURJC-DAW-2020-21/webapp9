@@ -1,12 +1,14 @@
 package urjc.ugc.ultragamecenter.Models;
 
+import java.util.ArrayList;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import urjc.ugc.ultragamecenter.Types.TableType;
 
 @Entity
 @Table(name="Table_Games")
@@ -15,19 +17,18 @@ public class Tablegame {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private TableType type;
-    private Boolean free;
+    private String type;
+    private ArrayList<Integer> state = new ArrayList<Integer>();
 
     public Tablegame(){}
 
-    public Tablegame(TableType type, Boolean free) {
+    public Tablegame(String type) {
         this.type = type;
-        this.free = free;
+        for (int i = 0; i < 9; i++) {
+            this.state.add(0);
+        }
     }
 
-    public static TableType[] getTypes() {
-        return TableType.values();
-    }
 
     public Long getId(){
         return this.id;
@@ -37,25 +38,25 @@ public class Tablegame {
         this.id = id;
     }
 
-    public TableType getType(){
+    public String getType(){
         return this.type;
     }
 
-    public void setType(TableType type){
+    public void setType(String type){
         this.type = type;
     }
 
-    public Boolean getFree(){
-        return this.free;
+    public ArrayList<Integer> getState(){
+        return this.state;
     }
 
-    public void setFree(Boolean free){
-        this.free = free;
+    public void setState(Integer pos, Integer state){
+        this.state.set(pos, state);
     }
 
     @Override
 	public String toString() {
-		return "Tabel game [id=" + id + ", Type=" + type + ", free=" + free +"]";
+		return "Tabel game [id=" + id + ", Type=" + type + ", free=" + state +"]";
 	}
 
 

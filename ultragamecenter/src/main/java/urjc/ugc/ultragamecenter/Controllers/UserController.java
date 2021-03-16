@@ -24,8 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
-import urjc.ugc.ultragamecenter.Types.*;
-
 import urjc.ugc.ultragamecenter.Components.UserComponent;
 
 @Controller
@@ -119,16 +117,16 @@ public class UserController {
 		Integer numPS5 = 0;
 
 		for (TableReservation tableReservation : reservations) {
-			Tablegame table = trepository.findByid(tableReservation.getId_table());
+			Tablegame table = trepository.findById(tableReservation.getId_table());
 
 			switch (table.getType()) {
-			case PC:
+			case "PC":
 				numPC++;
 				break;
-			case XBOX_ONE:
+			case "XBOX_ONE":
 				numXBOX_ONE++;
 				break;
-			case PS5:
+			case "PS5":
 				numPS5++;
 				break;
 			}
