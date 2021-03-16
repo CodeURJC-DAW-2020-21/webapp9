@@ -44,14 +44,16 @@ public class UserController {
 	@Autowired
 	TableReservationRepository trrepository;
 
+	private Event editedEvent = null;
+
 	private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
 
-	public void setHeader(Model model){
+	public void setHeader(Model model) {
 		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
 		model.addAttribute("Logout-ico", this.loggedUser.isLoggedUser() ? "fa fa-sign-out" : "");
 		model.addAttribute("Admin", this.loggedUser.isAdmin() ? "Administrador" : "");
 		model.addAttribute("Admin-ico", this.loggedUser.isAdmin() ? "fa fa-star" : "");
-		
+
 	}
 
 	@GetMapping("/")
@@ -64,7 +66,7 @@ public class UserController {
 	@GetMapping("/admin")
 	public String getAdmin(Model model) {
 		model.addAttribute("site", "ADMIN");
-		setHeader( model);
+		setHeader(model);
 		if (this.loggedUser.isAdmin()) {
 			model.addAttribute("nombre", "Admin");
 			model.addAttribute("events", eRepository.findAll());
@@ -80,24 +82,44 @@ public class UserController {
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
 		model.addAttribute("site", "MESAS");
-		setHeader( model);
+		setHeader(model);
 		return "ReservationTemplate";
 	}
 
 	@GetMapping("/singleevent")
 	public String getSingleEvent(Model model) {
 		model.addAttribute("site", "EVENTO");
-		setHeader( model);
+		setHeader(model);
 		return "SingleEventTemplate";
 
 	}
 
 	@GetMapping("/events")
 	public String getEvents(Model model) {
-		setHeader( model);
+		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
 		model.addAttribute("events", eRepository.findAll());
 		return "EventsTemplate";
+	}
+	//
+
+	@GetMapping("/admin/event-edit")
+	public String editEvent(@RequestParam String id, Model model) {
+		setHeader(model);
+		Event event = eRepository.findByid(Long.parseLong(id));
+		model.addAttribute("name", event.getName());
+		model.addAttribute("description", event.getDescription());
+		String label = "";
+		for (String x : event.getLavels()) {
+			label += x;
+			label += "/";
+		}
+		model.addAttribute("labels", label);
+		model.addAttribute("capacity", event.getCapacity());
+		model.addAttribute("date", event.getDate().toString());
+		model.addAttribute("site", "EV/ED");
+		this.editedEvent = event;
+		return "EventCreatorTemplate";
 	}
 
 	@GetMapping("/admin/graph-event")
@@ -115,7 +137,7 @@ public class UserController {
 	public String seeEvent(@RequestParam String id, Model model) {
 		Event event = eRepository.findByid(Long.parseLong(id));
 
-		setHeader( model);
+		setHeader(model);
 		model.addAttribute("image", event.getBannerUrl());
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
@@ -191,8 +213,14 @@ public class UserController {
 
 	@GetMapping("/Event-Adder")
 	public String getEventAdder(Model model) {
-		setHeader( model);
+		setHeader(model);
 		if (this.loggedUser.isAdmin()) {
+			model.addAttribute("name", "Nombre del evento*");
+			model.addAttribute("description", "Descripción del evento");
+			model.addAttribute("labels", "SHOOTER/MOBA/MMO/");
+			model.addAttribute("capacity", "");
+			model.addAttribute("date", "0000-00-00");
+			model.addAttribute("site", "EVENTO+");
 			return "EventCreatorTemplate";
 		}
 		return getProfile(model);
@@ -201,7 +229,7 @@ public class UserController {
 	@GetMapping("/user")
 	public String getUser(Model model) {
 		if (this.loggedUser.isLoggedUser()) {
-			setHeader( model);
+			setHeader(model);
 			model.addAttribute("site", "PERFIL");
 
 			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
@@ -233,7 +261,7 @@ public class UserController {
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
 		model.addAttribute("site", "EDITAR PERFIL");
-		setHeader( model);
+		setHeader(model);
 
 		String name = loggedUser.getLoggedUser().getName();
 		String surname = loggedUser.getLoggedUser().getLastName();
@@ -247,7 +275,7 @@ public class UserController {
 	public String getLoginRegister(Model model) {
 		model.addAttribute("site", "INICIAR SESION");
 		model.addAttribute("Registered", "");
-		setHeader( model);
+		setHeader(model);
 		return "LoginRegisterTemplate";
 	}
 
@@ -318,9 +346,30 @@ public class UserController {
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
 			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end, HttpSession sesion,
-			Model model) throws ParseException {
-		Event event = new Event(name, description, end, "", capacity);
-
+			Model model) {
+		Event event;
+		if (this.editedEvent != null) {
+			event = this.editedEvent;
+			this.editedEvent = null;
+			for (String var : labels.split("/")) {
+				event.putLavel(var.toUpperCase());
+				if (!Event.allLabels.contains(var.toUpperCase())) {
+					Event.allLabels.add(var.toUpperCase());
+				}
+			}
+			event.setCapacity(capacity!=0 ? capacity : event.getCapacity());
+			event.setDescription(description.equals("") ? event.getDescription() : description);
+			event.setName(name.equals("") ? event.getName() : name);
+			event.setDate(end.equals("") ? event.getDate().toString() : end);
+		} else {
+			event = new Event(name, description, end, "", capacity);
+			for (String var : labels.split("/")) {
+				event.putLavel(var.toUpperCase());
+				if (!Event.allLabels.contains(var.toUpperCase())) {
+					Event.allLabels.add(var.toUpperCase());
+				}
+			}
+		}
 		eRepository.save(event);
 		return getAdmin(model);
 	}

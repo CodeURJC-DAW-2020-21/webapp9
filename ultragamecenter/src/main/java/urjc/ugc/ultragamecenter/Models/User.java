@@ -25,7 +25,7 @@ public class User {
     private String email;
     private ArrayList<Event> eventsLikeIt;
     private ArrayList<Tablegame> reservatedTables;
-    private HashMap<EventLavelType, Double> affinity;
+    private HashMap<String, Double> affinity;
     private ArrayList<Event> recomendated;
     private RoleType rol;
 
@@ -34,7 +34,7 @@ public class User {
 
     private Double getAffinity(Event e) {
         Double aux = 0.0;
-        for (EventLavelType lavel : e.getLavels()) {
+        for (String lavel : e.getLavels()) {
             if (affinity.containsKey(lavel)) {
                 aux += affinity.get(lavel);
             } else {
@@ -129,7 +129,7 @@ public class User {
         Double base = 0.5;
         e.like();
         this.eventsLikeIt.add(e);
-        for (EventLavelType x : EventLavelType.values()) {
+        for (String x : Event.allLabels) {
             if (e.getLavels().contains(x)) {
                 if (this.affinity.containsKey(x)) {
                     this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
@@ -138,7 +138,7 @@ public class User {
                 }
             } else {
                 if (this.affinity == null) {
-                    this.affinity = new HashMap();
+                    this.affinity = new HashMap<String,Double>();
                 }
                 this.affinity.put(x, base * base);
             }

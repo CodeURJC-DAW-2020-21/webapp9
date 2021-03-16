@@ -20,14 +20,14 @@
                         <!-- Start Single Content -->
                         <div id="editProfile" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
                             <form class="login" method="post" action="/createEvent">
-                                <input type="text" placeholder="Nombre del evento*" name="name">
-                                <input type="text" placeholder="Descripción del evento" name="description">
+                                <input type="text" placeholder="{{name}}" name="name">
+                                <input type="text" placeholder="{{description}}" name="description">
                                 <label for="description"> Pon las etiquetas separadas por /</label>
-                                <input type="text" placeholder="Shooter/MOBA/MMO" name="labels">
+                                <input type="textarea" placeholder="{{labels}}" name="labels">
                                 <label for="capacity"> Cantidad de aforo permitido(1-500): </label>
-                                <input type="number" name="capacity" min="1" max="500">
+                                <input type="number" name="capacity" min="1" max="500" placeholder="{{capacity}}">
                                 <label for="End"> Fecha de fin del evento: AAAA-MM-DD</label>
-                                <input type="text" name="end" placeholder="0000-00-00">
+                                <input type="text" name="end" placeholder="{{date}}">
                                 <!--<label for="myfile">Selecciona una imagen para promocionar el evento:</label>
                                      <input type='file' name='image' accept=".jpg, .jpeg"/> -->
                                 <input type='submit' value='Guardar' />
