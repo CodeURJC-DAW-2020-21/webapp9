@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.net.MalformedURLException;
 
@@ -98,7 +99,7 @@ public class UserController {
 	public String getEvents(Model model) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		model.addAttribute("events", eRepository.findAll());
+		model.addAttribute("events", this.loggedUser.sort(eRepository.findAll()));
 		return "EventsTemplate";
 	}
 	//
@@ -151,7 +152,7 @@ public class UserController {
 	public String likeEvent(@RequestParam String id, Model model) {
 
 		Event event = eRepository.findByid(Long.parseLong(id));
-		if (this.loggedUser.isLoggedUser() && !this.loggedUser.hasLiked(event)) {
+		if (this.loggedUser.isLoggedUser() && !this.loggedUser.hasLiked(event.getId())) {
 			this.loggedUser.like(event);
 			eRepository.save(event);
 		} else {
@@ -230,9 +231,12 @@ public class UserController {
 	public String getUser(Model model) {
 		if (this.loggedUser.isLoggedUser()) {
 			setHeader(model);
+			List<Event> events=new ArrayList<Event>();
+			for(Long ID: this.loggedUser.getLoggedUser().getEvents()){
+				events.add(eRepository.findByid(ID));
+			}
+			model.addAttribute("events", events);
 			model.addAttribute("site", "PERFIL");
-
-			model.addAttribute("events", loggedUser.getLoggedUser().getEvents());
 			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());

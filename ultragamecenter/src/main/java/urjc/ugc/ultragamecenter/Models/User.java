@@ -23,7 +23,7 @@ public class User {
     private String passwordHash;
     private String lastName;
     private String email;
-    private ArrayList<Event> eventsLikeIt;
+    private ArrayList<Long> eventsLikeIt;
     private ArrayList<Tablegame> reservatedTables;
     private HashMap<String, Double> affinity;
     private ArrayList<Event> recomendated;
@@ -59,7 +59,7 @@ public class User {
         this.lastName = lastname;
         this.passwordHash = password;
         this.email = email;
-        this.eventsLikeIt = new ArrayList<Event>();
+        this.eventsLikeIt = new ArrayList<Long>();
         this.reservatedTables = new ArrayList<Tablegame>();
         this.rol = RoleType.REGISTERED_USER;
     }
@@ -69,7 +69,7 @@ public class User {
         this.passwordHash = password;
         this.lastName = "";
         this.email = email;
-        this.eventsLikeIt = new ArrayList<Event>();
+        this.eventsLikeIt = new ArrayList<Long>();
         this.reservatedTables = new ArrayList<Tablegame>();
         this.rol = role;
     }
@@ -94,12 +94,12 @@ public class User {
         return this.passwordHash;
     }
 
-    public ArrayList<Event> getEvents() {
+    public ArrayList<Long> getEvents() {
         return this.eventsLikeIt;
     }
 
     public void addEvent(Event event) {
-        this.eventsLikeIt.add(event);
+        this.eventsLikeIt.add(event.getId());
     }
 
     public ArrayList<Tablegame> getTables() {
@@ -128,7 +128,7 @@ public class User {
     public void likedEvent(Event e) {
         Double base = 0.5;
         e.like();
-        this.eventsLikeIt.add(e);
+        this.eventsLikeIt.add(e.getId());
         for (String x : Event.allLabels) {
             if (e.getLavels().contains(x)) {
                 if (this.affinity.containsKey(x)) {
@@ -155,6 +155,22 @@ public class User {
 
     public void setName(String name2) {
         this.name = name2;
+    }
+
+    public double getValue(Event event) {
+        Double aux=0.0;
+        if (this.affinity == null) {
+            this.affinity = new HashMap<String,Double>();
+        }
+        for(String label:event.getLavels()){
+            if(this.affinity.containsKey(label)){
+                aux+=this.affinity.get(label);
+            } else{
+                aux+=0.5;
+                this.affinity.put(label, 0.5);
+            }
+        }
+        return aux;
     }
 
 }
