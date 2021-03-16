@@ -53,18 +53,6 @@ public class InitDataBase implements CommandLineRunner{
         if(eventRepository.count()==0){
             //create events
             Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "banner1",100);
-<<<<<<< HEAD
-            event1.putLavel(EventLavelType.MOBA);
-            event1.putLavel(EventLavelType.SHOOTER);
-
-            Event event2 = new Event("LOL", "championship", "2015-03-20", "banner2",100);
-            event2.putLavel(EventLavelType.MOBA);
-            event2.putLavel(EventLavelType.SHOOTER);
-
-            Event event3 = new Event("COD", "black ops", "2015-03-25", "Hola",200);
-            event3.putLavel(EventLavelType.MOBA);
-            event3.putLavel(EventLavelType.SHOOTER);
-=======
             event1.putLavel(EventLavelType.MOBA.toString());
             event1.putLavel(EventLavelType.SHOOTER.toString());
 
@@ -75,7 +63,6 @@ public class InitDataBase implements CommandLineRunner{
             Event event3 = new Event("COD", "black ops", "2015-03-25", "Hola",100);
             event3.putLavel(EventLavelType.MOBA.toString());
             event3.putLavel(EventLavelType.SHOOTER.toString());
->>>>>>> Create_and_Join_Events
 
             //save events
             eventRepository.save(event1);
