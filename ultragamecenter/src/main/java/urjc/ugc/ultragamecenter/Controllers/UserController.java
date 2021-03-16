@@ -126,6 +126,7 @@ public class UserController {
 	@GetMapping("/admin/graph-event")
 	public String graphEvent(@RequestParam String id, Model model) {
 		model.addAttribute("site", "GRAFICO");
+		setHeader(model);
 		Event event = eRepository.findByid(Long.parseLong(id));
 		Integer likes = event.getlikes();
 		model.addAttribute("likes", likes);
