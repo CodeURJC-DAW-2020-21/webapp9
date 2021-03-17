@@ -1,27 +1,41 @@
 
     {{>header}}
 
-
-<div class="eventContainer">
-    {{#events}}
     <div class="event">
-        <div class="eventTitlePicture">
-            <div class="eventTitle"><h1>{{name}}</h1></div>
-            <div class="eventImage">
-                {{#bannerUlr}}
-                <img src="{{bannerUrl}}" alt="G2 Team">
-                {{/bannerUlr}}
-            </div>
-        </div>
-        
-        <div class="eventDescription">
-            {{#date}}
-            <p>Fecha: {{date}}</p>
-            {{/date}}
-            <p>{{description}}</p>
-        </div>
-        <a href="/like?id={{id}}"><i class="fas fa-heart"></i></i></a>
-        <button class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
+        <div class="divider mt-0" style="margin-bottom: 30px"></div>
+        <ul>
+            {{#events}}
+            <li class="event-wrap">
+                <div class="card widget-content">
+                    <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                        {{#bannerUlr}}
+                        <img class="event-images rounded-circle" src="{{bannerUrl}" alt="G2 Team">
+                        {{/bannerUlr}}
+                        <div class="widget-content-left">
+                        <a class="widget-heading" href="/events/see-event?id={{id}}">{{name}}</a>
+                        {{#date}}
+                        <div class="widget-subheading">
+                            <i class="fas fa-calendar"></i>  {{date}}
+                        </div>
+                        {{/date}}
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-success">
+                                {{#likes}}
+                                {{likes}}  <i class="fas fa-heart"></i>
+                                {{/likes}}
+                                <button class="btn-transition btn btn-outline-danger left-margin">Asistir</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </li>
+            {{/events}}
+        </ul>     
     </div>
-    {{/events}}
+    <div class="divider mt-0" style="margin-bottom: 30px"></div>
+    
+    
     {{>footer}}
