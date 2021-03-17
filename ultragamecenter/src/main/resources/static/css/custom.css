@@ -90,15 +90,22 @@
 }
 .description-title > h3{
   color: white;
-  font-size: 20px;
-  padding: 15px 10px 15px 35px;
-  left: 12px;
-  background-color: #FF0000;
+  font-size: 30px;
+  font-weight: bolder;
+  padding: 10px 15px;
+  background-color: black;
+  margin-top: 60px;
 }
 
-#imagen-central{
-  padding-left: 15%;
+.description-text p {
+  font-size: 16px;
+}
+
+#central-image{
   width: 90%;
+  border-radius: 15%;
+  display:block;
+  margin:30px;
 }
 
 .left-aligned {
