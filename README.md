@@ -153,7 +153,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 ### Classes and templates diagram
 
-![Class-Template Diagram](readme-photos/class-template.png)
+![Class-Template Diagram](readme-photos/class-diagram.png)
 
 
 ### Participation
