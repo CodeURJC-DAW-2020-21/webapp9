@@ -3,17 +3,23 @@ package urjc.ugc.ultragamecenter.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.repositories.EventRepository;
+import urjc.ugc.ultragamecenter.repositories.UserRepository;
 import urjc.ugc.ultragamecenter.types.*;
 
 @Component
 @SessionScope
 public class UserComponent {
+
+	@Autowired
+	private EventRepository erepository;
 
 	private User user;
 
@@ -48,6 +54,8 @@ public class UserComponent {
 	public void like(Event event) {
 		this.user.likedEvent(event);
 	}
+
+
 
 	public Page<Event> sort(Page<Event> PageEvents) {
 		List<Event> events = PageEvents.getContent();

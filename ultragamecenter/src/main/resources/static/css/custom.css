@@ -67,6 +67,10 @@
 .gaming-platform button{
   margin-bottom: 0.5em;
 }
+
+.full-error{
+  color: red;
+}
 .iconify { 
   width: 20px; 
   height: 20px; 

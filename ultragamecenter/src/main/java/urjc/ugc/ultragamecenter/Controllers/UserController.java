@@ -1,10 +1,22 @@
 package urjc.ugc.ultragamecenter.controllers;
 
+import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -24,10 +36,17 @@ import urjc.ugc.ultragamecenter.repositories.*;
 import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.components.*;
 
+import org.springframework.context.ApplicationContext;
+
 @Controller
 public class UserController {
+
+	@Autowired
+	private ApplicationContext appContext;
+
 	@Autowired
 	private UserRepository urepository;
+
 	@Autowired
 	UserComponent loggedUser;
 
@@ -59,6 +78,11 @@ public class UserController {
 
 	}
 
+	public void sendMail(String to, String code) throws MessagingException {
+		EmailSenderService emailSender = (EmailSenderService) appContext.getBean("emailSenderService");
+		emailSender.sendEmail(to, code);
+	}
+
 	@GetMapping("/")
 	public String getIndex(Model model) {
 		setHeader(model);
@@ -85,7 +109,9 @@ public class UserController {
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
 		model.addAttribute("site", "MESAS");
+		model.addAttribute("full", "");
 		setHeader(model);
+		model.addAttribute("logged", !this.loggedUser.isLoggedUser());
 		return "ReservationTemplate";
 	}
 
@@ -101,11 +127,10 @@ public class UserController {
 	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		Page <Event> events = this.loggedUser.sort(eventService.getPageEvents(0,pageSize));
+		Page<Event> events = this.loggedUser.sort(eventService.getPageEvents(0, pageSize));
 		model.addAttribute("events", events);
 		return "EventsTemplate";
 	}
-	
 
 	@GetMapping("/admin/event-edit")
 	public String editEvent(@RequestParam String id, Model model) {
@@ -164,7 +189,7 @@ public class UserController {
 			return getProfile(model);
 		}
 
-		return getEvents(model,0);
+		return getEvents(model, 0);
 	}
 
 	@GetMapping("/admin/graph-tables")
@@ -179,7 +204,8 @@ public class UserController {
 		Integer numPS5 = 0;
 
 		for (TableReservation tableReservation : reservations) {
-			Tablegame table = trepository.findById(tableReservation.getId_table());
+			Optional<Tablegame> opttable = trepository.findById(tableReservation.getId_table());
+			Tablegame table = opttable.get();
 
 			switch (table.getType()) {
 			case "PC":
@@ -240,13 +266,14 @@ public class UserController {
 	public String getUser(Model model) {
 		if (this.loggedUser.isLoggedUser()) {
 			setHeader(model);
-			List<Event> events=new ArrayList<Event>();
-			for(Long ID: this.loggedUser.getLoggedUser().getEventsLiked()){
+
+			List<Event> events = new ArrayList<Event>();
+			for (Long ID : this.loggedUser.getLoggedUser().getEventsLiked()) {
 				events.add(eRepository.findByid(ID));
 			}
 			model.addAttribute("events", events);
 			model.addAttribute("site", "PERFIL");
-			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
+			model.addAttribute("tables", loggedUser.getLoggedUser().getReferencedCodes());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
 			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
@@ -261,8 +288,6 @@ public class UserController {
 	public String getProfile(Model model) {
 		return this.loggedUser.isLoggedUser() ? getUser(model) : getLoginRegister(model);
 	}
-
-	
 
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
@@ -285,10 +310,9 @@ public class UserController {
 		return "RegisterTemplate";
 	}
 
-
 	@GetMapping("/sendEmail")
 	public String sendEmail(Model model) {
-		
+
 		return "LoginTemplate";
 	}
 
@@ -353,7 +377,6 @@ public class UserController {
 		}
 		urepository.save(aux);
 		return "redirect:/";
-		
 	}
 
 	@PostMapping("/registerUser")
@@ -370,11 +393,11 @@ public class UserController {
 		return getLoginRegister(model);
 	}
 
-
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
-			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end, @RequestParam MultipartFile image, HttpSession sesion,
-			Model model, @RequestParam MultipartFile image1, @RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
+			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,
+			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
+			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
 		Event event;
 		if (this.editedEvent != null) {
 			event = this.editedEvent;
@@ -385,12 +408,12 @@ public class UserController {
 					Event.allLabels.add(var.toUpperCase());
 				}
 			}
-			event.setCapacity(capacity!=0 ? capacity : event.getCapacity());
+			event.setCapacity(capacity != 0 ? capacity : event.getCapacity());
 			event.setDescription(description.equals("") ? event.getDescription() : description);
 			event.setName(name.equals("") ? event.getName() : name);
 			event.setDate(end.equals("") ? event.getDate().toString() : end);
 		} else {
-			
+
 			event = eventService.createNewEvent(name, description, image, image1, image2, image3, end, capacity);
 			for (String var : labels.split("/")) {
 				event.putLavel(var.toUpperCase());
@@ -404,5 +427,95 @@ public class UserController {
 		return getAdmin(model);
 	}
 
+	// -----------------tableController--------------------
+	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.Controllers.TableController");
 
+	@PostMapping("/trytoreserve")
+	public String reserve(@RequestParam String type, @RequestParam String day, @RequestParam String hour,
+			@RequestParam(required = false) String email, Model model) {
+		Long table_id = 0L;
+		Integer hour_int = Integer.parseInt(hour);
+		log.log(Level.WARNING, "PASO 1");
+		log.log(Level.WARNING, type + " " + day + " " + hour + " " + email);
+		java.sql.Date sqldate = java.sql.Date.valueOf(day);
+		log.log(Level.WARNING, "PASO 1");
+		List<Tablegame> tables = trepository.findByTypeAndDate(type, sqldate);
+		log.log(Level.WARNING, tables.toString());
+		log.log(Level.WARNING, "PASO 1");
+		boolean reserved = false;
+		int i = 0;
+		while (!reserved && (i != tables.size())) {
+			if (tables.get(i).getState().get(hour_int) == 0) {
+				log.log(Level.WARNING, "PASO 1-");
+				tables.get(i).setState(hour_int, 1);
+				table_id = tables.get(i).getId();
+				trepository.saveAll(tables);
+				log.log(Level.WARNING, "PASO 1-");
+				reserved = true;
+				List<Tablegame> test = trepository.findByTypeAndDate(type, sqldate);
+				log.log(Level.WARNING, test.toString());
+				log.log(Level.WARNING, "PASO 1-");
+			}
+			i++;
+		}
+		if (!reserved) {// not reserved
+			String full = "No hay disponibilidad de mesas de " + type + " para el dia " + day
+					+ " en la hora seleccionada";
+			model.addAttribute("full", full);
+			log.log(Level.WARNING, "PASO 2");
+			setHeader(model);
+			model.addAttribute("site", "MESAS");
+			return "ReservationTemplate";
+		} else {// reserved
+
+			if (this.loggedUser.isLoggedUser()) {// logged user
+				log.log(Level.WARNING, "PASO 3");
+				Integer id = this.loggedUser.getLoggedUser().getId();
+				log.log(Level.WARNING, "PASO 3");
+				Optional<User> optUser = urepository.findById(id);
+				User logUser = optUser.get();
+				ArrayList<String> refCodes = logUser.getReferencedCodes();
+				log.log(Level.WARNING, "PASO 3");
+				String randomCode = randomRefCode();
+				refCodes.add(randomCode);
+				logUser.setReferencedCode(refCodes);
+				log.log(Level.WARNING, "PASO 3");
+				urepository.save(logUser);
+				TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+				trrepository.save(tReserve);
+			} else { // guest user
+				log.log(Level.WARNING, "PASO 3--------------\n\n\n");
+				if (!email.equals("")) {
+					log.log(Level.WARNING, "PASO 4");
+					String randomCode = randomRefCode();
+					TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+					trrepository.save(tReserve);
+					log.log(Level.WARNING, "PASO 4");
+					try {
+						this.sendMail(email, randomCode);
+					} catch (MessagingException exc) {
+					}
+				} else {
+					log.log(Level.WARNING, "PASO 5\n\n\n\n");
+				}
+			}
+		}
+
+		return getReservation(model);
+	}
+
+	private String randomRefCode() {
+		int leftLimit = 97; // letter 'a'
+		int rightLimit = 122; // letter 'z'
+		int targetStringLength = 10;
+		Random random = new Random();
+		StringBuilder buffer = new StringBuilder(targetStringLength);
+		for (int i = 0; i < targetStringLength; i++) {
+			int randomLimitedInt = leftLimit + (int) (random.nextFloat() * (rightLimit - leftLimit + 1));
+			buffer.append((char) randomLimitedInt);
+		}
+		String generatedString = buffer.toString();
+
+		return generatedString;
+	}
 }
