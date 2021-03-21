@@ -1,7 +1,9 @@
 package urjc.ugc.ultragamecenter.Controllers;
 
+import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,6 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,7 +87,9 @@ public class UserController {
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
 		model.addAttribute("site", "MESAS");
+		model.addAttribute("full", "");
 		setHeader(model);
+		model.addAttribute("logged", this.loggedUser.isLoggedUser());
 		return "ReservationTemplate";
 	}
 
@@ -238,13 +243,13 @@ public class UserController {
 	public String getUser(Model model) {
 		if (this.loggedUser.isLoggedUser()) {
 			setHeader(model);
-			List<Event> events=new ArrayList<Event>();
-			for(Long ID: this.loggedUser.getLoggedUser().getEvents()){
+			List<Event> events = new ArrayList<Event>();
+			for (Long ID : this.loggedUser.getLoggedUser().getEvents()) {
 				events.add(eRepository.findByid(ID));
 			}
 			model.addAttribute("events", events);
 			model.addAttribute("site", "PERFIL");
-			model.addAttribute("tables", loggedUser.getLoggedUser().getTables());
+			model.addAttribute("tables", loggedUser.getLoggedUser().getReferencedCodes());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
 			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
@@ -368,7 +373,7 @@ public class UserController {
 					Event.allLabels.add(var.toUpperCase());
 				}
 			}
-			event.setCapacity(capacity!=0 ? capacity : event.getCapacity());
+			event.setCapacity(capacity != 0 ? capacity : event.getCapacity());
 			event.setDescription(description.equals("") ? event.getDescription() : description);
 			event.setName(name.equals("") ? event.getName() : name);
 			event.setDate(end.equals("") ? event.getDate().toString() : end);
@@ -384,33 +389,65 @@ public class UserController {
 		eRepository.save(event);
 		return getAdmin(model);
 	}
-	//-----------------tableController--------------------
+
+	// -----------------tableController--------------------
 	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.Controllers.TableController");
 
-
 	@PostMapping("/trytoreserve")
-	public String reserve(@RequestParam String type, @RequestParam String day,@RequestParam String hour, Model model){
-		Integer hour_int=Integer.parseInt(hour);
+	public String reserve(@RequestParam String type, @RequestParam String day, @RequestParam String hour,
+			@RequestParam(required = false) String email, Model model) {
+		Long table_id = 0L;
+		Integer hour_int = Integer.parseInt(hour);
+		log.log(Level.WARNING, type + " " + day + " " + hour + " " + email);
 		java.sql.Date sqldate = java.sql.Date.valueOf(day);
 		List<Tablegame> tables = trepository.findByTypeAndDate(type, sqldate);
-		log.log(Level.WARNING,tables.toString());
-		if (tables.size()!=0){
-			boolean changed=true;
-			int i = 0;
-			while(changed && (i!=tables.size())){
-				if (tables.get(i).getState().get(hour_int) == 0){
-					tables.get(i).setState(hour_int, 1);
-					trepository.saveAll(tables);
-					changed=false;
-					List<Tablegame> test = trepository.findByTypeAndDate(type, sqldate);
-					log.log(Level.WARNING,test.toString());
-				}
-				i++;
-			}			
-		}else{
-			log.log(Level.WARNING,"VACIOO");
+		log.log(Level.WARNING, tables.toString());
+		boolean reserved = false;
+		int i = 0;
+		while (!reserved && (i != tables.size())) {
+			if (tables.get(i).getState().get(hour_int) == 0) {
+				tables.get(i).setState(hour_int, 1);
+				table_id = tables.get(i).getId();
+				trepository.saveAll(tables);
+				reserved = true;
+				List<Tablegame> test = trepository.findByTypeAndDate(type, sqldate);
+				log.log(Level.WARNING, test.toString());
+			}
+			i++;
 		}
-		
-		return "404";
+		if (!reserved) {// not reserved
+			String full = "No hay disponibilidad de mesas de " + type + " para el dia " + day
+					+ " en la hora seleccionada";
+			model.addAttribute("full", full);
+			return "ReservationTemplate";
+		} else {// reserved
+			if (this.loggedUser.isLoggedUser()) { // logged user
+				Integer id = this.loggedUser.getLoggedUser().getId();
+				Optional<User> optUser = urepository.findById(id);
+				User logUser = optUser.get();
+				ArrayList<String> refCodes = logUser.getReferencedCodes();
+				String randomCode = randomRefCode();
+				refCodes.add(randomCode);
+				logUser.setReferencedCode(refCodes);
+				urepository.save(logUser);
+				TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+				trrepository.save(tReserve);
+			} else { // guest user
+				String randomCode = randomRefCode();
+				TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+				trrepository.save(tReserve);
+				//email sender
+			}
+		}
+
+		return getReservation(model);
+	}
+
+	private String randomRefCode() {
+		byte[] array = new byte[7];
+		new Random().nextBytes(array);
+		String generatedString = new String(array, Charset.forName("UTF-8"));
+
+		return generatedString;
 	}
 }

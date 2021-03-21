@@ -16,14 +16,12 @@ public class TableReservation {
     private Long id;
     private Long id_table;
     private String referenced_code;
-    private Date date;
     private Integer hour;
 
     public TableReservation(){}
-    public TableReservation(Long id_table, String referenced_code, Date date, Integer hour) {
+    public TableReservation(Long id_table, String referenced_code, Integer hour) {
         this.id_table = id_table;
         this.referenced_code = referenced_code;
-        this.date = date;
         this.hour = hour;
     }
 
@@ -39,14 +37,6 @@ public class TableReservation {
         this.referenced_code = referenced_code;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Integer getHour() {
         return hour;
     }
@@ -58,7 +48,7 @@ public class TableReservation {
 
     @Override
 	public String toString() {
-		return "Table reservation [id=" + id + ",id_table=" + id_table + ", Referenced_code=" + referenced_code + ", date=" + date +", hour="+hour+"]";
+		return "Table reservation [id=" + id + ",id_table=" + id_table + ", Referenced_code=" + referenced_code +", hour="+hour+"]";
 	}
     
     

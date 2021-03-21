@@ -13,12 +13,13 @@
 <h1 class="gaming-h1">Reserva tu mesa</h1>
 <!--End h1-->
 <!--Start select reservation-->
-<div class="gaming-head">
-    <form action="/trytoreserve" method="post">
+
+<form action="/trytoreserve" method="post">
+    <div class="gaming-head">
         <div class="gaming-reservation">
             <h3 class="gaming-select">Seleccione plataforma</h3>
             <div class="gaming-platform">
-                <input type="radio" class="btn btn-danger" name="type" value="PC"><span class="iconify"
+                <input type="radio" class="btn btn-danger" name="type" value="PC" checked><span class="iconify"
                     data-icon="tabler:devices-pc" data-inline="false"></span> PC</input>
                 <input type="radio" class="btn btn-primary" name="type" value="PS5"><span class="iconify"
                     data-icon="mdi-sony-playstation" data-inline="false"></span> PlayStation </input>
@@ -28,15 +29,13 @@
         </div>
         <div class="gaming-reservation">
             <h3 class="gaming-select">Seleccione fecha</h3>
-            <input type="date" id="start" name="day" min="2021-03-22" max="2021-03-28">
+            <input type="date" id="start" name="day" min="2021-03-22" max="2021-03-28" value="2021-03-22">
         </div>
-        <button type="submit">Enviar tipo y fecha</button>
-
         <div class="gaming-reservation">
             <h3 class="gaming-select">Seleccione hora</h3>
             <div class="gaming-time">
                 <div class="gaming-hour">
-                    <input type="radio" class="btn btn-danger" name="hour" value="0">10:00-11:00</input>
+                    <input type="radio" class="btn btn-danger" name="hour" value="0" checked>10:00-11:00</input>
                     <input type="radio" class="btn btn-danger" name="hour" value="1">11:00-12:00</input>
                     <input type="radio" class="btn btn-danger" name="hour" value="2">12:00-13:00</input>
                 </div>
@@ -52,9 +51,14 @@
                 </div>
             </div>
         </div>
+        {{#logged}}
+        <input type="email">example@email.com</input> 
+        {{/logged}}
         <div class="gaming-confirm">
+            <h3 class="full-error">{{full}}</h3>
             <button type="submit" class="btn btn-danger">Confirmar Reserva</button>
         </div>
-    </form>
-</div>
+    </div>
+</form>
+
 {{>footer}}

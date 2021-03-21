@@ -17,13 +17,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     private String name;
     private String passwordHash;
     private String lastName;
     private String email;
     private ArrayList<Long> eventsLikeIt;
-    private ArrayList<Tablegame> reservatedTables;
+    private ArrayList<String> referencedCodes;
     private HashMap<String, Double> affinity;
     private ArrayList<Event> recomendated;
     private RoleType rol;
@@ -59,7 +59,7 @@ public class User {
         this.passwordHash = password;
         this.email = email;
         this.eventsLikeIt = new ArrayList<Long>();
-        this.reservatedTables = new ArrayList<Tablegame>();
+        this.referencedCodes = new ArrayList<String>();
         this.rol = RoleType.REGISTERED_USER;
     }
 
@@ -69,11 +69,11 @@ public class User {
         this.lastName = "";
         this.email = email;
         this.eventsLikeIt = new ArrayList<Long>();
-        this.reservatedTables = new ArrayList<Tablegame>();
+        this.referencedCodes = new ArrayList<String>();
         this.rol = role;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
@@ -101,8 +101,8 @@ public class User {
         this.eventsLikeIt.add(event.getId());
     }
 
-    public ArrayList<Tablegame> getTables() {
-        return this.reservatedTables;
+    public ArrayList<String> getReferencedCodes() {
+        return this.referencedCodes;
     }
 
     public RoleType getRoles() {
@@ -113,15 +113,15 @@ public class User {
         this.rol = roles;
     }
 
-    public void addTable(Tablegame table) {
-        this.reservatedTables.add(table);
+    public void setReferencedCode(ArrayList<String> rc) {
+        this.referencedCodes=rc;
     }
 
     @Override
     public String toString() {
         return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email
-                + ", envets liked=" + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables="
-                + this.reservatedTables + ", rol=" + this.rol + "]";
+                + ", envets liked=" + this.eventsLikeIt + ", password=" + this.passwordHash + ", referencedCodes="
+                + this.referencedCodes + ", rol=" + this.rol + "]";
     }
 
     public void likedEvent(Event e) {
