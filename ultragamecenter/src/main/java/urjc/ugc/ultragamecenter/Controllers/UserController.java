@@ -153,6 +153,7 @@ public class UserController {
 
 	@GetMapping("/admin/graph-event")
 	public String graphEvent(@RequestParam String id, Model model) {
+		model.addAttribute("Admin-ico", this.loggedUser.isAdmin() ? "fa fa-star" : "");
 		model.addAttribute("site", "GRAFICO");
 		setHeader(model);
 		Event event = eRepository.findByid(Long.parseLong(id));
@@ -194,9 +195,9 @@ public class UserController {
 
 	@GetMapping("/admin/graph-tables")
 	public String graphTables(Model model) {
-		model.addAttribute("Admin", "Administrador");
-		model.addAttribute("Logout", "Cerrar sesión");
 		model.addAttribute("nombre", "Admin");
+		model.addAttribute("site", "GRAFICO");
+		setHeader(model);
 		List<TableReservation> reservations = trrepository.findAll();
 
 		Integer numPC = 0;
@@ -223,7 +224,7 @@ public class UserController {
 		model.addAttribute("numPC", numPC);
 		model.addAttribute("numXBOX_ONE", numXBOX_ONE);
 		model.addAttribute("numPS5", numPS5);
-		return "GrapsTablesTemplate";
+		return "GraphsTableTemplate";
 	}
 
 	@GetMapping("/admin/delete-reservation")
@@ -253,7 +254,7 @@ public class UserController {
 		if (this.loggedUser.isAdmin()) {
 			model.addAttribute("name", "Nombre del evento*");
 			model.addAttribute("description", "Descripción del evento");
-			model.addAttribute("labels", "SHOOTER/MOBA/MMO/");
+			model.addAttribute("labels", "SHOOTER/MOBA/MMO/PRESENTATION");
 			model.addAttribute("capacity", "");
 			model.addAttribute("date", "0000-00-00");
 			model.addAttribute("site", "EVENTO+");
