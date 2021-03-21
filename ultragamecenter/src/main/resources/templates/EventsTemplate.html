@@ -1,4 +1,5 @@
 {{>header}}
+<p id="pageSize" style="display: none;">1</p>
 <div class="eventContainer">
     {{#events}}
     <div class="event">
@@ -22,11 +23,18 @@
             onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
     </div>
     {{/events}}
-    <button onclick="loadMore()">ver más</button>
-    <script>
-        function loadMore(){
-            var pageSize = {pageSize} + 1;
-            window.location.replace("https://localhost:8443/events?pageSize="+{{nextPageSize}});
-        }
+</div>
+    <button id="prueba">ver más</button>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script type="text/javascript">
+        $("button").click(function(){
+            var elemento = document.getElementById("pageSize");
+            elemento.innerHTML = parseInt(elemento.innerHTML) + 1
+            $( ".eventContainer" ).load("https://localhost:8443/events?pageSize="+elemento.innerHTML+" .eventContainer" );
+        });
     </script>
+
+
     {{>footer}}
+
+    
