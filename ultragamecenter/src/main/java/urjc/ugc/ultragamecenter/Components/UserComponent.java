@@ -41,7 +41,7 @@ public class UserComponent {
 	}
 
 	public boolean hasLiked(Long event) {
-		return this.user.getEvents().contains(event);
+		return this.user.getEventsLiked().contains(event);
 	}
 
 	public void like(Event event) {

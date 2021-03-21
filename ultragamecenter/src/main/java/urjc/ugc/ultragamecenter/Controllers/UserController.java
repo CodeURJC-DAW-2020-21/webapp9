@@ -2,11 +2,6 @@ package urjc.ugc.ultragamecenter.Controllers;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.MalformedURLException;
@@ -25,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
+import urjc.ugc.ultragamecenter.Services.EventService;
+import urjc.ugc.ultragamecenter.Services.ImageService;
 import urjc.ugc.ultragamecenter.Components.UserComponent;
 
 @Controller
@@ -43,9 +40,16 @@ public class UserController {
 	@Autowired
 	TableReservationRepository trrepository;
 
+	@Autowired
+	private EventService eventService;
+
+	@Autowired
+	private ImageService imageService;
+
 	private Event editedEvent = null;
 
-	private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
+	public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";
+	public static final String IMG_CONTROLLER_URL = "/images/uploads/";
 
 	public void setHeader(Model model) {
 		model.addAttribute("Logout", this.loggedUser.isLoggedUser() ? "Cerrar sesión" : "");
@@ -100,7 +104,7 @@ public class UserController {
 		model.addAttribute("events", this.loggedUser.sort(eRepository.findAll()));
 		return "EventsTemplate";
 	}
-	//
+	
 
 	@GetMapping("/admin/event-edit")
 	public String editEvent(@RequestParam String id, Model model) {
@@ -144,6 +148,7 @@ public class UserController {
 		model.addAttribute("date", event.getDate());
 		model.addAttribute("capacity", event.getCapacity() - event.getlikes());
 		model.addAttribute("id", event.getId());
+		model.addAttribute("gallery", event.getGallery());
 		return getSingleEvent(model);
 	}
 
@@ -235,7 +240,7 @@ public class UserController {
 		if (this.loggedUser.isLoggedUser()) {
 			setHeader(model);
 			List<Event> events=new ArrayList<Event>();
-			for(Long ID: this.loggedUser.getLoggedUser().getEvents()){
+			for(Long ID: this.loggedUser.getLoggedUser().getEventsLiked()){
 				events.add(eRepository.findByid(ID));
 			}
 			model.addAttribute("events", events);
@@ -244,6 +249,7 @@ public class UserController {
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
 			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
 			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
+			model.addAttribute("profileSrc", loggedUser.getLoggedUser().getProfileSrc());
 			return "UserTemplate";
 		} else {
 			return getProfile(model);
@@ -255,15 +261,7 @@ public class UserController {
 		return this.loggedUser.isLoggedUser() ? getUser(model) : getLoginRegister(model);
 	}
 
-	@GetMapping("/get-user-image")
-	public ResponseEntity<Object> downloadImage(Model model) throws MalformedURLException {
-		User aux = this.loggedUser.getLoggedUser();
-		Path imagePath = IMAGES_FOLDER.resolve("image" + aux.getEmail() + ".jpg");
-
-		Resource image = new UrlResource(imagePath.toUri());
-
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(image);
-	}
+	
 
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
@@ -323,9 +321,11 @@ public class UserController {
 	public String editProfile(@RequestParam String name, @RequestParam String surname,
 			@RequestParam MultipartFile image, HttpSession sesion) throws IOException {
 		User aux = this.loggedUser.getLoggedUser();
-		Files.createDirectories(IMAGES_FOLDER);
-		Path imagePath = IMAGES_FOLDER.resolve("image" + aux.getEmail() + ".jpg");
-		image.transferTo(imagePath);
+		if (!image.isEmpty()) {
+			aux.setProfileSrc(imageService.uploadImage(image));
+		} else {
+			aux.setProfileSrc("images/uploads/defaultuser.png");
+		}
 		if (!surname.equals("")) {
 			aux.setLastName(surname);
 		}
@@ -333,7 +333,8 @@ public class UserController {
 			aux.setName(name);
 		}
 		urepository.save(aux);
-		return "EditProfileTemplate";
+		return "redirect:/";
+		
 	}
 
 	@PostMapping("/registerUser")
@@ -352,8 +353,8 @@ public class UserController {
 
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
-			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end, HttpSession sesion,
-			Model model) {
+			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end, @RequestParam MultipartFile image, HttpSession sesion,
+			Model model, @RequestParam MultipartFile image1, @RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
 		Event event;
 		if (this.editedEvent != null) {
 			event = this.editedEvent;
@@ -369,13 +370,15 @@ public class UserController {
 			event.setName(name.equals("") ? event.getName() : name);
 			event.setDate(end.equals("") ? event.getDate().toString() : end);
 		} else {
-			event = new Event(name, description, end, "", capacity);
+			
+			event = eventService.createNewEvent(name, description, image, image1, image2, image3, end, capacity);
 			for (String var : labels.split("/")) {
 				event.putLavel(var.toUpperCase());
 				if (!Event.allLabels.contains(var.toUpperCase())) {
 					Event.allLabels.add(var.toUpperCase());
 				}
 			}
+
 		}
 		eRepository.save(event);
 		return getAdmin(model);

@@ -29,9 +29,9 @@
         <h2 class="title__line center-aligned"> Más imágenes </h2>
         <hr>
         <ul class="center-aligned">
-            <li class="img-item"><img class="event-small-img" src="images/Events/event_1.jpg"/></li>
-            <li class="img-item"><img class="event-small-img" src="images/Events/event_1.jpg"/></li>
-            <li class="img-item"><img class="event-small-img" src="images/Events/event_1.jpg"/></li>
+            {{#gallery}}
+            <li class="img-item"><img class="event-small-img" src="{{.}}"/></li>
+            {{/gallery}}
         </ul>
     </div>
 
