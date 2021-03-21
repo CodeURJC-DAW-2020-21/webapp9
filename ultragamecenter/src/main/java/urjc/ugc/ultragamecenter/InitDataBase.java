@@ -61,19 +61,21 @@ public class InitDataBase implements CommandLineRunner{
 
         if(eventRepository.count()==0){
             //create events
-            Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "/images/Events/event_1.jpg",100);
+            Event event1 = new Event("Fornite", "Vive la colaboración entre Fortnite y Marvel.", "2021-03-21", "/images/Events/FOR0.jpg",125);
             event1.putLavel(EventLavelType.SHOOTER.toString());
-            event1.setGallery("/images/Events/event_1.jpg","/images/Events/event_1.jpg", "/images/Events/event_1.jpg");
+            event1.setGallery("/images/Events/FOR1.jpg","/images/Events/FOR2.jpg", "/images/Events/FOR3.jpg");
 
-            Event event2 = new Event("LOL", "Final del mundial 2020", "2015-03-20", "/images/Events/teamG2.png",100);
+            Event event2 = new Event("LOL", "Final del mundial 2020.", "2015-04-10", "/images/Events/teamG2.png",150);
             event2.putLavel(EventLavelType.MOBA.toString());
-            event2.setGallery("/images/Events/teamG2.png","/images/Events/teamG2.png", "/images/Events/teamG2.png");
+            event2.setGallery("/images/Events/LOL1.jpg","/images/Events/LOL2.jpg", "/images/Events/LOL3.jpg");
 
-            Event event3 = new Event("NVIDIA", "Nueva Gráfica super potente", "2015-03-25", "/images/Events/Worlds_2021.png",100);
+            Event event3 = new Event("NVIDIA", "Nueva Gráfica super potente.", "2021-04-16", "/images/Events/NVIDIA1.jpg",50);
             event3.putLavel(EventLavelType.PRESENTATION.toString());
+            event3.setGallery("/images/Events/NVIDIA2.jpg","/images/Events/NVIDIA13.jpg", "/images/Events/NVIDIA14.jpg");
 
-            Event event4 = new Event("COD", "black ops", "2015-03-25", "/images/Events/Worlds_2021.png",100);
+            Event event4 = new Event("COD", "Ven a jugar con tus amigos al mejor shooter del año.", "2021-03-25", "/images/Events/COD0.jpg",100);
             event4.putLavel(EventLavelType.FPS.toString());
+            event4.setGallery("/images/Events/COD1.jpg","/images/Events/COD2.jpg", "/images/Events/COD3.jpg");
 
             Event event5 = new Event("HALO", "black ops", "2015-03-25", "/images/Events/Worlds_2021.png",100);
             event5.putLavel(EventLavelType.SHOOTER.toString());
