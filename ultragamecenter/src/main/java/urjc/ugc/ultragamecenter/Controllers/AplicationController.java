@@ -35,6 +35,13 @@ public class AplicationController {
         trepository.save(table);
         return "reservation";
     }
+
+    @GetMapping("/newEmail")
+    public String sendEmail(Model model){
+        EmailSenderService.sendEmail("santo2927@gmail.com", "tonto", "mazo de tonto");
+        return "reservation";
+
+    }
 //-------------------------------------------------------------------------------------------------------
 
     @GetMapping("/add-table-reservation")
