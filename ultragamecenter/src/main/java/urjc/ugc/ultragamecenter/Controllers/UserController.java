@@ -278,10 +278,17 @@ public class UserController {
 
 	@GetMapping("/register")
 	public String getLoginRegister(Model model) {
+		model.addAttribute("site", "REGISTRATE");
+		model.addAttribute("Registered", "");
+		setHeader(model);
+		return "RegisterTemplate";
+	}
+	@GetMapping("/login")
+	public String getLogin(Model model) {
 		model.addAttribute("site", "INICIAR SESION");
 		model.addAttribute("Registered", "");
 		setHeader(model);
-		return "LoginRegisterTemplate";
+		return "LoginTemplate";
 	}
 
 	@GetMapping("/loggout")
@@ -297,13 +304,16 @@ public class UserController {
 		if (aux != null) {
 			if (aux.getPassword().equals(password)) {
 				this.loggedUser.setLoggedUser(aux);
+				return getProfile(model);
 			} else {
 				model.addAttribute("Registered", "La contraseña va a ser que no es");
 			}
 		} else {
 			model.addAttribute("Registered", "Esa cuenta no existe");
 		}
-		return getProfile(model);
+		model.addAttribute("site", "INICIAR SESION");
+		setHeader(model);
+		return "LoginTemplate";
 	}
 
 	@PostMapping("/editPassword")
@@ -346,10 +356,11 @@ public class UserController {
 		} else {
 			User user = new User(name, lastName, password, email);
 			urepository.save(user);
-			model.addAttribute("Registered", "Te has registrado correctamente :D");
+			getLogin(model);
 		}
 		return getLoginRegister(model);
 	}
+
 
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,

@@ -21,15 +21,16 @@
                                 <div class="row px-3"> <label class="mb-1">
                                         <h6 class="mb-0 text-sm">Contraseña</h6>
                                     </label> <input type="password" name="password" id="password" placeholder="* * * * * * * * *"> </div>
-                                    <div class="row mb-3 px-3"><input class="btn-transition btn btn-outline-danger text-center" type='submit' value='Login'/></div>
+                                    <div class="row mb-3 px-3"><input class="btn-transition btn btn-outline-danger text-center" type='submit' value='logginUser'/></div>
                             </form>
                             <div class="row mb-4 px-3"> <small class="font-weight-bold">¿No tienes una cuenta? <a class="text-danger" href="/register">Registrate</a></small> </div>
+                            <div>{{Registered}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div>{{Registered}}</div>
+        
 
         {{>footer}}
