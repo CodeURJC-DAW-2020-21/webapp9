@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Models;
+package urjc.ugc.ultragamecenter.models;
 
 import java.sql.Blob;
 import java.sql.Date;

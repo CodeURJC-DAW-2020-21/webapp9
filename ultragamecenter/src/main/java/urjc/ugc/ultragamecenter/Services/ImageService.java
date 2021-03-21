@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Services;
+package urjc.ugc.ultragamecenter.services;
 
 
 import java.io.File;
@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ImageService {
+
 
 	private static final SimpleDateFormat fileNameFormat = new SimpleDateFormat("'img-'yyyyMMdd-hhmmss-SSS");
 	public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";

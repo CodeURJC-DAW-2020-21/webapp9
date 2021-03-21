@@ -1,43 +1,28 @@
-package urjc.ugc.ultragamecenter.Services;
+package urjc.ugc.ultragamecenter.services;
 
-import java.util.Properties;
-import java.util.regex.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
+@Service("emailSenderService")
 public class EmailSenderService {
+    //Importante hacer la inyección de dependencia de JavaMailSender:
+    @Autowired
+    JavaMailSender mailSender;
 
-    private static String from = "amigoinvisiblejava@gmail.com";
-    private static String password = "averoppppfdgznju";
-    public static Pattern isEmail= Pattern.compile("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)");
+    //Pasamos por parametro: destinatario, asunto y el mensaje
+    public void sendEmail(String to, String subject, String content) {
 
-    public static Boolean sendEmail(String to, String message, String subject) {
-        Properties propiedad = new Properties();
-        propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");
-        propiedad.setProperty("mail.smtp.starttls.enable", "true");
-        propiedad.setProperty("mail.smtp.port", "587");
-        propiedad.setProperty("mail.smtp.auth", "true");
-        Session sesion = Session.getDefaultInstance(propiedad);
-        MimeMessage mail = new MimeMessage(sesion);
-        try {
-            mail.setFrom(new InternetAddress(from));
-            mail.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            mail.setSubject(subject);
-            mail.setText(message);
-            Transport transport = sesion.getTransport("smtp");
-            transport.connect(from, password);
-            transport.sendMessage(mail, mail.getRecipients(Message.RecipientType.TO));
-            transport.close();
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        SimpleMailMessage email = new SimpleMailMessage();
 
+        email.setTo(to);
+        email.setSubject(subject);
+        email.setText(content);
+
+        mailSender.send(email);
     }
+
+
 }

@@ -7,14 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
-import urjc.ugc.ultragamecenter.Repositories.EventRepository;
-import urjc.ugc.ultragamecenter.Repositories.UserRepository;
-import urjc.ugc.ultragamecenter.Repositories.TableRepository;
-import urjc.ugc.ultragamecenter.Types.EventLavelType;
-import urjc.ugc.ultragamecenter.Models.User;
-import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Models.Tablegame;
-import urjc.ugc.ultragamecenter.Types.RoleType;
+import urjc.ugc.ultragamecenter.repositories.*;
+import urjc.ugc.ultragamecenter.types.*;
+import urjc.ugc.ultragamecenter.models.*;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

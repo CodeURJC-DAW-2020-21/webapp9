@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Services;
+package urjc.ugc.ultragamecenter.services;
 
 import java.util.List;
 
@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Repositories.EventRepository;
+import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.repositories.EventRepository;
 
 @Service
 public class EventService {
@@ -60,4 +61,5 @@ public class EventService {
 		eventRepository.save(event);
 		return event;
 	}
+
 }

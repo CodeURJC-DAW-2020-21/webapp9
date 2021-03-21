@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Models;
+package urjc.ugc.ultragamecenter.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

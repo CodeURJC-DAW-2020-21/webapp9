@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -19,11 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.Models.*;
-import urjc.ugc.ultragamecenter.Repositories.*;
-import urjc.ugc.ultragamecenter.Services.EventService;
-import urjc.ugc.ultragamecenter.Services.ImageService;
-import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.repositories.*;
+import urjc.ugc.ultragamecenter.services.*;
+import urjc.ugc.ultragamecenter.components.*;
 
 @Controller
 public class UserController {
@@ -285,6 +284,14 @@ public class UserController {
 		setHeader(model);
 		return "RegisterTemplate";
 	}
+
+
+	@GetMapping("/sendEmail")
+	public String sendEmail(Model model) {
+		
+		return "LoginTemplate";
+	}
+
 	@GetMapping("/login")
 	public String getLogin(Model model) {
 		model.addAttribute("site", "INICIAR SESION");
@@ -396,4 +403,6 @@ public class UserController {
 		eRepository.save(event);
 		return getAdmin(model);
 	}
+
+
 }

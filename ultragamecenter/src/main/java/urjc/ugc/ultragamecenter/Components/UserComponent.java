@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Components;
+package urjc.ugc.ultragamecenter.components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Models.User;
-import urjc.ugc.ultragamecenter.Types.RoleType;
+import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.types.*;
 
 @Component
 @SessionScope

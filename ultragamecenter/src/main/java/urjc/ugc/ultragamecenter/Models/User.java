@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Models;
+package urjc.ugc.ultragamecenter.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import urjc.ugc.ultragamecenter.Types.RoleType;
+import urjc.ugc.ultragamecenter.types.*;
 
 @Entity
 @Table(name = "Users")
