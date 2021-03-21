@@ -103,7 +103,6 @@ public class UserController {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
 		Page <Event> events = eventService.getPageEvents(0,pageSize);
-		model.addAttribute("nextPageSize",pageSize+1);
 		model.addAttribute("events", events);
 		return "EventsTemplate";
 	}
