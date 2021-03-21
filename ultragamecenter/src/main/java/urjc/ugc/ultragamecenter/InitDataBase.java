@@ -31,16 +31,19 @@ public class InitDataBase implements CommandLineRunner{
     
     @Override
 	public void run(String... arg) {
+        
+
+
         if (userRepository.count()==0){
             //create users
-            User user0 = new User("DAW", "G9", "DAW", "daw@gamail.com");
+            User user0 = new User("DAW", "G9", "DAW", "daw@gmail.com");
             user0.setRoles(RoleType.ADMINISTRATOR);
         
             User user1 = new User("Jesus", "Elez", "1234", "jesus@gmail.com");
             
             User user2 = new User("Miguel", "Cendrero", "1234", "miguel@gmail.com");
             
-            User user3 = new User("Rodri", "Diez", "1234", "rodri10@gmil.com");
+            User user3 = new User("Rodri", "Diez", "1234", "rodri10@gmail.com");
         
             User user4 = new User("Alex", "Fernandez", "1234", "alex@gmail.com");
             
@@ -58,18 +61,18 @@ public class InitDataBase implements CommandLineRunner{
 
         if(eventRepository.count()==0){
             //create events
-            Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "banner1",100);
+            Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "images/Events/event_1.jpg",100);
             event1.putLavel(EventLavelType.MOBA.toString());
             event1.putLavel(EventLavelType.SHOOTER.toString());
 
-            Event event2 = new Event("LOL", "championship", "2015-03-20", "banner2",100);
+            Event event2 = new Event("LOL", "championship", "2015-03-20", "images/Events/teamG2.png",100);
             event2.putLavel(EventLavelType.MOBA.toString());
             event2.putLavel(EventLavelType.SHOOTER.toString());
 
-            Event event3 = new Event("COD", "black ops", "2015-03-25", "Hola",100);
+            Event event3 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
             event3.putLavel(EventLavelType.MOBA.toString());
             event3.putLavel(EventLavelType.SHOOTER.toString());
-
+        
             //save events
             eventRepository.save(event1);
             eventRepository.save(event2);

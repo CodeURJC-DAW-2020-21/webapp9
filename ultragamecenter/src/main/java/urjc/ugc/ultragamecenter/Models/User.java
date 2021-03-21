@@ -21,6 +21,7 @@ public class User {
     private String name;
     private String passwordHash;
     private String lastName;
+    private String profileSrc;
     private String email;
     private ArrayList<Long> eventsLikeIt;
     private ArrayList<Tablegame> reservatedTables;
@@ -56,6 +57,7 @@ public class User {
     public User(String name, String lastname, String password, String email) {
         this.name = name;
         this.lastName = lastname;
+        this.profileSrc = "images/uploads/defaultuser.png";
         this.passwordHash = password;
         this.email = email;
         this.eventsLikeIt = new ArrayList<Long>();
@@ -93,11 +95,11 @@ public class User {
         return this.passwordHash;
     }
 
-    public ArrayList<Long> getEvents() {
+    public ArrayList<Long> getEventsLiked() {
         return this.eventsLikeIt;
     }
 
-    public void addEvent(Event event) {
+    public void setEventLiked(Event event) {
         this.eventsLikeIt.add(event.getId());
     }
 
@@ -115,6 +117,14 @@ public class User {
 
     public void addTable(Tablegame table) {
         this.reservatedTables.add(table);
+    }
+
+    public String getProfileSrc(){
+        return profileSrc;
+    }
+
+    public void setProfileSrc(String src){
+        this.profileSrc = src;
     }
 
     @Override
