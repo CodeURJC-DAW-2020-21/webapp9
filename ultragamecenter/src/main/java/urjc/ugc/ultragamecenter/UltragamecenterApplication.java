@@ -9,5 +9,5 @@ public class UltragamecenterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UltragamecenterApplication.class, args);
 	}
-
+	
 }

@@ -1,17 +1,16 @@
-
-    {{>header}}
-
+{{>header}}
+<div class="eventContainer">
+    {{#events}}
     <div class="event">
         <div class="eventTitlePicture">
-            <div class="eventTitle"><h1>{{name}}</h1></div>
+            <div class="eventTitle">
+                <h1>{{name}}</h1>
+            </div>
             <div class="eventImage">
-                
                 <img src="{{bannerUrl}}" alt="G2 Team">
-                
-                
             </div>
         </div>
-        
+
         <div class="eventDescription">
             {{#date}}
             <p>Fecha: {{date}}</p>
@@ -19,9 +18,8 @@
             <p>{{description}}</p>
         </div>
         <a href="/like?id={{id}}"><i class="fas fa-heart"></i></i></a>
-        <button class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
+        <button class="btn-transition btn btn-outline-danger left-margin"
+            onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
     </div>
-    <div class="divider mt-0" style="margin-bottom: 30px"></div>
-    
-    
+    {{/events}}
     {{>footer}}
