@@ -8,7 +8,7 @@ import urjc.ugc.ultragamecenter.Repositories.EventRepository;
 import urjc.ugc.ultragamecenter.Repositories.UserRepository;
 import urjc.ugc.ultragamecenter.Repositories.TableRepository;
 import urjc.ugc.ultragamecenter.Types.EventLavelType;
-import urjc.ugc.ultragamecenter.Models.UserEntity;
+import urjc.ugc.ultragamecenter.Models.User;
 import urjc.ugc.ultragamecenter.Models.Event;
 import urjc.ugc.ultragamecenter.Models.Tablegame;
 import urjc.ugc.ultragamecenter.Types.RoleType;
@@ -27,18 +27,18 @@ public class InitDataBase implements CommandLineRunner{
 	public void run(String... arg) {
         if (userRepository.count()==0){
             //create users
-            UserEntity user0 = new UserEntity("DAW", "G9", "DAW", "daw@gamail.com");
-            user0.setRoles(RoleType.ADMIN);
+            User user0 = new User("DAW", "G9", "DAW", "daw@gamail.com");
+            user0.setRoles("ADMIN");
         
-            UserEntity user1 = new UserEntity("Jesus", "Elez", "1234", "jesus@gmail.com");
+            User user1 = new User("Jesus", "Elez", "1234", "jesus@gmail.com");
             
-            UserEntity user2 = new UserEntity("Miguel", "Cendrero", "1234", "miguel@gmail.com");
+            User user2 = new User("Miguel", "Cendrero", "1234", "miguel@gmail.com");
             
-            UserEntity user3 = new UserEntity("Rodri", "Diez", "1234", "rodri10@gmil.com");
+            User user3 = new User("Rodri", "Diez", "1234", "rodri10@gmil.com");
         
-            UserEntity user4 = new UserEntity("Alex", "Fernandez", "1234", "alex@gmail.com");
+            User user4 = new User("Alex", "Fernandez", "1234", "alex@gmail.com");
             
-            UserEntity user5 = new UserEntity("Rodri", "De Siqueira", "1234", "rodri@gmail.com");
+            User user5 = new User("Rodri", "De Siqueira", "1234", "rodri@gmail.com");
             
             
             //save users

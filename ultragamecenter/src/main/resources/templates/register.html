@@ -10,23 +10,23 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <form action="/registerUser" method="post">
+                            <form action="/register" method="post">
                                 <div class="card2  px-4 py-5">
                                     <div class="row mb-4 px-3">
                                         <h3 class="mb-0 mr-4 mt-2 title__line">Regístrate</h3>
                                     </div>
                                     <div class="row px-3"> <label class="mb-1">
                                         <h6 class="mb-0 text-sm">Nombre</h6>
-                                    </label> <input class="mb-4" type="text" name="email" placeholder="Pepito"> </div>
+                                    </label> <input class="mb-4" type="text" name="name" id="name" placeholder="Pepito"> </div>
                                 <div class="row px-3"> <label class="mb-1">
                                         <h6 class="mb-0 text-sm">Apellido</h6>
-                                    </label> <input type="text" name="password" placeholder="Marciano"> </div>
+                                    </label> <input type="text" name="lastName" id="lastName" placeholder="Marciano"> </div>
                                 <div class="row px-3"> <label class="mb-1">
                                         <h6 class="mb-0 text-sm">E-mail</h6>
-                                    </label> <input class="mb-4" type="text" name="email" placeholder="pepito@ejemplo.com"> </div>
+                                    </label> <input class="mb-4" type="text" name="email" id="email" placeholder="pepito@ejemplo.com"> </div>
                                 <div class="row px-3"> <label class="mb-1">
                                         <h6 class="mb-0 text-sm">Contraseña</h6>
-                                    </label> <input type="password" name="password" placeholder="* * * * * * * * *"> </div>
+                                    </label> <input type="password" id="password" name="password" placeholder="* * * * * * * * *"> </div>
                                 <div class="row mb-3 px-3"><input class="btn-transition btn btn-outline-danger text-center" type='submit' value='Guardar'/></div>
                             </form>
                             <div class="row mb-4 px-3"> <small class="font-weight-bold">¿Ya tienes una cuenta? <a class="text-danger" href="/login">Inicia sesión</a></small> </div>
@@ -36,6 +36,6 @@
             </div>
         </div>
 
-         <div>{{Registered}}</div>
+         <div>{\{Registered}\}</div>
 
             {{>footer}}

@@ -1,6 +1,6 @@
 package urjc.ugc.ultragamecenter.Services;
 
-import urjc.ugc.ultragamecenter.Models.UserEntity;
+import urjc.ugc.ultragamecenter.Models.User;
 import urjc.ugc.ultragamecenter.Repositories.UserRepository;
 
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
  
@@ -22,19 +23,29 @@ public class UserService {
         return userRepository.existsById(Math.toIntExact(id));
     }
     
-    public UserEntity findById(Long id) {
+    public User findById(Long id) {
         return userRepository.findByid(id);
     }
     
-    public List<UserEntity> findAll(int pageNumber, int rowPerPage) {
-        List<UserEntity> users = new ArrayList<>();
+    public List<User> findAll(int pageNumber, int rowPerPage) {
+        List<User> users = new ArrayList<>();
         Pageable sortedByLastUpdateDesc = PageRequest.of(pageNumber - 1, rowPerPage, 
                 Sort.by("id").ascending());
         userRepository.findAll(sortedByLastUpdateDesc).forEach(users::add);
         return users;
     }
     
-    public UserEntity save(UserEntity user) throws Exception {
+    public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+    
+    public User createNewUser(String name, String lastName, String password, String email) {
+		User user = new User(name,lastName,password,email);
+		userRepository.save(user);
+		return user;
+	}
+    
+    public User save(User user) throws Exception {
         if (StringUtils.isEmpty(user.getName())) {
             throw new Exception("Name is required");
         }
@@ -47,7 +58,7 @@ public class UserService {
         return userRepository.save(user);
     }
     
-    public void update(UserEntity user) throws Exception {
+    public void update(User user) throws Exception {
         if (StringUtils.isEmpty(user.getName())) {
             throw new Exception("Name is required");
         }

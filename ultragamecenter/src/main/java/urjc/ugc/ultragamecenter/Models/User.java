@@ -3,6 +3,7 @@ package urjc.ugc.ultragamecenter.Models;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +36,7 @@ import urjc.ugc.ultragamecenter.Types.RoleType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserEntity implements UserDetails {
+public class User implements UserDetails {
 
     /**
 	 * 
@@ -53,13 +55,51 @@ public class UserEntity implements UserDetails {
     private ArrayList<Event> recomendated;
     
     @ElementCollection(fetch = FetchType.EAGER)
-	@Enumerated(EnumType.STRING)
-    private Set<RoleType> role;
+    private List<String> roles;
+    
+    
+    public User(String name, String lastName, String password, String email) {
+		super();
+		this.name = name;
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		this.lastName = lastName;
+		this.email = email;
+		this.roles = new ArrayList<String>();
+		this.roles.add("USER");
+	}
 
-    public UserEntity() {
+	
+    public User() {
+    	
     }
+    
+/*
+    public User(String name, String lastname, String password, String email) {
+    	super();
+    	this.name = name;
+        this.lastName = lastname;
+        this.passwordHash = password;
+        this.email = email;
+        this.eventsLikeIt = new ArrayList<Long>();
+        this.reservatedTables = new ArrayList<Tablegame>();
+        this.roles = new ArrayList<String>();
+        this.roles.add("USER");
+    }
+ 
+    public User(String name, String password, String email, String role) {
+        this.name = name;
+        this.passwordHash = password;
+        this.lastName = "";
+        this.email = email;
+        this.eventsLikeIt = new ArrayList<Long>();
+        this.reservatedTables = new ArrayList<Tablegame>();
+        this.roles = new ArrayList<String>();
+        this.roles.add(role);
+    }
+*/
+   
 
-    private Double getAffinity(Event e) {
+	private Double getAffinity(Event e) {
         Double aux = 0.0;
         for (String lavel : e.getLavels()) {
             if (affinity.containsKey(lavel)) {
@@ -79,30 +119,6 @@ public class UserEntity implements UserDetails {
             recomendated.add(e);
             recomendated.sort((e1, e2) -> (int) (100 * (getAffinity(e1) - getAffinity(e2))));
         }
-    }
-    
-
-    public UserEntity(String name, String lastname, String password, String email) {
-        this.name = name;
-        this.lastName = lastname;
-        this.passwordHash = password;
-        this.email = email;
-        this.eventsLikeIt = new ArrayList<Long>();
-        this.reservatedTables = new ArrayList<Tablegame>();
-        this.role = new TreeSet<RoleType>();
-        this.role.add(RoleType.USER);
-    }
- 
-
-    public UserEntity(String name, String password, String email, RoleType role) {
-        this.name = name;
-        this.passwordHash = password;
-        this.lastName = "";
-        this.email = email;
-        this.eventsLikeIt = new ArrayList<Long>();
-        this.reservatedTables = new ArrayList<Tablegame>();
-        this.role = new TreeSet<RoleType>();
-        this.role.add(role);
     }
     
 
@@ -138,27 +154,24 @@ public class UserEntity implements UserDetails {
         return this.reservatedTables;
     }
 
-    public RoleType getRoles() {
-    	if (role.contains(RoleType.ADMIN)) {
-    		return RoleType.ADMIN;
-    	}
-    	return RoleType.USER;
+    public List<String> getRoles() {
+    	return this.roles;
     }
 
-    public void setRoles(RoleType role) {
-        this.role.add(role);
+    public void setRoles(String role) {
+        this.roles.add(role);
     }
     
-    public void giveRoles(RoleType role) {
-    	if (this.role.contains(role)) {
+    public void giveRoles(String role) {
+    	if (this.roles.contains(role)) {
     		return;
     	} else {
-    		if (role == RoleType.ADMIN) {
-    			this.role.remove(RoleType.ADMIN);
-    			this.role.add(RoleType.USER);
+    		if (role == "ADMIN") {
+    			this.roles.remove("ADMIN");
+    			this.roles.add("USER");
     		} else {
-    			this.role.remove(RoleType.USER);
-    			this.role.add(RoleType.ADMIN);
+    			this.roles.remove("USER");
+    			this.roles.add("ADMIN");
     		}
     	}
     }
@@ -171,7 +184,7 @@ public class UserEntity implements UserDetails {
     public String toString() {
         return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email
                 + ", envets liked=" + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables="
-                + this.reservatedTables + ", role=" + this.role + "]";
+                + this.reservatedTables + ", role=" + this.roles + "]";
     }
 
     public void likedEvent(Event e) {
@@ -224,7 +237,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.stream().map(ur -> new SimpleGrantedAuthority("ROLE_" + ur.name())).collect(Collectors.toList());
+        return roles.stream().map(ur -> new SimpleGrantedAuthority("ROLE_" + ur)).collect(Collectors.toList());
     }
 
     @Override

@@ -29,16 +29,21 @@ import urjc.ugc.ultragamecenter.Components.UserComponent;
 import urjc.ugc.ultragamecenter.Models.Event;
 import urjc.ugc.ultragamecenter.Models.TableReservation;
 import urjc.ugc.ultragamecenter.Models.Tablegame;
-import urjc.ugc.ultragamecenter.Models.UserEntity;
+import urjc.ugc.ultragamecenter.Models.User;
 import urjc.ugc.ultragamecenter.Repositories.EventRepository;
 import urjc.ugc.ultragamecenter.Repositories.TableRepository;
 import urjc.ugc.ultragamecenter.Repositories.TableReservationRepository;
 import urjc.ugc.ultragamecenter.Repositories.UserRepository;
+import urjc.ugc.ultragamecenter.Services.UserService;
 
 @Controller
 public class UserController {
 	@Autowired
 	private UserRepository urepository;
+	
+	@Autowired
+	private UserService uservice;
+	
 	@Autowired
 	UserComponent loggedUser;
 
@@ -65,13 +70,21 @@ public class UserController {
 		model.addAttribute("Admin-ico", this.loggedUser.isAdmin() ? "fa fa-star" : "");
 
 	}
-
+	
+	@PostMapping("/register")
+	public String registerUser(@RequestParam String name,@RequestParam String lastName,@RequestParam String password,@RequestParam String email) {
+		User user = uservice.createNewUser(name,lastName,password,email);
+		loggedUser.setLoggedUser(user);
+		return "redirect:/" ;
+	}
+/*
 	@GetMapping("/")
 	public String getIndex(Model model) {
 		setHeader(model);
 		model.addAttribute("site", "INICIO");
 		return "IndexTemplate";
 	}
+
 
 	@GetMapping("/admin")
 	public String getAdmin(Model model) {
@@ -88,7 +101,7 @@ public class UserController {
 		}
 
 	}
-
+*/
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
 		model.addAttribute("site", "MESAS");
@@ -158,6 +171,7 @@ public class UserController {
 		return getSingleEvent(model);
 	}
 
+	/*
 	@GetMapping("/like")
 	public String likeEvent(@RequestParam String id, Model model) {
 
@@ -171,6 +185,7 @@ public class UserController {
 
 		return getEvents(model);
 	}
+	*/
 
 	@GetMapping("/admin/graph-tables")
 	public String graphTables(Model model) {
@@ -205,6 +220,7 @@ public class UserController {
 		return "GrapsTablesTemplate";
 	}
 
+	/*
 	@GetMapping("/admin/delete-reservation")
 	public String borrarReserva(@RequestParam String id, Model model) {
 		TableReservation reserva = trrepository.findByid(Long.parseLong(id));
@@ -225,6 +241,8 @@ public class UserController {
 		model.addAttribute("reservations", trrepository.findAll());
 		return getAdmin(model);
 	}
+	*/
+	/*
 
 	@GetMapping("/Event-Adder")
 	public String getEventAdder(Model model) {
@@ -240,6 +258,9 @@ public class UserController {
 		}
 		return getProfile(model);
 	}
+	*/
+	
+	/*
 
 	@GetMapping("/user")
 	public String getUser(Model model) {
@@ -260,15 +281,21 @@ public class UserController {
 			return getProfile(model);
 		}
 	}
+	
+	*/
+	
+	/*
 
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
 		return this.loggedUser.isLoggedUser() ? getUser(model) : getLogin(model);
 	}
+	
+	*/
 
 	@GetMapping("/get-user-image")
 	public ResponseEntity<Object> downloadImage(Model model) throws MalformedURLException {
-		UserEntity aux = this.loggedUser.getLoggedUser();
+		User aux = this.loggedUser.getLoggedUser();
 		Path imagePath = IMAGES_FOLDER.resolve("image" + aux.getEmail() + ".jpg");
 
 		Resource image = new UrlResource(imagePath.toUri());
@@ -288,7 +315,7 @@ public class UserController {
 
 		return "EditProfileTemplate";
 	}
-
+	/*
 	@GetMapping("/register")
 	public String getRegister(Model model) {
 		model.addAttribute("site", "INICIAR SESION");
@@ -296,6 +323,7 @@ public class UserController {
 		setHeader(model);
 		return "RegisterTemplate";
 	}
+	
 	
 	@GetMapping("/login")
 	public String getLogin(Model model) {
@@ -307,12 +335,14 @@ public class UserController {
 		}
 		return "LoginTemplate";
 	}
+	
 
 	@GetMapping("/loggout")
 	public String LoggOut(HttpSession sesion, Model model) {
 		this.loggedUser.logOut();
 		return getProfile(model);
 	}
+	
 
 	@PostMapping("/login")
 	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion,
@@ -329,11 +359,12 @@ public class UserController {
 		}
 		return getProfile(model);
 	}
+*/
 
 	@PostMapping("/editPassword")
 	public String editPassword(@RequestParam String password, @RequestParam String password_repeated,
 			@RequestParam String new_password, HttpSession sesion) {
-		UserEntity aux = this.loggedUser.getLoggedUser();
+		User aux = this.loggedUser.getLoggedUser();
 		if (aux.getPassword().equals(password) && password.equals(password_repeated)) {
 			aux.setPassword(new_password);
 		}
@@ -344,7 +375,7 @@ public class UserController {
 	@PostMapping("/editProfile")
 	public String editProfile(@RequestParam String name, @RequestParam String surname,
 			@RequestParam MultipartFile image, HttpSession sesion) throws IOException {
-		UserEntity aux = this.loggedUser.getLoggedUser();
+		User aux = this.loggedUser.getLoggedUser();
 		Files.createDirectories(IMAGES_FOLDER);
 		Path imagePath = IMAGES_FOLDER.resolve("image" + aux.getEmail() + ".jpg");
 		image.transferTo(imagePath);
@@ -357,6 +388,8 @@ public class UserController {
 		urepository.save(aux);
 		return "EditProfileTemplate";
 	}
+
+	/*
 
 	@PostMapping("/register")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
@@ -371,6 +404,7 @@ public class UserController {
 		}
 		return getLogin(model);
 	}
+	
 
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
@@ -402,5 +436,5 @@ public class UserController {
 		eRepository.save(event);
 		return getAdmin(model);
 	}
-
+*/
 }
