@@ -1,21 +1,46 @@
 package urjc.ugc.ultragamecenter.Models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import urjc.ugc.ultragamecenter.Types.RoleType;
 
 @Entity
-@Table(name = "Users")
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UserEntity implements UserDetails {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5767343013628002370L;
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
@@ -26,9 +51,12 @@ public class User {
     private ArrayList<Tablegame> reservatedTables;
     private HashMap<String, Double> affinity;
     private ArrayList<Event> recomendated;
-    private RoleType rol;
+    
+    @ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
+    private Set<RoleType> role;
 
-    public User() {
+    public UserEntity() {
     }
 
     private Double getAffinity(Event e) {
@@ -52,26 +80,31 @@ public class User {
             recomendated.sort((e1, e2) -> (int) (100 * (getAffinity(e1) - getAffinity(e2))));
         }
     }
+    
 
-    public User(String name, String lastname, String password, String email) {
+    public UserEntity(String name, String lastname, String password, String email) {
         this.name = name;
         this.lastName = lastname;
         this.passwordHash = password;
         this.email = email;
         this.eventsLikeIt = new ArrayList<Long>();
         this.reservatedTables = new ArrayList<Tablegame>();
-        this.rol = RoleType.REGISTERED_USER;
+        this.role = new TreeSet<RoleType>();
+        this.role.add(RoleType.USER);
     }
+ 
 
-    public User(String name, String password, String email, RoleType role) {
+    public UserEntity(String name, String password, String email, RoleType role) {
         this.name = name;
         this.passwordHash = password;
         this.lastName = "";
         this.email = email;
         this.eventsLikeIt = new ArrayList<Long>();
         this.reservatedTables = new ArrayList<Tablegame>();
-        this.rol = role;
+        this.role = new TreeSet<RoleType>();
+        this.role.add(role);
     }
+    
 
     public Long getId() {
         return this.id;
@@ -106,13 +139,30 @@ public class User {
     }
 
     public RoleType getRoles() {
-        return rol;
+    	if (role.contains(RoleType.ADMIN)) {
+    		return RoleType.ADMIN;
+    	}
+    	return RoleType.USER;
     }
 
-    public void setRoles(RoleType roles) {
-        this.rol = roles;
+    public void setRoles(RoleType role) {
+        this.role.add(role);
     }
-
+    
+    public void giveRoles(RoleType role) {
+    	if (this.role.contains(role)) {
+    		return;
+    	} else {
+    		if (role == RoleType.ADMIN) {
+    			this.role.remove(RoleType.ADMIN);
+    			this.role.add(RoleType.USER);
+    		} else {
+    			this.role.remove(RoleType.USER);
+    			this.role.add(RoleType.ADMIN);
+    		}
+    	}
+    }
+    
     public void addTable(Tablegame table) {
         this.reservatedTables.add(table);
     }
@@ -121,7 +171,7 @@ public class User {
     public String toString() {
         return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email
                 + ", envets liked=" + this.eventsLikeIt + ", password=" + this.passwordHash + ", Tables="
-                + this.reservatedTables + ", rol=" + this.rol + "]";
+                + this.reservatedTables + ", role=" + this.role + "]";
     }
 
     public void likedEvent(Event e) {
@@ -170,6 +220,41 @@ public class User {
             }
         }
         return aux;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return role.stream().map(ur -> new SimpleGrantedAuthority("ROLE_" + ur.name())).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return true;
     }
 
 }

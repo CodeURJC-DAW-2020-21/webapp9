@@ -3,24 +3,28 @@ package urjc.ugc.ultragamecenter.Components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.Models.UserEntity;
 import urjc.ugc.ultragamecenter.Types.RoleType;
 
 @Component
 @SessionScope
 public class UserComponent {
+	
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-	private User user;
+	private UserEntity user;
 
-	public User getLoggedUser() {
+	public UserEntity getLoggedUser() {
 		return this.user;
 	}
 
-	public void setLoggedUser(User user) {
+	public void setLoggedUser(UserEntity user) {
 		this.user = user;
 	}
 
@@ -29,7 +33,7 @@ public class UserComponent {
 	}
 
 	public boolean isAdmin() {
-		return isLoggedUser() && this.user.getRoles().equals(RoleType.ADMINISTRATOR);
+		return isLoggedUser() && this.user.getRoles().equals(RoleType.ADMIN);
 	}
 
 	public RoleType getRole() {
