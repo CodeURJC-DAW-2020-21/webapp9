@@ -2,6 +2,7 @@ package urjc.ugc.ultragamecenter.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -135,22 +136,40 @@ public class User {
                 + this.referencedCodes + ", rol=" + this.rol + "]";
     }
 
-    public void likedEvent(Event e) {
+    public void likedEvent(Event e,List<Event> allEvents) {
+        ArrayList<String> aux=new ArrayList<String>();
+        for(Event er: allEvents){
+            for(String label:er.getLavels()){
+                aux.add(label);
+            }
+        }
         Double base = 0.5;
         e.like();
+        System.out.println(this.affinity);
         this.eventsLikeIt.add(e.getId());
-        for (String x : Event.allLabels) {
+        System.out.println(this.affinity);
+        for (String x : aux) {
+            System.out.println(this.affinity);
             if (e.getLavels().contains(x)) {
+                System.out.println(this.affinity);
                 if (this.affinity.containsKey(x)) {
+                    System.out.println("Como le ha gustado la etiqueta"+x+" suben sus puntos");
                     this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
+                    System.out.println(this.affinity);
                 } else {
+                    System.out.println("Como le ha gustado la etiqueta "+ x+ " suben sus puntos");
                     this.affinity.put(x, Math.sqrt(base));
+                    System.out.println(this.affinity);
                 }
             } else {
                 if (this.affinity == null) {
+                    System.out.println("No había afinidad previa");
                     this.affinity = new HashMap<String,Double>();
+                    System.out.println(this.affinity);
                 }
+                System.out.println("Como no le ha gustado la etiqueta "+x+", bajan sus puntos");
                 this.affinity.put(x, base * base);
+                System.out.println(this.affinity);
             }
         }
     }

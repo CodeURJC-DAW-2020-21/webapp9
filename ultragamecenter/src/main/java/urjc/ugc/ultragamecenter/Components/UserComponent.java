@@ -51,18 +51,26 @@ public class UserComponent {
 		return this.user.getEventsLiked().contains(event);
 	}
 
-	public void like(Event event) {
-		this.user.likedEvent(event);
+	public void like(Event event,List<Event> allEvents) {
+		this.user.likedEvent(event,allEvents);
 	}
 
 
 
-	public Page<Event> sort(Page<Event> PageEvents) {
-		List<Event> events = PageEvents.getContent();
-		if (user == null) {
-			return new PageImpl<Event>(events);
+	public List<Event> sort(List<Event> events,Integer c) {
+		for(Event e:events){
+			System.out.println(e);
+			System.out.println(user.getValue(e));
+			System.out.println("\n\n\n\n");
 		}
 		ArrayList<Event> aux = new ArrayList<Event>();
+		ArrayList<Event> aux2 = new ArrayList<Event>();
+		if (user == null) {
+			for(Integer i=0;i<c;i++){
+				aux2.add(events.get(i));
+			}
+			return aux2;
+		}
 		while (events.size() != 0) {
 			int index = 0;
 			for (int x = 0; x < events.size(); x++) {
@@ -73,7 +81,10 @@ public class UserComponent {
 			aux.add(events.get(index));
 			events.remove(index);
 		}
-		return new PageImpl<Event>(aux);
+		for(Integer i=0;i<c;i++){
+			aux2.add(aux.get(i));
+		}
+		return aux2;
 	}
 
 }

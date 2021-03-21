@@ -127,7 +127,7 @@ public class UserController {
 	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		Page<Event> events = this.loggedUser.sort(eventService.getPageEvents(0, pageSize));
+		Page<Event> events = eventService.getPageEvents(0, pageSize);
 		model.addAttribute("events", events);
 		return "EventsTemplate";
 	}
@@ -184,13 +184,14 @@ public class UserController {
 
 		Event event = eRepository.findByid(Long.parseLong(id));
 		if (this.loggedUser.isLoggedUser() && !this.loggedUser.hasLiked(event.getId())) {
-			this.loggedUser.like(event);
+			this.loggedUser.like(event,this.eRepository.findAll());
 			eRepository.save(event);
+			urepository.save(this.loggedUser.getLoggedUser());
 		} else {
 			return getProfile(model);
 		}
 
-		return getEvents(model, 0);
+		return getEvents(model, 3);
 	}
 
 	@GetMapping("/admin/graph-tables")
@@ -273,6 +274,7 @@ public class UserController {
 				events.add(eRepository.findByid(ID));
 			}
 			model.addAttribute("events", events);
+			model.addAttribute("events_r", this.loggedUser.sort(eRepository.findAll(),3));
 			model.addAttribute("site", "PERFIL");
 			model.addAttribute("tables", loggedUser.getLoggedUser().getReferencedCodes());
 			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());

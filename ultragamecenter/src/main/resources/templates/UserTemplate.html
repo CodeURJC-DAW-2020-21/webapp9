@@ -36,6 +36,16 @@
             </ul>
         </div>
         <div class="user-display-info">
+            <h3 class="user-info" >Eventos Recomendados</h3>
+            <ul>
+                {{#events_r}}
+                <li>
+                    <a href="/events/see-event?id={{id}}">{{name}}</a>
+                </li>
+                {{/events_r}}
+            </ul>
+        </div>
+        <div class="user-display-info">
             <h3 class="user-info">Mis Eventos</h3>
             <ul>
                 {{#events}}

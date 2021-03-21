@@ -18,7 +18,6 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    public static ArrayList<String> allLabels= new ArrayList<String>();
 
     private String name;
     private String description;
@@ -77,7 +76,7 @@ public class Event {
 
     @Override
 	public String toString() {
-		return "Event [id=" + id + ", Name=" + name + ", Description=" + description + ", likes=" + likes+"]";
+		return "Event [id=" + id + ", Name=" + name + ", Description=" + description + ", likes=" + likes+", Labels="+this.lavels+"]";
 	}
     public Date getDate() {
         return date;
