@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -25,16 +25,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.Components.UserComponent;
-import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Models.TableReservation;
-import urjc.ugc.ultragamecenter.Models.Tablegame;
-import urjc.ugc.ultragamecenter.Models.User;
-import urjc.ugc.ultragamecenter.Repositories.EventRepository;
-import urjc.ugc.ultragamecenter.Repositories.TableRepository;
-import urjc.ugc.ultragamecenter.Repositories.TableReservationRepository;
-import urjc.ugc.ultragamecenter.Repositories.UserRepository;
-import urjc.ugc.ultragamecenter.Services.UserService;
+import urjc.ugc.ultragamecenter.components.*;
+import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.repositories.*;
+import urjc.ugc.ultragamecenter.services.*;
 
 @Controller
 public class UserController {

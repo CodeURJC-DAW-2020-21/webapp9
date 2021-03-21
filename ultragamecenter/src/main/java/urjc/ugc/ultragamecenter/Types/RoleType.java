@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Types;
+package urjc.ugc.ultragamecenter.types;
 
 public enum RoleType {
     USER, ADMIN

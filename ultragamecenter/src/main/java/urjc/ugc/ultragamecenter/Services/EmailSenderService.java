@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Services;
+package urjc.ugc.ultragamecenter.services;
 
 import java.util.Properties;
 import java.util.regex.Pattern;

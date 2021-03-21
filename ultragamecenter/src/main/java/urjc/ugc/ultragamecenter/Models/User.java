@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Models;
+package urjc.ugc.ultragamecenter.models;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +28,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import urjc.ugc.ultragamecenter.Types.RoleType;
+import urjc.ugc.ultragamecenter.types.RoleType;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)

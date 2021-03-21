@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Models;
+package urjc.ugc.ultragamecenter.models;
 
 import java.sql.Date;
 import java.util.ArrayList;
