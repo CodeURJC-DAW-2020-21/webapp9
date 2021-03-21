@@ -133,6 +133,7 @@ public class UserController {
 
 	@GetMapping("/admin/graph-event")
 	public String graphEvent(@RequestParam String id, Model model) {
+		model.addAttribute("Admin-ico", this.loggedUser.isAdmin() ? "fa fa-star" : "");
 		model.addAttribute("site", "GRAFICO");
 		setHeader(model);
 		Event event = eRepository.findByid(Long.parseLong(id));
