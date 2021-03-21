@@ -64,6 +64,7 @@ public class InitDataBase implements CommandLineRunner{
             Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "images/Events/event_1.jpg",100);
             event1.putLavel(EventLavelType.MOBA.toString());
             event1.putLavel(EventLavelType.SHOOTER.toString());
+            event1.setGallery("/images/Events/event_1.jpg","/images/Events/event_1.jpg", "/images/Events/event_1.jpg");
 
             Event event2 = new Event("LOL", "championship", "2015-03-20", "images/Events/teamG2.png",100);
             event2.putLavel(EventLavelType.MOBA.toString());

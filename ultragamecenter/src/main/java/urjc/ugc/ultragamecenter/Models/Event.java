@@ -26,6 +26,7 @@ public class Event {
     private String bannerUrl;
     private Integer likes;
     private ArrayList<String> lavels;
+    private ArrayList<String> gallery;
     private Integer capacity;
     @Lob
 	private Blob imageFile;
@@ -39,6 +40,7 @@ public class Event {
         this.likes=0;
         this.bannerUrl = bannerUrl;
         this.lavels = new ArrayList<String>();
+        this.gallery = new ArrayList<String>();
         this.capacity = capacity;
     }
 
@@ -63,7 +65,15 @@ public class Event {
     }
 
     
-    
+    public  ArrayList<String> getGallery(){
+        return gallery;
+    }
+
+    public void setGallery(String... gallery) {
+        for(String g: gallery){
+            this.gallery.add(g);
+        }
+    }
 
     @Override
 	public String toString() {
