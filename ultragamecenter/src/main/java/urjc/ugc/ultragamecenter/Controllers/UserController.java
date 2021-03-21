@@ -99,7 +99,7 @@ public class UserController {
 	}
 
 	@GetMapping("/events")
-	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "1") int pageSize) {
+	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
 		Page <Event> events = eventService.getPageEvents(0,pageSize);

@@ -1,5 +1,5 @@
 {{>header}}
-<p id="pageSize" style="display: none;">1</p>
+<p id="pageSize" style="display: none;">3</p>
 <div class="eventContainer">
     {{#events}}
     <div class="event">
@@ -29,7 +29,7 @@
     <script type="text/javascript">
         $("button").click(function(){
             var elemento = document.getElementById("pageSize");
-            elemento.innerHTML = parseInt(elemento.innerHTML) + 1
+            elemento.innerHTML = parseInt(elemento.innerHTML) + 2
             $( ".eventContainer" ).load("https://localhost:8443/events?pageSize="+elemento.innerHTML+" .eventContainer" );
         });
     </script>
