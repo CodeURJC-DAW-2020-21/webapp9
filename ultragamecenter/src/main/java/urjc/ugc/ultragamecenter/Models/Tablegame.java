@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.Models;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.persistence.Column;
@@ -19,14 +20,16 @@ public class Tablegame {
     private Long id;
     private String type;
     private ArrayList<Integer> state = new ArrayList<Integer>();
+    private Date date;
 
     public Tablegame(){}
 
-    public Tablegame(String type) {
+    public Tablegame(String type,String date) { //YYYY-MM-DD
         this.type = type;
         for (int i = 0; i < 9; i++) {
             this.state.add(0);
         }
+        this.date=Date.valueOf(date);
     }
 
 

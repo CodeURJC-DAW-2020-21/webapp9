@@ -9,7 +9,10 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -173,7 +176,8 @@ public class UserController {
 		Integer numPS5 = 0;
 
 		for (TableReservation tableReservation : reservations) {
-			Tablegame table = trepository.findById(tableReservation.getId_table());
+			Optional<Tablegame> opttable = trepository.findById(tableReservation.getId_table());
+			Tablegame table = opttable.get();
 
 			switch (table.getType()) {
 			case "PC":
@@ -380,5 +384,33 @@ public class UserController {
 		eRepository.save(event);
 		return getAdmin(model);
 	}
+	//-----------------tableController--------------------
+	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.Controllers.TableController");
 
+
+	@PostMapping("/trytoreserve")
+	public String reserve(@RequestParam String type, @RequestParam String day,@RequestParam String hour, Model model){
+		Integer hour_int=Integer.parseInt(hour);
+		java.sql.Date sqldate = java.sql.Date.valueOf(day);
+		List<Tablegame> tables = trepository.findByTypeAndDate(type, sqldate);
+		log.log(Level.WARNING,tables.toString());
+		if (tables.size()!=0){
+			boolean changed=true;
+			int i = 0;
+			while(changed && (i!=tables.size())){
+				if (tables.get(i).getState().get(hour_int) == 0){
+					tables.get(i).setState(hour_int, 1);
+					trepository.saveAll(tables);
+					changed=false;
+					List<Tablegame> test = trepository.findByTypeAndDate(type, sqldate);
+					log.log(Level.WARNING,test.toString());
+				}
+				i++;
+			}			
+		}else{
+			log.log(Level.WARNING,"VACIOO");
+		}
+		
+		return "404";
+	}
 }

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name="Reservation")
@@ -17,10 +17,10 @@ public class TableReservation {
     private Long id_table;
     private String referenced_code;
     private Date date;
-    private Date hour;
+    private Integer hour;
 
     public TableReservation(){}
-    public TableReservation(Long id_table, String referenced_code, Date date, Date hour) {
+    public TableReservation(Long id_table, String referenced_code, Date date, Integer hour) {
         this.id_table = id_table;
         this.referenced_code = referenced_code;
         this.date = date;
@@ -47,11 +47,11 @@ public class TableReservation {
         this.date = date;
     }
 
-    public Date getHour() {
+    public Integer getHour() {
         return hour;
     }
 
-    public void setHour(Date hour) {
+    public void setHour(Integer hour) {
         this.hour = hour;
     }
 
