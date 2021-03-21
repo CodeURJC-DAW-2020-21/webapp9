@@ -14,18 +14,16 @@
                         {{/bannerUlr}}
                         <div class="widget-content-left">
                         <a class="widget-heading" href="/events/see-event?id={{id}}">{{name}}</a>
-                        {{#date}}
                         <div class="widget-subheading">
                             <i class="fas fa-calendar"></i>  {{date}}
                         </div>
-                        {{/date}}
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-success">
-                                {{#likes}}
                                 {{likes}}  <i class="fas fa-heart"></i>
-                                {{/likes}}
-                                <button class="btn-transition btn btn-outline-danger left-margin">Asistir</button>
+                                {{#isLogged}}
+                                <form method="get" action="/like"><button name="Asistir" value="Asistir" class="btn-transition btn btn-outline-danger left-margin"></button></form>
+                            	{{/isLogged}}
                             </div>
                         </div>
                     </div>
