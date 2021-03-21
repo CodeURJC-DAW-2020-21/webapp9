@@ -61,30 +61,26 @@ public class InitDataBase implements CommandLineRunner{
 
         if(eventRepository.count()==0){
             //create events
-            Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "images/Events/event_1.jpg",100);
-            event1.putLavel(EventLavelType.MOBA.toString());
+            Event event1 = new Event("Fornite", "fornite x marvel", "2015-03-15", "/images/Events/event_1.jpg",100);
             event1.putLavel(EventLavelType.SHOOTER.toString());
             event1.setGallery("/images/Events/event_1.jpg","/images/Events/event_1.jpg", "/images/Events/event_1.jpg");
 
-            Event event2 = new Event("LOL", "championship", "2015-03-20", "images/Events/teamG2.png",100);
+            Event event2 = new Event("LOL", "Final del mundial 2020", "2015-03-20", "/images/Events/teamG2.png",100);
             event2.putLavel(EventLavelType.MOBA.toString());
-            event2.putLavel(EventLavelType.SHOOTER.toString());
+            event2.setGallery("/images/Events/teamG2.png","/images/Events/teamG2.png", "/images/Events/teamG2.png");
 
-            Event event3 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
-            event3.putLavel(EventLavelType.MOBA.toString());
-            event3.putLavel(EventLavelType.SHOOTER.toString());
+            Event event3 = new Event("NVIDIA", "Nueva Gráfica super potente", "2015-03-25", "/images/Events/Worlds_2021.png",100);
+            event3.putLavel(EventLavelType.PRESENTATION.toString());
 
-            Event event4 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
-            event4.putLavel(EventLavelType.MOBA.toString());
-            event4.putLavel(EventLavelType.SHOOTER.toString());
+            Event event4 = new Event("COD", "black ops", "2015-03-25", "/images/Events/Worlds_2021.png",100);
+            event4.putLavel(EventLavelType.FPS.toString());
 
-            Event event5 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
-            event5.putLavel(EventLavelType.MOBA.toString());
+            Event event5 = new Event("HALO", "black ops", "2015-03-25", "/images/Events/Worlds_2021.png",100);
             event5.putLavel(EventLavelType.SHOOTER.toString());
+            event5.putLavel(EventLavelType.FPS.toString());
 
-            Event event6 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
+            Event event6 = new Event("Smite", "Final regional entre Madrid y Fuenlabrada", "2015-03-25", "/images/Events/Worlds_2021.png",100);
             event6.putLavel(EventLavelType.MOBA.toString());
-            event6.putLavel(EventLavelType.SHOOTER.toString());
 
 
         

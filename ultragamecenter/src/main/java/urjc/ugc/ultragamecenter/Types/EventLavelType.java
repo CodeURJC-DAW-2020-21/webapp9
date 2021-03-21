@@ -3,7 +3,8 @@ package urjc.ugc.ultragamecenter.Types;
 public enum EventLavelType {
     SHOOTER,
     MOBA,
-    FPS
+    FPS,
+    PRESENTATION,
 
 
 }
