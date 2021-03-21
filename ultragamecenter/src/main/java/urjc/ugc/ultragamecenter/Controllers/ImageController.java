@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 
 import java.io.File;

@@ -17,6 +17,6 @@ public class MailController {
     @GetMapping("/sendMail")
     public void sendMail() throws MessagingException {
         EmailSenderService emailSender = (EmailSenderService) appContext.getBean("emailSenderService");
-        emailSender.sendEmail("santo2927@gmail.com", "testmail", "hola guapo");
+        emailSender.sendEmail("santo2927@gmail.com", "12345");
     }
 }

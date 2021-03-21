@@ -13,10 +13,11 @@ public class EmailSenderService {
     JavaMailSender mailSender;
 
     //Pasamos por parametro: destinatario, asunto y el mensaje
-    public void sendEmail(String to, String subject, String content) {
+    public void sendEmail(String to, String code) {
 
         SimpleMailMessage email = new SimpleMailMessage();
-
+        String subject = "UltraGamingCenter: código de reserva de mesa";
+        String content = "Tu código de reserva de mesa es "+ code;
         email.setTo(to);
         email.setSubject(subject);
         email.setText(content);
