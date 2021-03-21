@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -98,10 +99,11 @@ public class UserController {
 	}
 
 	@GetMapping("/events")
-	public String getEvents(Model model) {
+	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		model.addAttribute("events", this.loggedUser.sort(eRepository.findAll()));
+		Page <Event> events = eventService.getPageEvents(0,pageSize);
+		model.addAttribute("events", events);
 		return "EventsTemplate";
 	}
 	
@@ -163,7 +165,7 @@ public class UserController {
 			return getProfile(model);
 		}
 
-		return getEvents(model);
+		return getEvents(model,0);
 	}
 
 	@GetMapping("/admin/graph-tables")
@@ -394,5 +396,4 @@ public class UserController {
 		eRepository.save(event);
 		return getAdmin(model);
 	}
-
 }

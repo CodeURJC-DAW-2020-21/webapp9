@@ -73,11 +73,28 @@ public class InitDataBase implements CommandLineRunner{
             Event event3 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
             event3.putLavel(EventLavelType.MOBA.toString());
             event3.putLavel(EventLavelType.SHOOTER.toString());
+
+            Event event4 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
+            event4.putLavel(EventLavelType.MOBA.toString());
+            event4.putLavel(EventLavelType.SHOOTER.toString());
+
+            Event event5 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
+            event5.putLavel(EventLavelType.MOBA.toString());
+            event5.putLavel(EventLavelType.SHOOTER.toString());
+
+            Event event6 = new Event("COD", "black ops", "2015-03-25", "images/Events/Worlds_2021.png",100);
+            event6.putLavel(EventLavelType.MOBA.toString());
+            event6.putLavel(EventLavelType.SHOOTER.toString());
+
+
         
             //save events
             eventRepository.save(event1);
             eventRepository.save(event2);
             eventRepository.save(event3);
+            eventRepository.save(event4);
+            eventRepository.save(event5);
+            eventRepository.save(event6);
         }
 
         if(tableRepository.count()==0){
