@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -101,7 +102,9 @@ public class UserController {
 	public String getEvents(Model model) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		model.addAttribute("events", this.loggedUser.sort(eRepository.findAll()));
+		Page <Event> events = eventService.getPageEvents();
+		model.addAttribute("events", events);
+		//model.addAttribute("events", this.loggedUser.sort(eRepository.findAll()));
 		return "EventsTemplate";
 	}
 	

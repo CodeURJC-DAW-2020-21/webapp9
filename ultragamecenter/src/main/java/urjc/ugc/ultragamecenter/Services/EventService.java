@@ -1,6 +1,11 @@
 package urjc.ugc.ultragamecenter.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +18,16 @@ public class EventService {
     private EventRepository eventRepository;
     @Autowired
 	private ImageService imageService;
+
+
+	public List<Event> getAllEvents() {
+		return eventRepository.findAll();
+	}
+	public Page<Event> getPageEvents() {
+		Pageable p = PageRequest.of(0, 3);
+		return eventRepository.findAll(p);
+	}
+
 
     public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile file1,
         MultipartFile file2, MultipartFile file3,String date,Integer capacity) {
