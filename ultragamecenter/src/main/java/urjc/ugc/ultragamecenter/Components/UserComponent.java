@@ -32,7 +32,7 @@ public class UserComponent {
 	}
 
 	public boolean isAdmin() {
-		return isLoggedUser() && this.user.getRoles().equals(RoleType.ADMIN);
+		return this.user.getRoles().contains("ADMIN");
 	}
 
 	public String getRole() {

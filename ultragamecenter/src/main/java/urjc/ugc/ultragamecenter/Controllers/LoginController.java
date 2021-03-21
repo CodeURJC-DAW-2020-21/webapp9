@@ -4,18 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.services.*;
-
 @Controller
 public class LoginController {
 	
-	@GetMapping("/")
-	public String getIndex(Model model) {
-		//setHeader(model);
-		//model.addAttribute("site", "INICIO");
-		return "index";
-	}
 	
 	@GetMapping(value = "/login")
 	public String login() {
@@ -34,4 +25,5 @@ public class LoginController {
 	public String register() {
 		return "register";
 	}
+	
 }
