@@ -160,13 +160,13 @@ Web app for a gaming center called ***Ultra Game Center***
 
 **Miguel**
 
--  Completed tasks: Created some entities, added the error page, listed events template, most of the work in admin template and visual fixtures.
+-  Completed tasks: Created some entities, added the error page, listed events template (with pagination), most of the work in admin template and visual fixtures.
 
 - 5 most significant commits:
   1. List all events with mustache
   2. Error page + css
-  3. Delete reservation
-  4. Delete event
+  3. Delete reservation/event
+  4. Pagination works
   5. Reservations / events graphs
   
 - 5 files with participation:
