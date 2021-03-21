@@ -3,6 +3,8 @@ package urjc.ugc.ultragamecenter.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -47,9 +49,10 @@ public class UserComponent {
 		this.user.likedEvent(event);
 	}
 
-	public List<Event> sort(List<Event> events) {
+	public Page<Event> sort(Page<Event> PageEvents) {
+		List<Event> events = PageEvents.getContent();
 		if (user == null) {
-			return events;
+			return new PageImpl<Event>(events);
 		}
 		ArrayList<Event> aux = new ArrayList<Event>();
 		while (events.size() != 0) {
@@ -62,7 +65,7 @@ public class UserComponent {
 			aux.add(events.get(index));
 			events.remove(index);
 		}
-		return aux;
+		return new PageImpl<Event>(aux);
 	}
 
 }

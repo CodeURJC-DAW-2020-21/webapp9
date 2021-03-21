@@ -101,7 +101,7 @@ public class UserController {
 	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		Page <Event> events = eventService.getPageEvents(0,pageSize);
+		Page <Event> events = this.loggedUser.sort(eventService.getPageEvents(0,pageSize));
 		model.addAttribute("events", events);
 		return "EventsTemplate";
 	}
