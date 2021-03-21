@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Repositories.*;
+import urjc.ugc.ultragamecenter.Services.EmailSenderService;
 import urjc.ugc.ultragamecenter.Components.UserComponent;
 
 @Controller
@@ -48,6 +49,9 @@ public class UserController {
 
 	@Autowired
 	TableReservationRepository trrepository;
+
+	@Autowired
+	EmailSenderService emailSender;
 
 	private Event editedEvent = null;
 
@@ -89,7 +93,7 @@ public class UserController {
 		model.addAttribute("site", "MESAS");
 		model.addAttribute("full", "");
 		setHeader(model);
-		model.addAttribute("logged", this.loggedUser.isLoggedUser());
+		model.addAttribute("logged", !this.loggedUser.isLoggedUser());
 		return "ReservationTemplate";
 	}
 
@@ -415,28 +419,34 @@ public class UserController {
 			}
 			i++;
 		}
+		log.log(Level.WARNING, "antes de comprobar si reserved");
 		if (!reserved) {// not reserved
+			log.log(Level.WARNING, "not reserved");
 			String full = "No hay disponibilidad de mesas de " + type + " para el dia " + day
 					+ " en la hora seleccionada";
 			model.addAttribute("full", full);
 			return "ReservationTemplate";
-		} else {// reserved
+		}else{// reserved
+			log.log(Level.WARNING, "antes de logged user");
 			if (this.loggedUser.isLoggedUser()) { // logged user
-				Integer id = this.loggedUser.getLoggedUser().getId();
-				Optional<User> optUser = urepository.findById(id);
-				User logUser = optUser.get();
-				ArrayList<String> refCodes = logUser.getReferencedCodes();
+				User logUser= this.loggedUser.getLoggedUser();
 				String randomCode = randomRefCode();
-				refCodes.add(randomCode);
-				logUser.setReferencedCode(refCodes);
+				logUser.getReferencedCodes().add(randomCode);
 				urepository.save(logUser);
+				log.log(Level.WARNING, "usuario guardado");
 				TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+				log.log(Level.WARNING, "entidad reserva inicia");
 				trrepository.save(tReserve);
+				log.log(Level.WARNING, "entidad reserva guarda");
+				emailSender.sendEmail("kijexay566@naymio.com", "hola que tal", "test");
+				log.log(Level.WARNING, "email se envia");
 			} else { // guest user
+				log.log(Level.WARNING, "guest useer");
 				String randomCode = randomRefCode();
 				TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
 				trrepository.save(tReserve);
 				//email sender
+				
 			}
 		}
 
