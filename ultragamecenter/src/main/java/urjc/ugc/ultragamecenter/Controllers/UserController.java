@@ -99,12 +99,12 @@ public class UserController {
 	}
 
 	@GetMapping("/events")
-	public String getEvents(Model model) {
+	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "1") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		Page <Event> events = eventService.getPageEvents();
+		Page <Event> events = eventService.getPageEvents(0,pageSize);
+		model.addAttribute("nextPageSize",pageSize+1);
 		model.addAttribute("events", events);
-		//model.addAttribute("events", this.loggedUser.sort(eRepository.findAll()));
 		return "EventsTemplate";
 	}
 	
@@ -166,7 +166,7 @@ public class UserController {
 			return getProfile(model);
 		}
 
-		return getEvents(model);
+		return getEvents(model,0);
 	}
 
 	@GetMapping("/admin/graph-tables")
@@ -397,5 +397,4 @@ public class UserController {
 		eRepository.save(event);
 		return getAdmin(model);
 	}
-
 }

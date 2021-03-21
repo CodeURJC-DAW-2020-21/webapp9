@@ -22,4 +22,11 @@
             onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
     </div>
     {{/events}}
+    <button onclick="loadMore()">ver más</button>
+    <script>
+        function loadMore(){
+            var pageSize = {pageSize} + 1;
+            window.location.replace("https://localhost:8443/events?pageSize="+{{nextPageSize}});
+        }
+    </script>
     {{>footer}}

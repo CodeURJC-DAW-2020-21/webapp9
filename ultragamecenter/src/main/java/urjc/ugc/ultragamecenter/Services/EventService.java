@@ -23,8 +23,8 @@ public class EventService {
 	public List<Event> getAllEvents() {
 		return eventRepository.findAll();
 	}
-	public Page<Event> getPageEvents() {
-		Pageable p = PageRequest.of(0, 3);
+	public Page<Event> getPageEvents(int pageNumber, int pageSize) {
+		Pageable p = PageRequest.of(pageNumber, pageSize);
 		return eventRepository.findAll(p);
 	}
 
