@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageService {
 
 
-	private static final SimpleDateFormat fileNameFormat = new SimpleDateFormat("'img-'yyyyMMdd-hhmmss-SSS");
+	private static final SimpleDateFormat FILE_NAME_FORMAT = new SimpleDateFormat("'img-'yyyyMMdd-hhmmss-SSS");
 	public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";
 	public static final String IMG_CONTROLLER_URL = "/images/uploads/";
 
@@ -36,7 +35,7 @@ public class ImageService {
 	}
 
 	private synchronized String generateFileName() {
-		return fileNameFormat.format(new Date());
+		return FILE_NAME_FORMAT.format(new Date());
 	}
 
 }

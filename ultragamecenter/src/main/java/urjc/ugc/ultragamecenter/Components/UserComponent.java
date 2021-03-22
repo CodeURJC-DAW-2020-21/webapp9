@@ -3,20 +3,11 @@ package urjc.ugc.ultragamecenter.components;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.EventRepository;
-import urjc.ugc.ultragamecenter.repositories.UserRepository;
-import urjc.ugc.ultragamecenter.types.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 import urjc.ugc.ultragamecenter.models.Event;
 import urjc.ugc.ultragamecenter.models.User;
 
@@ -25,9 +16,6 @@ import urjc.ugc.ultragamecenter.models.User;
 public class UserComponent {
 	
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-	@Autowired
-	private EventRepository erepository;
 
 	private User user;
 

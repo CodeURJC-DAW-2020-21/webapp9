@@ -71,7 +71,7 @@ public class UserController {
 
 	public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";
 	public static final String IMG_CONTROLLER_URL = "/images/uploads/";// -----------------tableController--------------------
-	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.controllers.TableController");
+	private final static Logger LOG = Logger.getLogger("urjc.ugc.ultragamecenter.controllers.TableController");
 	private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
 
 	@GetMapping("/")
@@ -158,18 +158,12 @@ public class UserController {
 
 	@GetMapping("/like")
 	public String likeEvent(@RequestParam String id, Model model) {
-		System.out.println("Aqui 1\n\n");
 		Event event = eRepository.findByid(Long.parseLong(id));
-		System.out.println("Aqui 2\n\n");
-		System.out.println(this.userComponent+" "+this.userComponent.hasLiked(event.getId()));
 		if (this.userComponent.isLoggedUser() && !this.userComponent.hasLiked(event.getId())) {
-			System.out.println("Aqui 3\n\n");
 			this.userComponent.like(event, this.eRepository.findAll());
-			System.out.println("Aqui 4\n\n");
 			eRepository.save(event);
 			urepository.save(this.userComponent.getLoggedUser());
 		} else {
-			System.out.println("Aqui 3.2\n\n");
 			return getProfile(model);
 		}
 
@@ -189,19 +183,20 @@ public class UserController {
 
 		for (TableReservation tableReservation : reservations) {
 			Optional<Tablegame> opttable = trepository.findById(tableReservation.getId_table());
-			Tablegame table = opttable.get();
-
-			switch (table.getType()) {
-			case "PC":
-				numPC++;
-				break;
-			case "XBOX_ONE":
-				numXBOX_ONE++;
-				break;
-			case "PS5":
-				numPS5++;
-				break;
-			default:
+			if (opttable.isPresent()) {
+				Tablegame table = opttable.get();
+				switch (table.getType()) {
+				case "PC":
+					numPC++;
+					break;
+				case "XBOX_ONE":
+					numXBOX_ONE++;
+					break;
+				case "PS5":
+					numPS5++;
+					break;
+				default:
+				}
 			}
 		}
 		model.addAttribute("numPC", numPC);
@@ -246,27 +241,6 @@ public class UserController {
 		return getProfile(model);
 	}
 
-	
-
-	/*
-	 * @GetMapping("/user") public String getUser(Model model) { if
-	 * (this.loggedUser.isLoggedUser()) { setHeader(model);
-	 * 
-	 * List<Event> events = new ArrayList<Event>(); for (Long ID :
-	 * this.loggedUser.getLoggedUser().getEventsLiked()) {
-	 * events.add(eRepository.findByid(ID)); } model.addAttribute("events", events);
-	 * model.addAttribute("events_r",
-	 * this.loggedUser.sort(eRepository.findAll(),3)); model.addAttribute("site",
-	 * "PERFIL"); model.addAttribute("tables",
-	 * loggedUser.getLoggedUser().getReferencedCodes()); model.addAttribute("Email",
-	 * loggedUser.getLoggedUser().getEmail()); model.addAttribute("Name",
-	 * loggedUser.getLoggedUser().getName()); model.addAttribute("Surname",
-	 * loggedUser.getLoggedUser().getLastName()); model.addAttribute("profileSrc",
-	 * loggedUser.getLoggedUser().getProfileSrc()); return "UserTemplate"; } else {
-	 * return getProfile(model); } }
-	 * 
-	 */
-
 	@GetMapping(value = "/login")
 	public String getLogin(Model model) {
 		setHeader(model);
@@ -293,7 +267,7 @@ public class UserController {
 			return getLogin(model);
 		}
 		ArrayList<Event> aux = new ArrayList<Event>();
-		for(Long l:this.userComponent.getLoggedUser().getEventsLiked()){
+		for (Long l : this.userComponent.getLoggedUser().getEventsLiked()) {
 			aux.add(eRepository.findByid(l));
 		}
 		setHeader(model);
@@ -456,7 +430,6 @@ public class UserController {
 		Integer hour_int = Integer.parseInt(hour);
 		java.sql.Date sqldate = java.sql.Date.valueOf(day);
 		List<Tablegame> tables = trepository.findByTypeAndDate(type, sqldate);
-		log.log(Level.WARNING, tables.toString());
 		boolean reserved = false;
 		int i = 0;
 		while (!reserved && (i != tables.size())) {
@@ -465,8 +438,6 @@ public class UserController {
 				table_id = tables.get(i).getId();
 				trepository.saveAll(tables);
 				reserved = true;
-				List<Tablegame> test = trepository.findByTypeAndDate(type, sqldate);
-				log.log(Level.WARNING, test.toString());
 			}
 			i++;
 		}
@@ -474,7 +445,6 @@ public class UserController {
 			String full = "No hay disponibilidad de mesas de " + type + " para el dia " + day
 					+ " en la hora seleccionada";
 			model.addAttribute("full", full);
-			log.log(Level.WARNING, "PASO 2");
 			setHeader(model);
 			model.addAttribute("site", "MESAS");
 			return "ReservationTemplate";
@@ -497,6 +467,7 @@ public class UserController {
 					try {
 						this.sendMail(email, randomCode);
 					} catch (MessagingException exc) {
+						
 					}
 				} else {
 					// no pasan email
@@ -531,7 +502,6 @@ public class UserController {
 
 		return generatedString;
 	}
-
 
 	public void setHeader(Model model) {
 		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");

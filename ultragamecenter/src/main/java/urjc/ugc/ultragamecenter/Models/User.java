@@ -4,22 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
-import urjc.ugc.ultragamecenter.types.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -83,19 +78,7 @@ public class User implements UserDetails {
 
     }
 
-    /*
-     * public User(String name, String lastname, String password, String email) {
-     * super(); this.name = name; this.lastName = lastname; this.passwordHash =
-     * password; this.email = email; this.eventsLikeIt = new ArrayList<Long>();
-     * this.reservatedTables = new ArrayList<Tablegame>(); this.roles = new
-     * ArrayList<String>(); this.roles.add("USER"); }
-     * 
-     * public User(String name, String password, String email, String role) {
-     * this.name = name; this.passwordHash = password; this.lastName = "";
-     * this.email = email; this.eventsLikeIt = new ArrayList<Long>();
-     * this.reservatedTables = new ArrayList<Tablegame>(); this.roles = new
-     * ArrayList<String>(); this.roles.add(role); }
-     */
+    
 
     private Double getAffinity(Event e) {
         Double aux = 0.0;
@@ -175,7 +158,7 @@ public class User implements UserDetails {
         if (this.roles.contains(role)) {
             return;
         } else {
-            if (role == "ADMIN") {
+            if (role.equals("ADMIN")) {
                 this.roles.remove("ADMIN");
                 this.roles.add("USER");
             } else {
@@ -209,26 +192,16 @@ public class User implements UserDetails {
         if(this.affinity==null){
             this.affinity = new HashMap<String, Double>();
         }
-        System.out.println(this.affinity);
         this.eventsLikeIt.add(e.getId());
-        System.out.println(this.affinity);
         for (String x : aux) {
-            System.out.println(this.affinity);
             if (e.getLavels().contains(x)) {
-                System.out.println(this.affinity);
                 if (this.affinity.containsKey(x)) {
-                    System.out.println("Como le ha gustado la etiqueta" + x + " suben sus puntos");
                     this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
-                    System.out.println(this.affinity);
                 } else {
-                    System.out.println("Como le ha gustado la etiqueta " + x + " suben sus puntos");
                     this.affinity.put(x, Math.sqrt(base));
-                    System.out.println(this.affinity);
                 }
             } else {
-                System.out.println("Como no le ha gustado la etiqueta " + x + ", bajan sus puntos");
                 this.affinity.put(x, base * base);
-                System.out.println(this.affinity);
             }
         }
     }
