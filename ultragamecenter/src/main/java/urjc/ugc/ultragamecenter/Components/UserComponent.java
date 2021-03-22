@@ -13,10 +13,19 @@ import urjc.ugc.ultragamecenter.models.*;
 import urjc.ugc.ultragamecenter.repositories.EventRepository;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
 import urjc.ugc.ultragamecenter.types.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.models.User;
+import urjc.ugc.ultragamecenter.types.RoleType;
 
 @Component
 @SessionScope
 public class UserComponent {
+	
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 	@Autowired
 	private EventRepository erepository;
@@ -36,11 +45,14 @@ public class UserComponent {
 	}
 
 	public boolean isAdmin() {
-		return isLoggedUser() && this.user.getRoles().equals(RoleType.ADMINISTRATOR);
+		return this.user.getRoles().contains("ADMIN");
 	}
 
-	public RoleType getRole() {
-		return this.user.getRoles();
+	public String getRole() {
+		if (this.user.getRoles().contains("ADMIN")) {
+			return "ADMIN";
+		}
+		return "USER";
 	}
 
 	public void logOut() {
@@ -58,11 +70,6 @@ public class UserComponent {
 
 
 	public List<Event> sort(List<Event> events,Integer c) {
-		for(Event e:events){
-			System.out.println(e);
-			System.out.println(user.getValue(e));
-			System.out.println("\n\n\n\n");
-		}
 		ArrayList<Event> aux = new ArrayList<Event>();
 		ArrayList<Event> aux2 = new ArrayList<Event>();
 		if (user == null) {

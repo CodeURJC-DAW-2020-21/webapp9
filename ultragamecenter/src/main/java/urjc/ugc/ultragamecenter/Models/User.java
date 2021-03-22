@@ -1,21 +1,49 @@
 package urjc.ugc.ultragamecenter.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
 
 import urjc.ugc.ultragamecenter.types.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Entity
-@Table(name = "Users")
-public class User {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import urjc.ugc.ultragamecenter.types.RoleType;
 
+@Entity @EntityListeners(AuditingEntityListener.class)
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class User implements UserDetails {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5767343013628002370L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -28,12 +56,39 @@ public class User {
     private ArrayList<String> referencedCodes;
     private HashMap<String, Double> affinity;
     private ArrayList<Event> recomendated;
-    private RoleType rol;
 
-    public User() {
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
+
+    public User(String name, String lastName, String password, String email) {
+        super();
+        this.name = name;
+        this.profileSrc = "images/uploads/defaultuser.png";
+        this.passwordHash = new BCryptPasswordEncoder().encode(password);
+        this.lastName = lastName;
+        this.email = email;
+        this.roles = new ArrayList<String>();
+        this.roles.add("USER");
     }
 
-     
+    public User() {
+
+    }
+
+    /*
+     * public User(String name, String lastname, String password, String email) {
+     * super(); this.name = name; this.lastName = lastname; this.passwordHash =
+     * password; this.email = email; this.eventsLikeIt = new ArrayList<Long>();
+     * this.reservatedTables = new ArrayList<Tablegame>(); this.roles = new
+     * ArrayList<String>(); this.roles.add("USER"); }
+     * 
+     * public User(String name, String password, String email, String role) {
+     * this.name = name; this.passwordHash = password; this.lastName = "";
+     * this.email = email; this.eventsLikeIt = new ArrayList<Long>();
+     * this.reservatedTables = new ArrayList<Tablegame>(); this.roles = new
+     * ArrayList<String>(); this.roles.add(role); }
+     */
+
     private Double getAffinity(Event e) {
         Double aux = 0.0;
         for (String lavel : e.getLavels()) {
@@ -54,27 +109,6 @@ public class User {
             recomendated.add(e);
             recomendated.sort((e1, e2) -> (int) (100 * (getAffinity(e1) - getAffinity(e2))));
         }
-    }
-
-    public User(String name, String lastname, String password, String email) {
-        this.name = name;
-        this.lastName = lastname;
-        this.profileSrc = "images/uploads/defaultuser.png";
-        this.passwordHash = password;
-        this.email = email;
-        this.eventsLikeIt = new ArrayList<Long>();
-        this.referencedCodes = new ArrayList<String>();
-        this.rol = RoleType.REGISTERED_USER;
-    }
-
-    public User(String name, String password, String email, RoleType role) {
-        this.name = name;
-        this.passwordHash = password;
-        this.lastName = "";
-        this.email = email;
-        this.eventsLikeIt = new ArrayList<Long>();
-        this.referencedCodes = new ArrayList<String>();
-        this.rol = role;
     }
 
     public Integer getId() {
@@ -109,37 +143,56 @@ public class User {
         return this.referencedCodes;
     }
 
-    public RoleType getRoles() {
-        return rol;
+    public List<String> getRoles() {
+        return this.roles;
     }
 
-    public void setRoles(RoleType roles) {
-        this.rol = roles;
+    public void setRoles(String role) {
+        this.roles.add(role);
     }
 
     public void setReferencedCode(ArrayList<String> rc) {
-        this.referencedCodes=rc;
+        this.referencedCodes = rc;
     }
 
-    public String getProfileSrc(){
+    public String getProfileSrc() {
         return profileSrc;
     }
 
-    public void setProfileSrc(String src){
+    public void setProfileSrc(String src) {
         this.profileSrc = src;
+    }
+
+    public void giveRoles(String role) {
+        if (this.roles.contains(role)) {
+            return;
+        } else {
+            if (role == "ADMIN") {
+                this.roles.remove("ADMIN");
+                this.roles.add("USER");
+            } else {
+                this.roles.remove("USER");
+                this.roles.add("ADMIN");
+            }
+        }
+    }
+
+    public void addReferencedCode(String refCode) {
+        this.referencedCodes.add(refCode);
     }
 
     @Override
     public String toString() {
         return "User [id=" + this.id + ", Name=" + this.name + ", lastName=" + this.lastName + ", email=" + this.email
-                + ", envets liked=" + this.eventsLikeIt + ", password=" + this.passwordHash + ", referencedCodes="
-                + this.referencedCodes + ", rol=" + this.rol + "]";
+                + ", envets liked=" + this.eventsLikeIt + ", password=" + this.passwordHash + ", Referenced_Codes="
+                + this.referencedCodes + ", role=" + this.roles + "]";
+
     }
 
-    public void likedEvent(Event e,List<Event> allEvents) {
-        ArrayList<String> aux=new ArrayList<String>();
-        for(Event er: allEvents){
-            for(String label:er.getLavels()){
+    public void likedEvent(Event e, List<Event> allEvents) {
+        ArrayList<String> aux = new ArrayList<String>();
+        for (Event er : allEvents) {
+            for (String label : er.getLavels()) {
                 aux.add(label);
             }
         }
@@ -153,21 +206,21 @@ public class User {
             if (e.getLavels().contains(x)) {
                 System.out.println(this.affinity);
                 if (this.affinity.containsKey(x)) {
-                    System.out.println("Como le ha gustado la etiqueta"+x+" suben sus puntos");
+                    System.out.println("Como le ha gustado la etiqueta" + x + " suben sus puntos");
                     this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
                     System.out.println(this.affinity);
                 } else {
-                    System.out.println("Como le ha gustado la etiqueta "+ x+ " suben sus puntos");
+                    System.out.println("Como le ha gustado la etiqueta " + x + " suben sus puntos");
                     this.affinity.put(x, Math.sqrt(base));
                     System.out.println(this.affinity);
                 }
             } else {
                 if (this.affinity == null) {
                     System.out.println("No había afinidad previa");
-                    this.affinity = new HashMap<String,Double>();
+                    this.affinity = new HashMap<String, Double>();
                     System.out.println(this.affinity);
                 }
-                System.out.println("Como no le ha gustado la etiqueta "+x+", bajan sus puntos");
+                System.out.println("Como no le ha gustado la etiqueta " + x + ", bajan sus puntos");
                 this.affinity.put(x, base * base);
                 System.out.println(this.affinity);
             }
@@ -187,19 +240,54 @@ public class User {
     }
 
     public double getValue(Event event) {
-        Double aux=0.0;
+        Double aux = 0.0;
         if (this.affinity == null) {
-            this.affinity = new HashMap<String,Double>();
+            this.affinity = new HashMap<String, Double>();
         }
-        for(String label:event.getLavels()){
-            if(this.affinity.containsKey(label)){
-                aux+=this.affinity.get(label);
-            } else{
-                aux+=0.5;
+        for (String label : event.getLavels()) {
+            if (this.affinity.containsKey(label)) {
+                aux += this.affinity.get(label);
+            } else {
+                aux += 0.5;
                 this.affinity.put(label, 0.5);
             }
         }
         return aux;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(ur -> new SimpleGrantedAuthority("ROLE_" + ur)).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return true;
     }
 
 }

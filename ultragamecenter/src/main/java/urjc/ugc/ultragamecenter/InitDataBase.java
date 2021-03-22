@@ -31,8 +31,8 @@ public class InitDataBase implements CommandLineRunner{
 
         if (userRepository.count()==0){
             //create users
-            User user0 = new User("DAW", "G9", "DAW", "daw@gmail.com");
-            user0.setRoles(RoleType.ADMINISTRATOR);
+            User user0 = new User("DAW", "G9", "DAW", "daw@gamail.com");
+            user0.setRoles("ADMIN");
         
             User user1 = new User("Jesus", "Elez", "1234", "jesus@gmail.com");
             

@@ -455,3 +455,8 @@ body {
 html {
   background-color:rgb(252, 249, 251);
 }
+
+.event-title {
+  font-weight: bolder;
+  color: red;
+}
