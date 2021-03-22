@@ -150,6 +150,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 ### Database structure:
 
+![DataBase](readme-photos/base.jpg)
 
 ### Classes and templates diagram
 
