@@ -1,0 +1,63 @@
+
+    {{>header}}
+
+    <div class="eventContainer">
+        <section class="htc__store__area ptb--120 bg__white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section__title section__title--2">
+                                <img class="profile-img" src="{{profileSrc}}"/>
+                            </div>
+                            <h2 class="title__line left-aligned">Nombre: {{name}}</h2>
+                            <h2 class="title__line left-aligned">Apellidos: {{lastname}}</h2>
+                            <div class="date">
+                                <p><i class="fas fa-envelope"></i>      Correo electonico: {{email}}</p>                           
+                            </div>
+                            
+                            <div class="store__btn left-aligned">
+                                <a href="/edit-profile">Editar perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+    
+    <div class="user-info-column">
+        <div class="user-display-info">
+            <h3 class="user-info" >Mis Reservas</h3>
+            <ul>
+                {{#tables}}
+                <li>
+                    <p>{{.}}</p>
+                </li>
+                {{/tables}}
+            </ul>
+        </div>
+        <div class="user-display-info">
+            <h3 class="user-info" >Eventos Recomendados</h3>
+            <ul>
+                {{#events_r}}
+                <li>
+                    <a href="/events/see-event?id={{id}}">{{name}}</a>
+                </li>
+                {{/events_r}}
+            </ul>
+        </div>
+        <div class="user-display-info">
+            <h3 class="user-info">Mis Eventos</h3>
+            <ul>
+                {{#events}}
+                <li>
+                    <a href="/events/see-event?id={{id}}">{{name}}</a>
+                </li>
+                {{/events}}
+            </ul>
+        </div>
+    </div>
+    
+
+    
+
+    {{>footer}}

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-UltragamecenterApplication<ultragamecenter>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "urjc.ugc.ultragamecenter.UltragamecenterApplication",
+            "projectName": "ultragamecenter",
+            "args": ""
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{{>header}}
+<p id="pageSize" style="display: none;">3</p>
+<div class="eventContainer">
+    <div class="event">
+        <div class="divider mt-0" style="margin-bottom: 30px"></div>
+        <ul>
+            {{#events}}
+            <li class="event-wrap">
+                <div class="card widget-content">
+                    <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                        {{#bannerUlr}}
+                        <img class="event-images rounded-circle" src="{{bannerUrl}" alt="G2 Team">
+                        {{/bannerUlr}}
+                        <div class="widget-content-left">
+                        <a class="widget-heading" href="/events/see-event?id={{id}}">{{name}}</a>
+                        <div class="widget-subheading">
+                            <i class="fas fa-calendar"></i>  {{date}}
+                        </div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-success">
+                                {{likes}}  <i class="fas fa-heart"></i>
+                                {{#isLogged}}
+                                <a class="widget-heading" href="/like?id={{id}}">Asistir</a>
+                            	{{/isLogged}}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </li>
+            {{/events}}
+        </ul>     
+    </div>
+    <button id="verMas" class="btn btn-success">Ver más</button>
+</div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script type="text/javascript">
+        $("#verMas").click(function(){
+            var elemento = document.getElementById("pageSize");
+            elemento.innerHTML = parseInt(elemento.innerHTML) + 2
+            $( ".eventContainer" ).load("https://localhost:8443/events?pageSize="+elemento.innerHTML+" .eventContainer" );
+        });
+    </script>
+    {{>footer}}
+
+    

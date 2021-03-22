@@ -1,0 +1,49 @@
+
+        {{>header}}
+        
+        <div class="body__overlay"></div>
+
+        <!-- Start Login Register Area -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <ul class="login__register__menu" role="tablist">
+                        <li role="presentation" class="login active"><a href="#editProfile" role="tab"
+                                data-toggle="tab">Perfil</a></li>
+                        <li role="presentation" class="register"><a href="#editPassword" role="tab"
+                                data-toggle="tab">Contraseña</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Start Login Register Content -->
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="htc__login__register__wrap">
+                        <!-- Start Single Content -->
+                        <div id="editProfile" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+                            <form class="login" method="post" action="/editProfile" enctype="multipart/form-data">
+                                <input type="text" placeholder="{{Name}}" name="name">
+                                <input type="text" placeholder="{{Surname}}" name="surname">
+                                <input type='file' name='image' accept=".jpg, .jpeg" />
+                                <input type='submit' value='Guardar' />
+                            </form>
+                        </div>
+                        <!-- End Single Content -->
+                        <!-- Start Single Content -->
+                        <div id="editPassword" role="tabpanel" class="single__tabs__panel tab-pane fade">
+                            <form action="/editPassword" class="login" method="post">
+                                <input type="password" placeholder="Contraseña*" name="password">
+                                <input type="password" placeholder="Repite tu contraseña*" name="password_repeated">
+                                <input type="password" placeholder="Contraseña nueva*" name="new_password">
+                                <input type='submit' value='Guardar' />
+                            </form>
+                        </div>
+                        <!-- End Single Content -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Login Register Content -->
+        </div>
+    </div>
+    {{>footer}}

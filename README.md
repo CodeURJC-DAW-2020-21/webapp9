@@ -84,3 +84,5 @@ Web app for a gaming center called ***Ultra Game Center***
 **Advanced query or algorithm:**
 
 - Based on the events that the user has liked, those events which users similar to him have also liked will appear first.
+
+
