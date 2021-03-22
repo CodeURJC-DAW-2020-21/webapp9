@@ -30,7 +30,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import urjc.ugc.ultragamecenter.types.RoleType;
 
 @Entity @EntityListeners(AuditingEntityListener.class)
 
