@@ -2,16 +2,9 @@ package urjc.ugc.ultragamecenter.controllers;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +46,6 @@ public class UserController {
 
 	public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";
 	public static final String IMG_CONTROLLER_URL = "/images/uploads/";// -----------------tableController--------------------
-	private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -106,26 +98,19 @@ public class UserController {
 		return "user";
 	}
 
-	@GetMapping("/get-user-image")
-	public ResponseEntity<Object> downloadImage(Model model) throws MalformedURLException {
-		User aux = this.userComponent.getLoggedUser();
-		Path imagePath = IMAGES_FOLDER.resolve("image" + aux.getEmail() + ".jpg");
-
-		Resource image = new UrlResource(imagePath.toUri());
-
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(image);
-	}
-
 	@GetMapping("/edit-profile")
 	public String editProfile(Model model) {
-		model.addAttribute("site", "EDITAR PERFIL");
-		setHeader(model);
-		String name = userComponent.getLoggedUser().getName();
-		String surname = userComponent.getLoggedUser().getLastName();
-		model.addAttribute("Name", name.equals("") ? "Nombre*" : name);
-		model.addAttribute("Surname", name.equals("") ? "Apellidos*" : surname);
-
-		return "EditProfileTemplate";
+		if(this.userComponent.isLoggedUser()){
+			model.addAttribute("site", "EDITAR PERFIL");
+			setHeader(model);
+			String name = userComponent.getLoggedUser().getName();
+			String surname = userComponent.getLoggedUser().getLastName();
+			model.addAttribute("Name", name.equals("") ? "Nombre*" : name);
+			model.addAttribute("Surname", name.equals("") ? "Apellidos*" : surname);
+	
+			return "EditProfileTemplate";
+		}
+		return "redirect:/";
 	}
 
 
