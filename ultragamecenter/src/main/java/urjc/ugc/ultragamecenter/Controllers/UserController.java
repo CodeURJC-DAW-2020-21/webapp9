@@ -227,7 +227,6 @@ public class UserController {
 			eRepository.delete(evento);
 		}
 		model.addAttribute("events", eRepository.findAll());
-		model.addAttribute("reservations", trrepository.findAll());
 		return getAdmin(model);
 	}
 
@@ -442,7 +441,6 @@ public class UserController {
 		if (this.userComponent.isAdmin()) {
 			model.addAttribute("name", "Admin");
 			model.addAttribute("events", eRepository.findAll());
-			model.addAttribute("reservations", trrepository.findAll());
 			return "admin";
 		}
 		return getProfile(model);
