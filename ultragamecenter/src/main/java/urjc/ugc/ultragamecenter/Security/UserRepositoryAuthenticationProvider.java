@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
-import urjc.ugc.ultragamecenter.types.RoleType;
 
 @Component
 public class UserRepositoryAuthenticationProvider implements AuthenticationProvider {

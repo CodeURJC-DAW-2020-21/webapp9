@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import urjc.ugc.ultragamecenter.models.Event;
 import urjc.ugc.ultragamecenter.models.User;
-import urjc.ugc.ultragamecenter.types.RoleType;
 
 @Component
 @SessionScope
