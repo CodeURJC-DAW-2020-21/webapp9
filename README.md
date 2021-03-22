@@ -156,6 +156,10 @@ Web app for a gaming center called ***Ultra Game Center***
 ![Class-Template Diagram](readme-photos/class-diagram.png)
 
 
+### Navigation Diagram (Updated)
+
+![Navigation_Diagram_Updated]
+
 ### Participation
 
 **Miguel**
@@ -176,3 +180,78 @@ Web app for a gaming center called ***Ultra Game Center***
   4. Events.html
   5. Both graphs templates
 
+
+**Rodrigo Díez**
+
+-  Completed tasks: Updated Entities, added reservation page, most of the work in reservation feature and database.
+
+- 5 most significant commits:
+  1. Reservation semi-done
+  2. Reservation feature
+  3. Updated names of bd and updated entities
+  4. User model updated
+  5. Updated event and initdatabase
+  
+- 5 files with participation:
+  1. Initdatabase
+  2. Controllers
+  3. Repositories
+  4. Entities
+  5. ReservationTemplate
+
+
+**Jesús**
+
+-  Completed tasks: Add event images, edit profile image and data base initialized.
+
+- 5 most significant commits:
+  1. Data base initialized
+  2. Add images on create events
+  3. Change user's profile picture
+  4. Init pagination
+  5. Some merge fixed
+  
+- 5 files with participation:
+  1. ImageService
+  2. UserController
+  3. InitDatabase
+  4. Event
+  5. event creator
+
+
+**Alejandro**
+
+-  Completed tasks: Added email service, added advanced algorithm
+
+- 5 most significant commits:
+  1. Some organizationd + UserController/UserComponent
+  2. Created tabletype and EventLavelType + added algorithm of affinity with event lavels
+  3. Adding methods created + updated recomendation algorithm
+  4. login-register working
+  5. Avanced Algoritm working
+  
+- 5 files with participation:
+  1. UserComponent.java
+  2. UserController.java
+  3. EmailSenderService.java
+  4. EventService.java
+  5. User.java
+
+
+**Rodrigo de Siqueira**
+
+-  Completed tasks: Spring Security Configuration, made login controller, mustache templates and general fixes.
+
+- 5 most significant commits:
+  1. Reservation semi-done
+  2. Reservation feature
+  3. Updated names of bd and updated entities
+  4. User model updated
+  5. Updated event and initdatabase
+  
+- 5 files with participation:
+  1. SecurityConfig
+  2. Login Controller
+  3. User Controller
+  4. Admin Controller
+  5. login.html
