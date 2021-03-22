@@ -147,10 +147,22 @@ Web app for a gaming center called ***Ultra Game Center***
 ## PHASE 2: Web with HTML generated in server and AJAX
 
 
+### Development direction:
+
+- Repository: https://github.com/CodeURJC-DAW-2020-21/webapp9
+- Development tools: Visual Studio Code, Spring Tool Suite4
+- Dependencies: Mail, MySQL connector
+- Follow the next steps to execute the files:
+    1. Open the project with your development tool
+    2. Start a MySQL service in the local host in the port 3304 with a schema called "test"
+    3. Start running the application 
+    4. Enter from a browser to: https://localhost:8443
+    
 
 ### Database structure:
 
 ![DataBase](readme-photos/base.jpg)
+
 
 ### Classes and templates diagram
 
@@ -160,6 +172,7 @@ Web app for a gaming center called ***Ultra Game Center***
 ### Navigation Diagram (Updated)
 
 ![Navigation_Diagram_Updated](readme-photos/diagrama-navegacion-2.jpg)
+
 
 ### Participation
 
