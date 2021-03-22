@@ -62,6 +62,10 @@ public class User implements UserDetails {
 
     public User(String name, String lastName, String password, String email) {
         super();
+        this.eventsLikeIt= new ArrayList<Long>();
+        this.referencedCodes = new ArrayList<String>();
+        this.affinity = new HashMap<String,Double>();
+        this.recomendated = new ArrayList<Event>();
         this.name = name;
         this.profileSrc = "images/uploads/defaultuser.png";
         this.passwordHash = new BCryptPasswordEncoder().encode(password);
@@ -69,6 +73,11 @@ public class User implements UserDetails {
         this.email = email;
         this.roles = new ArrayList<String>();
         this.roles.add("USER");
+    }
+
+    public Boolean matchPasword(String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(password, this.passwordHash);
     }
 
     public User() {
@@ -198,6 +207,9 @@ public class User implements UserDetails {
         }
         Double base = 0.5;
         e.like();
+        if(this.affinity==null){
+            this.affinity = new HashMap<String, Double>();
+        }
         System.out.println(this.affinity);
         this.eventsLikeIt.add(e.getId());
         System.out.println(this.affinity);
@@ -215,11 +227,6 @@ public class User implements UserDetails {
                     System.out.println(this.affinity);
                 }
             } else {
-                if (this.affinity == null) {
-                    System.out.println("No había afinidad previa");
-                    this.affinity = new HashMap<String, Double>();
-                    System.out.println(this.affinity);
-                }
                 System.out.println("Como no le ha gustado la etiqueta " + x + ", bajan sus puntos");
                 this.affinity.put(x, base * base);
                 System.out.println(this.affinity);
@@ -288,6 +295,10 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         // TODO Auto-generated method stub
         return true;
+    }
+
+    public boolean hasLiked(Long event) {
+        return this.eventsLikeIt != null && this.eventsLikeIt.contains(event);
     }
 
 }

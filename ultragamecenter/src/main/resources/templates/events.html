@@ -1,28 +1,7 @@
 {{>header}}
 <p id="pageSize" style="display: none;">3</p>
 <div class="eventContainer">
-    {{#events}}
     <div class="event">
-<<<<<<< HEAD:ultragamecenter/src/main/resources/templates/EventsTemplate.html
-        <div class="eventTitlePicture">
-            <div class="eventTitle">
-                <h1>{{name}}</h1>
-            </div>
-            <div class="eventImage">
-                <img src="{{bannerUrl}}" alt="G2 Team">
-            </div>
-        </div>
-
-        <div class="eventDescription">
-            {{#date}}
-            <p>Fecha: {{date}}</p>
-            {{/date}}
-            <p>{{description}}</p>
-        </div>
-        <a href="/like?id={{id}}"><i class="fas fa-heart"></i></i></a>
-        <button class="btn-transition btn btn-outline-danger left-margin"
-            onclick="location.href= '/events/see-event?id={{id}}';">Ver</button>
-=======
         <div class="divider mt-0" style="margin-bottom: 30px"></div>
         <ul>
             {{#events}}
@@ -43,7 +22,7 @@
                             <div class="widget-numbers text-success">
                                 {{likes}}  <i class="fas fa-heart"></i>
                                 {{#isLogged}}
-                                <form method="get" action="/like"><button name="Asistir" value="Asistir" class="btn-transition btn btn-outline-danger left-margin"></button></form>
+                                <a class="widget-heading" href="/like?id={{id}}">Asistir</a>
                             	{{/isLogged}}
                             </div>
                         </div>
@@ -53,9 +32,7 @@
             </li>
             {{/events}}
         </ul>     
->>>>>>> security-config:ultragamecenter/src/main/resources/templates/events.html
     </div>
-    {{/events}}
 </div>
     <button id="verMas">ver más</button>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -66,8 +43,6 @@
             $( ".eventContainer" ).load("https://localhost:8443/events?pageSize="+elemento.innerHTML+" .eventContainer" );
         });
     </script>
-
-
     {{>footer}}
 
     

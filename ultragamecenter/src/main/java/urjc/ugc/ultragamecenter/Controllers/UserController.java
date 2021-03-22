@@ -1,24 +1,17 @@
 package urjc.ugc.ultragamecenter.controllers;
 
-import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -30,7 +23,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,10 +33,6 @@ import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.components.*;
 
 import org.springframework.context.ApplicationContext;
-import urjc.ugc.ultragamecenter.components.*;
-import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.*;
-import urjc.ugc.ultragamecenter.services.*;
 
 @Controller
 public class UserController {
@@ -55,10 +43,9 @@ public class UserController {
 	@Autowired
 	private UserRepository urepository;
 
-	
 	@Autowired
 	private UserService uservice;
-	
+
 	@Autowired
 	UserComponent userComponent;
 
@@ -70,9 +57,9 @@ public class UserController {
 
 	@Autowired
 	TableReservationRepository trrepository;
-	
+
 	@Autowired
-     AuthenticationManager authenticationManager;
+	AuthenticationManager authenticationManager;
 
 	@Autowired
 	private EventService eventService;
@@ -87,15 +74,13 @@ public class UserController {
 	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.controllers.TableController");
 	private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "images");
 
-	
-
 	@GetMapping("/")
 	public String getIndex(Model model) {
 		setHeader(model);
 		model.addAttribute("site", "INICIO");
 		return "index";
 	}
-	
+
 	@GetMapping("/reservation")
 	public String getReservation(Model model) {
 
@@ -120,7 +105,8 @@ public class UserController {
 		model.addAttribute("site", "EVENTOS");
 		Page<Event> events = eventService.getPageEvents(0, pageSize);
 		model.addAttribute("events", events);
-		return "EventsTemplate";
+		model.addAttribute("isLogged", this.userComponent.isLoggedUser());
+		return "events";
 	}
 
 	@GetMapping("/admin/event-edit")
@@ -170,17 +156,20 @@ public class UserController {
 		return getSingleEvent(model);
 	}
 
-	
 	@GetMapping("/like")
-	
-	public String likeEvent(@RequestParam(value="Asistir") String id, Model model) {
-
+	public String likeEvent(@RequestParam String id, Model model) {
+		System.out.println("Aqui 1\n\n");
 		Event event = eRepository.findByid(Long.parseLong(id));
+		System.out.println("Aqui 2\n\n");
+		System.out.println(this.userComponent+" "+this.userComponent.hasLiked(event.getId()));
 		if (this.userComponent.isLoggedUser() && !this.userComponent.hasLiked(event.getId())) {
-			this.userComponent.like(event,this.eRepository.findAll());
+			System.out.println("Aqui 3\n\n");
+			this.userComponent.like(event, this.eRepository.findAll());
+			System.out.println("Aqui 4\n\n");
 			eRepository.save(event);
 			urepository.save(this.userComponent.getLoggedUser());
 		} else {
+			System.out.println("Aqui 3.2\n\n");
 			return getProfile(model);
 		}
 
@@ -256,53 +245,70 @@ public class UserController {
 		}
 		return getProfile(model);
 	}
-	
-	/*
-	@GetMapping("/user")
-	public String getUser(Model model) {
-		if (this.loggedUser.isLoggedUser()) {
-			setHeader(model);
 
-			List<Event> events = new ArrayList<Event>();
-			for (Long ID : this.loggedUser.getLoggedUser().getEventsLiked()) {
-				events.add(eRepository.findByid(ID));
-			}
-			model.addAttribute("events", events);
-			model.addAttribute("events_r", this.loggedUser.sort(eRepository.findAll(),3));
-			model.addAttribute("site", "PERFIL");
-			model.addAttribute("tables", loggedUser.getLoggedUser().getReferencedCodes());
-			model.addAttribute("Email", loggedUser.getLoggedUser().getEmail());
-			model.addAttribute("Name", loggedUser.getLoggedUser().getName());
-			model.addAttribute("Surname", loggedUser.getLoggedUser().getLastName());
-			model.addAttribute("profileSrc", loggedUser.getLoggedUser().getProfileSrc());
-			return "UserTemplate";
-		} else {
-			return getProfile(model);
-		}
-	}
 	
-	*/
+
+	/*
+	 * @GetMapping("/user") public String getUser(Model model) { if
+	 * (this.loggedUser.isLoggedUser()) { setHeader(model);
+	 * 
+	 * List<Event> events = new ArrayList<Event>(); for (Long ID :
+	 * this.loggedUser.getLoggedUser().getEventsLiked()) {
+	 * events.add(eRepository.findByid(ID)); } model.addAttribute("events", events);
+	 * model.addAttribute("events_r",
+	 * this.loggedUser.sort(eRepository.findAll(),3)); model.addAttribute("site",
+	 * "PERFIL"); model.addAttribute("tables",
+	 * loggedUser.getLoggedUser().getReferencedCodes()); model.addAttribute("Email",
+	 * loggedUser.getLoggedUser().getEmail()); model.addAttribute("Name",
+	 * loggedUser.getLoggedUser().getName()); model.addAttribute("Surname",
+	 * loggedUser.getLoggedUser().getLastName()); model.addAttribute("profileSrc",
+	 * loggedUser.getLoggedUser().getProfileSrc()); return "UserTemplate"; } else {
+	 * return getProfile(model); } }
+	 * 
+	 */
+
+	@GetMapping(value = "/login")
+	public String getLogin(Model model) {
+		setHeader(model);
+		model.addAttribute("site", "LOGIN");
+		model.addAttribute("loginerror", false);
+		model.addAttribute("Registered", "");
+		return "login";
+	}
+
+	@GetMapping("/loginerror")
+	public String loginerror(Model model) {
+		model.addAttribute("loginerror", true);
+		return "login";
+	}
 
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
-		
+
 		setHeader(model);
 		boolean isLogged = userComponent.isLoggedUser();
 		User userLogged = userComponent.getLoggedUser();
-		
-		if(!isLogged){
+
+		if (!isLogged) {
 			return getLogin(model);
+		}
+		ArrayList<Event> aux = new ArrayList<Event>();
+		for(Long l:this.userComponent.getLoggedUser().getEventsLiked()){
+			aux.add(eRepository.findByid(l));
 		}
 		setHeader(model);
 		model.addAttribute("site", "PERFIL");
 		model.addAttribute("name", userLogged.getName());
 		model.addAttribute("lastname", userLogged.getLastName());
 		model.addAttribute("email", userLogged.getEmail());
-		
+		model.addAttribute("profileSrc", userLogged.getProfileSrc());
+		model.addAttribute("events_r", this.userComponent.sort(eRepository.findAll(), 3));
+		model.addAttribute("tables", this.userComponent.getLoggedUser().getReferencedCodes());
+		model.addAttribute("events", aux);
+
 		return "user";
 	}
-	
-	
+
 	@GetMapping("/get-user-image")
 	public ResponseEntity<Object> downloadImage(Model model) throws MalformedURLException {
 		User aux = this.userComponent.getLoggedUser();
@@ -330,16 +336,7 @@ public class UserController {
 		model.addAttribute("site", "REGISTRATE");
 		model.addAttribute("Registered", "");
 		setHeader(model);
-		return "RegisterTemplate";
-	}
-
-
-	@GetMapping("/login")
-	public String getLogin(Model model) {
-		model.addAttribute("site", "INICIAR SESION");
-		model.addAttribute("Registered", "");
-		setHeader(model);
-		return "LoginTemplate";
+		return "register";
 	}
 
 	@GetMapping("/loggout")
@@ -353,7 +350,7 @@ public class UserController {
 			Model model) {
 		User aux = urepository.findByEmail(email);
 		if (aux != null) {
-			if (aux.getPassword().equals(password)) {
+			if (aux.matchPasword(password)) {
 				this.userComponent.setLoggedUser(aux);
 				return getProfile(model);
 			} else {
@@ -364,7 +361,7 @@ public class UserController {
 		}
 		model.addAttribute("site", "INICIAR SESION");
 		setHeader(model);
-		return "LoginTemplate";
+		return "login";
 	}
 
 	@PostMapping("/editPassword")
@@ -447,12 +444,10 @@ public class UserController {
 			model.addAttribute("events", eRepository.findAll());
 			model.addAttribute("reservations", trrepository.findAll());
 			return "admin";
-		} 
+		}
 		return getProfile(model);
-		
-	}
 
-	
+	}
 
 	@PostMapping("/trytoreserve")
 	public String reserve(@RequestParam String type, @RequestParam String day, @RequestParam String hour,
@@ -489,10 +484,8 @@ public class UserController {
 				Integer id = this.userComponent.getLoggedUser().getId();
 				Optional<User> optUser = urepository.findById(id);
 				User logUser = optUser.get();
-				ArrayList<String> refCodes = logUser.getReferencedCodes();
 				String randomCode = randomRefCode();
-				refCodes.add(randomCode);
-				logUser.setReferencedCode(refCodes);
+				logUser.addReferencedCode(randomCode);
 				urepository.save(logUser);
 				TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
 				trrepository.save(tReserve);
@@ -506,7 +499,7 @@ public class UserController {
 					} catch (MessagingException exc) {
 					}
 				} else {
-					//no pasan email
+					// no pasan email
 				}
 			}
 		}
@@ -514,36 +507,16 @@ public class UserController {
 		return getReservation(model);
 	}
 
-	@PostMapping("/createEvent")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
-			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end, HttpSession sesion,
-			Model model) {
-		Event event;
-		if (this.editedEvent != null) {
-			event = this.editedEvent;
-			this.editedEvent = null;
-			event.setCapacity(capacity!=0 ? capacity : event.getCapacity());
-			event.setDescription(description.equals("") ? event.getDescription() : description);
-			event.setName(name.equals("") ? event.getName() : name);
-			event.setDate(end.equals("") ? event.getDate().toString() : end);
-		} else {
-			event = new Event(name, description, end, "", capacity);
-		}
-		eRepository.save(event);
-		return getAdmin(model);
-	}
-
-	
-
 	@PostMapping("/register")
-	public String registerUser(@RequestParam String name,@RequestParam String lastName,@RequestParam String password,@RequestParam String email) {
-		User user = uservice.createNewUser(name,lastName,password,email);
+	public String registerUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password,
+			@RequestParam String email) {
+		User user = uservice.createNewUser(name, lastName, password, email);
 		userComponent.setLoggedUser(user);
-		return "redirect:/" ;
+		this.urepository.save(user);
+		return "redirect:/";
 	}
 
-
-	//Util functions
+	// Util functions
 	private String randomRefCode() {
 		int leftLimit = 97; // letter 'a'
 		int rightLimit = 122; // letter 'z'
@@ -559,10 +532,11 @@ public class UserController {
 		return generatedString;
 	}
 
-
 	public void setHeader(Model model) {
-		model.addAttribute("admin", this.userComponent.isAdmin() ? "Administrador" : "" );
-		model.addAttribute("isLogged", this.userComponent.isLoggedUser() ? "Log Out" : "" );
+		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
+		model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");
+		model.addAttribute("Admin-ico", this.userComponent.isAdmin() ? "fas fa-tools" : "");
+		model.addAttribute("Logout-ico", this.userComponent.isLoggedUser() ? "fas fa-sign-out-alt" : "");
 	}
 
 	public void sendMail(String to, String code) throws MessagingException {

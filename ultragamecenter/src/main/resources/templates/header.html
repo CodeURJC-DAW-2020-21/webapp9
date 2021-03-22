@@ -46,7 +46,6 @@
                                 <img src="/images/logo/UGC1.png" alt="logo">
                             </a>
                         </div>
-
                         <div class="pagetTitle">
                     <h2 class="pageTitle-text"> | {{site}}</h1> 
                         </div>
@@ -59,13 +58,8 @@
                             <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>
                             <li class="drop"><a href="/events"><i class="fas fa-gamepad"></i> Eventos</a></li>
                             <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
-                            {{#admin}}
-                            <li class="drop"><a href="/admin"> <i class="fas fa-tools"></i>Admin</a></li>
-                            {{/admin}}
-                            {{#isLogged}}
-                            <li class="drop"><a href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
-                            {{/isLogged}}
-                        </ul>
+                            <li class="drop"><a href="/admin"><i class = "{{Admin-ico}}"></i>{{Admin}}</a></li>
+                            <li class="drop"><a href="/admin"><i class = "{{Logout-ico}}"></i>{{Logout}}</a></li>
                     </nav>
                 </div>
             </div>

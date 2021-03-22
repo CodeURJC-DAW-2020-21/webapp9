@@ -55,11 +55,12 @@ public class AdminController {
 
 	
 	public void setHeader(Model model) {
-		model.addAttribute("admin", this.userComponent.isAdmin() ? "Administrador" : "" );
-		model.addAttribute("isLogged", this.userComponent.isLoggedUser() ? "Log Out" : "" );
+		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
+		model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");
+		model.addAttribute("Admin-ico", this.userComponent.isAdmin() ? "fas fa-tools" : "");
+		model.addAttribute("Logout-ico", this.userComponent.isLoggedUser() ? "fas fa-sign-out-alt" : "");
 	}
 
-	
 	@GetMapping("/add-event")
 	public String getEventAdder(Model model) {
 		setHeader(model);
@@ -74,6 +75,10 @@ public class AdminController {
 		}
 		return "404";
 	}
+
+	
+	
+	
 	
 	
 	

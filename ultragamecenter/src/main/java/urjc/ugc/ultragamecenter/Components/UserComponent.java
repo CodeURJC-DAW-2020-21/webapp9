@@ -45,7 +45,7 @@ public class UserComponent {
 	}
 
 	public boolean isAdmin() {
-		return this.user.getRoles().contains("ADMIN");
+		return isLoggedUser() && this.user.getRoles().contains("ADMIN");
 	}
 
 	public String getRole() {
@@ -60,14 +60,13 @@ public class UserComponent {
 	}
 
 	public boolean hasLiked(Long event) {
-		return this.user.getEventsLiked().contains(event);
+		
+		return this.user.hasLiked(event);
 	}
 
 	public void like(Event event,List<Event> allEvents) {
 		this.user.likedEvent(event,allEvents);
 	}
-
-
 
 	public List<Event> sort(List<Event> events,Integer c) {
 		ArrayList<Event> aux = new ArrayList<Event>();
