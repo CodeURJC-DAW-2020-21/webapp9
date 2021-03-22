@@ -158,7 +158,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 ### Navigation Diagram (Updated)
 
-![Navigation_Diagram_Updated]
+![Navigation_Diagram_Updated](readme-photos/diagrama-navegacion-2.jpg)
 
 ### Participation
 
