@@ -82,12 +82,9 @@ public class ReservationController {
         } else {// reserved
 
             if (this.userComponent.isLoggedUser()) {// logged user
-                Integer id = this.userComponent.getLoggedUser().getId();
-                Optional<User> optUser = urepository.findById(id);
-                User logUser = optUser.get();
                 String randomCode = randomRefCode();
-                logUser.addReferencedCode(randomCode);
-                urepository.save(logUser);
+                this.userComponent.getLoggedUser().addReferencedCode(randomCode);
+                urepository.save(this.userComponent.getLoggedUser());
                 TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
                 trrepository.save(tReserve);
             } else { // guest user
