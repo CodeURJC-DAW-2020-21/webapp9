@@ -86,7 +86,6 @@ Web app for a gaming center called ***Ultra Game Center***
 - Based on the events that the user has liked, those events which users similar to him have also liked will appear first.
 
 
-
 ## PHASE 1: Website structure by HTML and CSS
 
 
