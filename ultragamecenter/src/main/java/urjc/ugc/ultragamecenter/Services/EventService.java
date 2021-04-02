@@ -19,7 +19,6 @@ public class EventService {
     @Autowired
 	private ImageService imageService;
 
-
 	public List<Event> getAllEvents() {
 		return eventRepository.findAll();
 	}
@@ -28,6 +27,17 @@ public class EventService {
 		return eventRepository.findAll(p);
 	}
 
+	public Event getByid(Long id){
+		return eventRepository.findByid(id);
+	}
+
+	public void delete(Event event){
+		eventRepository.delete(event);
+	}
+
+	public void save(Event event){
+		eventRepository.save(event);
+	}
 
     public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile file1,
         MultipartFile file2, MultipartFile file3,String date,Integer capacity) {

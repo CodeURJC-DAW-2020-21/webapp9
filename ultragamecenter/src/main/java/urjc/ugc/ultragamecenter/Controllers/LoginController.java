@@ -19,22 +19,10 @@ import urjc.ugc.ultragamecenter.components.*;
 public class LoginController {
 
 	@Autowired
-	private UserRepository urepository;
-
-	@Autowired
-	private UserService uservice;
+	UserService uService;
 
 	@Autowired
 	UserComponent userComponent;
-
-	@Autowired
-	EventRepository eRepository;
-
-	@Autowired
-	TableRepository trepository;
-
-	@Autowired
-	TableReservationRepository trrepository;
 
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -81,7 +69,7 @@ public class LoginController {
 	@PostMapping("/logginUser")
 	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion,
 			Model model) {
-		User aux = urepository.findByEmail(email);
+		User aux = uService.findByEmail(email);
 		if (aux != null) {
 			if (aux.matchPasword(password)) {
 				this.userComponent.setLoggedUser(aux);
@@ -101,12 +89,12 @@ public class LoginController {
 	@PostMapping("/registerUser")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
 			@RequestParam String password, HttpSession sesion, Model model) {
-		User aux = urepository.findByEmail(email);
+		User aux = uService.findByEmail(email);
 		if (aux != null) {
 			model.addAttribute("Registered", "Ya hay un usuario registrado con ese correo");
 		} else {
 			User user = new User(name, lastName, password, email);
-			urepository.save(user);
+			uService.save(user);
 			getLogin(model);
 		}
 		return getLoginRegister(model);
@@ -115,9 +103,9 @@ public class LoginController {
     @PostMapping("/register")
 	public String registerUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password,
 			@RequestParam String email) {
-		User user = uservice.createNewUser(name, lastName, password, email);
+		User user = uService.createNewUser(name, lastName, password, email);
 		userComponent.setLoggedUser(user);
-		this.urepository.save(user);
+		this.uService.save(user);
 		return "redirect:/";
 	}
 }

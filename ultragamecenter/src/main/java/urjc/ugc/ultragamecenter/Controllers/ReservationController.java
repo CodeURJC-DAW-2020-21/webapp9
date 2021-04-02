@@ -1,7 +1,6 @@
 package urjc.ugc.ultragamecenter.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import javax.mail.MessagingException;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.*;
 import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.components.*;
 
@@ -27,19 +25,16 @@ public class ReservationController {
     private ApplicationContext appContext;
 
     @Autowired
-    private UserRepository urepository;
-
-    @Autowired
     UserComponent userComponent;
 
     @Autowired
-    EventRepository eRepository;
+    TableService tService;
 
     @Autowired
-    TableRepository trepository;
+    TableReservationService trService;
 
     @Autowired
-    TableReservationRepository trrepository;
+    UserService uService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -60,14 +55,14 @@ public class ReservationController {
         Long table_id = 0L;
         Integer hour_int = Integer.parseInt(hour);
         java.sql.Date sqldate = java.sql.Date.valueOf(day);
-        List<Tablegame> tables = trepository.findByTypeAndDate(type, sqldate);
+        List<Tablegame> tables = tService.getByTypeAndDate(type, sqldate);
         boolean reserved = false;
         int i = 0;
         while (!reserved && (i != tables.size())) {
             if (tables.get(i).getState().get(hour_int) == 0) {
                 tables.get(i).setState(hour_int, 1);
                 table_id = tables.get(i).getId();
-                trepository.saveAll(tables);
+                tService.saveAll(tables);
                 reserved = true;
             }
             i++;
@@ -84,14 +79,14 @@ public class ReservationController {
             if (this.userComponent.isLoggedUser()) {// logged user
                 String randomCode = randomRefCode();
                 this.userComponent.getLoggedUser().addReferencedCode(randomCode);
-                urepository.save(this.userComponent.getLoggedUser());
+                uService.save(this.userComponent.getLoggedUser());
                 TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
-                trrepository.save(tReserve);
+                trService.save(tReserve);
             } else { // guest user
                 if (!email.equals("")) {
                     String randomCode = randomRefCode();
                     TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
-                    trrepository.save(tReserve);
+                    trService.save(tReserve);
                     try {
                         this.sendMail(email, randomCode);
                     } catch (MessagingException exc) {

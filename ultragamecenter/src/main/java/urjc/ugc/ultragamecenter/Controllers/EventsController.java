@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.*;
 import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.components.*;
 
@@ -26,13 +25,7 @@ public class EventsController {
 	UserComponent userComponent;
 
 	@Autowired
-	EventRepository eRepository;
-
-	@Autowired
-	TableRepository trepository;
-
-	@Autowired
-	TableReservationRepository trrepository;
+	EventService eService;
 
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -71,7 +64,7 @@ public class EventsController {
 
     @GetMapping("/events/see-event")
 	public String seeEvent(@RequestParam String id, Model model) {
-		Event event = eRepository.findByid(Long.parseLong(id));
+		Event event = eService.getByid(Long.parseLong(id));
 
 		setHeader(model);
 		model.addAttribute("image", event.getBannerUrl());
@@ -108,7 +101,7 @@ public class EventsController {
 			}
 
 		}
-		eRepository.save(event);
+		eService.save(event);
 		return "redirect:/admin";
 	}
 

@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.*;
+import urjc.ugc.ultragamecenter.services.EventService;
+import urjc.ugc.ultragamecenter.services.TableReservationService;
+import urjc.ugc.ultragamecenter.services.TableService;
 import urjc.ugc.ultragamecenter.components.*;
 
-
-
-
-	
 
 @Controller
 public class AdminController {
@@ -28,21 +26,17 @@ public class AdminController {
 	UserComponent userComponent;
 
 	@Autowired
-	EventRepository eRepository;
+	EventService eService;
 
 	@Autowired
-	TableRepository trepository;
+	TableService tService;
 
 	@Autowired
-	TableReservationRepository trrepository;
+	TableReservationService trService;
 
 	@Autowired
 	AuthenticationManager authenticationManager;
 
-
-
-
-	
 	public void setHeader(Model model) {
 		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
 		model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");
@@ -54,7 +48,7 @@ public class AdminController {
 	@GetMapping("/admin/event-edit")
 	public String editEvent(@RequestParam String id, Model model) {
 		setHeader(model);
-		Event event = eRepository.findByid(Long.parseLong(id));
+		Event event = eService.getByid(Long.parseLong(id));
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
 		String label = "";
@@ -74,7 +68,7 @@ public class AdminController {
 		model.addAttribute("Admin-ico", this.userComponent.isAdmin() ? "fa fa-star" : "");
 		model.addAttribute("site", "GRAFICO");
 		setHeader(model);
-		Event event = eRepository.findByid(Long.parseLong(id));
+		Event event = eService.getByid(Long.parseLong(id));
 		Integer likes = event.getlikes();
 		model.addAttribute("likes", likes);
 		Integer plazasLibres = event.getCapacity() - likes;
@@ -88,14 +82,14 @@ public class AdminController {
 		model.addAttribute("nombre", "Admin");
 		model.addAttribute("site", "GRAFICO");
 		setHeader(model);
-		List<TableReservation> reservations = trrepository.findAll();
+		List<TableReservation> reservations = trService.getAll();
 
 		Integer numPC = 0;
 		Integer numXBOX_ONE = 0;
 		Integer numPS5 = 0;
 
 		for (TableReservation tableReservation : reservations) {
-			Optional<Tablegame> opttable = trepository.findById(tableReservation.getId_table());
+			Optional<Tablegame> opttable = tService.getByid(tableReservation.getId_table());
 			if (opttable.isPresent()) {
 				Tablegame table = opttable.get();
 				switch (table.getType()) {
@@ -120,21 +114,20 @@ public class AdminController {
 
 	@GetMapping("/admin/delete-reservation")
 	public String borrarReserva(@RequestParam String id, Model model) {
-		TableReservation reserva = trrepository.findByid(Long.parseLong(id));
-		trrepository.delete(reserva);
-
-		model.addAttribute("events", eRepository.findAll());
-		model.addAttribute("reservations", trrepository.findAll());
+		TableReservation reserva = trService.getByid(Long.parseLong(id));
+		trService.delete(reserva);
+		model.addAttribute("events", eService.getAllEvents());
+		model.addAttribute("reservations", trService.getAll());
 		return getAdmin(model);
 	}
 
 	@GetMapping("/admin/delete-event")
 	public String borrarEvento(@RequestParam String id, Model model) {
-		Event evento = eRepository.findByid(Long.parseLong(id));
+		Event evento = eService.getByid(Long.parseLong(id));
 		if (evento != null) {
-			eRepository.delete(evento);
+			eService.delete(evento);
 		}
-		model.addAttribute("events", eRepository.findAll());
+		model.addAttribute("events", eService.getAllEvents());
 		return getAdmin(model);
 	}
 
@@ -159,7 +152,7 @@ public class AdminController {
 		setHeader(model);
 		if (this.userComponent.isAdmin()) {
 			model.addAttribute("name", "Admin");
-			model.addAttribute("events", eRepository.findAll());
+			model.addAttribute("events", eService.getAllEvents());
 			return "admin";
 		}
 		return "redirect:/profile";

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,19 +24,19 @@ import urjc.ugc.ultragamecenter.components.*;
 public class UserController {
 
 	@Autowired
-	private UserRepository urepository;
+	UserService uService;
 
 	@Autowired
 	UserComponent userComponent;
 
 	@Autowired
-	EventRepository eRepository;
+	EventService eService;
 
 	@Autowired
-	TableRepository trepository;
+	TableService tService;
 
 	@Autowired
-	TableReservationRepository trrepository;
+	TableReservationService trrService;
 
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -59,11 +60,11 @@ public class UserController {
 
 	@GetMapping("/like")
 	public String likeEvent(@RequestParam String id, Model model) {
-		Event event = eRepository.findByid(Long.parseLong(id));
+		Event event = eService.getByid(Long.parseLong(id));
 		if (this.userComponent.isLoggedUser() && !this.userComponent.hasLiked(event.getId())) {
-			this.userComponent.like(event, this.eRepository.findAll());
-			eRepository.save(event);
-			urepository.save(this.userComponent.getLoggedUser());
+			this.userComponent.like(event, this.eService.getAllEvents());
+			eService.save(event);
+			uService.save(this.userComponent.getLoggedUser());
 		} else {
 			return getProfile(model);
 		}
@@ -83,7 +84,7 @@ public class UserController {
 		}
 		ArrayList<Event> aux = new ArrayList<Event>();
 		for (Long l : this.userComponent.getLoggedUser().getEventsLiked()) {
-			aux.add(eRepository.findByid(l));
+			aux.add(eService.getByid(l));
 		}
 		setHeader(model);
 		model.addAttribute("site", "PERFIL");
@@ -91,7 +92,7 @@ public class UserController {
 		model.addAttribute("lastname", userLogged.getLastName());
 		model.addAttribute("email", userLogged.getEmail());
 		model.addAttribute("profileSrc", userLogged.getProfileSrc());
-		model.addAttribute("events_r", this.userComponent.sort(eRepository.findAll(), 3));
+		model.addAttribute("events_r", this.userComponent.sort(eService.getAllEvents(), 3));
 		model.addAttribute("tables", this.userComponent.getLoggedUser().getReferencedCodes());
 		model.addAttribute("events", aux);
 
@@ -121,7 +122,7 @@ public class UserController {
 		if (aux.getPassword().equals(password) && password.equals(password_repeated)) {
 			aux.setPassword(new_password);
 		}
-		urepository.save(aux);
+		uService.save(aux);
 		return "EditProfileTemplate";
 	}
 
@@ -140,7 +141,7 @@ public class UserController {
 		if (!name.equals("")) {
 			aux.setName(name);
 		}
-		urepository.save(aux);
+		uService.save(aux);
 		return "redirect:/";
 	}
 

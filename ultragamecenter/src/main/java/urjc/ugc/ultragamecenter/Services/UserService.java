@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
- 
+
 @Service
 public class UserService {
     
@@ -44,17 +44,8 @@ public class UserService {
 		return user;
 	}
     
-    public User save(User user) throws Exception {
-        if (StringUtils.isEmpty(user.getName())) {
-            throw new Exception("Name is required");
-        }
-        if (StringUtils.isEmpty(user.getEmail())) {
-            throw new Exception("Email is required");
-        }
-        if (user.getId() != null && existsById(Math.toIntExact(user.getId()))) { 
-            throw new Exception("User with id: " + user.getId() + " already exists");
-        }
-        return userRepository.save(user);
+    public void save(User user){
+        userRepository.save(user);
     }
     
     public void update(User user) throws Exception {
