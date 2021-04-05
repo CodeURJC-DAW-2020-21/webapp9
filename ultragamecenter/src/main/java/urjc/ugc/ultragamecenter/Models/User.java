@@ -273,4 +273,10 @@ public class User implements UserDetails {
         return this.eventsLikeIt != null && this.eventsLikeIt.contains(event);
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
+
 }

@@ -73,4 +73,15 @@ public class UserService {
     public Long count() {
         return userRepository.count();
     }
+
+    public User updateUser(Long id,String name, String lastName, String password, String email){
+        User user = this.findById(id);
+
+        user.setName(name);
+        user.setLastName(lastName);
+        user.setPassword(password);
+        user.setEmail(email);
+        userRepository.save(user);
+        return user;
+    }
 }
