@@ -260,7 +260,7 @@ Web app for a gaming center called ***Ultra Game Center***
   2. Reservation feature
   3. Updated names of bd and updated entities
   4. User model updated
-  5. Updated event and initdatabase
+  5. Updated event and InitDatabase
   
 - 5 files with participation:
   1. [SecurityConfig](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Security/SecurityConfig.java)
