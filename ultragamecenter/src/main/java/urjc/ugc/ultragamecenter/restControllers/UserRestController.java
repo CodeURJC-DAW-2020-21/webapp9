@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,7 +41,7 @@ public class UserRestController {
     @RequestParam String password, @RequestParam String email){
         uService.createNewUser(name, lastName, password, email);
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Location", "https://localhost:8443/api/");
+        responseHeaders.set("Location", "https://localhost:8443/api/seeUsers?id=");
         return ResponseEntity.ok()
         .headers(responseHeaders)
         .body("User created");

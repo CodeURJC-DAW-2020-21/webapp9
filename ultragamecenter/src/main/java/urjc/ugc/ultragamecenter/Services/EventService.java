@@ -14,59 +14,88 @@ import urjc.ugc.ultragamecenter.repositories.EventRepository;
 
 @Service
 public class EventService {
-    @Autowired
-    private EventRepository eventRepository;
-    @Autowired
+	@Autowired
+	private EventRepository eventRepository;
+	@Autowired
 	private ImageService imageService;
 
 	public List<Event> getAllEvents() {
 		return eventRepository.findAll();
 	}
+
 	public Page<Event> getPageEvents(int pageNumber, int pageSize) {
 		Pageable p = PageRequest.of(pageNumber, pageSize);
 		return eventRepository.findAll(p);
 	}
 
-	public Event getByid(Long id){
+	public Event getByid(Long id) {
 		return eventRepository.findByid(id);
 	}
 
-	public void delete(Event event){
+	public void delete(Event event) {
 		eventRepository.delete(event);
 	}
 
-	public void save(Event event){
+	public void save(Event event) {
 		eventRepository.save(event);
 	}
 
-    public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile file1,
-        MultipartFile file2, MultipartFile file3,String date,Integer capacity) {
-		Event event = new Event(name, description,date,"",capacity);
-		
+	public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile file1,
+			MultipartFile file2, MultipartFile file3, String date, Integer capacity) {
+		Event event = new Event(name, description, date, "", capacity);
+
 		if (!file.isEmpty()) {
 			event.setBannerUrl(imageService.uploadImage(file));
 		} else {
 			event.setBannerUrl("/images/uploads/defaultEvent.jpg");
 		}
 
-        if (!file1.isEmpty()) {
+		if (!file1.isEmpty()) {
 			event.getGallery().add(imageService.uploadImage(file1));
 		} else {
 			event.getGallery().add("/images/uploads/defaultEvent.jpg");
 		}
 
-        if (!file2.isEmpty()) {
+		if (!file2.isEmpty()) {
 			event.getGallery().add(imageService.uploadImage(file2));
 		} else {
 			event.getGallery().add("/images/uploads/defaultEvent.jpg");
 		}
 
-        if (!file3.isEmpty()) {
+		if (!file3.isEmpty()) {
 			event.getGallery().add(imageService.uploadImage(file3));
 		} else {
 			event.getGallery().add("/images/uploads/defaultEvent.jpg");
 		}
+
+		eventRepository.save(event);
+		return event;
+	}
+
+	public Event createNewEvents(String name, String description, String file, String file1,
+	String file2, String file3,String date,Integer capacity){
+		Event event = new Event(name, description,date,"",capacity);
 		
+		event.setBannerUrl(file);
+		event.getGallery().add(file1);
+		event.getGallery().add(file2);
+		event.getGallery().add(file3);
+		eventRepository.save(event);
+		return event;
+	}
+
+	public Event update(Long id,String name, String description, String file, String file1,
+	String file2, String file3,String date,Integer capacity){
+		Event event = eventRepository.findByid(id);
+		event.setName(name);
+		event.setDescription(description);
+		event.setBannerUrl(file);
+		event.getGallery().set(0, file1);
+		event.getGallery().set(1, file2);
+		event.getGallery().set(2, file3);
+		event.setDate(date);
+		event.setCapacity(capacity);
+
 		eventRepository.save(event);
 		return event;
 	}

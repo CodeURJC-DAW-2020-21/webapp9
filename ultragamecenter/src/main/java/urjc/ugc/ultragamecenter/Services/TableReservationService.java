@@ -29,4 +29,8 @@ public class TableReservationService {
     public void save(TableReservation reservation){
         trrepository.save(reservation);
     }
+
+    public void delete(Long id) {
+        trrepository.deleteById(Math.toIntExact(id));
+    }
 }
