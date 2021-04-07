@@ -27,21 +27,22 @@ public class UserRestController {
     }
 
     @GetMapping("api/seeUser")
-    public User getUser(@RequestParam Long id){
-        return uService.findById(id);
+    public User getUser(@RequestParam String email){
+        return uService.findByEmail(email);
     }
 
     @DeleteMapping("api/deleteUsers")
-    public void deleteUser(@RequestParam String id) throws Exception{
-        uService.deleteById(Integer.parseInt(id));
+    public void deleteUser(@RequestParam Integer id) throws Exception{
+        uService.deleteById(id);
     }
 
     @PostMapping("api/createUsers")
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName, 
     @RequestParam String password, @RequestParam String email){
         uService.createNewUser(name, lastName, password, email);
+        User user = uService.findByEmail(email);
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Location", "https://localhost:8443/api/seeUsers?id=");
+        responseHeaders.set("Location", "https://localhost:8443/api/seeUsers?id="+user.getId());
         return ResponseEntity.ok()
         .headers(responseHeaders)
         .body("User created");
