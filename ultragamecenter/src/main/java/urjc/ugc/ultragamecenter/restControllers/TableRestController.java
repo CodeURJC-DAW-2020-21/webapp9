@@ -26,7 +26,7 @@ public class TableRestController {
         return tService.getAll();
     }
 
-    @GetMapping("api/seeTable")
+    @GetMapping("api/seeTables")
     public Optional<Tablegame> getTable(@RequestParam Long id){
         return tService.getByid(id);
     }

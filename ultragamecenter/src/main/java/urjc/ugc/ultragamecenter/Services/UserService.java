@@ -74,13 +74,13 @@ public class UserService {
         return userRepository.count();
     }
 
-    public User updateUser(Long id,String name, String lastName, String password, String email){
-        User user = this.findById(id);
+    public User updateUser(String email,String name, String lastName, String password, String emailNew){
+        User user = this.findByEmail(email);
 
         user.setName(name);
         user.setLastName(lastName);
         user.setPassword(password);
-        user.setEmail(email);
+        user.setEmail(emailNew);
         userRepository.save(user);
         return user;
     }

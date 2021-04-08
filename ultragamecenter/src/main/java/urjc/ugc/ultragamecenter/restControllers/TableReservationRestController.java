@@ -22,7 +22,7 @@ public class TableReservationRestController {
     TableReservationService trService;
 
     @GetMapping("api/reservations")
-    public List<TableReservation> all(@RequestParam(defaultValue = "0") Integer page){
+    public List<TableReservation> all(){
         return trService.getAll();
     }
 
