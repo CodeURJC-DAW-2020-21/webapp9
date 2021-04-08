@@ -237,11 +237,11 @@ Web app for a gaming center called ***Ultra Game Center***
 -  Completed tasks: Added email service, added advanced algorithm
 
 - 5 most significant commits:
-  1. Some organizationd + UserController/UserComponent
-  2. Created tabletype and EventLavelType + added algorithm of affinity with event lavels
-  3. Adding methods created + updated recomendation algorithm
-  4. login-register working
-  5. Avanced Algoritm working
+  1. [Some organizationd + UserController/UserComponent](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/b5e30f76104701f4de6c8d041c662e0d880985e6)
+  2. [Created tabletype and EventLavelType + added algorithm of affinity with event lavels](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/8ba9693e43c2042e5a1b71d3e5548d85d0406c9a)
+  3. [Adding methods created + updated recomendation algorithm](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/e0e6457bdf95ca533741df264e00bfe15560bfb3)
+  4. [login-register working](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/b29ab8e0eab5d21c9ff9dfb2bd8c84bb9f7f5e45)
+  5. [Avanced Algoritm working](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/70098d3e19346e3bb1a81f6341f7190501fbcd21)
   
 - 5 files with participation:
   1. [UserComponent.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Components/UserComponent.java)
