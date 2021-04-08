@@ -31,8 +31,12 @@ public class EventRestController {
     }
 
     @DeleteMapping("api/deleteEvents")
-    public void deleteEvent(@RequestParam Long id) throws Exception{
-        eService.delete(eService.getByid(id));
+    public void deleteEvent(@RequestParam Long id){
+        Event e=eService.getByid(id);
+        if(e!=null){
+            eService.delete(eService.getByid(id));
+        }
+        
     }
 
     @PostMapping("api/createEvents")
@@ -46,7 +50,7 @@ public class EventRestController {
         .body("Event created");
     }
 
-    @PutMapping("api/editEvents")
+    @PutMapping("api/editEvent")
     public Event editEvent(@RequestParam Long id,@RequestParam String name, @RequestParam String description,@RequestParam String file, @RequestParam String file1,
     @RequestParam String file2, @RequestParam String file3,@RequestParam String date,@RequestParam Integer capacity){
         return eService.update(id,name,description,file,file1,file2,file3,date,capacity);

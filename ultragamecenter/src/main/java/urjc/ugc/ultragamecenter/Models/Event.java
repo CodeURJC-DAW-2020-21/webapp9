@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.models;
 
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
