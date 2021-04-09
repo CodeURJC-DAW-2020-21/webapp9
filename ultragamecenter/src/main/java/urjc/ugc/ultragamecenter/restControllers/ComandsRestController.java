@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import urjc.ugc.ultragamecenter.api_models.API_eventDATA;
+import urjc.ugc.ultragamecenter.api_models.API_reservation;
+import urjc.ugc.ultragamecenter.api_models.API_user;
 import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.controllers.*;
 import urjc.ugc.ultragamecenter.models.User;
@@ -33,18 +36,22 @@ public class ComandsRestController {
     UserComponent uComponent;
 
     @GetMapping("api/login")
-    public User login(@RequestParam String email, @RequestParam String password){
-        return lController.logUsr(email, password);
+    public API_user login(@RequestParam String email, @RequestParam String password){
+        return new API_user(lController.logUsr(email, password));
     }
 
     @GetMapping("api/reservate")
-    public void reservateTable(@RequestParam String type, @RequestParam String day, @RequestParam String hour,@RequestParam(required = false) String email) throws MessagingException{
-        rController.reserveTable(type,day,hour,email);
+    public API_reservation reservateTable(@RequestParam String type, @RequestParam String day, @RequestParam String hour,@RequestParam(required = false) String email) throws MessagingException{
+        return new API_reservation(rController.reserveTable(type,day,hour,email));
     }
 
     @GetMapping("api/getEventData")
-    public Double getEventData(@RequestParam Integer id){
-        return eController.getData(id);
+    public API_eventDATA getEventData(@RequestParam Integer id){
+        return new API_eventDATA(eController.getData(id));
     }
+
+
+
+
 
 }

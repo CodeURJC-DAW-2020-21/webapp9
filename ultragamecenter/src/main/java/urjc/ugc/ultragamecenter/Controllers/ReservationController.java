@@ -118,30 +118,32 @@ public class ReservationController {
         emailSender.sendEmail(to, code);
     }
     
-    public void reserveTable(String type, String day, String hour, String email) throws MessagingException {
+    public TableReservation reserveTable(String type, String day, String hour, String email) throws MessagingException {
         Integer hour_int = Integer.parseInt(hour);
         Object[] o = getReserved(hour_int, type, day);
         Boolean reserved = (Boolean) o[0];
         Long table_id = (Long) o[1];
         if (reserved) {
-            reserve(email,table_id,hour_int);
+            return reserve(email,table_id,hour_int);
         }
+        return null;
     }
 
-    public void reserve(String email, Long table_id, Integer hour_int) throws MessagingException{
+    public TableReservation reserve(String email, Long table_id, Integer hour_int) throws MessagingException{
+        TableReservation tReserve=null;
+        String randomCode = randomRefCode();
         if (this.userComponent.isLoggedUser()) {// logged user
-            String randomCode = randomRefCode();
             this.userComponent.getLoggedUser().addReferencedCode(randomCode);
             uService.save(this.userComponent.getLoggedUser());
-            TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+            tReserve = new TableReservation(table_id, randomCode, hour_int);
             trService.save(tReserve);
         } else { // guest user
             if (!email.equals("")) {
-                String randomCode = randomRefCode();
-                TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+                tReserve = new TableReservation(table_id, randomCode, hour_int);
                 trService.save(tReserve);
                 this.sendMail(email, randomCode);
             }
         }
+        return tReserve;
     }
 }

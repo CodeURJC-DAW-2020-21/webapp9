@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import urjc.ugc.ultragamecenter.api_models.API_reservation;
+import urjc.ugc.ultragamecenter.api_models.API_reservations;
 import urjc.ugc.ultragamecenter.models.TableReservation;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 
@@ -22,13 +24,13 @@ public class TableReservationRestController {
     TableReservationService trService;
 
     @GetMapping("api/reservations")
-    public List<TableReservation> all(){
-        return trService.getAll();
+    public List<API_reservations> all(){
+        return API_reservations.transform(trService.getAll());
     }
 
     @GetMapping("api/seeReservation")
-    public TableReservation getReservation(@RequestParam Long id){
-        return trService.getByid(id);
+    public API_reservation getReservation(@RequestParam Long id){
+        return new API_reservation(trService.getByid(id));
     }
 
     @DeleteMapping("api/deleteReservations")

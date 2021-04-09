@@ -49,6 +49,9 @@ public class TableReservation {
 	public String toString() {
 		return "Table reservation [id=" + id + ",id_table=" + id_table + ", Referenced_code=" + referenced_code +", hour="+hour+"]";
 	}
+    public Long getID() {
+        return this.id;
+    }
     
     
 }
