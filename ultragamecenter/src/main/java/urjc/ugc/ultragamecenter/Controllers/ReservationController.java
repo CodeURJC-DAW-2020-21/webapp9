@@ -49,14 +49,12 @@ public class ReservationController {
         return "ReservationTemplate";
     }
 
-    @PostMapping("/trytoreserve")
-    public String reserve(@RequestParam String type, @RequestParam String day, @RequestParam String hour,
-            @RequestParam(required = false) String email, Model model) {
+    public Object[] getReserved(Integer hour_int, String type, String day) {
         Long table_id = 0L;
-        Integer hour_int = Integer.parseInt(hour);
         java.sql.Date sqldate = java.sql.Date.valueOf(day);
+        Object[] o = new Object[2];
         List<Tablegame> tables = tService.getByTypeAndDate(type, sqldate);
-        boolean reserved = false;
+        Boolean reserved = false;
         int i = 0;
         while (!reserved && (i != tables.size())) {
             if (tables.get(i).getState().get(hour_int) == 0) {
@@ -67,6 +65,18 @@ public class ReservationController {
             }
             i++;
         }
+        o[0] = reserved;
+        o[1] = table_id;
+        return o;
+    }
+
+    @PostMapping("/trytoreserve")
+    public String reserve(@RequestParam String type, @RequestParam String day, @RequestParam String hour,
+            @RequestParam(required = false) String email, Model model) throws MessagingException {
+        Integer hour_int = Integer.parseInt(hour);
+        Object[] o = getReserved(hour_int, type, day);
+        Boolean reserved = (Boolean) o[0];
+        Long table_id = (Long) o[1];
         if (!reserved) {// not reserved
             String full = "No hay disponibilidad de mesas de " + type + " para el dia " + day
                     + " en la hora seleccionada";
@@ -75,29 +85,8 @@ public class ReservationController {
             model.addAttribute("site", "MESAS");
             return "ReservationTemplate";
         } else {// reserved
-
-            if (this.userComponent.isLoggedUser()) {// logged user
-                String randomCode = randomRefCode();
-                this.userComponent.getLoggedUser().addReferencedCode(randomCode);
-                uService.save(this.userComponent.getLoggedUser());
-                TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
-                trService.save(tReserve);
-            } else { // guest user
-                if (!email.equals("")) {
-                    String randomCode = randomRefCode();
-                    TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
-                    trService.save(tReserve);
-                    try {
-                        this.sendMail(email, randomCode);
-                    } catch (MessagingException exc) {
-
-                    }
-                } else {
-                    // no pasan email
-                }
-            }
+            reserve(email,table_id,hour_int);
         }
-
         return getReservation(model);
     }
 
@@ -127,5 +116,32 @@ public class ReservationController {
     public void sendMail(String to, String code) throws MessagingException {
         EmailSenderService emailSender = (EmailSenderService) appContext.getBean("emailSenderService");
         emailSender.sendEmail(to, code);
+    }
+    
+    public void reserveTable(String type, String day, String hour, String email) throws MessagingException {
+        Integer hour_int = Integer.parseInt(hour);
+        Object[] o = getReserved(hour_int, type, day);
+        Boolean reserved = (Boolean) o[0];
+        Long table_id = (Long) o[1];
+        if (reserved) {
+            reserve(email,table_id,hour_int);
+        }
+    }
+
+    public void reserve(String email, Long table_id, Integer hour_int) throws MessagingException{
+        if (this.userComponent.isLoggedUser()) {// logged user
+            String randomCode = randomRefCode();
+            this.userComponent.getLoggedUser().addReferencedCode(randomCode);
+            uService.save(this.userComponent.getLoggedUser());
+            TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+            trService.save(tReserve);
+        } else { // guest user
+            if (!email.equals("")) {
+                String randomCode = randomRefCode();
+                TableReservation tReserve = new TableReservation(table_id, randomCode, hour_int);
+                trService.save(tReserve);
+                this.sendMail(email, randomCode);
+            }
+        }
     }
 }

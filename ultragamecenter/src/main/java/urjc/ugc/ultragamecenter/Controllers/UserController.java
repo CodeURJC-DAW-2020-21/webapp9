@@ -8,14 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.*;
 import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.components.*;
 
@@ -46,7 +44,7 @@ public class UserController {
 
 
 	public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";
-	public static final String IMG_CONTROLLER_URL = "/images/uploads/";// -----------------tableController--------------------
+	public static final String IMG_CONTROLLER_URL = "/images/uploads/";
 
 	@GetMapping("/")
 	public String getIndex(Model model) {

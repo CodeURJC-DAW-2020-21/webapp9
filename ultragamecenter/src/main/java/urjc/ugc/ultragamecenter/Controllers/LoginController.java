@@ -65,8 +65,15 @@ public class LoginController {
 		return "redirect:/profile";
 	}
 
+	public void logUsr(String email, String password){	
+		User aux = uService.findByEmail(email);
+		if (aux != null && aux.matchPasword(password)) {
+			this.userComponent.setLoggedUser(aux);
+		}
+	}
+
 	@PostMapping("/logginUser")
-	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion,
+	public String logUser(@RequestParam String email, @RequestParam String password, HttpSession sesion,
 			Model model) {
 		User aux = uService.findByEmail(email);
 		if (aux != null) {
@@ -86,7 +93,7 @@ public class LoginController {
 
     
 	@PostMapping("/registerUser")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
+	public String regUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
 			@RequestParam String password, HttpSession sesion, Model model) {
 		User aux = uService.findByEmail(email);
 		if (aux != null) {

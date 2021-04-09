@@ -3,6 +3,7 @@ package urjc.ugc.ultragamecenter.services;
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class UserService {
@@ -48,22 +48,22 @@ public class UserService {
         userRepository.save(user);
     }
     
-    public void update(User user) throws Exception {
-        if (StringUtils.isEmpty(user.getName())) {
-            throw new Exception("Name is required");
+    public void update(User user) throws IOException {
+        if (user.getName().equals("")) {
+            throw new IOException("Name is required");
         }
-        if (StringUtils.isEmpty(user.getEmail())) {
-            throw new Exception("Email is required");
+        if (user.getEmail().equals("")) {
+            throw new IOException("Email is required");
         }
         if (!existsById(Math.toIntExact(user.getId()))) {
-            throw new Exception("Cannot find User with id: " + user.getId());
+            throw new IOException("Cannot find User with id: " + user.getId());
         }
         userRepository.save(user);
     }
     
-    public void deleteById(Integer id) throws Exception {
+    public void deleteById(Integer id) throws IOException {
         if (!existsById(Math.toIntExact(id))) { 
-            throw new Exception("Cannot find User with id: " + id);
+            throw new IOException("Cannot find User with id: " + id);
         }
         else {
             userRepository.deleteById(Math.toIntExact(id));

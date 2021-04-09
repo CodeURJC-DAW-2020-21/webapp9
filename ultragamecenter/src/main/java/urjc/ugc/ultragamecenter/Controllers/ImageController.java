@@ -21,7 +21,8 @@ public class ImageController {
 		File img = new File(IMG_FOLDER + filename);
 
 		res.setContentType("image/*");
-		res.setContentLength(new Long(img.length()).intValue());
+		Long l=img.length();
+		res.setContentLength(l.intValue());
 		FileCopyUtils.copy(new FileInputStream(img), res.getOutputStream());
 	}
 }

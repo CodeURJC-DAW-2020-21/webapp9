@@ -105,4 +105,15 @@ public class EventsController {
 		return "redirect:/admin";
 	}
 
+    public Double getData(Integer id) {
+		Event e = eventService.getByid(id+0L);
+		if(e!=null && userComponent.isAdmin()){
+			int a= e.getlikes();
+			int b = e.getCapacity();
+			double c= a/b;
+			return c;
+		}
+        return null;
+    }
+
 }
