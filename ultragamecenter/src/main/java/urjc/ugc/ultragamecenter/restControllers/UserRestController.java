@@ -42,16 +42,16 @@ public class UserRestController {
         uService.createNewUser(name, lastName, password, email);
         User user = uService.findByEmail(email);
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Location", "https://localhost:8443/api/seeUsers?id="+user.getId());
+        responseHeaders.set("Location", "https://localhost:8443/api/seeUsers?email="+user.getEmail());
         return ResponseEntity.ok()
         .headers(responseHeaders)
         .body("User created");
     }
 
     @PutMapping("api/editUsers")
-    public User editUser(@RequestParam Long id,@RequestParam String name, @RequestParam String lastName, 
-    @RequestParam String password, @RequestParam String email){
-        return uService.updateUser(id,name,lastName,password,email);
+    public User editUser(@RequestParam String email,@RequestParam String name, @RequestParam String lastName, 
+    @RequestParam String password, @RequestParam String emailNew){
+        return uService.updateUser(email,name,lastName,password,emailNew);
     }
 
 }

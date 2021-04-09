@@ -42,9 +42,9 @@ public class EventRestController {
     @PostMapping("api/createEvents")
     public ResponseEntity<String> createEvent(@RequestParam String name, @RequestParam String description,@RequestParam String file, @RequestParam String file1,
     @RequestParam String file2, @RequestParam String file3,@RequestParam String date,@RequestParam Integer capacity){
-        eService.createNewEvents(name,description,file,file1,file2,file3,date,capacity);
+        Event createdEvent = eService.createNewEvents(name,description,file,file1,file2,file3,date,capacity);
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Location", "https://localhost:8443/api/seeEvent?id=");
+        responseHeaders.set("Location", "https://localhost:8443/api/seeEvent?id="+String.valueOf(createdEvent.getId()));
         return ResponseEntity.ok()
         .headers(responseHeaders)
         .body("Event created");
