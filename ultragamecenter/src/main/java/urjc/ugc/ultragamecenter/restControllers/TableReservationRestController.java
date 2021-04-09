@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import urjc.ugc.ultragamecenter.api_models.API_reservation;
 import urjc.ugc.ultragamecenter.api_models.API_reservations;
+import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.TableReservation;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 
@@ -23,9 +24,12 @@ public class TableReservationRestController {
     @Autowired
     TableReservationService trService;
 
+    @Autowired
+    UserComponent uComponent;
+
     @GetMapping("api/reservations")
     public List<API_reservations> all(){
-        return API_reservations.transform(trService.getAll());
+        return API_reservations.transform(trService.getAll(),uComponent.isAdmin() );
     }
 
     @GetMapping("api/seeReservation")

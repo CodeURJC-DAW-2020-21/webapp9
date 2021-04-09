@@ -105,12 +105,4 @@ public class EventsController {
 		return "redirect:/admin";
 	}
 
-    public Event getData(Integer id) {
-		Event e = eventService.getByid(id+0L);
-		if(e!=null && userComponent.isAdmin()){
-			return e;
-		}
-        return null;
-    }
-
 }

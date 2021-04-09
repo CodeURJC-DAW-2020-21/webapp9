@@ -69,4 +69,9 @@ public class EventRestController {
         return new API_event(eService.update(id,name,description,file,file1,file2,file3,date,capacity));
     }
 
+    @GetMapping("api/getEventData")
+    public API_eventDATA getEventData(@RequestParam Long id){
+        return new API_eventDATA(eService.getByid(id));
+    }
+
 }

@@ -5,27 +5,27 @@ import java.util.ArrayList;
 import urjc.ugc.ultragamecenter.models.Tablegame;
 
 public class API_table {
-    private String type;
-    private ArrayList<Integer> state;
 
-    public API_table(Tablegame t){
-        type = t.getType();
-        state = t.getState();
+    private String type = "No existe esta mesa";
+    private ArrayList<Integer> state = null;
+
+    public API_table(Tablegame t, Boolean b) {
+        if (t != null) {
+            if (b) {
+                type = t.getType();
+                state = t.getState();
+            } else {
+                type = "No eres administrador";
+                state = null;
+            }
+        }
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public ArrayList<Integer> getState() {
         return state;
-    }
-
-    public void setState(ArrayList<Integer> state) {
-        this.state = state;
     }
 }

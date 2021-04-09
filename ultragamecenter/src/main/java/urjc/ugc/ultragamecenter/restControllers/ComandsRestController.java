@@ -45,13 +45,4 @@ public class ComandsRestController {
         return new API_reservation(rController.reserveTable(type,day,hour,email));
     }
 
-    @GetMapping("api/getEventData")
-    public API_eventDATA getEventData(@RequestParam Integer id){
-        return new API_eventDATA(eController.getData(id));
-    }
-
-
-
-
-
 }

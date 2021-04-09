@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import urjc.ugc.ultragamecenter.models.Event;
 
 public class API_event {
-    private String name;
-    private String description;
-    private Date date;
-    private Integer likes;
-    private ArrayList<String> lavels;
-    private Integer capacity;
+    private String name="No existe este evento";
+    private String description="El evento no existe";
+    private Date date=null;
+    private Integer likes=0;
+    private ArrayList<String> lavels=null;
+    private Integer capacity=0;
 
     public String getName() {
         return name;
@@ -38,12 +38,14 @@ public class API_event {
     }
 
     public API_event(Event e) {
-        this.name = e.getName();
-        this.description = e.getDescription();
-        this.date = e.getDate();
-        this.likes = e.getlikes();
-        this.lavels = e.getLavels();
-        this.capacity = e.getCapacity();
+        if (e != null) {
+            this.name = e.getName();
+            this.description = e.getDescription();
+            this.date = e.getDate();
+            this.likes = e.getlikes();
+            this.lavels = e.getLavels();
+            this.capacity = e.getCapacity();
+        } 
     }
 
 }
