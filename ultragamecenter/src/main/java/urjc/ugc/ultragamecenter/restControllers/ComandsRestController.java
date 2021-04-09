@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.controllers.*;
+import urjc.ugc.ultragamecenter.models.User;
 
 @RestController
 public class ComandsRestController {
@@ -32,8 +33,8 @@ public class ComandsRestController {
     UserComponent uComponent;
 
     @GetMapping("api/login")
-    public void login(@RequestParam String email, @RequestParam String password){
-        lController.logUsr(email, password);
+    public User login(@RequestParam String email, @RequestParam String password){
+        return lController.logUsr(email, password);
     }
 
     @GetMapping("api/reservate")

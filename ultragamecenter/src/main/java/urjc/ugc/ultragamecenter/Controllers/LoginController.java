@@ -65,11 +65,13 @@ public class LoginController {
 		return "redirect:/profile";
 	}
 
-	public void logUsr(String email, String password){	
+	public User logUsr(String email, String password){	
 		User aux = uService.findByEmail(email);
 		if (aux != null && aux.matchPasword(password)) {
 			this.userComponent.setLoggedUser(aux);
+			return aux;
 		}
+		return null;
 	}
 
 	@PostMapping("/logginUser")
