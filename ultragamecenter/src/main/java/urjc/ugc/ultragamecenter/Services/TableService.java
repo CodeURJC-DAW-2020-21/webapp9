@@ -26,6 +26,6 @@ public class TableService {
     }
 
     public void saveAll(List<Tablegame> tables){
-        trepository.saveAll(tables)
+        trepository.saveAll(tables);
     }
 }
