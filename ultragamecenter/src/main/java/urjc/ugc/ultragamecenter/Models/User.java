@@ -54,7 +54,7 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-    public User(String name, String lastName, String password, String email) {
+    public User(String name, String lastName, String password, String email){
         super();
         this.eventsLikeIt= new ArrayList<Long>();
         this.referencedCodes = new ArrayList<String>();
@@ -69,15 +69,12 @@ public class User implements UserDetails {
         this.roles.add("USER");
     }
 
+    
+
     public Boolean matchPasword(String password){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(password, this.passwordHash);
     }
-
-    public User() {
-
-    }
-
     
 
     private Double getAffinity(Event e) {
