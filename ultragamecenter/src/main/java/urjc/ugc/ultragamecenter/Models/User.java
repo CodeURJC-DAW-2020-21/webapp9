@@ -54,6 +54,8 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
+    public User(){}
+
     public User(String name, String lastName, String password, String email){
         super();
         this.eventsLikeIt= new ArrayList<Long>();
