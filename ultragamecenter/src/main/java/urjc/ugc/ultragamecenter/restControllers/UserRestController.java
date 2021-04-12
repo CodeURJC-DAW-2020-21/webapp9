@@ -26,30 +26,13 @@ public class UserRestController {
     @Autowired
     UserComponent uComponent;
 
-    /*
-     * @GetMapping("api/users") public List<User> all(@RequestParam(defaultValue =
-     * "1") Integer page){ return uService.findAll(page,3); }
-     */
-
     @GetMapping("api/seeUser")
     public API_user getUser() {
         return new API_user(uComponent.getLoggedUser());
     }
 
-    /*
-     * public void deleteUser(@RequestParam Integer id) throws Exception{
-     * uService.deleteById(id); }
-     */
-    @DeleteMapping("api/deleteUsers")
-    public void deleteUser() throws Exception {
-        if (uComponent.isLoggedUser()) {
-            uService.deleteById(uComponent.getLoggedUser().getId());
-        }
-    }
-
     @PostMapping("api/createUsers")
-    public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName,
-            @RequestParam String password, @RequestParam String email) {
+    public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password, @RequestParam String email) {
         uService.createNewUser(name, lastName, password, email);
         User user = uService.findByEmail(email);
         HttpHeaders responseHeaders = new HttpHeaders();

@@ -59,6 +59,7 @@ public class InitDataBase implements CommandLineRunner{
             event1.putLavel("SHOOTER");
             event1.setGallery("/images/Events/fornite1.jpeg","/images/Events/fornite2.jpg", "/images/Events/fornite3.jpg");
 
+        
             Event event2 = new Event("LOL", "Final del mundial 2020.", "2021-04-10", "/images/Events/LOL0.png",150);
             event2.putLavel("MOBA");
             event2.setGallery("/images/Events/LOL1.png","/images/Events/LOL2.jpg", "/images/Events/LOL3.jpg");

@@ -28,11 +28,6 @@ public class EventRestController {
     @Autowired
     UserComponent uComponent;
 
-    @GetMapping("api/events")
-    public Page<Event> all(@RequestParam(defaultValue = "0") Integer page){
-        return eService.getPageEvents(page,3);
-    }
-
     @GetMapping("api/getevents")
     public List<API_events> all(){
         return API_events.transform(eService.getAllEvents());
@@ -53,9 +48,8 @@ public class EventRestController {
     }
 
     @PostMapping("api/createEvents")
-    public ResponseEntity<String> createEvent(@RequestParam String name, @RequestParam String description,@RequestParam String file, @RequestParam String file1,
-    @RequestParam String file2, @RequestParam String file3,@RequestParam String date,@RequestParam Integer capacity){
-        Event createdEvent = eService.createNewEvents(name,description,file,file1,file2,file3,date,capacity);
+    public ResponseEntity<String> createEvent(@RequestParam String name, @RequestParam String description,@RequestParam String date,@RequestParam Integer capacity){
+        Event createdEvent = eService.createNewEvent(name,description,date,capacity);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Location", "https://localhost:8443/api/seeEvent?id="+String.valueOf(createdEvent.getId()));
         return ResponseEntity.ok()
@@ -64,9 +58,8 @@ public class EventRestController {
     }
 
     @PutMapping("api/editEvent")
-    public API_event editEvent(@RequestParam Long id,@RequestParam String name, @RequestParam String description,@RequestParam String file, @RequestParam String file1,
-    @RequestParam String file2, @RequestParam String file3,@RequestParam String date,@RequestParam Integer capacity){
-        return new API_event(eService.update(id,name,description,file,file1,file2,file3,date,capacity));
+    public API_event editEvent(@RequestParam Long id,@RequestParam String name, @RequestParam String description, @RequestParam String date,@RequestParam Integer capacity){
+        return new API_event(eService.updateEvent(id,name,description,date,capacity));
     }
 
     @GetMapping("api/getEventData")

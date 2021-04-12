@@ -1,6 +1,5 @@
 package urjc.ugc.ultragamecenter.api_models;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import urjc.ugc.ultragamecenter.models.TableReservation;
 

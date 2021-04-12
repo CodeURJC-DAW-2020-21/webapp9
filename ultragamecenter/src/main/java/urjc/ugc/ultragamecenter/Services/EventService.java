@@ -67,37 +67,24 @@ public class EventService {
 		} else {
 			event.getGallery().add("/images/uploads/defaultEvent.jpg");
 		}
-
 		eventRepository.save(event);
 		return event;
 	}
 
-	public Event createNewEvents(String name, String description, String file, String file1,
-	String file2, String file3,String date,Integer capacity){
-		Event event = new Event(name, description,date,"",capacity);
-		
-		event.setBannerUrl(file);
-		event.getGallery().add(file1);
-		event.getGallery().add(file2);
-		event.getGallery().add(file3);
-		eventRepository.save(event);
-		return event;
-	}
-
-	public Event update(Long id,String name, String description, String file, String file1,
-	String file2, String file3,String date,Integer capacity){
-		Event event = eventRepository.findByid(id);
+    public Event updateEvent(Long id, String name, String description, String date, Integer capacity) {
+        Event event = eventRepository.findByid(id);
 		event.setName(name);
 		event.setDescription(description);
-		event.setBannerUrl(file);
-		event.getGallery().set(0, file1);
-		event.getGallery().set(1, file2);
-		event.getGallery().set(2, file3);
 		event.setDate(date);
 		event.setCapacity(capacity);
-
 		eventRepository.save(event);
 		return event;
-	}
+    }
+
+    public Event createNewEvent(String name, String description, String date, Integer capacity) {
+        Event event = new Event(name, description,date,"",capacity);
+		eventRepository.save(event);
+		return event;
+    }
 
 }
