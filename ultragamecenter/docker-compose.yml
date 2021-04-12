@@ -1,4 +1,4 @@
-version: "3"
+version: '3.6'
 services:  
     db:
         image: mysql:latest
@@ -6,11 +6,10 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: toor
             MYSQL_DATABASE: ugc
-            MYSQL_USER: root
-            MYSQL_PASSWORD: toor
         ports:
             - "3307:3306"
         restart: on-failure
+
     java-web:
         image: test
         container_name: ugc-service-app
