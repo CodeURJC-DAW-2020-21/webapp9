@@ -1,0 +1,29 @@
+version: '3'
+services:  
+    db:
+        image: mysql:latest
+        container_name: mysql-ugc
+        environment:
+            MYSQL_ROOT_PASSWORD: toor
+            MYSQL_DATABASE: ugc
+        ports:
+            - "3307:3306"
+        restart: on-failure
+
+    java-web:
+        image: test
+        container_name: ugc-service-app
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports: 
+            - "8443:8443"
+        restart: always
+        links: 
+            - "db"
+        depends_on:
+            - db
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:mysql://mysql-ugc:3306/ugc?serverTimezone=UTC&createDatabaseIfNotExist=true
+            SPRING_DATASOURCE_USERNAME: root
+            SPRING_DATASOURCE_PASSWORD: toor
