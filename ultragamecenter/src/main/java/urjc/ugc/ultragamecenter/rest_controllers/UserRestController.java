@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import urjc.ugc.ultragamecenter.api_models.API_user;
+import urjc.ugc.ultragamecenter.api_models.APIuser;
 import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.services.UserService;
@@ -24,23 +24,54 @@ public class UserRestController {
     UserComponent uComponent;
 
     @GetMapping("api/seeUser")
-    public API_user getUser() {
-        return new API_user(uComponent.getLoggedUser());
+    public ResponseEntity<APIuser> getUser() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if(uComponent.isLoggedUser()){
+            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser(uComponent.getLoggedUser()));
+        }
+        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
 
     @PostMapping("api/createUsers")
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password, @RequestParam String email) {
-        uService.createNewUser(name, lastName, password, email);
-        User user = uService.findByEmail(email);
+        APIuser user = new APIuser( uService.createNewUser(name, lastName, password, email));
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Location", "https://localhost:8443/api/seeUsers?email=" + user.getEmail());
         return ResponseEntity.ok().headers(responseHeaders).body("User created");
     }
 
     @PutMapping("api/editUsers")
-    public API_user editUser(@RequestParam String email, @RequestParam String name, @RequestParam String lastName,
-            @RequestParam String password, @RequestParam String emailNew) {
-        return new API_user(uService.updateUser(email, name, lastName, password, emailNew));
+    public ResponseEntity<APIuser> editUser(@RequestParam(required = false) String name, @RequestParam(required = false) String lastName) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if(uComponent.isLoggedUser()){
+            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser(uService.updateUser(name, lastName, null)));
+        }
+        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
+
+    @PutMapping("api/editUserPasword")
+    public ResponseEntity<APIuser> editUserPassword(@RequestParam String password, @RequestParam String newPassword) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        User u=uComponent.getLoggedUser();
+        if(u==null){
+            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
+        }
+        u= uService.updateUserPassword(password, newPassword);
+        if(u==null){
+            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("Las contraseñas no coinciden"));
+        }
+        return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(u));
+    }
+
+    @GetMapping("api/login")
+    public ResponseEntity<APIuser> login(@RequestParam String email, @RequestParam String password){
+        User u=uService.logUsr(email, password);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (u==null){
+            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No se ha podido logear"));
+        }
+        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser(u));
+    }
+
 
 }

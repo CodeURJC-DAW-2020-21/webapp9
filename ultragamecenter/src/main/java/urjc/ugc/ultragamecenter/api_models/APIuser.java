@@ -3,17 +3,16 @@ package urjc.ugc.ultragamecenter.api_models;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import urjc.ugc.ultragamecenter.models.User;
 
-public class API_user {
+public class APIuser {
 
-    private String name="No";
-    private String lastName="Estas";
-    private String email="Logeado";
-    private ArrayList<Long> eventsLikeIt=null;
-    private ArrayList<String> referencedCodes=null;
-    private List<String> roles=null;
+    private String name = "No estas logeado";
+    private String lastName = "";
+    private String email = "";
+    private ArrayList<Long> eventsLikeIt = null;
+    private ArrayList<String> referencedCodes = null;
+    private List<String> roles = null;
 
     public String getName() {
         return name;
@@ -27,11 +26,11 @@ public class API_user {
         return email;
     }
 
-    public ArrayList<Long> getEventsLikeIt() {
+    public List<Long> getEventsLikeIt() {
         return eventsLikeIt;
     }
 
-    public ArrayList<String> getReferencedCodes() {
+    public List<String> getReferencedCodes() {
         return referencedCodes;
     }
 
@@ -39,16 +38,20 @@ public class API_user {
         return roles;
     }
 
-    public API_user(User u) {
+    public APIuser(User u) {
         if (u != null) {
             this.name = u.getName();
             this.lastName = u.getLastName();
             this.email = u.getEmail();
-            this.eventsLikeIt = u.getEventsLiked();
-            this.referencedCodes = u.getReferencedCodes();
+            this.eventsLikeIt = (ArrayList<Long>) u.getEventsLiked();
+            this.referencedCodes = (ArrayList<String>) u.getReferencedCodes();
             this.roles = u.getRoles();
-        } 
+        }
 
+    }
+
+    public APIuser(String u) {
+        name=u;
     }
 
 }

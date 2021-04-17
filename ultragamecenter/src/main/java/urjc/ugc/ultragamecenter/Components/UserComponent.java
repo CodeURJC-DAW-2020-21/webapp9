@@ -56,15 +56,15 @@ public class UserComponent {
 	}
 
 	public List<Event> sort(List<Event> events,Integer c) {
-		ArrayList<Event> aux = new ArrayList<Event>();
-		ArrayList<Event> aux2 = new ArrayList<Event>();
+		ArrayList<Event> aux = new ArrayList<>();
+		ArrayList<Event> aux2 = new ArrayList<>();
 		if (user == null) {
 			for(Integer i=0;i<c;i++){
 				aux2.add(events.get(i));
 			}
 			return aux2;
 		}
-		while (events.size() != 0) {
+		while (!events.isEmpty()) {
 			int index = 0;
 			for (int x = 0; x < events.size(); x++) {
 				if (user.getValue(events.get(index)) < user.getValue(events.get(x))) {

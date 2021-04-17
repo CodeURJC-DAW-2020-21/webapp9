@@ -14,7 +14,6 @@ public class EmailSenderService {
 
     //Pasamos por parametro: destinatario, asunto y el mensaje
     public void sendEmail(String to, String code) {
-
         SimpleMailMessage email = new SimpleMailMessage();
         String subject = "UltraGamingCenter: código de reserva de mesa";
         String content = "Tu código de reserva de mesa es "+ code;

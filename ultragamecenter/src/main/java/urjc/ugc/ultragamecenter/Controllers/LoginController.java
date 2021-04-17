@@ -60,19 +60,12 @@ public class LoginController {
 	}
 
 	@GetMapping("/loggout")
-	public String LoggOut(HttpSession sesion, Model model) {
+	public String loggOut(HttpSession sesion, Model model) {
 		this.userComponent.logOut();
 		return "redirect:/profile";
 	}
 
-	public User logUsr(String email, String password){	
-		User aux = uService.findByEmail(email);
-		if (aux != null && aux.matchPasword(password)) {
-			this.userComponent.setLoggedUser(aux);
-			return aux;
-		}
-		return null;
-	}
+	
 
 	@PostMapping("/logginUser")
 	public String logUser(@RequestParam String email, @RequestParam String password, HttpSession sesion,
@@ -92,20 +85,6 @@ public class LoginController {
 		setHeader(model);
 		return "login";
 	}
-
-    
-	/* @PostMapping("/registerUser")
-	public String regUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
-			@RequestParam String password, HttpSession sesion, Model model) {
-		User aux = uService.findByEmail(email);
-		if (aux != null) {
-			model.addAttribute("Registered", "Ya hay un usuario registrado con ese correo");
-		} else {
-			uService.createNewUser(name, lastName, password, email);
-			getLogin(model);
-		}
-		return getLoginRegister(model);
-	} */
 
     @PostMapping("/register")
 	public String registerUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password,

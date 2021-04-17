@@ -1,11 +1,9 @@
 package urjc.ugc.ultragamecenter.controllers;
 
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,18 +28,6 @@ public class UserController {
 	@Autowired
 	EventService eService;
 
-	@Autowired
-	TableService tService;
-
-	@Autowired
-	TableReservationService trrService;
-
-	@Autowired
-	AuthenticationManager authenticationManager;
-
-	@Autowired
-	private ImageService imageService;
-
 
 	public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";
 	public static final String IMG_CONTROLLER_URL = "/images/uploads/";
@@ -58,12 +44,7 @@ public class UserController {
 
 	@GetMapping("/like")
 	public String likeEvent(@RequestParam String id, Model model) {
-		Event event = eService.getByid(Long.parseLong(id));
-		if (this.userComponent.isLoggedUser() && !this.userComponent.hasLiked(event.getId())) {
-			this.userComponent.like(event, this.eService.getAllEvents());
-			eService.save(event);
-			uService.save(this.userComponent.getLoggedUser());
-		} else {
+		if(!eService.like(Long.parseLong(id))) {
 			return getProfile(model);
 		}
 
@@ -80,7 +61,7 @@ public class UserController {
 		if (!isLogged) {
 			return "redirect:/login";
 		}
-		ArrayList<Event> aux = new ArrayList<Event>();
+		ArrayList<Event> aux = new ArrayList<>();
 		for (Long l : this.userComponent.getLoggedUser().getEventsLiked()) {
 			aux.add(eService.getByid(l));
 		}
@@ -114,32 +95,16 @@ public class UserController {
 
 
 	@PostMapping("/editPassword")
-	public String editPassword(@RequestParam String password, @RequestParam String password_repeated,
-			@RequestParam String new_password, HttpSession sesion) {
-		User aux = this.userComponent.getLoggedUser();
-		if (aux.getPassword().equals(password) && password.equals(password_repeated)) {
-			aux.setPassword(new_password);
-		}
-		uService.save(aux);
+	public String editPassword(@RequestParam String password,
+			@RequestParam String newPassword, HttpSession sesion) {
+		uService.updateUserPassword(password, newPassword);
 		return "EditProfileTemplate";
 	}
 
 	@PostMapping("/editProfile")
 	public String editProfile(@RequestParam String name, @RequestParam String surname,
-			@RequestParam MultipartFile image, HttpSession sesion) throws IOException {
-		User aux = this.userComponent.getLoggedUser();
-		if (!image.isEmpty()) {
-			aux.setProfileSrc(imageService.uploadImage(image));
-		} else {
-			aux.setProfileSrc("images/uploads/defaultuser.png");
-		}
-		if (!surname.equals("")) {
-			aux.setLastName(surname);
-		}
-		if (!name.equals("")) {
-			aux.setName(name);
-		}
-		uService.save(aux);
+			@RequestParam MultipartFile image, HttpSession sesion) {
+		uService.updateUser(name, surname,image);
 		return "redirect:/";
 	}
 

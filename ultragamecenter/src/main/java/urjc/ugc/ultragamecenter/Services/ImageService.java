@@ -26,9 +26,7 @@ public class ImageService {
 		File uploadFile = new File(new File(IMG_FOLDER).getAbsolutePath(), fileName);
 		try {
 			file.transferTo(uploadFile);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		}  catch (IOException e) {
 			e.printStackTrace();
 		}
 		return IMG_CONTROLLER_URL + fileName;

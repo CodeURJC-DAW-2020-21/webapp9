@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.Event;
 import urjc.ugc.ultragamecenter.repositories.EventRepository;
 
@@ -16,8 +17,15 @@ import urjc.ugc.ultragamecenter.repositories.EventRepository;
 public class EventService {
 	@Autowired
 	private EventRepository eventRepository;
+
+	@Autowired
+	private UserService uService;
+
 	@Autowired
 	private ImageService imageService;
+
+	@Autowired
+	private UserComponent uComponent;
 
 	public List<Event> getAllEvents() {
 		return eventRepository.findAll();
@@ -40,48 +48,68 @@ public class EventService {
 		eventRepository.save(event);
 	}
 
-	public Event createNewEvent(String name, String description, MultipartFile image,MultipartFile[] filePack, String date, Integer capacity, String labels) {
-		Event event = new Event(name, description, date, "", capacity);
-		for(MultipartFile file:filePack){
+	public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile[] filePack,
+			String date, Integer capacity, String labels) {
+		Event event = null;
+		if (uComponent.isAdmin()) {
+			event = new Event(name, description, date, "", capacity);
 			if (!file.isEmpty()) {
-				event.getGallery().add(imageService.uploadImage(file));
+				event.setBannerUrl(imageService.uploadImage(file));
 			} else {
-				event.getGallery().add("/images/uploads/defaultEvent.jpg");
+				event.setBannerUrl("/images/uploads/defaultEvent.jpg");
 			}
+			for (MultipartFile image : filePack) {
+				if (!image.isEmpty()) {
+					event.getGallery().add(imageService.uploadImage(image));
+				} else {
+					event.getGallery().add("/images/uploads/defaultEvent.jpg");
+				}
+			}
+			for (String l : labels.split("/")) {
+				event.putLavel(l);
+			}
+			eventRepository.save(event);
 		}
-		if (!image.isEmpty()) {
-			event.setBannerUrl(imageService.uploadImage(image));
-		} else {
-			event.setBannerUrl("/images/uploads/defaultEvent.jpg");
-		}
-		for (String label : labels.split("/")) {
-			event.putLavel(label);
-		}
-		eventRepository.save(event);
+
 		return event;
 	}
 
 	public Event updateEvent(Long id, String name, String description, String date, Integer capacity) {
-        Event event = eventRepository.findByid(id);
-		event.setName(name.equals("") ? event.getName():name);
-		event.setDescription(description.equals("")? event.getDescription():description);
-		event.setDate(date.equals("")?   event.getDate().toString():date);
-		event.setCapacity(capacity== 0 ? event.getCapacity():capacity);
-		eventRepository.save(event);
-		return event;
-    }
-
-	public Event createNewEvent(String name, String description, String date, Integer capacity) {
-		Event event = new Event(name, description, date, "", capacity);
-		eventRepository.save(event);
+		Event event = null;
+		if (uComponent.isAdmin()) {
+			event = eventRepository.findByid(id);
+			if (event != null) {
+				event.setName(!name.equals("") ? name : event.getName());
+				event.setDescription(!description.equals("") ? description : event.getDescription());
+				event.setDate(!date.equals("") ? date : event.getDate().toString());
+				event.setCapacity(capacity != 0 ? capacity : event.getCapacity());
+				eventRepository.save(event);
+			}
+		}
 		return event;
 	}
 
-	public void deleteID(String id) {
-		Event evento = eventRepository.findByid(Long.parseLong(id));
-		if (evento != null) {
-			eventRepository.delete(evento);
+	public Event deleteID(Long id) {
+		Event e = null;
+		if (uComponent.isAdmin()) {
+			e = getByid(id);
+			if (e != null) {
+				e.setDescription("Este evento se ha eliminado satisfactoriamiente");
+				eventRepository.delete(e);
+			}
 		}
+		return e;
+	}
+
+	public boolean like(Long id) {
+		Event event = getByid(id);
+		if (event != null && this.uComponent.isLoggedUser() && !this.uComponent.hasLiked(event.getId())) {
+			this.uComponent.like(event, getAllEvents());
+			save(event);
+			uService.save(this.uComponent.getLoggedUser());
+			return true;
+		}
+		return false;
 	}
 
 }

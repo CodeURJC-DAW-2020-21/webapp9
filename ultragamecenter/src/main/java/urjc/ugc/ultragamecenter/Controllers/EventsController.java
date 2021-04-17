@@ -30,9 +30,6 @@ public class EventsController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
-	@Autowired
-	private EventService eventService;
-
 
 	private Event editedEvent = null;
     
@@ -56,7 +53,7 @@ public class EventsController {
 	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		Page<Event> events = eventService.getPageEvents(0, pageSize);
+		Page<Event> events = eService.getPageEvents(0, pageSize);
 		model.addAttribute("events", events);
 		model.addAttribute("isLogged", this.userComponent.isLoggedUser());
 		return "events";
@@ -87,7 +84,7 @@ public class EventsController {
 			eService.updateEvent(this.editedEvent.getId(), name, description, end, capacity);
 		} else {
 			MultipartFile[] filePack={image1,image2,image3};
-			eventService.createNewEvent(name, description, image, filePack, end, capacity,labels);
+			eService.createNewEvent(name, description, image, filePack,end,capacity,labels);
 		}
 		return "redirect:/admin";
 	}

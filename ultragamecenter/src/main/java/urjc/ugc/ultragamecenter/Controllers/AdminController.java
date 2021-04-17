@@ -52,8 +52,7 @@ public class AdminController {
 			label.append(x);
 			label.append("/");
 		}
-		String lavel=label.toString();
-		model.addAttribute("labels", lavel);
+		model.addAttribute("labels", label.toString());
 		model.addAttribute("capacity", event.getCapacity());
 		model.addAttribute("date", event.getDate().toString());
 		model.addAttribute("site", "EV/ED");
@@ -85,7 +84,7 @@ public class AdminController {
 		Integer numPS5 = 0;
 
 		for (TableReservation tableReservation : reservations) {
-			Optional<Tablegame> opttable = tService.getByid(tableReservation.getId_table());
+			Optional<Tablegame> opttable = tService.getByid(tableReservation.getIdTable());
 			if (opttable.isPresent()) {
 				Tablegame table = opttable.get();
 				switch (table.getType()) {
@@ -110,8 +109,7 @@ public class AdminController {
 
 	@GetMapping("/admin/delete-reservation")
 	public String borrarReserva(@RequestParam String id, Model model) {
-		TableReservation reserva = trService.getByid(Long.parseLong(id));
-		trService.delete(reserva);
+		trService.delete(Long.parseLong(id));
 		model.addAttribute("events", eService.getAllEvents());
 		model.addAttribute("reservations", trService.getAll());
 		return getAdmin(model);
@@ -119,7 +117,7 @@ public class AdminController {
 
 	@GetMapping("/admin/delete-event")
 	public String borrarEvento(@RequestParam String id, Model model) {
-		eService.deleteID(id);
+		eService.deleteID(Long.parseLong(id));
 		model.addAttribute("events", eService.getAllEvents());
 		return getAdmin(model);
 	}

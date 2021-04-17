@@ -5,11 +5,11 @@ import java.util.List;
 
 import urjc.ugc.ultragamecenter.models.Event;
 
-public class API_events {
+public class APIevents {
     private String name = "No existe este evento";
     private Long id = 0L;
 
-    public API_events(Event e) {
+    public APIevents(Event e) {
         if (e != null) {
             this.name = e.getName();
             this.id = e.getId();
@@ -24,10 +24,10 @@ public class API_events {
         return id;
     }
 
-    public static ArrayList<API_events> transform(List<Event> e) {
-        ArrayList<API_events> a = new ArrayList<>();
+    public static List<APIevents> transform(List<Event> e) {
+        ArrayList<APIevents> a = new ArrayList<>();
         for (Event er : e) {
-            a.add(new API_events(er));
+            a.add(new APIevents(er));
         }
         return a;
     }
