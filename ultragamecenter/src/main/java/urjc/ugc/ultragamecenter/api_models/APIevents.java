@@ -3,7 +3,7 @@ package urjc.ugc.ultragamecenter.api_models;
 import java.util.ArrayList;
 import java.util.List;
 
-import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.Models.Event;
 
 public class APIevents {
     private String name = "No existe este evento";

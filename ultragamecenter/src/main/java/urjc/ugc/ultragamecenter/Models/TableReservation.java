@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.models;
+package urjc.ugc.ultragamecenter.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -52,6 +52,6 @@ public class TableReservation {
     public Long getID() {
         return this.id;
     }
-    
-    
+
+
 }

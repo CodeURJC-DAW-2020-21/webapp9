@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.components;
+package urjc.ugc.ultragamecenter.Components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +8,13 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import urjc.ugc.ultragamecenter.models.Event;
-import urjc.ugc.ultragamecenter.models.User;
+import urjc.ugc.ultragamecenter.Models.Event;
+import urjc.ugc.ultragamecenter.Models.User;
 
 @Component
 @SessionScope
 public class UserComponent {
-	
+
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 	private User user;
@@ -47,7 +47,7 @@ public class UserComponent {
 	}
 
 	public boolean hasLiked(Long event) {
-		
+
 		return this.user.hasLiked(event);
 	}
 

@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.controllers;
+package urjc.ugc.ultragamecenter.Controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,11 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.services.EventService;
-import urjc.ugc.ultragamecenter.services.TableReservationService;
-import urjc.ugc.ultragamecenter.services.TableService;
-import urjc.ugc.ultragamecenter.components.*;
+import urjc.ugc.ultragamecenter.Models.*;
+import urjc.ugc.ultragamecenter.Services.EventService;
+import urjc.ugc.ultragamecenter.Services.TableReservationService;
+import urjc.ugc.ultragamecenter.Services.TableService;
+import urjc.ugc.ultragamecenter.Components.*;
 
 @Controller
 public class AdminController {

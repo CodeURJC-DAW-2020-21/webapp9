@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.models;
+package urjc.ugc.ultragamecenter.Models;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5767343013628002370L;
     @Id

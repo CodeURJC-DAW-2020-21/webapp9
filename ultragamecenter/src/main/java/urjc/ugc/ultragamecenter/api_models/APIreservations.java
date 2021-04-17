@@ -3,7 +3,7 @@ package urjc.ugc.ultragamecenter.api_models;
 import java.util.ArrayList;
 import java.util.List;
 
-import urjc.ugc.ultragamecenter.models.TableReservation;
+import urjc.ugc.ultragamecenter.Models.TableReservation;
 
 public class APIreservations {
 
@@ -15,8 +15,8 @@ public class APIreservations {
             id = t.getID();
             referencedCode = t.getReferencedCode();
         }
-        
-    } 
+
+    }
 
     public APIreservations(String t){
         referencedCode=t;

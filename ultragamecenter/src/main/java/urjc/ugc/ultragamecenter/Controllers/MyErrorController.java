@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.controllers;
+package urjc.ugc.ultragamecenter.Controllers;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -16,5 +16,5 @@ public class MyErrorController implements ErrorController {
     public String getErrorPath() {
         return null;
     }
-    
+
 }

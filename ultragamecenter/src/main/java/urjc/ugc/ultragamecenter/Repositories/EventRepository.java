@@ -1,5 +1,5 @@
-package urjc.ugc.ultragamecenter.repositories;
-import urjc.ugc.ultragamecenter.models.*;
+package urjc.ugc.ultragamecenter.Repositories;
+import urjc.ugc.ultragamecenter.Models.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 public interface EventRepository extends JpaRepository<Event, Integer> {
     Event findByid(long id);
-    
+
 }

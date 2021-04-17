@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.controllers;
+package urjc.ugc.ultragamecenter.Controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import urjc.ugc.ultragamecenter.services.*;
-import urjc.ugc.ultragamecenter.components.*;
+import urjc.ugc.ultragamecenter.Services.*;
+import urjc.ugc.ultragamecenter.Components.*;
 
 
 @Controller
@@ -60,7 +60,7 @@ public class ReservationController {
         }
         return getReservation(model);
     }
-    
+
     public void setHeader(Model model) {
         model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
         model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");

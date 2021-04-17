@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.Models.Event;
 
 public class APIevent {
     private String name="No existe este evento";
@@ -46,7 +46,7 @@ public class APIevent {
             this.likes = e.getlikes();
             this.lavels = (ArrayList<String>) e.getLavels();
             this.capacity = e.getCapacity();
-        } 
+        }
     }
 
     public APIevent(String e){

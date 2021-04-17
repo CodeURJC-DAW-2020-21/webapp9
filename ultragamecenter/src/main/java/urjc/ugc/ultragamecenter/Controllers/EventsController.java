@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.controllers;
+package urjc.ugc.ultragamecenter.Controllers;
 
 
 import javax.servlet.http.HttpSession;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.services.*;
-import urjc.ugc.ultragamecenter.components.*;
+import urjc.ugc.ultragamecenter.Models.*;
+import urjc.ugc.ultragamecenter.Services.*;
+import urjc.ugc.ultragamecenter.Components.*;
 
 @Controller
 
@@ -32,7 +32,7 @@ public class EventsController {
 
 
 	private Event editedEvent = null;
-    
+
 
     public void setHeader(Model model) {
 		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
@@ -74,7 +74,7 @@ public class EventsController {
 		return getSingleEvent(model);
 	}
 
-    
+
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
 			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,

@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.services;
+package urjc.ugc.ultragamecenter.Services;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.models.Event;
-import urjc.ugc.ultragamecenter.repositories.EventRepository;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Models.Event;
+import urjc.ugc.ultragamecenter.Repositories.EventRepository;
 
 @Service
 public class EventService {

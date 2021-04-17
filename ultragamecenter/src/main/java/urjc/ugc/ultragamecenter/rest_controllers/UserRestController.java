@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import urjc.ugc.ultragamecenter.api_models.APIuser;
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.models.User;
-import urjc.ugc.ultragamecenter.services.UserService;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.Services.UserService;
 
 @RestController
 public class UserRestController {

@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.controllers;
+package urjc.ugc.ultragamecenter.Controllers;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.services.*;
-import urjc.ugc.ultragamecenter.components.*;
+import urjc.ugc.ultragamecenter.Models.*;
+import urjc.ugc.ultragamecenter.Services.*;
+import urjc.ugc.ultragamecenter.Components.*;
 
 
 @Controller
@@ -39,7 +39,7 @@ public class UserController {
 		return "index";
 	}
 
-	
+
 
 
 	@GetMapping("/like")
@@ -87,7 +87,7 @@ public class UserController {
 			String surname = userComponent.getLoggedUser().getLastName();
 			model.addAttribute("Name", name.equals("") ? "Nombre*" : name);
 			model.addAttribute("Surname", name.equals("") ? "Apellidos*" : surname);
-	
+
 			return "EditProfileTemplate";
 		}
 		return "redirect:/";
@@ -115,5 +115,5 @@ public class UserController {
 		model.addAttribute("Logout-ico", this.userComponent.isLoggedUser() ? "fas fa-sign-out-alt" : "");
 	}
 
-	
+
 }

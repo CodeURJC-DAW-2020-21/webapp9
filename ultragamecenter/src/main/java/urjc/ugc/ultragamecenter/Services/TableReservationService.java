@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.services;
+package urjc.ugc.ultragamecenter.Services;
 
 import java.util.List;
 import java.util.Random;
@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.models.TableReservation;
-import urjc.ugc.ultragamecenter.models.Tablegame;
-import urjc.ugc.ultragamecenter.repositories.TableReservationRepository;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Models.TableReservation;
+import urjc.ugc.ultragamecenter.Models.Tablegame;
+import urjc.ugc.ultragamecenter.Repositories.TableReservationRepository;
 
 @Service
 public class TableReservationService {
@@ -124,6 +124,6 @@ public class TableReservationService {
             return userComponent.getLoggedUser().getReferencedCodes();
         }
         return null;
-       
+
     }
 }

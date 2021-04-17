@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.api_models.*;
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.services.EventService;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Models.*;
+import urjc.ugc.ultragamecenter.Services.EventService;
 
 @RestController
 public class EventRestController {

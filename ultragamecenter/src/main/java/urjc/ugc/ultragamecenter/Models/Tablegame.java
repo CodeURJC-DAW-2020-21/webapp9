@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.models;
+package urjc.ugc.ultragamecenter.Models;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -63,7 +63,3 @@ public class Tablegame {
 
 
 }
-
-
-
-

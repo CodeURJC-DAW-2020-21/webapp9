@@ -1,6 +1,6 @@
 package urjc.ugc.ultragamecenter.api_models;
 
-import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.Models.Event;
 
 public class APIeventDATA {
     private String name = "No existe este evento";

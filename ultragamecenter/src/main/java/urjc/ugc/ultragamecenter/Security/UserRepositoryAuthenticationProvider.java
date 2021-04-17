@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.security;
+package urjc.ugc.ultragamecenter.Security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.models.User;
-import urjc.ugc.ultragamecenter.repositories.UserRepository;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.Repositories.UserRepository;
 
 @Component
 public class UserRepositoryAuthenticationProvider implements AuthenticationProvider {

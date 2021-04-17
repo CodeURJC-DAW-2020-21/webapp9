@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.services;
+package urjc.ugc.ultragamecenter.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

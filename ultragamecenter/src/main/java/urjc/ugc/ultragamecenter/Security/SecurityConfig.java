@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.security;
+package urjc.ugc.ultragamecenter.Security;
 
 
 
@@ -18,15 +18,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public UserRepositoryAuthenticationProvider authenticationProvider;
-	
 
-	
+
+
 	@SuppressWarnings("deprecation")
 	@Bean
 	public static NoOpPasswordEncoder passwordEncoder() {
 		return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Database authentication provider
 		auth.authenticationProvider(authenticationProvider);
 	}
-	
+
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {

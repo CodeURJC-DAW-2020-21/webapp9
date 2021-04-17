@@ -1,8 +1,8 @@
-package urjc.ugc.ultragamecenter.services;
+package urjc.ugc.ultragamecenter.Services;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.models.User;
-import urjc.ugc.ultragamecenter.repositories.UserRepository;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.Repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,7 +79,7 @@ public class UserService {
         return user;
     }
 
-    public User logUsr(String email, String password){	
+    public User logUsr(String email, String password){
 		User aux = findByEmail(email);
 		if (aux != null && aux.matchPasword(password)) {
 			uComponent.setLoggedUser(aux);

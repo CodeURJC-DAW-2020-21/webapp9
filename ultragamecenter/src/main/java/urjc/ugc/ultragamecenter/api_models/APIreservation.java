@@ -1,7 +1,7 @@
 package urjc.ugc.ultragamecenter.api_models;
 
 
-import urjc.ugc.ultragamecenter.models.TableReservation;
+import urjc.ugc.ultragamecenter.Models.TableReservation;
 
 public class APIreservation {
 

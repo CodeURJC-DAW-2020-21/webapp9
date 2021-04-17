@@ -1,5 +1,5 @@
-package urjc.ugc.ultragamecenter.repositories;
-import urjc.ugc.ultragamecenter.models.*;
+package urjc.ugc.ultragamecenter.Repositories;
+import urjc.ugc.ultragamecenter.Models.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByEmail(String email);
     User findById(Long id);
-    
+
 }

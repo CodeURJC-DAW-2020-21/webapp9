@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import urjc.ugc.ultragamecenter.api_models.APIreservation;
 import urjc.ugc.ultragamecenter.api_models.APIreservations;
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.controllers.*;
-import urjc.ugc.ultragamecenter.models.TableReservation;
-import urjc.ugc.ultragamecenter.services.TableReservationService;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Controllers.*;
+import urjc.ugc.ultragamecenter.Models.TableReservation;
+import urjc.ugc.ultragamecenter.Services.TableReservationService;
 
 @RestController
 public class ReservationRestController {
