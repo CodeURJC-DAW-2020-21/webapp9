@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import urjc.ugc.ultragamecenter.api_models.APIreservation;
 import urjc.ugc.ultragamecenter.api_models.APIreservations;
 import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.controllers.*;
 import urjc.ugc.ultragamecenter.models.TableReservation;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 

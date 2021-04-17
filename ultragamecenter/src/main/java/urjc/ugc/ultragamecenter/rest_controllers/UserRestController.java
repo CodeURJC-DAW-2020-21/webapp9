@@ -34,7 +34,7 @@ public class UserRestController {
 
     @PostMapping("api/createUsers")
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password, @RequestParam String email) {
-        APIuser user = new APIuser( uService.createNewUser(name, lastName, password, email));
+        User user = uService.createNewUser(name, lastName, password, email);
         HttpHeaders responseHeaders = new HttpHeaders();
         if(user==null){
             return ResponseEntity.badRequest().headers(responseHeaders).body("El correo ya existe");

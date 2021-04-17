@@ -74,7 +74,8 @@ public class EventService {
 		return event;
 	}
 
-	public Event updateEvent(Long id, String name, String description, String date, Integer capacity) {
+	public Event updateEvent(Long id, String name, String description, String date, Integer capacity,
+			MultipartFile image, MultipartFile[] filePack) {
 		Event event = null;
 		if (uComponent.isAdmin()) {
 			event = eventRepository.findByid(id);
@@ -84,6 +85,18 @@ public class EventService {
 				event.setDate(!date.equals("") ? date : event.getDate().toString());
 				event.setCapacity(capacity != 0 ? capacity : event.getCapacity());
 				eventRepository.save(event);
+				if (image != null) {
+					event.setBannerUrl(imageService.uploadImage(image));
+				}
+				if (filePack != null) {
+					for (MultipartFile file : filePack) {
+						if (!file.isEmpty()) {
+							event.getGallery().add(imageService.uploadImage(file));
+						} else {
+							event.getGallery().add("/images/uploads/defaultEvent.jpg");
+						}
+					}
+				}
 			}
 		}
 		return event;

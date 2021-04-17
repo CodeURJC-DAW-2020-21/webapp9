@@ -73,7 +73,7 @@ public class EventRestController {
             @RequestParam(required = false) Integer capacity) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isAdmin()) {
-            return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(eService.updateEvent(id, name, description, date, capacity)));
+            return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(eService.updateEvent(id, name, description, date, capacity,null,null)));
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No tienes permisos para esa acción"));
     }

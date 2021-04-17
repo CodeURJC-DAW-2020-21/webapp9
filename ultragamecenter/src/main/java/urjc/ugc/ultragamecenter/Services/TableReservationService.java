@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -123,7 +124,7 @@ public class TableReservationService {
         if(userComponent.isLoggedUser()){
             return userComponent.getLoggedUser().getReferencedCodes();
         }
-        return null;
+        return new ArrayList<>();
        
     }
 }

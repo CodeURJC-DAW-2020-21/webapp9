@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.models.*;
@@ -45,6 +46,7 @@ public class AdminController {
 	public String editEvent(@RequestParam String id, Model model) {
 		setHeader(model);
 		Event event = eService.getByid(Long.parseLong(id));
+		model.addAttribute("id", id);
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
 		StringBuilder label = new StringBuilder();
@@ -56,7 +58,7 @@ public class AdminController {
 		model.addAttribute("capacity", event.getCapacity());
 		model.addAttribute("date", event.getDate().toString());
 		model.addAttribute("site", "EV/ED");
-		return "EventCreatorTemplate";
+		return "EditEventTemplate";
 	}
 
 	@GetMapping("/admin/graph-event")
@@ -115,6 +117,7 @@ public class AdminController {
 		return getAdmin(model);
 	}
 
+	
 	@GetMapping("/admin/delete-event")
 	public String borrarEvento(@RequestParam String id, Model model) {
 		eService.deleteID(Long.parseLong(id));

@@ -1,6 +1,5 @@
 package urjc.ugc.ultragamecenter.controllers;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +29,7 @@ public class EventsController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
-
-	private Event editedEvent = null;
-    
-
-    public void setHeader(Model model) {
+	public void setHeader(Model model) {
 		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
 		model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");
 		model.addAttribute("Admin-ico", this.userComponent.isAdmin() ? "fas fa-tools" : "");
@@ -59,7 +54,7 @@ public class EventsController {
 		return "events";
 	}
 
-    @GetMapping("/events/see-event")
+	@GetMapping("/events/see-event")
 	public String seeEvent(@RequestParam String id, Model model) {
 		Event event = eService.getByid(Long.parseLong(id));
 
@@ -74,18 +69,34 @@ public class EventsController {
 		return getSingleEvent(model);
 	}
 
-    
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
 			@RequestParam(defaultValue = "") Integer capacity, @RequestParam String labels, @RequestParam String end,
 			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
 			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
-		if (this.editedEvent != null) {
-			eService.updateEvent(this.editedEvent.getId(), name, description, end, capacity);
-		} else {
-			MultipartFile[] filePack={image1,image2,image3};
-			eService.createNewEvent(name, description, image, filePack,end,capacity,labels);
-		}
+		MultipartFile[] filePack = { image1, image2, image3 };
+		eService.createNewEvent(name, description, image, filePack, end, capacity, labels);
+		return "redirect:/admin";
+	}
+
+	@PostMapping("/editEvent")
+	public String editEvent(@RequestParam String id, @RequestParam String name, @RequestParam String description,
+			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,
+			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
+			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
+			System.out.println("\n\n\n\n");
+			System.out.println(name);
+			System.out.println(description);
+			System.out.println(capacity);
+			System.out.println(labels);
+			System.out.println(end);
+			System.out.println(image.isEmpty());
+			System.out.println(image1.isEmpty());
+			System.out.println(image2.isEmpty());
+			System.out.println(image3.isEmpty());
+			System.out.println("\n\n\n\n");
+		MultipartFile[] filePack = { image1, image2, image3 };
+		eService.updateEvent(Long.parseLong(id), name, description, end, capacity, image, filePack);
 		return "redirect:/admin";
 	}
 

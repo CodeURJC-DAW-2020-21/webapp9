@@ -1,5 +1,4 @@
-
-    {{>header}}
+{{>header}}
         <div class="body__overlay"></div>
 
         <!-- Start Login Register Area -->
@@ -9,7 +8,7 @@
                 <div class="col-md-6 col-md-offset-3">
                     <ul class="" role="">
                         <li role="presentation" class="gaming-h1 event-title"><a href="#editProfile" role="tab"
-                                data-toggle="tab"> Nuevo Evento</a></li>
+                                data-toggle="tab"> Editar evento </a></li>
                     </ul>
                 </div>
             </div>
@@ -18,10 +17,7 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="">
                         <!-- Start Single Content -->
-
-                        
-
-                            <form class="login" method="post" action="/createEvent" enctype="multipart/form-data">
+                            <form class="login" method="post" action="/editEvent?id={{id}}" enctype="multipart/form-data">
                                 <input class="mb-4" type="text" value="{{name}}" name="name">
                                 <input class="mb-4" type="text" value="{{description}}" name="description">
                                 <label for="description"> Pon las etiquetas separadas por /</label>
