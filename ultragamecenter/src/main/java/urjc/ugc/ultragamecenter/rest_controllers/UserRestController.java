@@ -27,7 +27,7 @@ public class UserRestController {
     public ResponseEntity<APIuser> getUser() {
         HttpHeaders responseHeaders = new HttpHeaders();
         if(uComponent.isLoggedUser()){
-            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser(uComponent.getLoggedUser()));
+            return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(uComponent.getLoggedUser()));
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
@@ -36,15 +36,17 @@ public class UserRestController {
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password, @RequestParam String email) {
         APIuser user = new APIuser( uService.createNewUser(name, lastName, password, email));
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Location", "https://localhost:8443/api/seeUsers?email=" + user.getEmail());
-        return ResponseEntity.ok().headers(responseHeaders).body("User created");
+        if(user==null){
+            return ResponseEntity.badRequest().headers(responseHeaders).body("El correo ya existe");
+        }
+        return ResponseEntity.ok().headers(responseHeaders).body("Usuario creado");
     }
 
     @PutMapping("api/editUsers")
     public ResponseEntity<APIuser> editUser(@RequestParam(required = false) String name, @RequestParam(required = false) String lastName) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if(uComponent.isLoggedUser()){
-            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser(uService.updateUser(name, lastName, null)));
+            return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(uService.updateUser(name, lastName, null)));
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
@@ -70,7 +72,7 @@ public class UserRestController {
         if (u==null){
             return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No se ha podido logear"));
         }
-        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser(u));
+        return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(u));
     }
 
 

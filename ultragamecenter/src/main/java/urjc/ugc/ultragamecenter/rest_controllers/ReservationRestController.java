@@ -33,12 +33,12 @@ public class ReservationRestController {
             @RequestParam String hour, @RequestParam(required = false) String email) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (email.equals("") && !uComponent.isLoggedUser()) {
-            return ResponseEntity.ok().headers(responseHeaders)
+            return ResponseEntity.badRequest().headers(responseHeaders)
                     .body(new APIreservation("No has dado un email y no estas logeado"));
         } else {
             TableReservation t = trService.reserveTable(type, day, hour, email);
             if (t == null) {
-                return ResponseEntity.ok().headers(responseHeaders)
+                return ResponseEntity.badRequest().headers(responseHeaders)
                         .body(new APIreservation("No se ha podido reservar el dia: " + day + " a la hora " + hour));
             }
             return ResponseEntity.ok().headers(responseHeaders).body(new APIreservation(t));
