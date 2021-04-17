@@ -77,7 +77,7 @@ public class EventsController {
     
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
-			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,
+			@RequestParam(defaultValue = "") Integer capacity, @RequestParam String labels, @RequestParam String end,
 			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
 			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
 		if (this.editedEvent != null) {

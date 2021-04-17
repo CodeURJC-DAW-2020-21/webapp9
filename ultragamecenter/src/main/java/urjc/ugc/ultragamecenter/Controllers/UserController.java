@@ -98,7 +98,7 @@ public class UserController {
 	public String editPassword(@RequestParam String password,
 			@RequestParam String newPassword, HttpSession sesion) {
 		uService.updateUserPassword(password, newPassword);
-		return "EditProfileTemplate";
+		return "redirect:/";
 	}
 
 	@PostMapping("/editProfile")
