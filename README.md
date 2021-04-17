@@ -175,7 +175,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 ### Participation
 
-**Miguel**
+**Miguel Cendrero**
 
 -  Completed tasks: Created some entities, added the error page, listed events template (with pagination), most of the work in admin template and visual fixtures.
 
@@ -268,3 +268,34 @@ Web app for a gaming center called ***Ultra Game Center***
   3. [User Controller](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Controllers/UserController.java)
   4. [Admin Controller](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Controllers/AdminController.java)
   5. [login.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/resources/templates/login.html)
+
+## PHASE 3: API REST to the web application and docker deployment 
+
+- Document API Documentantion with information about the REST API
+
+### Docker
+
+Docker allows the users to run our web application without having anything installed. Follow these steps: 
+
+### Class Diagram:
+
+
+### Participation: 
+
+**Miguel Cendrero**
+
+-  Completed tasks: Edited most of the readme and developed APIs.
+
+- 5 most significant commits:
+  1. [Deleted repositories from controllers | added services instead](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/41de231f5498b6ff823e768073060e90be3a1ec1)
+  2. [User](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/26d5463a274f3821c22f99ab5f47147e402ffc9f)
+  3. [TableReservation, Event, Table Rest Controllers](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/b46adbea1ae69e52eaba5f7867b660c88ace7295)
+  4. [fixes in apis](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/1e0455bc7f86ec5b0a761ea42da592d998eaf8e7)
+  5. [changes in user rest controller](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/20339f407dc8ff8dfd73ce00c3d2624775dd780e)
+  
+- 5 files with participation:
+  1. [EventService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/EventService.java)
+  2. [README.md](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/README.md)
+  3. [EventRestController.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/EventRestController.java)
+  4. [UserRestController.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/UserRestController.java)
+  5. [UserService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/UserService.java)
