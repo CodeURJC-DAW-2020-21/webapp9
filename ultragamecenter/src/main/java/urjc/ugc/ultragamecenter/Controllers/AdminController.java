@@ -1,7 +1,5 @@
 package urjc.ugc.ultragamecenter.controllers;
 
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +15,6 @@ import urjc.ugc.ultragamecenter.services.EventService;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 import urjc.ugc.ultragamecenter.services.TableService;
 import urjc.ugc.ultragamecenter.components.*;
-
 
 @Controller
 public class AdminController {
@@ -44,19 +41,19 @@ public class AdminController {
 		model.addAttribute("Logout-ico", this.userComponent.isLoggedUser() ? "fas fa-sign-out-alt" : "");
 	}
 
-	
 	@GetMapping("/admin/event-edit")
 	public String editEvent(@RequestParam String id, Model model) {
 		setHeader(model);
 		Event event = eService.getByid(Long.parseLong(id));
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
-		String label = "";
+		StringBuilder label = new StringBuilder();
 		for (String x : event.getLavels()) {
-			label += x;
-			label += "/";
+			label.append(x);
+			label.append("/");
 		}
-		model.addAttribute("labels", label);
+		String lavel=label.toString();
+		model.addAttribute("labels", lavel);
 		model.addAttribute("capacity", event.getCapacity());
 		model.addAttribute("date", event.getDate().toString());
 		model.addAttribute("site", "EV/ED");
@@ -76,7 +73,6 @@ public class AdminController {
 		return "GraphsEventsTemplate";
 	}
 
-	
 	@GetMapping("/admin/graph-tables")
 	public String graphTables(Model model) {
 		model.addAttribute("nombre", "Admin");
@@ -85,7 +81,7 @@ public class AdminController {
 		List<TableReservation> reservations = trService.getAll();
 
 		Integer numPC = 0;
-		Integer numXBOX_ONE = 0;
+		Integer numXBOXONE = 0;
 		Integer numPS5 = 0;
 
 		for (TableReservation tableReservation : reservations) {
@@ -97,7 +93,7 @@ public class AdminController {
 					numPC++;
 					break;
 				case "XBOX_ONE":
-					numXBOX_ONE++;
+					numXBOXONE++;
 					break;
 				case "PS5":
 					numPS5++;
@@ -107,7 +103,7 @@ public class AdminController {
 			}
 		}
 		model.addAttribute("numPC", numPC);
-		model.addAttribute("numXBOX_ONE", numXBOX_ONE);
+		model.addAttribute("numXBOX_ONE", numXBOXONE);
 		model.addAttribute("numPS5", numPS5);
 		return "GraphsTableTemplate";
 	}
@@ -123,10 +119,7 @@ public class AdminController {
 
 	@GetMapping("/admin/delete-event")
 	public String borrarEvento(@RequestParam String id, Model model) {
-		Event evento = eService.getByid(Long.parseLong(id));
-		if (evento != null) {
-			eService.delete(evento);
-		}
+		eService.deleteID(id);
 		model.addAttribute("events", eService.getAllEvents());
 		return getAdmin(model);
 	}

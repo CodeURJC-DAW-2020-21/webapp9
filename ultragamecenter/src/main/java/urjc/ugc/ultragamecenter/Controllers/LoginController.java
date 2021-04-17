@@ -94,26 +94,24 @@ public class LoginController {
 	}
 
     
-	@PostMapping("/registerUser")
+	/* @PostMapping("/registerUser")
 	public String regUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
 			@RequestParam String password, HttpSession sesion, Model model) {
 		User aux = uService.findByEmail(email);
 		if (aux != null) {
 			model.addAttribute("Registered", "Ya hay un usuario registrado con ese correo");
 		} else {
-			User user = new User(name, lastName, password, email);
-			uService.save(user);
+			uService.createNewUser(name, lastName, password, email);
 			getLogin(model);
 		}
 		return getLoginRegister(model);
-	}
+	} */
 
     @PostMapping("/register")
 	public String registerUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password,
 			@RequestParam String email) {
 		User user = uService.createNewUser(name, lastName, password, email);
 		userComponent.setLoggedUser(user);
-		this.uService.save(user);
 		return "redirect:/";
 	}
 }

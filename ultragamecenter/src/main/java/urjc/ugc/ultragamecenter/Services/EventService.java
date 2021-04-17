@@ -40,51 +40,48 @@ public class EventService {
 		eventRepository.save(event);
 	}
 
-	public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile file1,
-			MultipartFile file2, MultipartFile file3, String date, Integer capacity) {
+	public Event createNewEvent(String name, String description, MultipartFile image,MultipartFile[] filePack, String date, Integer capacity, String labels) {
 		Event event = new Event(name, description, date, "", capacity);
-
-		if (!file.isEmpty()) {
-			event.setBannerUrl(imageService.uploadImage(file));
+		for(MultipartFile file:filePack){
+			if (!file.isEmpty()) {
+				event.getGallery().add(imageService.uploadImage(file));
+			} else {
+				event.getGallery().add("/images/uploads/defaultEvent.jpg");
+			}
+		}
+		if (!image.isEmpty()) {
+			event.setBannerUrl(imageService.uploadImage(image));
 		} else {
 			event.setBannerUrl("/images/uploads/defaultEvent.jpg");
 		}
-
-		if (!file1.isEmpty()) {
-			event.getGallery().add(imageService.uploadImage(file1));
-		} else {
-			event.getGallery().add("/images/uploads/defaultEvent.jpg");
-		}
-
-		if (!file2.isEmpty()) {
-			event.getGallery().add(imageService.uploadImage(file2));
-		} else {
-			event.getGallery().add("/images/uploads/defaultEvent.jpg");
-		}
-
-		if (!file3.isEmpty()) {
-			event.getGallery().add(imageService.uploadImage(file3));
-		} else {
-			event.getGallery().add("/images/uploads/defaultEvent.jpg");
+		for (String label : labels.split("/")) {
+			event.putLavel(label);
 		}
 		eventRepository.save(event);
 		return event;
 	}
 
-    public Event updateEvent(Long id, String name, String description, String date, Integer capacity) {
+	public Event updateEvent(Long id, String name, String description, String date, Integer capacity) {
         Event event = eventRepository.findByid(id);
-		event.setName(name);
-		event.setDescription(description);
-		event.setDate(date);
-		event.setCapacity(capacity);
+		event.setName(name.equals("") ? event.getName():name);
+		event.setDescription(description.equals("")? event.getDescription():description);
+		event.setDate(date.equals("")?   event.getDate().toString():date);
+		event.setCapacity(capacity== 0 ? event.getCapacity():capacity);
 		eventRepository.save(event);
 		return event;
     }
 
-    public Event createNewEvent(String name, String description, String date, Integer capacity) {
-        Event event = new Event(name, description,date,"",capacity);
+	public Event createNewEvent(String name, String description, String date, Integer capacity) {
+		Event event = new Event(name, description, date, "", capacity);
 		eventRepository.save(event);
 		return event;
-    }
+	}
+
+	public void deleteID(String id) {
+		Event evento = eventRepository.findByid(Long.parseLong(id));
+		if (evento != null) {
+			eventRepository.delete(evento);
+		}
+	}
 
 }

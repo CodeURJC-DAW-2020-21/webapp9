@@ -83,25 +83,12 @@ public class EventsController {
 			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,
 			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
 			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
-		Event event;
 		if (this.editedEvent != null) {
-			event = this.editedEvent;
-			this.editedEvent = null;
-			for (String var : labels.split("/")) {
-				event.putLavel(var.toUpperCase());
-			}
-			event.setCapacity(capacity != 0 ? capacity : event.getCapacity());
-			event.setDescription(description.equals("") ? event.getDescription() : description);
-			event.setName(name.equals("") ? event.getName() : name);
-			event.setDate(end.equals("") ? event.getDate().toString() : end);
+			eService.updateEvent(this.editedEvent.getId(), name, description, end, capacity);
 		} else {
-			event = eventService.createNewEvent(name, description, image, image1, image2, image3, end, capacity);
-			for (String var : labels.split("/")) {
-				event.putLavel(var.toUpperCase());
-			}
-
+			MultipartFile[] filePack={image1,image2,image3};
+			eventService.createNewEvent(name, description, image, filePack, end, capacity,labels);
 		}
-		eService.save(event);
 		return "redirect:/admin";
 	}
 

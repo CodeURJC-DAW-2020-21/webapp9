@@ -73,7 +73,7 @@ public class User implements UserDetails {
 
     
 
-    public Boolean matchPasword(String password){
+    public boolean matchPasword(String password){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(password, this.passwordHash);
     }

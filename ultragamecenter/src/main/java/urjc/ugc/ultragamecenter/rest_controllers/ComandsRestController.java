@@ -1,18 +1,15 @@
-package urjc.ugc.ultragamecenter.restControllers;
-
-import javax.mail.MessagingException;
+package urjc.ugc.ultragamecenter.rest_controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import urjc.ugc.ultragamecenter.api_models.API_eventDATA;
 import urjc.ugc.ultragamecenter.api_models.API_reservation;
 import urjc.ugc.ultragamecenter.api_models.API_user;
 import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.controllers.*;
-import urjc.ugc.ultragamecenter.models.User;
+import urjc.ugc.ultragamecenter.services.TableReservationService;
 
 @RestController
 public class ComandsRestController {
@@ -31,6 +28,9 @@ public class ComandsRestController {
 
     @Autowired
     ReservationController rController;
+
+    @Autowired
+    TableReservationService trService;
     
     @Autowired
     UserComponent uComponent;
@@ -41,8 +41,9 @@ public class ComandsRestController {
     }
 
     @GetMapping("api/reservate")
-    public API_reservation reservateTable(@RequestParam String type, @RequestParam String day, @RequestParam String hour,@RequestParam(required = false) String email) throws MessagingException{
-        return new API_reservation(rController.reserveTable(type,day,hour,email));
+    public API_reservation reservateTable(@RequestParam String type, @RequestParam String day, 
+    @RequestParam String hour,@RequestParam(required = false) String email){
+        return new API_reservation(trService.reserveTable(type,day,hour,email));
     }
 
 }
