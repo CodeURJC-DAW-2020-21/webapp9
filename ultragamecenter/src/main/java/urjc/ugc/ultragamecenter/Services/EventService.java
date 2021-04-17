@@ -53,13 +53,13 @@ public class EventService {
 		Event event = null;
 		if (uComponent.isAdmin()) {
 			event = new Event(name, description, date, "", capacity);
-			if (!file.isEmpty()) {
+			if (file!=null && !file.isEmpty()) {
 				event.setBannerUrl(imageService.uploadImage(file));
 			} else {
 				event.setBannerUrl("/images/uploads/defaultEvent.jpg");
 			}
 			for (MultipartFile image : filePack) {
-				if (!image.isEmpty()) {
+				if (file!=null && !image.isEmpty()) {
 					event.getGallery().add(imageService.uploadImage(image));
 				} else {
 					event.getGallery().add("/images/uploads/defaultEvent.jpg");
@@ -80,10 +80,10 @@ public class EventService {
 		if (uComponent.isAdmin()) {
 			event = eventRepository.findByid(id);
 			if (event != null) {
-				event.setName(!name.equals("") ? name : event.getName());
-				event.setDescription(!description.equals("") ? description : event.getDescription());
-				event.setDate(!date.equals("") ? date : event.getDate().toString());
-				event.setCapacity(capacity != 0 ? capacity : event.getCapacity());
+				event.setName(name!=null ? name : event.getName());
+				event.setDescription(description!=null ? description : event.getDescription());
+				event.setDate(date!=null ? date : event.getDate().toString());
+				event.setCapacity(capacity ==null ? capacity : event.getCapacity());
 				eventRepository.save(event);
 				if (image != null) {
 					event.setBannerUrl(imageService.uploadImage(image));

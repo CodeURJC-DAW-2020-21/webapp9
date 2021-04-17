@@ -84,17 +84,6 @@ public class EventsController {
 			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,
 			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
 			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
-			System.out.println("\n\n\n\n");
-			System.out.println(name);
-			System.out.println(description);
-			System.out.println(capacity);
-			System.out.println(labels);
-			System.out.println(end);
-			System.out.println(image.isEmpty());
-			System.out.println(image1.isEmpty());
-			System.out.println(image2.isEmpty());
-			System.out.println(image3.isEmpty());
-			System.out.println("\n\n\n\n");
 		MultipartFile[] filePack = { image1, image2, image3 };
 		eService.updateEvent(Long.parseLong(id), name, description, end, capacity, image, filePack);
 		return "redirect:/admin";

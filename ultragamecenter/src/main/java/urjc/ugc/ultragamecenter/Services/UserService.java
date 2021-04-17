@@ -46,6 +46,12 @@ public class UserService {
     }
 
     public User updateUser(String name, String lastName, MultipartFile image) {
+        if(name==null){
+            name="";
+        }
+        if(lastName==null){
+            lastName="";
+        }
         User user = null;
         if (this.uComponent.isLoggedUser()) {
             user = uComponent.getLoggedUser();

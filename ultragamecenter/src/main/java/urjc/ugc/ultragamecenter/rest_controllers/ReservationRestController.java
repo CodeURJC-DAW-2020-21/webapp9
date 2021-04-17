@@ -30,7 +30,7 @@ public class ReservationRestController {
     public ResponseEntity<APIreservation> reservateTable(@RequestParam String type, @RequestParam String day,
             @RequestParam String hour, @RequestParam(required = false) String email) {
         HttpHeaders responseHeaders = new HttpHeaders();
-        if (email.equals("") && !uComponent.isLoggedUser()) {
+        if (email==null && !uComponent.isLoggedUser()) {
             return ResponseEntity.badRequest().headers(responseHeaders)
                     .body(new APIreservation("No has dado un email y no estas logeado"));
         } else {

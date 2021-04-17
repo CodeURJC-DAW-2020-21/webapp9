@@ -75,5 +75,10 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(u));
     }
 
-
+    @GetMapping("api/logout")
+    public ResponseEntity<APIuser> login(){
+        uComponent.logOut();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return ResponseEntity.ok().headers(responseHeaders).body(new APIuser("Ya no tienes sesión iniciada"));
+    }
 }
