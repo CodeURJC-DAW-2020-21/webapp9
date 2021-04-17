@@ -27,19 +27,19 @@ public class EventRestController {
     @Autowired
     UserComponent uComponent;
 
-    @GetMapping("api/getevents")
-    public ResponseEntity<List<APIevents>> all() {
+    @GetMapping("api/events")
+    public ResponseEntity<List<APIevents>> all(@RequestParam Integer page) {
         HttpHeaders responseHeaders = new HttpHeaders();
-        return ResponseEntity.ok().headers(responseHeaders).body(APIevents.transform(eService.getAllEvents()));
+        return ResponseEntity.ok().headers(responseHeaders).body(APIevents.transform(eService.getPageEvents(page,5)));
     }
 
-    @GetMapping("api/seeEvent")
+    @GetMapping("api/event")
     public ResponseEntity<APIevent> getEvent(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(eService.getByid(id)));
     }
 
-    @DeleteMapping("api/deleteEvent")
+    @DeleteMapping("api/byeEvent")
     public ResponseEntity<APIevent> deleteEvent(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isAdmin()) {
@@ -53,7 +53,7 @@ public class EventRestController {
         }
     }
 
-    @PostMapping("api/createEvents")
+    @PostMapping("api/newEvent")
     public ResponseEntity<APIevent> createEvent(@RequestParam String name, @RequestParam String description,
             @RequestParam String date, @RequestParam Integer capacity, @RequestParam String labels) {
         MultipartFile[] pack = { null };
@@ -67,7 +67,7 @@ public class EventRestController {
         }
     }
 
-    @PutMapping("api/editEvent")
+    @PutMapping("api/otherEvent")
     public ResponseEntity<APIevent> editEvent(@RequestParam Long id, @RequestParam(required = false) String name,
             @RequestParam(required = false) String description, @RequestParam(required = false) String date,
             @RequestParam(required = false) Integer capacity) {
@@ -78,7 +78,7 @@ public class EventRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No tienes permisos para esa acción"));
     }
 
-    @GetMapping("api/getEventData")
+    @GetMapping("api/eventData")
     public ResponseEntity<APIeventDATA> getEventData(@RequestParam Long id) {
         Event e = eService.getByid(id);
         HttpHeaders responseHeaders = new HttpHeaders();

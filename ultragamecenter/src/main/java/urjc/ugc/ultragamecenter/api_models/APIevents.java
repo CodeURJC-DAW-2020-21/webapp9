@@ -3,6 +3,8 @@ package urjc.ugc.ultragamecenter.api_models;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import urjc.ugc.ultragamecenter.models.Event;
 
 public class APIevents {
@@ -24,9 +26,9 @@ public class APIevents {
         return id;
     }
 
-    public static List<APIevents> transform(List<Event> e) {
+    public static List<APIevents> transform(Page<Event> page) {
         ArrayList<APIevents> a = new ArrayList<>();
-        for (Event er : e) {
+        for (Event er : page) {
             a.add(new APIevents(er));
         }
         return a;

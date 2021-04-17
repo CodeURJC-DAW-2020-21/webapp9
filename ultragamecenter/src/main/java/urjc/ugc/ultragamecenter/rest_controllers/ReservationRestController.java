@@ -26,7 +26,7 @@ public class ReservationRestController {
     @Autowired
     TableReservationService trService;
 
-    @GetMapping("api/reservate")
+    @GetMapping("api/newReservate")
     public ResponseEntity<APIreservation> reservateTable(@RequestParam String type, @RequestParam String day,
             @RequestParam String hour, @RequestParam(required = false) String email) {
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -43,7 +43,7 @@ public class ReservationRestController {
         }
     }
 
-    @GetMapping("api/seeReserves")
+    @GetMapping("api/myReservates")
     public ResponseEntity<List<APIreservations>> reservations() {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isLoggedUser()) {
