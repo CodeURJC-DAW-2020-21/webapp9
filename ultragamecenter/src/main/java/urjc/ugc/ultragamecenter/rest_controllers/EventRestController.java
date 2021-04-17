@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +40,7 @@ public class EventRestController {
         return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(eService.getByid(id)));
     }
 
-    @DeleteMapping("api/byeEvent")
+    @DeleteMapping("api/event")
     public ResponseEntity<APIevent> deleteEvent(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isAdmin()) {
@@ -53,7 +54,7 @@ public class EventRestController {
         }
     }
 
-    @PostMapping("api/newEvent")
+    @PostMapping("api/event")
     public ResponseEntity<APIevent> createEvent(@RequestParam String name, @RequestParam String description,
             @RequestParam String date, @RequestParam Integer capacity, @RequestParam String labels) {
         MultipartFile[] pack = { null };
@@ -67,7 +68,7 @@ public class EventRestController {
         }
     }
 
-    @PutMapping("api/otherEvent")
+    @PutMapping("api/event")
     public ResponseEntity<APIevent> editEvent(@RequestParam Long id, @RequestParam(required = false) String name,
             @RequestParam(required = false) String description, @RequestParam(required = false) String date,
             @RequestParam(required = false) Integer capacity) {
@@ -85,10 +86,10 @@ public class EventRestController {
         if(e!=null){
             return ResponseEntity.ok().headers(responseHeaders).body(new APIeventDATA(e));
         }
-        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIeventDATA("No existe ese evento"));
+        return ((BodyBuilder) ResponseEntity.notFound().headers(responseHeaders)).body(new APIeventDATA("No existe ese evento"));
     }
 
-    @GetMapping("api/like")
+    @PostMapping("api/like")
     public ResponseEntity<String> like(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if( eService.like(id)){
