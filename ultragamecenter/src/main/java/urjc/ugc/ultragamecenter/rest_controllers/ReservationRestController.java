@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,11 +27,11 @@ public class ReservationRestController {
     @Autowired
     TableReservationService trService;
 
-    @GetMapping("api/reservate")
+    @GetMapping("api/newReservate")
     public ResponseEntity<APIreservation> reservateTable(@RequestParam String type, @RequestParam String day,
             @RequestParam String hour, @RequestParam(required = false) String email) {
         HttpHeaders responseHeaders = new HttpHeaders();
-        if (email.equals("") && !uComponent.isLoggedUser()) {
+        if (email==null && !uComponent.isLoggedUser()) {
             return ResponseEntity.badRequest().headers(responseHeaders)
                     .body(new APIreservation("No has dado un email y no estas logeado"));
         } else {
@@ -45,7 +44,7 @@ public class ReservationRestController {
         }
     }
 
-    @GetMapping("api/seeReserves")
+    @GetMapping("api/myReservates")
     public ResponseEntity<List<APIreservations>> reservations() {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isLoggedUser()) {

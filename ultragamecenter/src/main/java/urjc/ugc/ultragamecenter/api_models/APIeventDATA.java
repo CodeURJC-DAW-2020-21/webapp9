@@ -4,12 +4,15 @@ import urjc.ugc.ultragamecenter.Models.Event;
 
 public class APIeventDATA {
     private String name = "No existe este evento";
-    private Double ocupation = 0.00;
+    private Integer ocupation = 0;
+    private Integer total=0;
+
 
     public APIeventDATA(Event e) {
         if (e != null) {
             name = e.getName();
-            ocupation = e.getlikes() / e.getCapacity() + 0.00;
+            ocupation = e.getlikes();
+            total=e.getCapacity() ;
         }
     }
 
@@ -21,7 +24,11 @@ public class APIeventDATA {
         return name;
     }
 
-    public Double getOcupation() {
+    public Integer getOcupation() {
         return ocupation;
+    }
+
+    public Integer getCapacity() {
+        return total;
     }
 }

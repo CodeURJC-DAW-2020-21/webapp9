@@ -24,9 +24,9 @@ public class APIevents {
         return id;
     }
 
-    public static List<APIevents> transform(List<Event> e) {
+    public static List<APIevents> transform(Page<Event> page) {
         ArrayList<APIevents> a = new ArrayList<>();
-        for (Event er : e) {
+        for (Event er : page) {
             a.add(new APIevents(er));
         }
         return a;

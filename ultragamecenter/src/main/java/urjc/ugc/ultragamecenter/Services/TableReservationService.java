@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -52,11 +53,21 @@ public class TableReservationService {
 
     public Object[] getReserved(Integer hourInt, String type, String day) {
         Long tableId = 0L;
+        try{
+            java.sql.Date sqldate = java.sql.Date.valueOf(day);
+        }catch(java.lang.IllegalArgumentException aux){
+            Object[] a={null,null};
+            return a;
+        }
         java.sql.Date sqldate = java.sql.Date.valueOf(day);
         Object[] o = new Object[2];
-        List<Tablegame> tables = tService.getByTypeAndDate(type, sqldate);
+        ArrayList<Tablegame> tables = (ArrayList<Tablegame>) tService.getByTypeAndDate(type, sqldate);
         boolean reserved = false;
         int i = 0;
+        if(hourInt>8){
+            Object[] a={null,null};
+            return a;
+        }
         while (!reserved && (i != tables.size())) {
             if (tables.get(i).getState().get(hourInt) == 0) {
                 tables.get(i).setState(hourInt, 1);
@@ -109,8 +120,12 @@ public class TableReservationService {
     }
 
     public TableReservation reserveTable(String type, String day, String hour, String email) {
+        
         Integer hourInt = Integer.parseInt(hour);
         Object[] o = getReserved(hourInt, type, day);
+        if(o[0]==null){
+            return null;
+        }
         boolean reserved = (Boolean) o[0];
         Long tableId = (Long) o[1];
         if (reserved) {
@@ -123,7 +138,7 @@ public class TableReservationService {
         if(userComponent.isLoggedUser()){
             return userComponent.getLoggedUser().getReferencedCodes();
         }
-        return null;
-
+        return new ArrayList<>();
+       
     }
 }

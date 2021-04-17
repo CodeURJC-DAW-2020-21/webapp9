@@ -203,7 +203,7 @@ public class User implements UserDetails {
     }
 
     public void setPassword(String newPassword) {
-        this.passwordHash = newPassword;
+        this.passwordHash= new BCryptPasswordEncoder().encode(newPassword);
     }
 
     public void setLastName(String surname) {
