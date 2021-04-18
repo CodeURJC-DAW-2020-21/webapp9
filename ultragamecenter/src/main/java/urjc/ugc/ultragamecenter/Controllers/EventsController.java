@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.Models.*;
-import urjc.ugc.ultragamecenter.Services.*;
-import urjc.ugc.ultragamecenter.Components.*;
+import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.services.*;
+import urjc.ugc.ultragamecenter.components.*;
 
 @Controller
 

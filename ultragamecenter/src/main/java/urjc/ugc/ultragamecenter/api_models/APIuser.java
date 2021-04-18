@@ -3,7 +3,7 @@ package urjc.ugc.ultragamecenter.api_models;
 import java.util.ArrayList;
 import java.util.List;
 
-import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.models.User;
 
 public class APIuser {
 

@@ -1,5 +1,5 @@
-package urjc.ugc.ultragamecenter.Repositories;
-import urjc.ugc.ultragamecenter.Models.*;
+package urjc.ugc.ultragamecenter.repositories;
+import urjc.ugc.ultragamecenter.models.*;
 
 import java.sql.Date;
 import java.util.List;

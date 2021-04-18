@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.api_models.*;
-import urjc.ugc.ultragamecenter.Components.UserComponent;
-import urjc.ugc.ultragamecenter.Models.*;
-import urjc.ugc.ultragamecenter.Services.EventService;
+import urjc.ugc.ultragamecenter.components.UserComponent;
+import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.services.EventService;
 
 @RestController
 @RequestMapping("/api")
@@ -99,6 +99,8 @@ public class EventRestController {
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIeventDATA("No tienes permisos para esta acción"));
     }
+
+
 
     @PostMapping("/like")
     public ResponseEntity<String> like(@RequestParam Long id) {

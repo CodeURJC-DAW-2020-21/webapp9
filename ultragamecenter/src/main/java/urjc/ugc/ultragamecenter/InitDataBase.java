@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
-import urjc.ugc.ultragamecenter.Repositories.*;
-import urjc.ugc.ultragamecenter.Models.*;
+import urjc.ugc.ultragamecenter.repositories.*;
+import urjc.ugc.ultragamecenter.models.*;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -123,7 +123,7 @@ public class InitDataBase implements CommandLineRunner {
         if (tableRepository.count() == 0) {
 
             // create ps tables
-            for (int i = 4; i < 13; i++) {
+            for (int i = 3; i < 13; i++) {
                 for (int x = 1; x < maxDay(i); x++) {
                     for (int z = 0; z < 5; z++) {
                         Tablegame t1 = new Tablegame("PS5", "2021-" + i + "-" + x);

@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Services;
+package urjc.ugc.ultragamecenter.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import urjc.ugc.ultragamecenter.Components.UserComponent;
-import urjc.ugc.ultragamecenter.Models.TableReservation;
-import urjc.ugc.ultragamecenter.Models.Tablegame;
-import urjc.ugc.ultragamecenter.Repositories.TableReservationRepository;
+import urjc.ugc.ultragamecenter.components.UserComponent;
+import urjc.ugc.ultragamecenter.models.TableReservation;
+import urjc.ugc.ultragamecenter.models.Tablegame;
+import urjc.ugc.ultragamecenter.repositories.TableReservationRepository;
 
 @Service
 public class TableReservationService {

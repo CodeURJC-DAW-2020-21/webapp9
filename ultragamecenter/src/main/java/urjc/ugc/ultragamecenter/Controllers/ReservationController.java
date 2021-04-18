@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import urjc.ugc.ultragamecenter.Services.*;
-import urjc.ugc.ultragamecenter.Components.*;
+import urjc.ugc.ultragamecenter.services.*;
+import urjc.ugc.ultragamecenter.components.*;
 
 
 @Controller

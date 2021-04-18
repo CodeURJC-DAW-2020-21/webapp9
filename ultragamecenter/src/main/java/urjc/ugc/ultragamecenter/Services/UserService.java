@@ -1,9 +1,9 @@
-package urjc.ugc.ultragamecenter.Services;
+package urjc.ugc.ultragamecenter.services;
 
-import urjc.ugc.ultragamecenter.Components.UserComponent;
-import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Models.User;
-import urjc.ugc.ultragamecenter.Repositories.UserRepository;
+import urjc.ugc.ultragamecenter.components.UserComponent;
+import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.models.User;
+import urjc.ugc.ultragamecenter.repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;

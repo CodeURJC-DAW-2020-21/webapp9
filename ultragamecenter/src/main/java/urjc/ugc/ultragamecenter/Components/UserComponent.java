@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Components;
+package urjc.ugc.ultragamecenter.components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.models.User;
 
 @Component
 @SessionScope

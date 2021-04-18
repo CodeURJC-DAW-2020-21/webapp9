@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import urjc.ugc.ultragamecenter.Models.*;
-import urjc.ugc.ultragamecenter.Services.*;
-import urjc.ugc.ultragamecenter.Components.*;
+import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.services.*;
+import urjc.ugc.ultragamecenter.components.*;
 
 @Controller
 public class LoginController {

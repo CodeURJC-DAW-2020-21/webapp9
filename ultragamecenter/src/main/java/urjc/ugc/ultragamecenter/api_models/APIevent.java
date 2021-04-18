@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import urjc.ugc.ultragamecenter.Models.Event;
+import urjc.ugc.ultragamecenter.models.Event;
 
 public class APIevent {
     private String name="No existe este evento";

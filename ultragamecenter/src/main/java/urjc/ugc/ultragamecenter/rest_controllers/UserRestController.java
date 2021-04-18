@@ -1,31 +1,37 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.api_models.APIevents;
 import urjc.ugc.ultragamecenter.api_models.APIuser;
-import urjc.ugc.ultragamecenter.Components.UserComponent;
-import urjc.ugc.ultragamecenter.Models.Event;
-import urjc.ugc.ultragamecenter.Models.User;
-import urjc.ugc.ultragamecenter.Services.EventService;
-import urjc.ugc.ultragamecenter.Services.UserService;
-
+import urjc.ugc.ultragamecenter.components.UserComponent;
+import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.services.EventService;
+import urjc.ugc.ultragamecenter.services.ImageService;
+import urjc.ugc.ultragamecenter.services.UserService;
+import urjc.ugc.ultragamecenter.models.User;
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
@@ -38,6 +44,11 @@ public class UserRestController {
 
     @Autowired
     UserComponent uComponent;
+
+    @Autowired
+    ImageService imgService;
+
+    private static final String USER_FOLDER="user";
 
     @GetMapping("/user")
     public ResponseEntity<APIuser> getUser() {
@@ -102,15 +113,32 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body(new APIuser("Ya no tienes sesión iniciada"));
     }
 
-    @PutMapping("/image")
-    public ResponseEntity<String> setImage(@RequestParam MultipartFile image){
-        HttpHeaders responseHeaders = new HttpHeaders();
-        if(uComponent.isLoggedUser()){
-            uService.updateUser(uComponent.getLoggedUser().getName(), uComponent.getLoggedUser().getLastName(),image);
-            return ResponseEntity.ok().headers(responseHeaders).body("Ya tienes una nueva foto preciosa de perfil");
-        }
-        return ResponseEntity.badRequest().headers(responseHeaders).body("No estas logeado");
+    @RequestMapping(
+    path = "/image", 
+    method = RequestMethod.POST, 
+    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> uploadImage( @RequestParam MultipartFile imageFile)
+            throws IOException {
+        User user = uComponent.getLoggedUser();
+        if (user != null) {
+            URI location = fromCurrentRequest().build().toUri();
+            user.setProfileSrc(location.toString());
+            uService.save(user);
+            imgService.uploadImage(imageFile);
+            return ResponseEntity.created(location).build();
+        } else {
+            return ResponseEntity.notFound().build();
+        } 
     }
+
+    @GetMapping("/image")
+	public ResponseEntity<Object> downloadImage() throws MalformedURLException {
+        if(uComponent.isLoggedUser()){
+            return this.imgService.createResponseFromImage(uComponent.getLoggedUser());
+        }   
+        return ResponseEntity.badRequest().body("No estas logeado");
+		
+	}
 
     @GetMapping("/likeEvents")
     public ResponseEntity<List<APIevents>> getEventData(@RequestParam Integer Page) {

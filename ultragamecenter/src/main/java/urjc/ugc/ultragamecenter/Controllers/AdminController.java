@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import urjc.ugc.ultragamecenter.Models.*;
-import urjc.ugc.ultragamecenter.Services.EventService;
-import urjc.ugc.ultragamecenter.Services.TableReservationService;
-import urjc.ugc.ultragamecenter.Services.TableService;
-import urjc.ugc.ultragamecenter.Components.*;
+import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.services.EventService;
+import urjc.ugc.ultragamecenter.services.TableReservationService;
+import urjc.ugc.ultragamecenter.services.TableService;
+import urjc.ugc.ultragamecenter.components.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -152,7 +152,7 @@ public class AdminController {
 			model.addAttribute("description", "Descripción del evento");
 			model.addAttribute("labels", "SHOOTER/MOBA/MMO/PRESENTATION");
 			model.addAttribute("capacity", "");
-			model.addAttribute("date", "0000-00-00");
+			model.addAttribute("date", "2021-01-24");
 			model.addAttribute("site", "EVENTO+");
 			return "EventCreatorTemplate";
 		}
