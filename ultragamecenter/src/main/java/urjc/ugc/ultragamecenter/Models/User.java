@@ -30,7 +30,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class User implements UserDetails {
 
@@ -64,7 +63,7 @@ public class User implements UserDetails {
         this.affinity = new HashMap<>();
         this.recomendated = new ArrayList<>();
         this.name = name;
-        this.profileSrc = "images/uploads/defaultuser.png";
+        this.profileSrc = "uploadImages/userImg/defaultuser.png";
         this.passwordHash = new BCryptPasswordEncoder().encode(password);
         this.lastName = lastName;
         this.email = email;

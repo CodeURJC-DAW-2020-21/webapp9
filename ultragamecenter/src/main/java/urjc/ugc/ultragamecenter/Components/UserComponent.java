@@ -59,7 +59,7 @@ public class UserComponent {
 		ArrayList<Event> aux = new ArrayList<>();
 		ArrayList<Event> aux2 = new ArrayList<>();
 		if (user == null) {
-			for(Integer i=0;i<c;i++){
+			for(Integer i=0;i<Math.min(events.size(), c);i++){
 				aux2.add(events.get(i));
 			}
 			return aux2;
@@ -74,7 +74,7 @@ public class UserComponent {
 			aux.add(events.get(index));
 			events.remove(index);
 		}
-		for(Integer i=0;i<c;i++){
+		for(Integer i=0;i<(Math.min(aux.size(), c));i++){
 			aux2.add(aux.get(i));
 		}
 		return aux2;

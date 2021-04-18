@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import urjc.ugc.ultragamecenter.Models.TableReservation;
 import urjc.ugc.ultragamecenter.Services.TableReservationService;
 
 @RestController
+@RequestMapping("/api")
 public class ReservationRestController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class ReservationRestController {
     @Autowired
     TableReservationService trService;
 
-    @PostMapping("api/reservate")
+    @PostMapping("/reservate")
     public ResponseEntity<APIreservation> reservateTable(@RequestParam String type, @RequestParam String day,
             @RequestParam String hour, @RequestParam(required = false) String email) {
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -45,7 +47,7 @@ public class ReservationRestController {
         }
     }
 
-    @GetMapping("api/myReservates")
+    @GetMapping("/myReservates")
     public ResponseEntity<List<APIreservations>> reservations(@RequestParam Integer page) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isLoggedUser()) {

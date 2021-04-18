@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,7 @@ import urjc.ugc.ultragamecenter.Models.*;
 import urjc.ugc.ultragamecenter.Services.EventService;
 
 @RestController
+@RequestMapping("/api")
 public class EventRestController {
 
     @Autowired
@@ -28,19 +31,19 @@ public class EventRestController {
     @Autowired
     UserComponent uComponent;
 
-    @GetMapping("api/events")
+    @GetMapping("/events")
     public ResponseEntity<List<APIevents>> all(@RequestParam Integer page) {
         HttpHeaders responseHeaders = new HttpHeaders();
-        return ResponseEntity.ok().headers(responseHeaders).body(APIevents.transform(eService.getPageEvents(page,5)));
+        return ResponseEntity.ok().headers(responseHeaders).body(APIevents.transform(eService.getPageEvents(page, 5)));
     }
 
-    @GetMapping("api/event")
+    @GetMapping("/event")
     public ResponseEntity<APIevent> getEvent(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(eService.getByid(id)));
     }
 
-    @DeleteMapping("api/event")
+    @DeleteMapping("/event")
     public ResponseEntity<APIevent> deleteEvent(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isAdmin()) {
@@ -50,13 +53,14 @@ public class EventRestController {
                 return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No existe ese evento"));
             }
         } else {
-            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No tienes permisos para esa acción"));
+            return ResponseEntity.badRequest().headers(responseHeaders)
+                    .body(new APIevent("No tienes permisos para esa acción"));
         }
     }
 
-    @PostMapping("api/event")
+    @PostMapping("/event")
     public ResponseEntity<APIevent> createEvent(@RequestParam String name, @RequestParam String description,
-            @RequestParam String date, @RequestParam Integer capacity, @RequestParam String labels) {
+            @RequestParam String date, @RequestParam Integer capacity, @RequestParam String labels) throws IOException {
         MultipartFile[] pack = { null };
         Event createdEvent = eService.createNewEvent(name, description, null, pack, date, capacity, labels);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -64,49 +68,45 @@ public class EventRestController {
             responseHeaders.set("Location", "https://localhost:8443/api/seeEvent?id=" + createdEvent.getId());
             return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(createdEvent));
         } else {
-            return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No tienes permisos para esa acción"));
+            return ResponseEntity.badRequest().headers(responseHeaders)
+                    .body(new APIevent("No tienes permisos para esa acción"));
         }
     }
 
-    @PutMapping("api/event")
+    @PutMapping("/event")
     public ResponseEntity<APIevent> editEvent(@RequestParam Long id, @RequestParam(required = false) String name,
             @RequestParam(required = false) String description, @RequestParam(required = false) String date,
-            @RequestParam(required = false) Integer capacity) {
+            @RequestParam(required = false) Integer capacity) throws IOException {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isAdmin()) {
-            return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(eService.updateEvent(id, name, description, date, capacity,null,null)));
+            return ResponseEntity.ok().headers(responseHeaders)
+                    .body(new APIevent(eService.updateEvent(id, name, description, date, capacity, null, null)));
         }
-        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No tienes permisos para esa acción"));
+        return ResponseEntity.badRequest().headers(responseHeaders)
+                .body(new APIevent("No tienes permisos para esa acción"));
     }
 
-    @GetMapping("api/eventData")
+    @GetMapping("/eventData")
     public ResponseEntity<APIeventDATA> getEventData(@RequestParam Long id) {
         Event e = eService.getByid(id);
         HttpHeaders responseHeaders = new HttpHeaders();
-        if(e!=null){
-            return ResponseEntity.ok().headers(responseHeaders).body(new APIeventDATA(e));
+        if (uComponent.isAdmin()) {
+            if (e != null) {
+                return ResponseEntity.ok().headers(responseHeaders).body(new APIeventDATA(e));
+            }
+            return ((BodyBuilder) ResponseEntity.notFound().headers(responseHeaders))
+                    .body(new APIeventDATA("No existe ese evento"));
         }
-        return ((BodyBuilder) ResponseEntity.notFound().headers(responseHeaders)).body(new APIeventDATA("No existe ese evento"));
+        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIeventDATA("No tienes permisos para esta acción"));
     }
 
-    @PostMapping("api/like")
+    @PostMapping("/like")
     public ResponseEntity<String> like(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
-        if( eService.like(id)){
+        if (eService.like(id)) {
             return ResponseEntity.ok().headers(responseHeaders).body("Has podido dar like");
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body("No has podido dar like");
-    }
-
-    @GetMapping("api/graph")
-    public  ResponseEntity<APIevent> graph(@RequestParam Long id){
-        HttpHeaders responseHeaders = new HttpHeaders();
-        if (uComponent.isAdmin()) {
-            Event event = eService.getByid(id); 
-            Integer cap_restante = event.getCapacity()-event.getlikes();
-            return ResponseEntity.ok().headers(responseHeaders).body(new APIevent("Asistentes: " + event.getlikes().toString() + "capacidad restante" + cap_restante.toString() ));
-        }
-        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No tienes permisos para esa acción"));
     }
 
 }
