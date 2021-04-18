@@ -7,6 +7,9 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.TableReservation;
@@ -34,6 +37,11 @@ public class TableReservationService {
     public List<TableReservation> getAll() {
         return trrepository.findAll();
     }
+
+    public Page<TableReservation> getPageReservations(int pageNumber, int pageSize) {
+  		Pageable p = PageRequest.of(pageNumber, pageSize);
+  		return trrepository.findAll(p);
+  	}
 
     public TableReservation getByid(Long id) {
         return trrepository.findByid(id);
@@ -120,7 +128,7 @@ public class TableReservationService {
     }
 
     public TableReservation reserveTable(String type, String day, String hour, String email) {
-        
+
         Integer hourInt = Integer.parseInt(hour);
         Object[] o = getReserved(hourInt, type, day);
         if(o[0]==null){
@@ -139,6 +147,6 @@ public class TableReservationService {
             return userComponent.getLoggedUser().getReferencedCodes();
         }
         return new ArrayList<>();
-       
+
     }
 }

@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.controllers;
+package urjc.ugc.ultragamecenter.Controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,7 +50,7 @@ public class LoginController {
 		return "login";
 	}
 
-    
+
 	@GetMapping("/register")
 	public String getLoginRegister(Model model) {
 		model.addAttribute("site", "REGISTRATE");
@@ -65,7 +65,7 @@ public class LoginController {
 		return "redirect:/profile";
 	}
 
-	
+
 
 	@PostMapping("/logginUser")
 	public String logUser(@RequestParam String email, @RequestParam String password, HttpSession sesion,

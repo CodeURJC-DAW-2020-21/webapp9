@@ -32,7 +32,7 @@ public class Event {
     @Lob
 	private Blob imageFile;
     public Event(){}
-    
+
 
     public Event(String name, String description, String date2, String bannerUrl, Integer capacity) {
         this.date=Date.valueOf(date2);
@@ -48,7 +48,7 @@ public class Event {
     public List<String> getLavels(){
         return lavels;
     }
-    
+
     public Long getId(){
         return this.id;
     }
@@ -65,7 +65,7 @@ public class Event {
         return this.capacity;
     }
 
-    
+
     public  List<String> getGallery(){
         return gallery;
     }

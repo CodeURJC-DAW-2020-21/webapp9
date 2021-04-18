@@ -60,7 +60,7 @@ public class ReservationController {
         }
         return getReservation(model);
     }
-    
+
     public void setHeader(Model model) {
         model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
         model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");

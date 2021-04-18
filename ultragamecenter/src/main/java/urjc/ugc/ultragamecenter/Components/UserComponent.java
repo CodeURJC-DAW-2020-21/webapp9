@@ -14,7 +14,7 @@ import urjc.ugc.ultragamecenter.models.User;
 @Component
 @SessionScope
 public class UserComponent {
-	
+
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 	private User user;
@@ -47,7 +47,7 @@ public class UserComponent {
 	}
 
 	public boolean hasLiked(Long event) {
-		
+
 		return this.user.hasLiked(event);
 	}
 

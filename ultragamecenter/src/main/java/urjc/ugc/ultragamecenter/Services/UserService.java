@@ -92,7 +92,7 @@ public class UserService {
         return user;
     }
 
-    public User logUsr(String email, String password){	
+    public User logUsr(String email, String password){
 		User aux = findByEmail(email);
 		if (aux != null && aux.matchPasword(password)) {
 			uComponent.setLoggedUser(aux);
@@ -112,5 +112,5 @@ public class UserService {
         return recomendated.subList(0, i);
     }
 
-    
+
 }

@@ -39,7 +39,7 @@ public class UserController {
 		return "index";
 	}
 
-	
+
 
 
 	@GetMapping("/like")
@@ -87,7 +87,7 @@ public class UserController {
 			String surname = userComponent.getLoggedUser().getLastName();
 			model.addAttribute("Name", name.equals("") ? "Nombre*" : name);
 			model.addAttribute("Surname", name.equals("") ? "Apellidos*" : surname);
-	
+
 			return "EditProfileTemplate";
 		}
 		return "redirect:/";
@@ -115,5 +115,5 @@ public class UserController {
 		model.addAttribute("Logout-ico", this.userComponent.isLoggedUser() ? "fas fa-sign-out-alt" : "");
 	}
 
-	
+
 }

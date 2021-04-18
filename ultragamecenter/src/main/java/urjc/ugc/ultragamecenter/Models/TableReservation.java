@@ -52,6 +52,6 @@ public class TableReservation {
     public Long getID() {
         return this.id;
     }
-    
-    
+
+
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import urjc.ugc.ultragamecenter.api_models.APIreservation;
 import urjc.ugc.ultragamecenter.api_models.APIreservations;
 import urjc.ugc.ultragamecenter.components.UserComponent;
+import urjc.ugc.ultragamecenter.controllers.*;
 import urjc.ugc.ultragamecenter.models.TableReservation;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 
@@ -47,11 +48,10 @@ public class ReservationRestController {
     }
 
     @GetMapping("/myReservates")
-    public ResponseEntity<List<APIreservations>> reservations() {
+    public ResponseEntity<List<APIreservations>> reservations(@RequestParam Integer page) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isLoggedUser()) {
-            return ResponseEntity.ok().headers(responseHeaders)
-                    .body(APIreservations.transform2(trService.getMyReservations()));
+            return ResponseEntity.ok().headers(responseHeaders).body(APIreservations.transform3(trService.getPageReservations(page,5)));
         }
         ArrayList<APIreservations> a = new ArrayList<>();
         a.add(new APIreservations("No estas logeado"));
@@ -59,5 +59,6 @@ public class ReservationRestController {
     }
 
     
+
 
 }
