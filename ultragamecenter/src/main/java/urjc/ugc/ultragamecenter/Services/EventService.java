@@ -56,13 +56,13 @@ public class EventService {
 			if (!file.isEmpty()) {
 				event.setBannerUrl(imageService.uploadImage(file));
 			} else {
-				event.setBannerUrl("/images/uploads/defaultEvent.jpg");
+				event.setBannerUrl("uploadImages/userImg/defaultuser.png");
 			}
 			for (MultipartFile image : filePack) {
 				if (!image.isEmpty()) {
 					event.getGallery().add(imageService.uploadImage(image));
 				} else {
-					event.getGallery().add("/images/uploads/defaultEvent.jpg");
+					event.getGallery().add("uploadImages/userImg/defaultuser.png");
 				}
 			}
 			for (String l : labels.split("/")) {
