@@ -14,6 +14,10 @@ public class APIevent {
     private ArrayList<String> lavels=null;
     private Integer capacity=0;
 
+    public void event(String name){
+        this.name = "No estás logeado";
+    }
+
     public String getName() {
         return name;
     }

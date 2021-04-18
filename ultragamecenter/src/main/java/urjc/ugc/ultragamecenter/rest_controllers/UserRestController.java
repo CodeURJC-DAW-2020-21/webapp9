@@ -20,11 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.api_models.APIevents;
 import urjc.ugc.ultragamecenter.api_models.APIuser;
-import urjc.ugc.ultragamecenter.components.UserComponent;
-import urjc.ugc.ultragamecenter.models.Event;
-import urjc.ugc.ultragamecenter.models.User;
-import urjc.ugc.ultragamecenter.services.EventService;
-import urjc.ugc.ultragamecenter.services.UserService;
+import urjc.ugc.ultragamecenter.Components.UserComponent;
+import urjc.ugc.ultragamecenter.Models.Event;
+import urjc.ugc.ultragamecenter.Models.User;
+import urjc.ugc.ultragamecenter.Services.EventService;
+import urjc.ugc.ultragamecenter.Services.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -127,5 +127,18 @@ public class UserRestController {
         ArrayList<APIevents> e=new ArrayList<>();
         e.add(new APIevents("No tienes permisos para esta acción"));
         return ResponseEntity.badRequest().headers(responseHeaders).body(e);
+    }
+
+    @GetMapping("/recomendatedEvents")
+    public ResponseEntity<List<Event>> getRecomendatedEvents(){
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if(uComponent.isLoggedUser()){
+            return ResponseEntity.ok().headers(responseHeaders).body((uService.getRecomendatedEvents(3)));
+        }
+        Event tmp = new Event();
+        tmp.setName("No estás logeado");
+        List<Event> result = new ArrayList<>();
+        result.add(tmp);
+        return ResponseEntity.badRequest().headers(responseHeaders).body(result);
     }
 }
