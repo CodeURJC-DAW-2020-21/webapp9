@@ -17,6 +17,9 @@ public class APIevents {
             this.id = e.getId();
         }
     }
+    public APIevents(String e) {
+        name=e;
+    }
 
     public String getName() {
         return name;
