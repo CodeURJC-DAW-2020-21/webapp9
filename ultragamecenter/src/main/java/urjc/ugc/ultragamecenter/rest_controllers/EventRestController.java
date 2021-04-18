@@ -100,6 +100,8 @@ public class EventRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIeventDATA("No tienes permisos para esta acción"));
     }
 
+    
+
     @PostMapping("/like")
     public ResponseEntity<String> like(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
