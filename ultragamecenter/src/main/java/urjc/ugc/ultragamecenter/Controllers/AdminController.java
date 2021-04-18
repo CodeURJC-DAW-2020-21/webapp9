@@ -152,7 +152,7 @@ public class AdminController {
 			model.addAttribute("description", "Descripción del evento");
 			model.addAttribute("labels", "SHOOTER/MOBA/MMO/PRESENTATION");
 			model.addAttribute("capacity", "");
-			model.addAttribute("date", "0000-00-00");
+			model.addAttribute("date", "2021-01-24");
 			model.addAttribute("site", "EVENTO+");
 			return "EventCreatorTemplate";
 		}
