@@ -284,7 +284,7 @@ Docker allows the users to run our web application without having anything insta
 
 **Miguel Cendrero**
 
--  Completed tasks: Edited most of the readme and developed APIs.
+-  Completed tasks: Edited most of the readme and developed APIs (and Postman).
 
 - 5 most significant commits:
   1. [Deleted repositories from controllers | added services instead](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/41de231f5498b6ff823e768073060e90be3a1ec1)
