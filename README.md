@@ -278,7 +278,7 @@ Web app for a gaming center called ***Ultra Game Center***
 Docker allows the users to run our web application without having anything installed. Follow these steps: 
 
 ### Class Diagram:
-
+![Navigation_Diagram_Updated](readme-photos/controllers.png)
 
 ### Participation: 
 
