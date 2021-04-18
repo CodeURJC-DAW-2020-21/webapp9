@@ -1,8 +1,12 @@
 package urjc.ugc.ultragamecenter.services;
 
 import urjc.ugc.ultragamecenter.components.UserComponent;
+import urjc.ugc.ultragamecenter.models.Event;
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserComponent uComponent;
+
+    @Autowired
+    private EventService eService;
 
     public User findById(Long id) {
         return userRepository.findById(id);
@@ -94,6 +101,16 @@ public class UserService {
 		return null;
 	}
 
-    
+    public List<Event> getRecomendatedEvents(Integer i){
+        ArrayList<Event> recomendated = new ArrayList<>();
+        ArrayList<Event> possibleEvents= (ArrayList<Event>) uComponent.sort(eService.getAllEvents(), 100);
+        for(Event e: possibleEvents){
+            if(!uComponent.getLoggedUser().hasLiked(e.getId())){
+                recomendated.add(e);
+            }
+        }
+        return recomendated.subList(0, i);
+    }
 
+    
 }

@@ -71,7 +71,7 @@ public class UserController {
 		model.addAttribute("lastname", userLogged.getLastName());
 		model.addAttribute("email", userLogged.getEmail());
 		model.addAttribute("profileSrc", userLogged.getProfileSrc());
-		model.addAttribute("events_r", this.userComponent.sort(eService.getAllEvents(), 3));
+		model.addAttribute("events_r", uService.getRecomendatedEvents(3));
 		model.addAttribute("tables", this.userComponent.getLoggedUser().getReferencedCodes());
 		model.addAttribute("events", aux);
 
