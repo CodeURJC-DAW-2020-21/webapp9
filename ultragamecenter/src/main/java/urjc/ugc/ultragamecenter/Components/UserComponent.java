@@ -67,7 +67,7 @@ public class UserComponent {
 		while (!events.isEmpty()) {
 			int index = 0;
 			for (int x = 0; x < events.size(); x++) {
-				if (user.getValue(events.get(index)) < user.getValue(events.get(x))) {
+				if (user.getValue(events.get(index)) < user.getValue(events.get(x)) &&  !user.getEventsLiked().contains(events.get(x).getId())) {
 					index = x;
 				}
 			}

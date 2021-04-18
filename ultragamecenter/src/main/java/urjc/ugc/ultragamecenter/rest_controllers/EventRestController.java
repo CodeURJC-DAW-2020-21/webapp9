@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import urjc.ugc.ultragamecenter.models.*;
 import urjc.ugc.ultragamecenter.services.EventService;
 
 @RestController
+@RequestMapping("/api")
 public class EventRestController {
 
     @Autowired
@@ -29,19 +31,19 @@ public class EventRestController {
     @Autowired
     UserComponent uComponent;
 
-    @GetMapping("api/events")
+    @GetMapping("/events")
     public ResponseEntity<List<APIevents>> all(@RequestParam Integer page) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(APIevents.transform(eService.getPageEvents(page, 5)));
     }
 
-    @GetMapping("api/event")
+    @GetMapping("/event")
     public ResponseEntity<APIevent> getEvent(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(new APIevent(eService.getByid(id)));
     }
 
-    @DeleteMapping("api/event")
+    @DeleteMapping("/event")
     public ResponseEntity<APIevent> deleteEvent(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isAdmin()) {
@@ -56,7 +58,7 @@ public class EventRestController {
         }
     }
 
-    @PostMapping("api/event")
+    @PostMapping("/event")
     public ResponseEntity<APIevent> createEvent(@RequestParam String name, @RequestParam String description,
             @RequestParam String date, @RequestParam Integer capacity, @RequestParam String labels) throws IOException {
         MultipartFile[] pack = { null };
@@ -71,7 +73,7 @@ public class EventRestController {
         }
     }
 
-    @PutMapping("api/event")
+    @PutMapping("/event")
     public ResponseEntity<APIevent> editEvent(@RequestParam Long id, @RequestParam(required = false) String name,
             @RequestParam(required = false) String description, @RequestParam(required = false) String date,
             @RequestParam(required = false) Integer capacity) throws IOException {
@@ -84,7 +86,7 @@ public class EventRestController {
                 .body(new APIevent("No tienes permisos para esa acción"));
     }
 
-    @GetMapping("api/eventData")
+    @GetMapping("/eventData")
     public ResponseEntity<APIeventDATA> getEventData(@RequestParam Long id) {
         Event e = eService.getByid(id);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -98,7 +100,7 @@ public class EventRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIeventDATA("No tienes permisos para esta acción"));
     }
 
-    @PostMapping("api/like")
+    @PostMapping("/like")
     public ResponseEntity<String> like(@RequestParam Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (eService.like(id)) {

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.services.UserService;
 
 @RestController
+@RequestMapping("/api")
 public class UserRestController {
 
     @Autowired
@@ -24,7 +26,7 @@ public class UserRestController {
     @Autowired
     UserComponent uComponent;
 
-    @GetMapping("api/user")
+    @GetMapping("/user")
     public ResponseEntity<APIuser> getUser() {
         HttpHeaders responseHeaders = new HttpHeaders();
         if(uComponent.isLoggedUser()){
@@ -33,7 +35,7 @@ public class UserRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
 
-    @PostMapping("api/user")
+    @PostMapping("/user")
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password, @RequestParam String email) {
         User user = uService.createNewUser(name, lastName, password, email);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -43,7 +45,7 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body("Usuario creado");
     }
 
-    @PutMapping("api/user")
+    @PutMapping("/user")
     public ResponseEntity<APIuser> editUser(@RequestParam(required = false) String name, @RequestParam(required = false) String lastName) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if(uComponent.isLoggedUser()){
@@ -52,7 +54,7 @@ public class UserRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
 
-    @PutMapping("api/pasword")
+    @PutMapping("/pasword")
     public ResponseEntity<APIuser> editUserPassword(@RequestParam String password, @RequestParam String newPassword) {
         HttpHeaders responseHeaders = new HttpHeaders();
         User u=uComponent.getLoggedUser();
@@ -66,7 +68,7 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(u));
     }
 
-    @GetMapping("api/login")
+    @GetMapping("/login")
     public ResponseEntity<APIuser> login(@RequestParam String email, @RequestParam String password){
         User u=uService.logUsr(email, password);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -76,14 +78,14 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(u));
     }
 
-    @GetMapping("api/logout")
+    @GetMapping("/logout")
     public ResponseEntity<APIuser> login(){
         uComponent.logOut();
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(new APIuser("Ya no tienes sesión iniciada"));
     }
 
-    @GetMapping("api/image")
+    @PutMapping("/image")
     public ResponseEntity<String> setImage(@RequestParam MultipartFile image){
         HttpHeaders responseHeaders = new HttpHeaders();
         if(uComponent.isLoggedUser()){
