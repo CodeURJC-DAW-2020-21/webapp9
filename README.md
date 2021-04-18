@@ -277,7 +277,6 @@ Web app for a gaming center called ***Ultra Game Center***
 
 Docker allows the users to run our web application without having anything installed. Follow these steps: 
 
-
 ### Class Diagram:
 
 
@@ -336,23 +335,4 @@ Docker allows the users to run our web application without having anything insta
   3. [EmailSenderService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/UserTestController.java)
   4. [EventService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/EventService.java)
   5. [UserService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/UserService.java)
-
-  **Rodrigo Díez**
-
--  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
-
-- 5 most significant commits:
-  1. [Upload images on docker working correctly](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/715794cd04fdec87675876b9654e30c0b92ce80c)
-  2. [Docker-Compose with default constructor User](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/fafe54016bb018745149cdbd571c90f032eb8b2e )
-  3. [Docker compose use dockerhub image](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/8b07ed2339bd89838d53589b9656222177b016d0 )
-  4. [Docker compose test](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/14645bdf034b23d984521b084b36cd2b976d0c2e )
-  5. [Docker-compose works without default user constructor](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/14e52ad5e06138e3333d2d89b64f8e8ab5681204 )
-  
-- 5 files with participation:
-  1. [dockerFile](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/docker/Dockerfile)
-  2. [docker-compose.yml](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/docker/docker-compose.yml)
-  3. [ImageService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/ImageService.java)
-  4. [MvcConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/MvcConfig.java)
-  5. [UserService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/UserService.java)
-
 
