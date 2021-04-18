@@ -57,8 +57,10 @@ public class UserRestController {
     }
 
     @PutMapping("/pasword")
-    public ResponseEntity<APIuser> editUserPassword(@RequestParam String password, @RequestParam String newPassword) {
+    public ResponseEntity<APIuser> editUserPassword(HttpServletRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
+        String password = request.getHeader("password");
+        String newPassword = request.getHeader("newPassword");
         User u=uComponent.getLoggedUser();
         if(u==null){
             return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
@@ -70,7 +72,7 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(u));
     }
 
-    @GetMapping("api/login")
+    @GetMapping("/login")
     public ResponseEntity<APIuser> login(HttpServletRequest request){
         String email = request.getHeader("email");
         String password = request.getHeader("password");
