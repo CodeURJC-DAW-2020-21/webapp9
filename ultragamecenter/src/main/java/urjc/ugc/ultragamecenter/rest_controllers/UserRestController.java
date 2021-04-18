@@ -1,6 +1,7 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +119,6 @@ public class UserRestController {
     consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> uploadImage( @RequestParam MultipartFile imageFile)
             throws IOException {
-        System.out.println("\n\n\n\n\n\n\n\n\n\n"+imageFile+"\n\n\n\n\n\n\n\n\n\n");
         User user = uComponent.getLoggedUser();
         if (user != null) {
             URI location = fromCurrentRequest().build().toUri();
@@ -130,6 +130,15 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/image")
+	public ResponseEntity<Object> downloadImage() throws MalformedURLException {
+        if(uComponent.isLoggedUser()){
+            return this.imgService.createResponseFromImage(uComponent.getLoggedUser());
+        }   
+        return ResponseEntity.badRequest().body("No estas logeado");
+		
+	}
 
     @GetMapping("/likeEvents")
     public ResponseEntity<List<APIevents>> getEventData(@RequestParam Integer Page) {

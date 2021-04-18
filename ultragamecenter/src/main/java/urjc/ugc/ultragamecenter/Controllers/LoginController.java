@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter.Controllers;
+package urjc.ugc.ultragamecenter.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
