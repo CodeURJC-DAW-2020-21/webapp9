@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ImageController {
-    public static final String IMG_FOLDER = "src/main/resources/static/images/uploads/";
+    public static final String IMG_FOLDER = "uploadImages/";
 	public static final String IMG_CONTROLLER_URL = "/images/uploads/";
     @RequestMapping(value = { IMG_CONTROLLER_URL + "{filename}",
 			"/https://localhost:8443" + IMG_CONTROLLER_URL + "{filename}" })

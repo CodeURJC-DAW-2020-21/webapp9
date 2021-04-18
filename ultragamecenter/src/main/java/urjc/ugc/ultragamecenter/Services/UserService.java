@@ -49,10 +49,10 @@ public class UserService {
         User user = null;
         if (this.uComponent.isLoggedUser()) {
             user = uComponent.getLoggedUser();
-            if (image !=null &&!image.isEmpty()) {
+            if (image !=null && !image.isEmpty()) {
                 user.setProfileSrc(imageService.uploadImage(image));
             } else {
-                user.setProfileSrc("images/uploads/defaultuser.png");
+                user.setProfileSrc("uploadImages/userImg/defaultuser.png");
             }
             user.setName(!name.equals("") ? name : user.getName());
             user.setLastName(!lastName.equals("") ? lastName : user.getLastName());
