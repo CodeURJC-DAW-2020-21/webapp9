@@ -24,7 +24,7 @@ public class UserRestController {
     @Autowired
     UserComponent uComponent;
 
-    @GetMapping("api/User")
+    @GetMapping("api/user")
     public ResponseEntity<APIuser> getUser() {
         HttpHeaders responseHeaders = new HttpHeaders();
         if(uComponent.isLoggedUser()){
@@ -33,7 +33,7 @@ public class UserRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
 
-    @PostMapping("api/newUser")
+    @PostMapping("api/user")
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password, @RequestParam String email) {
         User user = uService.createNewUser(name, lastName, password, email);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -43,7 +43,7 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body("Usuario creado");
     }
 
-    @PutMapping("api/otherUser")
+    @PutMapping("api/user")
     public ResponseEntity<APIuser> editUser(@RequestParam(required = false) String name, @RequestParam(required = false) String lastName) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if(uComponent.isLoggedUser()){
@@ -52,7 +52,7 @@ public class UserRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body(new APIuser("No estas logeado"));
     }
 
-    @PutMapping("api/otherPasword")
+    @PutMapping("api/pasword")
     public ResponseEntity<APIuser> editUserPassword(@RequestParam String password, @RequestParam String newPassword) {
         HttpHeaders responseHeaders = new HttpHeaders();
         User u=uComponent.getLoggedUser();

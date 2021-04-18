@@ -12,7 +12,6 @@ public class APIuser {
     private String email = "";
     private ArrayList<Long> eventsLikeIt = null;
     private ArrayList<String> referencedCodes = null;
-    private List<String> roles = null;
 
     public String getName() {
         return name;
@@ -34,9 +33,7 @@ public class APIuser {
         return referencedCodes;
     }
 
-    public List<String> getRoles() {
-        return roles;
-    }
+
 
     public APIuser(User u) {
         if (u != null) {
@@ -45,7 +42,6 @@ public class APIuser {
             this.email = u.getEmail();
             this.eventsLikeIt = (ArrayList<Long>) u.getEventsLiked();
             this.referencedCodes = (ArrayList<String>) u.getReferencedCodes();
-            this.roles = u.getRoles();
         }
 
     }
