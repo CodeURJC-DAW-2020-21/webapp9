@@ -56,7 +56,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -98,6 +98,18 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
 		</dependency>
+
+	<dependency>
+		<groupId>io.springfox</groupId>
+		<artifactId>springfox-swagger-ui</artifactId>
+		<version>2.9.2</version>
+	</dependency>
+
+	<dependency>
+		<groupId>io.swagger</groupId>
+		<artifactId>swagger-inflector</artifactId>
+		<version>1.0.0</version>
+	</dependency>
 
 	</dependencies>
 
@@ -142,7 +154,7 @@
 				</configuration>
 			</plugin>
 
-			
+
 		</plugins>
 
 	</build>
