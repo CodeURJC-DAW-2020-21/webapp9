@@ -303,19 +303,22 @@ Docker allows the users to run our web application without having anything insta
 
 **Jesús Élez**
 
--  Completed tasks: Docker file.
+-  Completed tasks: Docker file, make form visible, docker scripts.
 
 - 5 most significant commits:
   1. [sql container linked with app container](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/46e713c06329d3714897f1aa35ba7c39202c3d1d)
   2. [styles added to edit profile](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/a894c87a0681255937f877ca363d58b83eaa5365)
   3. [Create event form visible](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/b86f2d66e40fd9b02fc83d5fcf7d7aebd624b8ed)
+  4. [Date debug solved](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/d46401a70b72fe856673905b8050d89f040087db)
+  5. [Create Docker script](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/e86bbfdf1ab230c148c6360e72853458e38a8864)
   
 - 5 files with participation:
   1. [EventCreatorTemplate.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/resources/templates/EventCreatorTemplate.html)
   2. [custom.css](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/resources/static/css/custom.css)
   3. [login-register.css](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/resources/static/css/login-register.css)
-  4. [Dockerfile](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/Dockerfile)
+  4. [Docker script](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/docker/script.bat)
   5. [EditProfileTemplate.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/resources/templates/EditProfileTemplate.html)
+
 **Alejandro**
 
 -  Completed tasks: Centralized Web and API controllers, created API geters, puts and API models.
