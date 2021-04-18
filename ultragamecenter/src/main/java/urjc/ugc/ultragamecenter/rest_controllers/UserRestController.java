@@ -1,5 +1,7 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -68,8 +70,10 @@ public class UserRestController {
         return ResponseEntity.ok().headers(responseHeaders).body(new APIuser(u));
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<APIuser> login(@RequestParam String email, @RequestParam String password){
+    @GetMapping("api/login")
+    public ResponseEntity<APIuser> login(HttpServletRequest request){
+        String email = request.getHeader("email");
+        String password = request.getHeader("password");
         User u=uService.logUsr(email, password);
         HttpHeaders responseHeaders = new HttpHeaders();
         if (u==null){
