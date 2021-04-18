@@ -128,7 +128,7 @@ public class UserRestController {
             return ResponseEntity.created(location).build();
         } else {
             return ResponseEntity.notFound().build();
-        }
+        } 
     }
 
     @GetMapping("/image")
