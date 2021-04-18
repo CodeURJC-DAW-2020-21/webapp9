@@ -273,7 +273,6 @@ Web app for a gaming center called ***Ultra Game Center***
 
 - Document API Documentantion with information about the REST API
 
-### Docker
 
 ### Executing docker-compose
 Docker allows the users to run our web application without having anything installed. Follow these steps: 
