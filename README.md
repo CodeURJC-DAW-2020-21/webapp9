@@ -315,4 +315,21 @@ Docker allows the users to run our web application without having anything insta
   3. [login-register.css](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/resources/static/css/login-register.css)
   4. [Dockerfile](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/api/ultragamecenter/Dockerfile)
   5. [EditProfileTemplate.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/resources/templates/EditProfileTemplate.html)
+**Alejandro**
+
+-  Completed tasks: Centralized Web and API controllers, created API geters, puts and API models.
+
+- 5 most significant commits:
+  1. [little changes to api typing](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/d3dc87ba2deb24e213a7c847e9b4dde774bb0fc9)
+  2. [Event Edit fixed](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/fb811dda0e03ca16dbf1620a4e729a52e410a165 )
+  3. [Setting nice ok or bad request](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/f7f2945a41c5bb7f76b2f9f3f5c21e1c75e75414 )
+  4. [Little bit changes](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/fd8016ed05455118743e6b6789fa7fa7d9e9187c )
+  5. [Centralizing creaing and updating models](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/5984426d3d0bd111959ab5dec2635c504694c50a )
+  
+- 5 files with participation:
+  1. [APImodels](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/api_models)
+  2. [EventRestController.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/EventRestController.java)
+  3. [EmailSenderService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/UserTestController.java)
+  4. [EventService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/EventService.java)
+  5. [UserService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/UserService.java)
 
