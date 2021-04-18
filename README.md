@@ -275,7 +275,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 ### Docker
 
-## Executing docker-compose
+### Executing docker-compose
 Docker allows the users to run our web application without having anything installed. Follow these steps: 
 
   - Go to ./docker
@@ -286,7 +286,7 @@ Only with that command the containers are started.
 To stop the containers just run:
   - docker-compose down
 
-## Building the image
+### Building the image
 
 To create the image, you just have to launch the script.bat file.
 
