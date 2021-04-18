@@ -98,4 +98,15 @@ public class EventRestController {
         return ResponseEntity.badRequest().headers(responseHeaders).body("No has podido dar like");
     }
 
+    @GetMapping("api/graph")
+    public  ResponseEntity<APIevent> graph(@RequestParam Long id){
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (uComponent.isAdmin()) {
+            Event event = eService.getByid(id); 
+            Integer cap_restante = event.getCapacity()-event.getlikes();
+            return ResponseEntity.ok().headers(responseHeaders).body(new APIevent("Asistentes: " + event.getlikes().toString() + "capacidad restante" + cap_restante.toString() ));
+        }
+        return ResponseEntity.badRequest().headers(responseHeaders).body(new APIevent("No tienes permisos para esa acción"));
+    }
+
 }
