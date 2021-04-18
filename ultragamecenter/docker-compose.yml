@@ -11,11 +11,8 @@ services:
         restart: on-failure
 
     java-web:
-        image: test
+        image: rodri666a/webapp9
         container_name: ugc-service-app
-        build:
-            context: .
-            dockerfile: Dockerfile
         ports: 
             - "8443:8443"
         restart: always
