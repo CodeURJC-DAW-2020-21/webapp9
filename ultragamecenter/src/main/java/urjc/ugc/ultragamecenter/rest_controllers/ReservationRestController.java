@@ -46,11 +46,10 @@ public class ReservationRestController {
     }
 
     @GetMapping("api/myReservates")
-    public ResponseEntity<List<APIreservations>> reservations() {
+    public ResponseEntity<List<APIreservations>> reservations(@RequestParam Integer page) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (uComponent.isLoggedUser()) {
-            return ResponseEntity.ok().headers(responseHeaders)
-                    .body(APIreservations.transform2(trService.getMyReservations()));
+            return ResponseEntity.ok().headers(responseHeaders).body(APIreservations.transform3(trService.getPageReservations(page,5)));
         }
         ArrayList<APIreservations> a = new ArrayList<>();
         a.add(new APIreservations("No estas logeado"));

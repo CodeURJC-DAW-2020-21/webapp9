@@ -2,6 +2,7 @@ package urjc.ugc.ultragamecenter.api_models;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 import urjc.ugc.ultragamecenter.Models.TableReservation;
 
@@ -51,6 +52,14 @@ public class APIreservations {
         ArrayList<APIreservations> a= new ArrayList<>();
         for(String s:list){
             a.add(new APIreservations(s,0L));
+        }
+        return a;
+    }
+
+    public static List<APIreservations> transform3(Page<TableReservation> page) {
+        ArrayList<APIreservations> a = new ArrayList<>();
+        for (TableReservation er : page) {
+            a.add(new APIreservations(er));
         }
         return a;
     }

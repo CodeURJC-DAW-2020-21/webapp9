@@ -3,6 +3,7 @@ package urjc.ugc.ultragamecenter.api_models;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import urjc.ugc.ultragamecenter.Models.Event;
 
 public class APIevents {

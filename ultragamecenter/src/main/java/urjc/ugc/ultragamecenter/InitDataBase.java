@@ -138,8 +138,6 @@ public class InitDataBase implements CommandLineRunner {
         }
     }
 
-    }
-
     public void setEventImage(Event event, String classpathResource) throws IOException {
         Resource image = new ClassPathResource(classpathResource);
         event.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
