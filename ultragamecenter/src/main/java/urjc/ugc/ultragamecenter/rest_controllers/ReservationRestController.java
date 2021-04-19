@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.controllers.*;
 import urjc.ugc.ultragamecenter.models.TableReservation;
 import urjc.ugc.ultragamecenter.requests.ReservateTableRequest;
+import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 
 @RestController
@@ -27,14 +27,14 @@ import urjc.ugc.ultragamecenter.services.TableReservationService;
 public class ReservationRestController {
 
     @Autowired
-    UserComponent uComponent;
+    UserDetailsServiceImpl uDetails;
 
     @Autowired
     TableReservationService trService;
 
     @PostMapping("/")
     public ResponseEntity<TableReservation> reservateTable(@RequestBody ReservateTableRequest tableRequest) {
-        if (tableRequest.getEmail()==null && !uComponent.isLoggedUser()) {
+        if (tableRequest.getEmail()==null && !uDetails.idLoggedUser()) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } else {
             TableReservation t = trService.reserveTable(tableRequest.getType(), tableRequest.getDay(), tableRequest.getHour().toString(), tableRequest.getEmail());

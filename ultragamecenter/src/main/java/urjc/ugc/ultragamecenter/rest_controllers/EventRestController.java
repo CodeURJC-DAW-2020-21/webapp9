@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.*;
 import urjc.ugc.ultragamecenter.services.EventService;
 
@@ -26,9 +25,6 @@ public class EventRestController {
 
     @Autowired
     EventService eService;
-
-    @Autowired
-    UserComponent uComponent;
 
     @GetMapping("/")
 	public Collection<Event> getEvents(@RequestParam Integer page) {

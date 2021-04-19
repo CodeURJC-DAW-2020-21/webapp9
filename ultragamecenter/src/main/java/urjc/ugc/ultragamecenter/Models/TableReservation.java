@@ -3,6 +3,9 @@ package urjc.ugc.ultragamecenter.models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -13,8 +16,12 @@ public class TableReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @JsonIgnore
     private Long idTable;
     private String referencedCode;
+
+    @JsonIgnore
     private Integer hour;
 
     public TableReservation(){}

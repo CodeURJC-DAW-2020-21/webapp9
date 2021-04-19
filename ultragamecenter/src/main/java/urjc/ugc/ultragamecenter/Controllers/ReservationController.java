@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.controllers;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,15 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.services.*;
-import urjc.ugc.ultragamecenter.components.*;
-
+import urjc.ugc.ultragamecenter.models.User;
+import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
 @Controller
 
 public class ReservationController {
-
-    @Autowired
-    UserComponent userComponent;
 
     @Autowired
     TableService tService;
@@ -32,18 +30,29 @@ public class ReservationController {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+	UserDetailsServiceImpl uDetails;
+
+	public void setHeader(Model model) {
+		model.addAttribute("Admin", uDetails.isLoggedUserADMIN() ? "Admin" : "");
+		model.addAttribute("Logout",  uDetails.idLoggedUser() ? "Log Out" : "" );
+		model.addAttribute("Admin-ico", uDetails.isLoggedUserADMIN() ? "fas fa-tools" : "");
+		model.addAttribute("Logout-ico", uDetails.idLoggedUser() ? "fas fa-sign-out-alt" : "");
+	}
+
     @GetMapping("/reservation")
-    public String getReservation(Model model) {
+    public String getReservation(Model model, HttpServletRequest request) {
+        setHeader(model);
         model.addAttribute("site", "MESAS");
         model.addAttribute("full", "");
-        setHeader(model);
-        model.addAttribute("logged", !this.userComponent.isLoggedUser());
+        model.addAttribute("logged", !uDetails.idLoggedUser());
         return "ReservationTemplate";
     }
 
     @PostMapping("/trytoreserve")
     public String reserve(@RequestParam String type, @RequestParam String day, @RequestParam String hour,
-            @RequestParam(required = false) String email, Model model) {
+            @RequestParam(required = false) String email, Model model, HttpServletRequest request) {
+        setHeader(model);
         Integer hourInt = Integer.parseInt(hour);
         Object[] o = trService.getReserved(hourInt, type, day);
         boolean reserved = (Boolean) o[0];
@@ -52,19 +61,11 @@ public class ReservationController {
             String full = "No hay disponibilidad de mesas de " + type + " para el dia " + day
                     + " en la hora seleccionada";
             model.addAttribute("full", full);
-            setHeader(model);
             model.addAttribute("site", "MESAS");
             return "ReservationTemplate";
         } else {// reserved
-            trService.reserve(email,tableId,hourInt);
+            trService.reserve(email, tableId, hourInt);
         }
-        return getReservation(model);
-    }
-
-    public void setHeader(Model model) {
-        model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
-        model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");
-        model.addAttribute("Admin-ico", this.userComponent.isAdmin() ? "fas fa-tools" : "");
-        model.addAttribute("Logout-ico", this.userComponent.isLoggedUser() ? "fas fa-sign-out-alt" : "");
+        return getReservation(model,request);
     }
 }

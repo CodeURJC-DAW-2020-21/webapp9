@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,13 +43,26 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
+
+    @JsonIgnore
     private String passwordHash;
+
     private String lastName;
+
+    @JsonIgnore
     private String profileSrc;
+
     private String email;
+
     private ArrayList<Long> eventsLikeIt;
+    
+    @JsonIgnore
     private ArrayList<String> referencedCodes;
+
+    @JsonIgnore
     private HashMap<String, Double> affinity;
+
+    @JsonIgnore
     private ArrayList<Event> recomendated;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -265,6 +280,33 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setId(Integer id2) {
+        this.id=id2;
+    }
+
+    public boolean isAdmin(){
+        return this.roles.contains("ADMIN");
+    }
+
+    public List<Event> sort(List<Event> events, Integer c){
+        ArrayList<Event> aux = new ArrayList<>();
+        ArrayList<Event> aux2 = new ArrayList<>();
+        while(!events.isEmpty()){
+            int index = 0;
+            for(int x = 0; x < events.size();x++){
+                if(getValue(events.get(index))< getValue(events.get(x))){
+                    index = x;
+                }
+            }
+            aux.add(events.get(index));
+            events.remove(index);
+        }
+        for(int i = 0 ;i<Math.min(aux.size(),c);i++){
+            aux2.add(aux.get(i));
+        }
+        return aux2;
     }
 
 }

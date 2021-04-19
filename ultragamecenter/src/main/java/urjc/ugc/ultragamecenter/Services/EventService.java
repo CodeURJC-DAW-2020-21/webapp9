@@ -1,5 +1,7 @@
 package urjc.ugc.ultragamecenter.services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.Event;
+import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.EventRepository;
+import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
 @Service
 public class EventService {
@@ -25,7 +28,7 @@ public class EventService {
 	private ImageService imageService;
 
 	@Autowired
-	private UserComponent uComponent;
+	private UserDetailsServiceImpl uDetails;
 
 	public List<Event> getAllEvents() {
 		return eventRepository.findAll();
@@ -51,78 +54,81 @@ public class EventService {
 	public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile[] filePack,
 			String date, Integer capacity, String labels) {
 		Event event = null;
-		if (uComponent.isAdmin()) {
-			event = new Event(name, description, date, "", capacity);
-			if (file!=null && !file.isEmpty()) {
-				event.setBannerUrl(imageService.uploadImage(file));
-			} else {
-				event.setBannerUrl("../uploadImages/userImg/defaultEvent.png");
-			}
-			for (MultipartFile image : filePack) {
-				if (file!=null && !image.isEmpty()) {
-					event.getGallery().add(imageService.uploadImage(image));
-				} else {
-					event.getGallery().add("../uploadImages/userImg/defaultEvent.png");
-				}
-			}
-			for (String l : labels.split("/")) {
-				event.putLavel(l);
-			}
-			eventRepository.save(event);
+		event = new Event(name, description, date, "", capacity);
+		if (file != null && !file.isEmpty()) {
+			event.setBannerUrl(imageService.uploadImage(file));
+		} else {
+			event.setBannerUrl("../uploadImages/userImg/defaultEvent.png");
 		}
-
+		for (MultipartFile image : filePack) {
+			if (file != null && !image.isEmpty()) {
+				event.getGallery().add(imageService.uploadImage(image));
+			} else {
+				event.getGallery().add("../uploadImages/userImg/defaultEvent.png");
+			}
+		}
+		for (String l : labels.split("/")) {
+			event.putLavel(l);
+		}
+		eventRepository.save(event);
 		return event;
 	}
 
 	public Event updateEvent(Long id, String name, String description, String date, Integer capacity,
 			MultipartFile image, MultipartFile[] filePack) {
 		Event event = null;
-		if (uComponent.isAdmin()) {
-			event = eventRepository.findByid(id);
-			if (event != null) {
-				event.setName(name!=null ? name : event.getName());
-				event.setDescription(description!=null ? description : event.getDescription());
-				event.setDate(date!=null ? date : event.getDate().toString());
-				event.setCapacity(capacity ==null ? capacity : event.getCapacity());
-				eventRepository.save(event);
-				if (image != null) {
-					event.setBannerUrl(imageService.uploadImage(image));
-				}
-				if (filePack != null) {
-					for (MultipartFile file : filePack) {
-						if (!file.isEmpty()) {
-							event.getGallery().add(imageService.uploadImage(file));
-						} else {
-							event.getGallery().add("/images/uploads/defaultEvent.jpg");
-						}
+		event = eventRepository.findByid(id);
+		if (event != null) {
+			event.setName(name != null ? name : event.getName());
+			event.setDescription(description != null ? description : event.getDescription());
+			event.setDate(date != null ? date : event.getDate().toString());
+			event.setCapacity(capacity == null ? capacity : event.getCapacity());
+			eventRepository.save(event);
+			if (image != null) {
+				event.setBannerUrl(imageService.uploadImage(image));
+			}
+			if (filePack != null) {
+				for (MultipartFile file : filePack) {
+					if (!file.isEmpty()) {
+						event.getGallery().add(imageService.uploadImage(file));
+					} else {
+						event.getGallery().add("/images/uploads/defaultEvent.jpg");
 					}
 				}
 			}
 		}
+
 		return event;
 	}
 
 	public Event deleteID(Long id) {
 		Event e = null;
-		if (uComponent.isAdmin()) {
-			e = getByid(id);
-			if (e != null) {
-				e.setDescription("Este evento se ha eliminado satisfactoriamiente");
-				eventRepository.delete(e);
-			}
+		e = getByid(id);
+		if (e != null) {
+			e.setDescription("Este evento se ha eliminado satisfactoriamiente");
+			eventRepository.delete(e);
 		}
 		return e;
 	}
 
 	public boolean like(Long id) {
 		Event event = getByid(id);
-		if (event != null && this.uComponent.isLoggedUser() && !this.uComponent.hasLiked(event.getId())) {
-			this.uComponent.like(event, getAllEvents());
+		User u = uDetails.getLogedUser();
+		if (!u.hasLiked(event.getId())) {
+			u.likedEvent(event, getAllEvents());
 			save(event);
-			uService.save(this.uComponent.getLoggedUser());
+			uService.save(u);
 			return true;
 		}
 		return false;
+	}
+
+	public Collection<Event> transform(List<Long> eventsLiked) {
+		ArrayList<Event> e = new ArrayList<>();
+		for (Long l : eventsLiked) {
+			e.add(getByid(l));
+		}
+		return e;
 	}
 
 }

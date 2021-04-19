@@ -14,7 +14,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
 
@@ -24,13 +23,11 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private UserComponent userComponent;
 
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
-		User user = userRepository.findByEmail(auth.getName());
+		User user = userRepository.findByEmail(auth.getName()).get();
 
 		if (user == null) {
 			throw new BadCredentialsException("User not found");
@@ -41,8 +38,6 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 		if (!new BCryptPasswordEncoder().matches(password, user.getPassword())) {
 			throw new BadCredentialsException("Wrong password");
 		}
-
-		userComponent.setLoggedUser(user);
 
 		List<GrantedAuthority> roles = new ArrayList<>();
 		for (String role : user.getRoles()) {

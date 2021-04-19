@@ -1,19 +1,27 @@
 package urjc.ugc.ultragamecenter.services;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.Event;
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
+import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService {
+
+    @Autowired
+	private AuthenticationManager authenticationManager;
 
     @Autowired
     ImageService imageService;
@@ -22,22 +30,25 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserComponent uComponent;
+    private EventService eService;
 
     @Autowired
-    private EventService eService;
+    UserDetailsServiceImpl uDetails;
+
+    @Autowired
+    UserService uService;
 
     public User findById(Long id) {
         return userRepository.findById(id);
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).get();
     }
 
     public User createNewUser(String name, String lastName, String password, String email) {
         User user = null;
-        if (userRepository.findByEmail(email) == null) {
+        if (userRepository.findByEmail(email) != null) {
             user = new User(name, lastName, password, email);
             userRepository.save(user);
         }
@@ -53,24 +64,22 @@ public class UserService {
     }
 
     public User updateUser(String name, String lastName, MultipartFile image) {
-        if(name==null){
-            name="";
+        if (name == null) {
+            name = "";
         }
-        if(lastName==null){
-            lastName="";
+        if (lastName == null) {
+            lastName = "";
         }
         User user = null;
-        if (this.uComponent.isLoggedUser()) {
-            user = uComponent.getLoggedUser();
-            if (image !=null && !image.isEmpty()) {
-                user.setProfileSrc(imageService.uploadImage(image));
-            } else {
-                user.setProfileSrc("uploadImages/userImg/defaultuser.png");
-            }
-            user.setName(!name.equals("") ? name : user.getName());
-            user.setLastName(!lastName.equals("") ? lastName : user.getLastName());
-            userRepository.save(user);
+        user = uDetails.getLogedUser();
+        if (image != null && !image.isEmpty()) {
+            user.setProfileSrc(imageService.uploadImage(image));
+        } else {
+            user.setProfileSrc("uploadImages/userImg/defaultuser.png");
         }
+        user.setName(!name.equals("") ? name : user.getName());
+        user.setLastName(!lastName.equals("") ? lastName : user.getLastName());
+        userRepository.save(user);
         return user;
     }
 
@@ -80,37 +89,32 @@ public class UserService {
 
     public User updateUserPassword(String password, String newPassword) {
         User user = null;
-        if (this.uComponent.isLoggedUser()) {
-            user = uComponent.getLoggedUser();
-            if (user.matchPasword(password)) {
-                user.setPassword(newPassword);
-                save(user);
-            } else {
-                user = null;
-            }
+        user = uDetails.getLogedUser();
+        if (user.matchPasword(password)) {
+            user.setPassword(newPassword);
+            save(user);
+        } else {
+            user = null;
         }
         return user;
+
     }
 
-    public User logUsr(String email, String password){
-		User aux = findByEmail(email);
-		if (aux != null && aux.matchPasword(password)) {
-			uComponent.setLoggedUser(aux);
-			return aux;
-		}
-		return null;
-	}
+    public User logUsr(String email, String password) {
+        Authentication authentication = authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(email, password));
+		SecurityContextHolder.getContext().setAuthentication(authentication);		
+        return uService.findByEmail(email);
+    }
 
-    public List<Event> getRecomendatedEvents(Integer i){
+    public List<Event> getRecomendatedEvents(Integer i) {
         ArrayList<Event> recomendated = new ArrayList<>();
-        ArrayList<Event> possibleEvents= (ArrayList<Event>) uComponent.sort(eService.getAllEvents(), 100);
-        for(Event e: possibleEvents){
-            if(!uComponent.getLoggedUser().hasLiked(e.getId())){
+        ArrayList<Event> possibleEvents = (ArrayList<Event>) uDetails.getLogedUser().sort(eService.getAllEvents(), 100);
+        for (Event e : possibleEvents) {
+            if (!uDetails.getLogedUser().hasLiked(e.getId())) {
                 recomendated.add(e);
             }
         }
         return recomendated.subList(0, i);
     }
-
 
 }

@@ -1,5 +1,8 @@
 package urjc.ugc.ultragamecenter.controllers;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,19 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 import urjc.ugc.ultragamecenter.services.*;
-import urjc.ugc.ultragamecenter.components.*;
 
 @Controller
-
+@RequestMapping("/events")
 public class EventsController {
-
-	@Autowired
-	UserComponent userComponent;
 
 	@Autowired
 	EventService eService;
@@ -29,35 +30,33 @@ public class EventsController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
+	@Autowired
+	UserService uService;
+
+	@Autowired
+	UserDetailsServiceImpl uDetails;
+
 	public void setHeader(Model model) {
-		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
-		model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");
-		model.addAttribute("Admin-ico", this.userComponent.isAdmin() ? "fas fa-tools" : "");
-		model.addAttribute("Logout-ico", this.userComponent.isLoggedUser() ? "fas fa-sign-out-alt" : "");
+		model.addAttribute("Admin", uDetails.idLoggedUser() ? "Admin" : "");
+		model.addAttribute("Logout",  uDetails.isLoggedUserADMIN() ? "Log Out" : "" );
+		model.addAttribute("Admin-ico", uDetails.isLoggedUserADMIN() ? "fas fa-tools" : "");
+		model.addAttribute("Logout-ico", uDetails.idLoggedUser() ? "fas fa-sign-out-alt" : "");
 	}
 
-	@GetMapping("/single-event")
-	public String getSingleEvent(Model model) {
-		model.addAttribute("site", "EVENTO");
-		setHeader(model);
-		return "SingleEventTemplate";
-
-	}
-
-	@GetMapping("/events")
-	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
+	@GetMapping("")
+	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize, HttpServletRequest request) {
+		model.addAttribute("isLogged", uDetails.idLoggedUser());
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
 		Page<Event> events = eService.getPageEvents(0, pageSize);
 		model.addAttribute("events", events);
-		model.addAttribute("isLogged", this.userComponent.isLoggedUser());
+		
 		return "events";
 	}
 
-	@GetMapping("/events/see-event")
-	public String seeEvent(@RequestParam String id, Model model) {
+	@GetMapping("/{id}")
+	public String seeEvent(@RequestParam String id, Model model, HttpServletRequest request) {
 		Event event = eService.getByid(Long.parseLong(id));
-
 		setHeader(model);
 		model.addAttribute("image", event.getBannerUrl());
 		model.addAttribute("name", event.getName());
@@ -66,27 +65,7 @@ public class EventsController {
 		model.addAttribute("capacity", event.getCapacity() - event.getlikes());
 		model.addAttribute("id", event.getId());
 		model.addAttribute("gallery", event.getGallery());
-		return getSingleEvent(model);
+		model.addAttribute("site", "EVENTO");
+		return "SingleEventTemplate";
 	}
-
-	@PostMapping("/createEvent")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
-			@RequestParam(defaultValue = "") Integer capacity, @RequestParam String labels, @RequestParam String end,
-			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
-			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
-		MultipartFile[] filePack = { image1, image2, image3 };
-		eService.createNewEvent(name, description, image, filePack, end, capacity, labels);
-		return "redirect:/admin";
-	}
-
-	@PostMapping("/editEvent")
-	public String editEvent(@RequestParam String id, @RequestParam String name, @RequestParam String description,
-			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,
-			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
-			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
-		MultipartFile[] filePack = { image1, image2, image3 };
-		eService.updateEvent(Long.parseLong(id), name, description, end, capacity, image, filePack);
-		return "redirect:/admin";
-	}
-
 }

@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,13 +31,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.Event;
 import urjc.ugc.ultragamecenter.services.EventService;
 import urjc.ugc.ultragamecenter.services.ImageService;
 import urjc.ugc.ultragamecenter.services.UserService;
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.requests.LoginRequest;
+import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
@@ -46,7 +49,8 @@ public class UserRestController {
     EventService eService;
 
     @Autowired
-    UserComponent uComponent;
+    UserDetailsServiceImpl uDetails;
+
 
     @Autowired
     ImageService imgService;
@@ -55,7 +59,7 @@ public class UserRestController {
 
     @GetMapping("/")
     public ResponseEntity<User> getUser() {
-        return new ResponseEntity<>(uComponent.getLoggedUser(), HttpStatus.OK);
+        return new ResponseEntity<>(uDetails.getLogedUser(), HttpStatus.OK);
     }
 
     @PostMapping("/")
@@ -73,7 +77,7 @@ public class UserRestController {
         if(lastUser==null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        if(uComponent.getLoggedUser().getEmail().equals(lastUser.getEmail())){
+        if(uDetails.getEmail().equals(lastUser.getEmail())){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         editedUser.setId(lastUser.getId());
@@ -94,8 +98,9 @@ public class UserRestController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<Object> login(){
-        uComponent.logOut();
+    public ResponseEntity<Object> logout(HttpServletRequest request){
+        request.getSession(false);
+        SecurityContextHolder.clearContext();
         return new ResponseEntity<>("Has cerrado sesión", HttpStatus.OK);
     }
 
@@ -104,7 +109,7 @@ public class UserRestController {
     method = RequestMethod.POST, 
     consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> uploadImage( @RequestParam MultipartFile imageFile) throws IOException {
-        User user = uComponent.getLoggedUser();
+        User user = uService.findByEmail(uDetails.getEmail());
         URI location = fromCurrentRequest().build().toUri();
         user.setProfileSrc(location.toString());
         uService.save(user);
@@ -114,7 +119,7 @@ public class UserRestController {
 
     @GetMapping("/image")
 	public ResponseEntity<Object> downloadImage() throws MalformedURLException {
-        return this.imgService.createResponseFromImage(uComponent.getLoggedUser());
+        return this.imgService.createResponseFromImage(uService.findByEmail(uDetails.getEmail()));
 	}
 
     @GetMapping("/likedEvents")
@@ -124,11 +129,11 @@ public class UserRestController {
 
     @GetMapping("/recomendatedEvents")
     public Collection<Event> getRecomendatedEvents(){
-        return eService.transform(uComponent.getLoggedUser().getEventsLiked());
+        return eService.transform(uService.findByEmail(uDetails.getEmail()).getEventsLiked());
     }
 
     @GetMapping("/myReservates")
     public Collection<String> reservations(@RequestParam Integer page) {
-        return uComponent.getLoggedUser().getReferencedCodes();
+        return uService.findByEmail(uDetails.getEmail()).getReferencedCodes();
     }
 }

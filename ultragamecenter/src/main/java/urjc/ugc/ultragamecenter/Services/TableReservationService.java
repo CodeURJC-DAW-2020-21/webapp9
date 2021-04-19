@@ -11,19 +11,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.models.TableReservation;
 import urjc.ugc.ultragamecenter.models.Tablegame;
 import urjc.ugc.ultragamecenter.repositories.TableReservationRepository;
+import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
 @Service
 public class TableReservationService {
 
     @Autowired
     private ApplicationContext appContext;
-
-    @Autowired
-    UserComponent userComponent;
 
     @Autowired
     TableService tService;
@@ -33,6 +30,9 @@ public class TableReservationService {
 
     @Autowired
     private TableReservationRepository trrepository;
+
+    @Autowired
+    UserDetailsServiceImpl uDetails;
 
     public List<TableReservation> getAll() {
         return trrepository.findAll();
@@ -93,9 +93,9 @@ public class TableReservationService {
     public TableReservation reserve(String email, Long tableId, Integer hourInt) {
         TableReservation tReserve = null;
         String randomCode = randomRefCode();
-        if (this.userComponent.isLoggedUser()) {// logged user
-            this.userComponent.getLoggedUser().addReferencedCode(randomCode);
-            uService.save(this.userComponent.getLoggedUser());
+        if (uDetails.idLoggedUser()) {// logged user
+            uDetails.getLogedUser().addReferencedCode(randomCode);
+            uService.save(uDetails.getLogedUser());
             tReserve = new TableReservation(tableId, randomCode, hourInt);
             save(tReserve);
         } else { // guest user
@@ -143,10 +143,7 @@ public class TableReservationService {
     }
 
     public List<String> getMyReservations() {
-        if(userComponent.isLoggedUser()){
-            return userComponent.getLoggedUser().getReferencedCodes();
-        }
-        return new ArrayList<>();
+        return uDetails.getLogedUser().getReferencedCodes();
 
     }
 }
