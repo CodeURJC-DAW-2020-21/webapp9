@@ -271,7 +271,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 ## PHASE 3: API REST to the web application and docker deployment 
 
-- Document API Documentantion with information about the REST API
+- [OpenAPI.html](https://raw.githack.com/CodeURJC-DAW-2020-21/webapp9/main/ultragamecenter/api-docs/api-docs.html) and [OpenApi.yaml](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/api-docs/api-docs.yaml) with information about the REST API.
 
 
 ### Executing docker-compose
@@ -369,3 +369,21 @@ To create the image, you just have to launch the script.bat file.
   3. [ImageService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/ImageService.java)
   4. [MvcConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/MvcConfig.java)
   5. [UserService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/UserService.java)
+  
+  **Rodrigo de Siqueira**
+
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+
+- 5 most significant commits:
+  1. [Add pagination to reservation api](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/8494bb9f39621d21f189af8d6e1a8de59a6f236f)
+  2. [Added API methods for recommended events](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/4fd70a7b25467b653b3decea7bd6af365492e396)
+  3. [Fixed api url name conflicts(also added api code)](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/9ba8a0e0d8bbd428fabc046009efbee23ca3e866)
+  4. [Added html api docs](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/14645bdf034b23d984521b084b36cd2b976d0c2e )
+  5. [Resolution of conflicts(also api docs fixing)](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/28090176425cdb18e84c1fdaba6c7af52c8cf4c3#diff-27595f7455a0f03179157a8752691d96b055648073ff2c096c044406172ac871)
+  
+- 5 files with participation:
+  1. [UserRestController](https://github.com/CodeURJC-DAW-2020-21/webapp9/blame/api/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/UserRestController.java)
+  2. [EventRestController](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/EventRestController.java)
+  3. [MvcConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/MvcConfig.java)
+  4. [Api Docs](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/api-docs/api-docs.html)
+  5. [AdminRestController](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Controllers/AdminController.java)
