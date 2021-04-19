@@ -369,3 +369,21 @@ To create the image, you just have to launch the script.bat file.
   3. [ImageService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/ImageService.java)
   4. [MvcConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/MvcConfig.java)
   5. [UserService.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Services/UserService.java)
+  
+  **Rodrigo de Siqueira**
+
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+
+- 5 most significant commits:
+  1. [Add pagination to reservation api](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/8494bb9f39621d21f189af8d6e1a8de59a6f236f)
+  2. [Added API methods for recommended events](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/4fd70a7b25467b653b3decea7bd6af365492e396)
+  3. [Fixed api url name conflicts](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/9ba8a0e0d8bbd428fabc046009efbee23ca3e866)
+  4. [Docker compose test](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/14645bdf034b23d984521b084b36cd2b976d0c2e )
+  5. [Docker-compose works without default user constructor](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/14e52ad5e06138e3333d2d89b64f8e8ab5681204 )
+  
+- 5 files with participation:
+  1. [UserRestController](https://github.com/CodeURJC-DAW-2020-21/webapp9/blame/api/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/UserRestController.java)
+  2. [EventRestController](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/rest_controllers/EventRestController.java)
+  3. [MvcConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/MvcConfig.java)
+  4. [MvcConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/MvcConfig.java)
+  5. [AdminRestController](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Controllers/AdminController.java)
