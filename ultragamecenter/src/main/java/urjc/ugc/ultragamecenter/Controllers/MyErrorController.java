@@ -16,5 +16,5 @@ public class MyErrorController implements ErrorController {
     public String getErrorPath() {
         return null;
     }
-    
+
 }

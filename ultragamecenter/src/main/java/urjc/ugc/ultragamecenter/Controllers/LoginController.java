@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.*;
 import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.components.*;
 
@@ -19,22 +18,10 @@ import urjc.ugc.ultragamecenter.components.*;
 public class LoginController {
 
 	@Autowired
-	private UserRepository urepository;
-
-	@Autowired
-	private UserService uservice;
+	UserService uService;
 
 	@Autowired
 	UserComponent userComponent;
-
-	@Autowired
-	EventRepository eRepository;
-
-	@Autowired
-	TableRepository trepository;
-
-	@Autowired
-	TableReservationRepository trrepository;
 
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -63,7 +50,7 @@ public class LoginController {
 		return "login";
 	}
 
-    
+
 	@GetMapping("/register")
 	public String getLoginRegister(Model model) {
 		model.addAttribute("site", "REGISTRATE");
@@ -73,15 +60,17 @@ public class LoginController {
 	}
 
 	@GetMapping("/loggout")
-	public String LoggOut(HttpSession sesion, Model model) {
+	public String loggOut(HttpSession sesion, Model model) {
 		this.userComponent.logOut();
 		return "redirect:/profile";
 	}
 
+
+
 	@PostMapping("/logginUser")
-	public String logearUsuario(@RequestParam String email, @RequestParam String password, HttpSession sesion,
+	public String logUser(@RequestParam String email, @RequestParam String password, HttpSession sesion,
 			Model model) {
-		User aux = urepository.findByEmail(email);
+		User aux = uService.findByEmail(email);
 		if (aux != null) {
 			if (aux.matchPasword(password)) {
 				this.userComponent.setLoggedUser(aux);
@@ -97,27 +86,11 @@ public class LoginController {
 		return "login";
 	}
 
-    
-	@PostMapping("/registerUser")
-	public String registrarUsuario(@RequestParam String name, @RequestParam String lastName, @RequestParam String email,
-			@RequestParam String password, HttpSession sesion, Model model) {
-		User aux = urepository.findByEmail(email);
-		if (aux != null) {
-			model.addAttribute("Registered", "Ya hay un usuario registrado con ese correo");
-		} else {
-			User user = new User(name, lastName, password, email);
-			urepository.save(user);
-			getLogin(model);
-		}
-		return getLoginRegister(model);
-	}
-
     @PostMapping("/register")
 	public String registerUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password,
 			@RequestParam String email) {
-		User user = uservice.createNewUser(name, lastName, password, email);
+		User user = uService.createNewUser(name, lastName, password, email);
 		userComponent.setLoggedUser(user);
-		this.urepository.save(user);
 		return "redirect:/";
 	}
 }

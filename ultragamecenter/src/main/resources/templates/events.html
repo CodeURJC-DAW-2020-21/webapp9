@@ -39,7 +39,7 @@
     
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script type="text/javascript">
-        $("seeMore").click(function(){
+        $("#seeMore").click(function(){
             var elemento = document.getElementById("pageSize");
             elemento.innerHTML = parseInt(elemento.innerHTML) + 2
             $( ".eventContainer" ).load("https://localhost:8443/events?pageSize="+elemento.innerHTML+" .eventContainer" );

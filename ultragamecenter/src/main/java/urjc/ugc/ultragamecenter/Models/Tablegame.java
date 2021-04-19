@@ -2,6 +2,7 @@ package urjc.ugc.ultragamecenter.models;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class Tablegame {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String type;
-    private ArrayList<Integer> state = new ArrayList<Integer>();
+    private ArrayList<Integer> state = new ArrayList<>();
     private Date date;
 
     public Tablegame(){}
@@ -47,7 +48,7 @@ public class Tablegame {
         this.type = type;
     }
 
-    public ArrayList<Integer> getState(){
+    public List<Integer> getState(){
         return this.state;
     }
 
@@ -62,7 +63,3 @@ public class Tablegame {
 
 
 }
-
-
-
-

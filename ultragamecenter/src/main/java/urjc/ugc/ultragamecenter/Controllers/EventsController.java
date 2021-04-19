@@ -1,6 +1,5 @@
 package urjc.ugc.ultragamecenter.controllers;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import urjc.ugc.ultragamecenter.models.*;
-import urjc.ugc.ultragamecenter.repositories.*;
 import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.components.*;
 
@@ -26,25 +24,12 @@ public class EventsController {
 	UserComponent userComponent;
 
 	@Autowired
-	EventRepository eRepository;
-
-	@Autowired
-	TableRepository trepository;
-
-	@Autowired
-	TableReservationRepository trrepository;
+	EventService eService;
 
 	@Autowired
 	AuthenticationManager authenticationManager;
 
-	@Autowired
-	private EventService eventService;
-
-
-	private Event editedEvent = null;
-    
-
-    public void setHeader(Model model) {
+	public void setHeader(Model model) {
 		model.addAttribute("Admin", this.userComponent.isAdmin() ? "Admin" : "");
 		model.addAttribute("Logout", this.userComponent.isLoggedUser() ? "Log Out" : "");
 		model.addAttribute("Admin-ico", this.userComponent.isAdmin() ? "fas fa-tools" : "");
@@ -63,15 +48,15 @@ public class EventsController {
 	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
-		Page<Event> events = eventService.getPageEvents(0, pageSize);
+		Page<Event> events = eService.getPageEvents(0, pageSize);
 		model.addAttribute("events", events);
 		model.addAttribute("isLogged", this.userComponent.isLoggedUser());
 		return "events";
 	}
 
-    @GetMapping("/events/see-event")
+	@GetMapping("/events/see-event")
 	public String seeEvent(@RequestParam String id, Model model) {
-		Event event = eRepository.findByid(Long.parseLong(id));
+		Event event = eService.getByid(Long.parseLong(id));
 
 		setHeader(model);
 		model.addAttribute("image", event.getBannerUrl());
@@ -84,31 +69,23 @@ public class EventsController {
 		return getSingleEvent(model);
 	}
 
-    
 	@PostMapping("/createEvent")
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
+			@RequestParam(defaultValue = "") Integer capacity, @RequestParam String labels, @RequestParam String end,
+			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
+			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
+		MultipartFile[] filePack = { image1, image2, image3 };
+		eService.createNewEvent(name, description, image, filePack, end, capacity, labels);
+		return "redirect:/admin";
+	}
+
+	@PostMapping("/editEvent")
+	public String editEvent(@RequestParam String id, @RequestParam String name, @RequestParam String description,
 			@RequestParam Integer capacity, @RequestParam String labels, @RequestParam String end,
 			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
 			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3) {
-		Event event;
-		if (this.editedEvent != null) {
-			event = this.editedEvent;
-			this.editedEvent = null;
-			for (String var : labels.split("/")) {
-				event.putLavel(var.toUpperCase());
-			}
-			event.setCapacity(capacity != 0 ? capacity : event.getCapacity());
-			event.setDescription(description.equals("") ? event.getDescription() : description);
-			event.setName(name.equals("") ? event.getName() : name);
-			event.setDate(end.equals("") ? event.getDate().toString() : end);
-		} else {
-			event = eventService.createNewEvent(name, description, image, image1, image2, image3, end, capacity);
-			for (String var : labels.split("/")) {
-				event.putLavel(var.toUpperCase());
-			}
-
-		}
-		eRepository.save(event);
+		MultipartFile[] filePack = { image1, image2, image3 };
+		eService.updateEvent(Long.parseLong(id), name, description, end, capacity, image, filePack);
 		return "redirect:/admin";
 	}
 

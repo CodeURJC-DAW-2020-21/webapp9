@@ -13,27 +13,27 @@ public class TableReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long id_table;
-    private String referenced_code;
+    private Long idTable;
+    private String referencedCode;
     private Integer hour;
 
     public TableReservation(){}
-    public TableReservation(Long id_table, String referenced_code, Integer hour) {
-        this.id_table = id_table;
-        this.referenced_code = referenced_code;
+    public TableReservation(Long idTable, String referencedCode, Integer hour) {
+        this.idTable = idTable;
+        this.referencedCode = referencedCode;
         this.hour = hour;
     }
 
-    public Long getId_table() {
-        return id_table;
+    public Long getIdTable() {
+        return idTable;
     }
 
-    public String getReferenced_code() {
-        return referenced_code;
+    public String getReferencedCode() {
+        return referencedCode;
     }
 
-    public void setReferenced_code(String referenced_code) {
-        this.referenced_code = referenced_code;
+    public void setReferencedCode(String referencedCode) {
+        this.referencedCode = referencedCode;
     }
 
     public Integer getHour() {
@@ -47,8 +47,11 @@ public class TableReservation {
 
     @Override
 	public String toString() {
-		return "Table reservation [id=" + id + ",id_table=" + id_table + ", Referenced_code=" + referenced_code +", hour="+hour+"]";
+		return "Table reservation [id=" + id + ",id_table=" + idTable + ", Referenced_code=" + referencedCode +", hour="+hour+"]";
 	}
-    
-    
+    public Long getID() {
+        return this.id;
+    }
+
+
 }

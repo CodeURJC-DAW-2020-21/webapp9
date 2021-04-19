@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,16 +25,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity @EntityListeners(AuditingEntityListener.class)
+@Entity
+@EntityListeners(AuditingEntityListener.class)
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class User implements UserDetails {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5767343013628002370L;
     @Id
@@ -54,31 +53,28 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
+    public User() {
+    }
+
     public User(String name, String lastName, String password, String email) {
         super();
-        this.eventsLikeIt= new ArrayList<Long>();
-        this.referencedCodes = new ArrayList<String>();
-        this.affinity = new HashMap<String,Double>();
-        this.recomendated = new ArrayList<Event>();
+        this.eventsLikeIt = new ArrayList<>();
+        this.referencedCodes = new ArrayList<>();
+        this.affinity = new HashMap<>();
+        this.recomendated = new ArrayList<>();
         this.name = name;
-        this.profileSrc = "images/uploads/defaultuser.png";
+        this.profileSrc = "uploadImages/userImg/defaultuser.png";
         this.passwordHash = new BCryptPasswordEncoder().encode(password);
         this.lastName = lastName;
         this.email = email;
-        this.roles = new ArrayList<String>();
+        this.roles = new ArrayList<>();
         this.roles.add("USER");
     }
 
-    public Boolean matchPasword(String password){
+    public boolean matchPasword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(password, this.passwordHash);
     }
-
-    public User() {
-
-    }
-
-    
 
     private Double getAffinity(Event e) {
         Double aux = 0.0;
@@ -122,7 +118,7 @@ public class User implements UserDetails {
         return this.passwordHash;
     }
 
-    public ArrayList<Long> getEventsLiked() {
+    public List<Long> getEventsLiked() {
         return this.eventsLikeIt;
     }
 
@@ -130,7 +126,7 @@ public class User implements UserDetails {
         this.eventsLikeIt.add(event.getId());
     }
 
-    public ArrayList<String> getReferencedCodes() {
+    public List<String> getReferencedCodes() {
         return this.referencedCodes;
     }
 
@@ -142,8 +138,8 @@ public class User implements UserDetails {
         this.roles.add(role);
     }
 
-    public void setReferencedCode(ArrayList<String> rc) {
-        this.referencedCodes = rc;
+    public void setReferencedCode(List<String> rc) {
+        this.referencedCodes = (ArrayList<String>) rc;
     }
 
     public String getProfileSrc() {
@@ -155,9 +151,8 @@ public class User implements UserDetails {
     }
 
     public void giveRoles(String role) {
-        if (this.roles.contains(role)) {
-            return;
-        } else {
+        if (!this.roles.contains(role)) {
+
             if (role.equals("ADMIN")) {
                 this.roles.remove("ADMIN");
                 this.roles.add("USER");
@@ -181,7 +176,7 @@ public class User implements UserDetails {
     }
 
     public void likedEvent(Event e, List<Event> allEvents) {
-        ArrayList<String> aux = new ArrayList<String>();
+        ArrayList<String> aux = new ArrayList<>();
         for (Event er : allEvents) {
             for (String label : er.getLavels()) {
                 aux.add(label);
@@ -189,8 +184,8 @@ public class User implements UserDetails {
         }
         Double base = 0.5;
         e.like();
-        if(this.affinity==null){
-            this.affinity = new HashMap<String, Double>();
+        if (this.affinity == null) {
+            this.affinity = new HashMap<>();
         }
         this.eventsLikeIt.add(e.getId());
         for (String x : aux) {
@@ -206,8 +201,8 @@ public class User implements UserDetails {
         }
     }
 
-    public void setPassword(String new_password) {
-        this.passwordHash = new_password;
+    public void setPassword(String newPassword) {
+        this.passwordHash= new BCryptPasswordEncoder().encode(newPassword);
     }
 
     public void setLastName(String surname) {
@@ -221,7 +216,7 @@ public class User implements UserDetails {
     public double getValue(Event event) {
         Double aux = 0.0;
         if (this.affinity == null) {
-            this.affinity = new HashMap<String, Double>();
+            this.affinity = new HashMap<>();
         }
         for (String label : event.getLavels()) {
             if (this.affinity.containsKey(label)) {
@@ -241,36 +236,35 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     public boolean hasLiked(Long event) {
         return this.eventsLikeIt != null && this.eventsLikeIt.contains(event);
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

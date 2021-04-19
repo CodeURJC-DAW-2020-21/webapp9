@@ -1,6 +1,6 @@
 
-        
-        <div class="body__overlay"></div>
+{{>header}}
+    <div class="body__overlay"></div>
 
         <!-- Start Login Register Area -->
 
@@ -8,9 +8,9 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <ul class="login__register__menu" role="tablist">
-                        <li role="presentation" class="login active"><a href="#editProfile" role="tab"
+                        <li role="presentation" class="login active"><a id = "eProfile"href="" role="tab"
                                 data-toggle="tab">Perfil</a></li>
-                        <li role="presentation" class="register"><a href="#editPassword" role="tab"
+                        <li role="presentation" class="register"><a id = "ePass" href="" role="tab"
                                 data-toggle="tab">Contraseña</a></li>
                     </ul>
                 </div>
@@ -18,23 +18,22 @@
             <!-- Start Login Register Content -->
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <div class="htc__login__register__wrap">
+                    <div class="">
                         <!-- Start Single Content -->
-                        <div id="editProfile" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+                        <div id="editProfile" role="tabpanel" clas="single__tabs__panel">
                             <form class="login" method="post" action="/editProfile" enctype="multipart/form-data">
-                                <input type="text" placeholder="{{Name}}" name="name">
-                                <input type="text" placeholder="{{Surname}}" name="surname">
+                                <input class="mb-4" type="text" value="{{Name}}" name="name">
+                                <input type="text" value="{{Surname}}" name="surname">
                                 <input type='file' name='image' accept=".jpg, .jpeg" />
                                 <input type='submit' value='Guardar' />
                             </form>
                         </div>
                         <!-- End Single Content -->
-                        <!-- Start Single Content -->
-                        <div id="editPassword" role="tabpanel" class="single__tabs__panel tab-pane fade">
+                        <!-- Start Single Content  class=" tab-pane fade" -->
+                        <div id="editPassword" role="tabpanel" class="single__tabs__panel" style="display:none;">
                             <form action="/editPassword" class="login" method="post">
                                 <input type="password" placeholder="Contraseña*" name="password">
-                                <input type="password" placeholder="Repite tu contraseña*" name="password_repeated">
-                                <input type="password" placeholder="Contraseña nueva*" name="new_password">
+                                <input type="password" placeholder="Contraseña nueva*" name="newPassword">
                                 <input type='submit' value='Guardar' />
                             </form>
                         </div>
@@ -44,5 +43,19 @@
             </div>
             <!-- End Login Register Content -->
         </div>
-    </div>
+   
     {{>footer}}
+
+<script languague="javascript">
+    editPicure= document.getElementById('editProfile');
+    editPass = document.getElementById('editPassword');
+    $("#eProfile").click(function() {
+        editPicure.style.display= '';
+        editPass.style.display = 'none'
+    });
+
+    $("#ePass").click(function(){
+        editPicure.style.display= 'none';
+        editPass.style.display = ''
+    })
+</script>
