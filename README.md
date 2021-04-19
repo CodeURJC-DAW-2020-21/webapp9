@@ -271,7 +271,7 @@ Web app for a gaming center called ***Ultra Game Center***
 
 ## PHASE 3: API REST to the web application and docker deployment 
 
-- [Document API Documentantion](), [OpenAPI.html](https://raw.githack.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/api-docs/api-docs.html) and [OpenApi.yaml](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/api-docs/api-docs.yaml) with information about the REST API.
+- [Document API Documentantion](), [OpenAPI.html](https://raw.githack.com/CodeURJC-DAW-2020-21/webapp9/api-docs/api-docs.html) and [OpenApi.yaml](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/api-docs/api-docs.yaml) with information about the REST API.
 
 
 ### Executing docker-compose
