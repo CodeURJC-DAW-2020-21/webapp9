@@ -35,10 +35,8 @@ public class UserController {
 	UserDetailsServiceImpl uDetails;
 
 	public void setHeader(Model model) {
-		model.addAttribute("Admin", uDetails.isLoggedUserADMIN() ? "Admin" : "");
-		model.addAttribute("Logout",  uDetails.idLoggedUser() ? "Log Out" : "" );
-		model.addAttribute("Admin-ico", uDetails.isLoggedUserADMIN() ? "fas fa-tools" : "");
-		model.addAttribute("Logout-ico", uDetails.idLoggedUser() ? "fas fa-sign-out-alt" : "");
+		model.addAttribute("isAdmin", uDetails.isLoggedUserADMIN() );
+		model.addAttribute("isLoged",  uDetails.idLoggedUser());
 	}
 
 	@GetMapping("/")

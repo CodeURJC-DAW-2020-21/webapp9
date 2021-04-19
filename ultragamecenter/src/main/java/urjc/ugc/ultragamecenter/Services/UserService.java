@@ -48,7 +48,7 @@ public class UserService {
 
     public User createNewUser(String name, String lastName, String password, String email) {
         User user = null;
-        if (userRepository.findByEmail(email) != null) {
+        if (userRepository.findByEmail(email).get() != null) {
             user = new User(name, lastName, password, email);
             userRepository.save(user);
         }

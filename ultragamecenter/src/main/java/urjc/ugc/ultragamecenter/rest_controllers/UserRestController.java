@@ -86,8 +86,9 @@ public class UserRestController {
         return new ResponseEntity<>(editedUser, HttpStatus.OK);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest){
+        System.out.println("\n\n\n\n\n"+loginRequest+"\n\n\n\n");
         String email = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         User u=uService.logUsr(email, password);

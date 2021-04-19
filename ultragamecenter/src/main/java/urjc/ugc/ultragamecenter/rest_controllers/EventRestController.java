@@ -65,7 +65,7 @@ public class EventRestController {
         }
     }
 
-    @GetMapping("/{id}/DATA")
+    @GetMapping("/DATA/{id}")
     public ResponseEntity<Object> getEventData(@RequestParam Long id) {
         Event e = eService.getByid(id);
         if (e != null) {
