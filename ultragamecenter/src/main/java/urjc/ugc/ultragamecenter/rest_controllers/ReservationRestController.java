@@ -1,27 +1,29 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import urjc.ugc.ultragamecenter.api_models.APIreservation;
-import urjc.ugc.ultragamecenter.api_models.APIreservations;
 import urjc.ugc.ultragamecenter.components.UserComponent;
 import urjc.ugc.ultragamecenter.controllers.*;
 import urjc.ugc.ultragamecenter.models.TableReservation;
+import urjc.ugc.ultragamecenter.requests.ReservateTableRequest;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/reservate")
 public class ReservationRestController {
 
     @Autowired
@@ -30,33 +32,20 @@ public class ReservationRestController {
     @Autowired
     TableReservationService trService;
 
-    @PostMapping("/reservate")
-    public ResponseEntity<APIreservation> reservateTable(@RequestParam String type, @RequestParam String day,
-            @RequestParam String hour, @RequestParam(required = false) String email) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        if (email==null && !uComponent.isLoggedUser()) {
-            return ResponseEntity.badRequest().headers(responseHeaders)
-                    .body(new APIreservation("No has dado un email y no estas logeado"));
+    @PostMapping("/")
+    public ResponseEntity<TableReservation> reservateTable(@RequestBody ReservateTableRequest tableRequest) {
+        if (tableRequest.getEmail()==null && !uComponent.isLoggedUser()) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } else {
-            TableReservation t = trService.reserveTable(type, day, hour, email);
+            TableReservation t = trService.reserveTable(tableRequest.getType(), tableRequest.getDay(), tableRequest.getHour().toString(), tableRequest.getEmail());
             if (t == null) {
-                return ResponseEntity.badRequest().headers(responseHeaders)
-                        .body(new APIreservation("No se ha podido reservar el dia: " + day + " a la hora " + hour));
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
-            return ResponseEntity.ok().headers(responseHeaders).body(new APIreservation(t));
+            return new ResponseEntity<>(t, HttpStatus.OK);
         }
     }
 
-    @GetMapping("/myReservates")
-    public ResponseEntity<List<APIreservations>> reservations(@RequestParam Integer page) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        if (uComponent.isLoggedUser()) {
-            return ResponseEntity.ok().headers(responseHeaders).body(APIreservations.transform3(trService.getPageReservations(page,5)));
-        }
-        ArrayList<APIreservations> a = new ArrayList<>();
-        a.add(new APIreservations("No estas logeado"));
-        return ResponseEntity.badRequest().headers(responseHeaders).body(a);
-    }
+    
 
     
 
