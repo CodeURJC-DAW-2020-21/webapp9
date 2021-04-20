@@ -34,19 +34,25 @@ public class ImageService{
         return file != null && !file.isEmpty();
 	}
 
+	public String getImagePath(){
+		return IMG_CONTROLLER_URL;
+	}
+
 	public String uploadImage(MultipartFile file) {
 		Path folder = FILES_FOLDER.resolve(IMG_FOLDER);
+		System.out.println(folder);
 		if (!Files.exists(folder)) {
 			log.warning("no folder");
 		}
 		String fileName = generateFileName();
 		Path newImage = folder.resolve(fileName+".jpg");
+		System.out.println(newImage);
 		try {
 			file.transferTo(newImage);
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
-		return IMG_CONTROLLER_URL+fileName+".jpg";
+		return fileName+".jpg";
 	}
 
 	private synchronized String generateFileName() {
@@ -55,10 +61,12 @@ public class ImageService{
 	
 	public ResponseEntity<Object> createResponseFromImage(User user) throws MalformedURLException {
 		Path folder = FILES_FOLDER.resolve(IMG_FOLDER);
+		System.out.println(folder);
 		if (!Files.exists(folder)) {
 			log.warning("no folder");
 		}
 		Path imagePath = folder.resolve(user.getProfileSrc());
+		System.out.println(imagePath);
 		
 		Resource file = new UrlResource(imagePath.toUri());
 		
