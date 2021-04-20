@@ -20,8 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UserService {
 
-    @Autowired
-	private AuthenticationManager authenticationManager;
+    
 
     @Autowired
     ImageService imageService;
@@ -98,12 +97,6 @@ public class UserService {
         }
         return user;
 
-    }
-
-    public User logUsr(String email, String password) {
-        Authentication authentication = authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(email, password));
-		SecurityContextHolder.getContext().setAuthentication(authentication);		
-        return uService.findByEmail(email);
     }
 
     public List<Event> getRecomendatedEvents(Integer i) {

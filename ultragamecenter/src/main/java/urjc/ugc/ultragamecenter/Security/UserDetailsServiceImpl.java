@@ -28,11 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("\n\n\n\n\n\n\n"+username+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         // Buscar nombre de usuario en nuestra base de datos
         User appUser = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Login email not valid"));
-        System.out.println("\n\n\n\n\n\n\n"+appUser+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         Set<GrantedAuthority> grantList = new HashSet<>();
 
         // Crear la lista de los roles/accessos que tienen el usuarios
@@ -40,13 +38,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + role);
             grantList.add(grantedAuthority);
         }
-        System.out.println("\n\n\n\n\n\n\n"+grantList+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         
 
         // Crear y retornar Objeto de usuario soportado por Spring Security
         //new org.springframework.security.core.userdetails.User(user.getName(), user.getEncodedPassword(), roles);
         UserDetails user = new org.springframework.security.core.userdetails.User(appUser.getEmail(), appUser.getPassword(),grantList);
-        System.out.println("\n\n\n\n\n\n\n"+user+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         return user;
     }
 

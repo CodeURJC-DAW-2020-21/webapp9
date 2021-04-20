@@ -1,6 +1,5 @@
 package urjc.ugc.ultragamecenter.controllers;
 
-import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
