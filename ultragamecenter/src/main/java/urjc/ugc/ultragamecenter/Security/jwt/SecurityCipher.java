@@ -9,8 +9,6 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public class SecurityCipher {
 
 	private static final String KEYVALUE = "secureCDCKey";

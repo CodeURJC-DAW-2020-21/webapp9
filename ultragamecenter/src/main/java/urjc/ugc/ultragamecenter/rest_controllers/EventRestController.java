@@ -41,7 +41,7 @@ public class EventRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Event> deleteEvent(@RequestParam Long id) {
+    public ResponseEntity<Event> deleteEvent(@PathVariable Long id) {
         eService.delete(eService.getByid(id));
 	    return new ResponseEntity<>(null, HttpStatus.OK);
     }
@@ -53,7 +53,7 @@ public class EventRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Event> editEvent(@RequestParam Long id, @RequestBody Event newEvent) throws IOException {
+    public ResponseEntity<Event> editEvent(@PathVariable Long id, @RequestBody Event newEvent) throws IOException {
         Event e = eService.getByid(id);
         if(e!=null){
             eService.delete(e);
@@ -66,7 +66,7 @@ public class EventRestController {
     }
 
     @GetMapping("/DATA/{id}")
-    public ResponseEntity<Object> getEventData(@RequestParam Long id) {
+    public ResponseEntity<Object> getEventData(@PathVariable Long id) {
         Event e = eService.getByid(id);
         if (e != null) {
             return new ResponseEntity<>(e.getDATA(), HttpStatus.OK);
@@ -77,7 +77,7 @@ public class EventRestController {
 
 
     @PostMapping("/{id}/like")
-    public ResponseEntity<String> like(@RequestParam Long id) {
+    public ResponseEntity<String> like(@PathVariable Long id) {
         if (eService.like(id)) {
             return new ResponseEntity<>("Well Done", HttpStatus.OK);
 		} else {

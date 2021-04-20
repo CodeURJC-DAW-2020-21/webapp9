@@ -97,9 +97,10 @@ public class UserRestController {
     public ResponseEntity<Object> uploadImage(@RequestParam MultipartFile imageFile) throws IOException {
         User user = uService.findByEmail(uDetails.getEmail());
         URI location = fromCurrentRequest().build().toUri();
-        user.setProfileSrc(location.toString());
+        String aux= imgService.uploadImage(imageFile);
+        System.out.println(aux);
+        user.setProfileSrc(aux);
         uService.save(user);
-        imgService.uploadImage(imageFile);
         return ResponseEntity.created(location).build();
     }
 
