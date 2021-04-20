@@ -49,7 +49,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/event-edit")
-	public String editEvent(@RequestParam String id, Model model,HttpServletRequest request) {
+	public String editEvent(@RequestParam String id, Model model) {
 		setHeader(model);
 		Event event = eService.getByid(Long.parseLong(id));
 		model.addAttribute("id", id);
@@ -69,7 +69,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/graph-event")
-	public String graphEvent(@RequestParam String id, Model model, HttpServletRequest request) {
+	public String graphEvent(@RequestParam String id, Model model) {
 		setHeader(model);
 		model.addAttribute("site", "GRAFICO");
 		Event event = eService.getByid(Long.parseLong(id));
@@ -81,17 +81,17 @@ public class AdminController {
 	}
 
 	@GetMapping("/delete-event")
-	public String borrarEvento(@RequestParam String id, Model model,HttpServletRequest request) {
+	public String borrarEvento(@RequestParam String id, Model model) {
 		setHeader(model);
 
 		eService.deleteID(Long.parseLong(id));
 		model.addAttribute("events", eService.getAllEvents());
 
-		return getAdmin(model,request);
+		return getAdmin(model);
 	}
 
 	@GetMapping("/add-event")
-	public String getEventAdder(Model model,HttpServletRequest request) {
+	public String getEventAdder(Model model) {
 		setHeader(model);
 		model.addAttribute("name", "Nombre del evento*");
 		model.addAttribute("description", "Descripción del evento");
@@ -103,7 +103,7 @@ public class AdminController {
 	}
 
 	@GetMapping("")
-	public String getAdmin(Model model,HttpServletRequest request) {
+	public String getAdmin(Model model) {
 		setHeader(model);
 		model.addAttribute("site", "ADMIN");
 		model.addAttribute("name", "Admin");

@@ -31,6 +31,7 @@ import urjc.ugc.ultragamecenter.services.EventService;
 import urjc.ugc.ultragamecenter.services.ImageService;
 import urjc.ugc.ultragamecenter.services.UserService;
 import urjc.ugc.ultragamecenter.models.User;
+import urjc.ugc.ultragamecenter.requests.UserDTO;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
 @RestController
@@ -70,7 +71,8 @@ public class UserRestController {
 	}
 
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@PathVariable User newUser) {
+    public ResponseEntity<User> createUser(@PathVariable UserDTO u) {
+        User newUser = new User(u);
         if (uService.findByEmail(newUser.getEmail()) == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -79,7 +81,7 @@ public class UserRestController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<User> editUser(@PathVariable User editedUser) {
+    public ResponseEntity<User> editUser(@PathVariable UserDTO editedUser) {
         User lastUser = uService.findByEmail(editedUser.getEmail());
         if (lastUser == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -87,10 +89,9 @@ public class UserRestController {
         if (uDetails.getEmail().equals(lastUser.getEmail())) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        editedUser.setId(lastUser.getId());
-        uService.delete(lastUser);
-        uService.save(editedUser);
-        return new ResponseEntity<>(editedUser, HttpStatus.OK);
+        lastUser.edit(editedUser);
+        uService.save(lastUser);
+        return new ResponseEntity<>(lastUser, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -109,12 +110,12 @@ public class UserRestController {
         return this.imgService.createResponseFromImage(uService.findByEmail(uDetails.getEmail()));
     }
 
-    @GetMapping("/likedEvents")
+    @GetMapping("/recomendatedEvents")
     public Collection<Event> getLikedEvents() {
         return uService.getRecomendatedEvents(5);
     }
 
-    @GetMapping("/recomendatedEvents")
+    @GetMapping("/likedEvents")
     public Collection<Event> getRecomendatedEvents() {
         return eService.transform(uService.findByEmail(uDetails.getEmail()).getEventsLiked());
     }

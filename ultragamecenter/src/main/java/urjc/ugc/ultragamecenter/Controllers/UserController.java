@@ -38,14 +38,14 @@ public class UserController {
 	}
 
 	@GetMapping("/")
-	public String getIndex(Model model, HttpServletRequest request) {
+	public String getIndex(Model model) {
 		setHeader(model);
 		model.addAttribute("site", "INICIO");
 		return "index";
 	}
 
 	@GetMapping("/like")
-	public String likeEvent(@RequestParam String id, Model model, HttpServletRequest request) {
+	public String likeEvent(@RequestParam String id, Model model) {
 		if (!eService.like(Long.parseLong(id))) {
 			return "redirect:/profile";
 		}
@@ -53,7 +53,7 @@ public class UserController {
 	}
 
 	@GetMapping("/profile")
-	public String getProfile(Model model, HttpServletRequest request) {
+	public String getProfile(Model model) {
 
 		setHeader(model);
 		User userLogged = uService.findByEmail(uDetails.getEmail());
@@ -86,14 +86,14 @@ public class UserController {
 	}
 
 	@PostMapping("/editPassword")
-	public String editPassword(@RequestParam String password, @RequestParam String newPassword, HttpSession sesion) {
+	public String editPassword(@RequestParam String password, @RequestParam String newPassword) {
 		uService.updateUserPassword(password, newPassword);
 		return "redirect:/";
 	}
 
 	@PostMapping("/editProfile")
 	public String editProfile(@RequestParam String name, @RequestParam String surname,
-			@RequestParam MultipartFile image, HttpSession sesion) {
+			@RequestParam MultipartFile image) {
 		uService.updateUser(name, surname, image);
 		return "redirect:/";
 	}

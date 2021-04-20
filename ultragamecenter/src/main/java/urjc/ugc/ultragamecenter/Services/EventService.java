@@ -55,6 +55,15 @@ public class EventService {
 			String date, Integer capacity, String labels) {
 		Event event = null;
 		event = new Event(name, description, date, "", capacity);
+		giveImages(event, file, filePack);
+		for (String l : labels.split("/")) {
+			event.putLavel(l);
+		}
+		eventRepository.save(event);
+		return event;
+	}
+
+	public void giveImages(Event event, MultipartFile file, MultipartFile[] filePack){
 		if (file != null && !file.isEmpty()) {
 			event.setBannerUrl(imageService.uploadImage(file));
 		} else {
@@ -67,11 +76,6 @@ public class EventService {
 				event.getGallery().add("../uploadImages/userImg/defaultEvent.png");
 			}
 		}
-		for (String l : labels.split("/")) {
-			event.putLavel(l);
-		}
-		eventRepository.save(event);
-		return event;
 	}
 
 	public Event updateEvent(Long id, String name, String description, String date, Integer capacity,
@@ -83,21 +87,9 @@ public class EventService {
 			event.setDescription(description != null ? description : event.getDescription());
 			event.setDate(date != null ? date : event.getDate().toString());
 			event.setCapacity(capacity == null ? capacity : event.getCapacity());
+			giveImages(event, image, filePack);
 			eventRepository.save(event);
-			if (image != null) {
-				event.setBannerUrl(imageService.uploadImage(image));
-			}
-			if (filePack != null) {
-				for (MultipartFile file : filePack) {
-					if (!file.isEmpty()) {
-						event.getGallery().add(imageService.uploadImage(file));
-					} else {
-						event.getGallery().add("/images/uploads/defaultEvent.jpg");
-					}
-				}
-			}
 		}
-
 		return event;
 	}
 

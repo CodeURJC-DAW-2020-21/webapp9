@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.services.*;
-import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
 @Controller
@@ -39,7 +38,7 @@ public class ReservationController {
 	}
 
     @GetMapping("/reservation")
-    public String getReservation(Model model, HttpServletRequest request) {
+    public String getReservation(Model model) {
         setHeader(model);
         model.addAttribute("site", "MESAS");
         model.addAttribute("full", "");
@@ -49,7 +48,7 @@ public class ReservationController {
 
     @PostMapping("/trytoreserve")
     public String reserve(@RequestParam String type, @RequestParam String day, @RequestParam String hour,
-            @RequestParam(required = false) String email, Model model, HttpServletRequest request) {
+            @RequestParam(required = false) String email, Model model) {
         setHeader(model);
         Integer hourInt = Integer.parseInt(hour);
         Object[] o = trService.getReserved(hourInt, type, day);
@@ -64,6 +63,6 @@ public class ReservationController {
         } else {// reserved
             trService.reserve(email, tableId, hourInt);
         }
-        return getReservation(model,request);
+        return getReservation(model);
     }
 }

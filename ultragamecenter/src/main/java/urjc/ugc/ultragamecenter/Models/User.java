@@ -25,6 +25,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import urjc.ugc.ultragamecenter.requests.UserDTO;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -41,33 +42,45 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     private String name;
 
-    @JsonIgnore
     private String passwordHash;
 
     private String lastName;
 
-    @JsonIgnore
     private String profileSrc;
 
     private String email;
 
+    @JsonIgnore
     private ArrayList<Long> eventsLikeIt;
     
-    @JsonIgnore
     private ArrayList<String> referencedCodes;
 
-    @JsonIgnore
     private HashMap<String, Double> affinity;
 
-    @JsonIgnore
     private ArrayList<Event> recomendated;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
     public User() {
+    }
+
+    public User(UserDTO u){
+        super();
+        this.eventsLikeIt = new ArrayList<>();
+        this.referencedCodes = new ArrayList<>();
+        this.affinity = new HashMap<>();
+        this.recomendated = new ArrayList<>();
+        this.name = u.getName();
+        this.profileSrc = "uploadImages/userImg/defaultuser.png";
+        this.passwordHash = new BCryptPasswordEncoder().encode(u.getPasswordHash());
+        this.lastName = u.getLastName();
+        this.email = u.getEmail();
+        this.roles = new ArrayList<>();
+        this.roles.add("USER");
     }
 
     public User(String name, String lastName, String password, String email) {
@@ -112,6 +125,7 @@ public class User implements UserDetails {
         }
     }
 
+    @JsonIgnore
     public Integer getId() {
         return this.id;
     }
@@ -128,22 +142,28 @@ public class User implements UserDetails {
         return this.email;
     }
 
+
+    @JsonIgnore
     public String getPassword() {
         return this.passwordHash;
     }
 
+    @JsonIgnore
     public List<Long> getEventsLiked() {
         return this.eventsLikeIt;
     }
 
+    @JsonIgnore
     public void setEventLiked(Event event) {
         this.eventsLikeIt.add(event.getId());
     }
 
+    @JsonIgnore
     public List<String> getReferencedCodes() {
         return this.referencedCodes;
     }
 
+    
     public List<String> getRoles() {
         return this.roles;
     }
@@ -156,6 +176,7 @@ public class User implements UserDetails {
         this.referencedCodes = (ArrayList<String>) rc;
     }
 
+    @JsonIgnore
     public String getProfileSrc() {
         return profileSrc;
     }
@@ -227,6 +248,7 @@ public class User implements UserDetails {
         this.name = name2;
     }
 
+    @JsonIgnore
     public double getValue(Event event) {
         Double aux = 0.0;
         if (this.affinity == null) {
@@ -243,31 +265,36 @@ public class User implements UserDetails {
         return aux;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(ur -> new SimpleGrantedAuthority("ROLE_" + ur)).collect(Collectors.toList());
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
-
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
@@ -285,10 +312,12 @@ public class User implements UserDetails {
         this.id=id2;
     }
 
+    @JsonIgnore
     public boolean isAdmin(){
         return this.roles.contains("ADMIN");
     }
 
+    @JsonIgnore
     public List<Event> sort(List<Event> events, Integer c){
         ArrayList<Event> aux = new ArrayList<>();
         ArrayList<Event> aux2 = new ArrayList<>();
@@ -306,6 +335,13 @@ public class User implements UserDetails {
             aux2.add(aux.get(i));
         }
         return aux2;
+    }
+
+    public void edit(UserDTO editedUser) {
+        this.email=editedUser.getEmail();
+        this.name =editedUser.getLastName();
+        this.passwordHash=new BCryptPasswordEncoder().encode(editedUser.getPasswordHash());
+        this.lastName = editedUser.getLastName();
     }
 
 }

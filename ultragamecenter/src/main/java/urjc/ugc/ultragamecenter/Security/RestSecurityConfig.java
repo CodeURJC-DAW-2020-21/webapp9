@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import urjc.ugc.ultragamecenter.security.jwt.JwtRequestFilter;
 
 
 @Configuration
@@ -18,6 +21,9 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public UserRepositoryAuthenticationProvider authenticationProvider;
+
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
 	
 	
 	@Override
@@ -47,9 +53,8 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/event/DATA/**").hasRole("ADMIN"); 
 		
 		//User
-		/* http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/user/*").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/user/*").hasRole("USER");  */
-
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/user/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/user/**").hasRole("USER"); 
 		// Other URLs can be accessed without authentication
 		http.authorizeRequests().anyRequest().permitAll();
 
@@ -64,6 +69,9 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Avoid creating session 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		// Add JWT Token filter
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
 }

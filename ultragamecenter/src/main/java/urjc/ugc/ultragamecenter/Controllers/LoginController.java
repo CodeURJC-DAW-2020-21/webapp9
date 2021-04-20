@@ -31,7 +31,7 @@ public class LoginController {
 	}
 
 	@GetMapping("/login")
-	public String getLogin(Model model, HttpServletRequest request) {
+	public String getLogin(Model model) {
 
 		setHeader(model);
 		model.addAttribute("site", "LOGIN");
@@ -47,7 +47,7 @@ public class LoginController {
 	}
 
 	@GetMapping("/register")
-	public String getLoginRegister(Model model, HttpServletRequest request) {
+	public String getLoginRegister(Model model) {
 
 		setHeader(model);
 		model.addAttribute("site", "REGISTRATE");

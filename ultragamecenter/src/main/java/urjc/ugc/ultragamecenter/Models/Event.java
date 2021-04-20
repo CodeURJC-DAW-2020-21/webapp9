@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import urjc.ugc.ultragamecenter.requests.EventDTO;
+
 @Entity
 @Table(name = "Event")
 public class Event {
@@ -31,6 +33,8 @@ public class Event {
     @JsonIgnore
     private String bannerUrl;
     private Integer likes;
+
+    @JsonIgnore
     private ArrayList<String> lavels;
 
     @JsonIgnore
@@ -43,6 +47,25 @@ public class Event {
     private Blob imageFile;
 
     public Event() {
+    }
+
+    public Event(EventDTO newEvent){
+        this.date = newEvent.getDate();
+        this.name = newEvent.getName();
+        this.description = newEvent.getDescription();
+        this.likes = 0;
+        this.bannerUrl = "";
+        this.lavels = newEvent.getLavels();
+        this.gallery = new ArrayList<>();
+        this.capacity = newEvent.getCapacity();
+    }
+
+    public void edit(EventDTO newEvent){
+        this.date = newEvent.getDate();
+        this.name = newEvent.getName();
+        this.description = newEvent.getDescription();
+        this.lavels = newEvent.getLavels();
+        this.capacity = newEvent.getCapacity();
     }
 
     public Event(String name, String description, String date2, String bannerUrl, Integer capacity) {
@@ -144,6 +167,7 @@ public class Event {
         this.id = id2;
     }
 
+    @JsonIgnore
     public Map<String, String> getDATA() {
         HashMap<String, String> h = new HashMap<>();
         h.put("Aforo total", capacity.toString());

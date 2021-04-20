@@ -38,7 +38,7 @@ public class EventsController {
 	}
 
 	@GetMapping("")
-	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize, HttpServletRequest request) {
+	public String getEvents(Model model, @RequestParam(required = false, defaultValue = "3") int pageSize) {
 		model.addAttribute("isLogged", uDetails.idLoggedUser());
 		setHeader(model);
 		model.addAttribute("site", "EVENTOS");
@@ -49,7 +49,7 @@ public class EventsController {
 	}
 
 	@GetMapping("/{id}")
-	public String seeEvent(@RequestParam String id, Model model, HttpServletRequest request) {
+	public String seeEvent(@RequestParam String id, Model model) {
 		Event event = eService.getByid(Long.parseLong(id));
 		setHeader(model);
 		model.addAttribute("image", event.getBannerUrl());

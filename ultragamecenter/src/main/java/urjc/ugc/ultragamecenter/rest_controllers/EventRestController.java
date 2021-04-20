@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.requests.EventDTO;
 import urjc.ugc.ultragamecenter.services.EventService;
 
 @RestController
@@ -47,19 +48,21 @@ public class EventRestController {
     }
 
     @PostMapping("/")
-    public Event createBook(@RequestBody Event event) throws IOException {
-        eService.save(event);
-        return event;
+    public Event createBook(@RequestBody EventDTO event) throws IOException {
+        Event aux= new Event(event);
+        eService.giveImages(aux,event.getBannerUrl(),event.getGallery());
+        eService.save(aux);
+        return aux;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Event> editEvent(@PathVariable Long id, @RequestBody Event newEvent) throws IOException {
+    public ResponseEntity<Event> editEvent(@PathVariable Long id, @RequestBody EventDTO newEvent) throws IOException {
         Event e = eService.getByid(id);
         if(e!=null){
-            eService.delete(e);
-            newEvent.setID(id);
-            eService.save(newEvent);
-            return new ResponseEntity<>(newEvent, HttpStatus.OK);
+            e.edit(newEvent);
+            eService.giveImages(e, newEvent.getBannerUrl(), newEvent.getGallery());
+            eService.save(e);
+            return new ResponseEntity<>(e, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -77,7 +80,7 @@ public class EventRestController {
 
 
     @PostMapping("/{id}/like")
-    public ResponseEntity<String> like(@PathVariable Long id) {
+    public ResponseEntity<String> like(@RequestParam Long id) {
         if (eService.like(id)) {
             return new ResponseEntity<>("Well Done", HttpStatus.OK);
 		} else {
