@@ -46,7 +46,7 @@ public class ImageService{
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
-		return IMG_CONTROLLER_URL + fileName+".jpg";
+		return IMG_CONTROLLER_URL+fileName+".jpg";
 	}
 
 	private synchronized String generateFileName() {
