@@ -3,13 +3,14 @@ package urjc.ugc.ultragamecenter.controllers;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import urjc.ugc.ultragamecenter.models.User;
+import urjc.ugc.ultragamecenter.requests.UserDTO;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 import urjc.ugc.ultragamecenter.services.*;
 
@@ -26,8 +27,8 @@ public class LoginController {
 	UserDetailsServiceImpl uDetails;
 
 	public void setHeader(Model model) {
-		model.addAttribute("isAdmin", uDetails.isLoggedUserADMIN() );
-		model.addAttribute("isLoged",  uDetails.idLoggedUser());
+		model.addAttribute("isAdmin", uDetails.isLoggedUserADMIN());
+		model.addAttribute("isLoged", uDetails.idLoggedUser());
 	}
 
 	@GetMapping("/login")
@@ -57,8 +58,14 @@ public class LoginController {
 
 	@PostMapping("/register")
 	public String registerUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password,
-			@RequestParam String email) {
-		uService.createNewUser(name, lastName, password, email);
+			@RequestParam String email, Model model) {
+		User u = uService.createNewUser(name, lastName, password, email);
+		if (u == null) {
+			setHeader(model);
+			model.addAttribute("site", "REGISTRATE");
+			model.addAttribute("Registered", "El email ya existe");
+			return "register";
+		}
 		return "redirect:/";
 	}
 

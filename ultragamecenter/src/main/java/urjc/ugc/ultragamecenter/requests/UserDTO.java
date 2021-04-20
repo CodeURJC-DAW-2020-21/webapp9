@@ -18,6 +18,10 @@ public class UserDTO {
     }
 
 
+    public UserDTO() {
+    }
+
+
     public String getName() {
         return name;
     }
@@ -55,6 +59,10 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String toString(){
+        return String.format("[ email = %s, lastname = %s, name = %s, password = %s]", email,this.lastName,name,this.passwordUnhashed);
     }
 }
 

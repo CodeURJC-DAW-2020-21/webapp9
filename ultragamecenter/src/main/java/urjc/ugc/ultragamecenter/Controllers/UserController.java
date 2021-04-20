@@ -1,8 +1,5 @@
 package urjc.ugc.ultragamecenter.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,11 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,12 +37,12 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).get();
+        return userRepository.findByEmail(email).isPresent() ? userRepository.findByEmail(email).get(): null;
     }
 
     public User createNewUser(String name, String lastName, String password, String email) {
         User user = null;
-        if (userRepository.findByEmail(email).get() != null) {
+        if (!userRepository.findByEmail(email).isPresent()) {
             user = new User(name, lastName, password, email);
             userRepository.save(user);
         }
