@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 
+
 @SpringBootApplication
 public class UltragamecenterApplication {
 
@@ -15,13 +16,4 @@ public class UltragamecenterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UltragamecenterApplication.class, args);
 	}
-
-	@Bean
-	public Docket swaggerConfiguration() {
-    return new Docket(DocumentationType.SWAGGER_2)
-		.select()
-		.paths(PathSelectors.ant("/api/event"))
-		.build()
-		;
-  }
 }

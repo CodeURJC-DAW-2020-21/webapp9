@@ -48,7 +48,7 @@ public class EventRestController {
     }
 
     @PostMapping("/")
-    public Event createBook(@RequestBody EventDTO event) throws IOException {
+    public Event createEvent(@RequestBody EventDTO event) throws IOException {
         Event aux= new Event(event);
         eService.giveImages(aux,event.getBannerUrl(),event.getGallery());
         eService.save(aux);
