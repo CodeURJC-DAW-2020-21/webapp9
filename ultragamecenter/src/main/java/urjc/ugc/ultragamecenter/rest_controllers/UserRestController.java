@@ -1,6 +1,5 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.security.Principal;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,8 +53,6 @@ public class UserRestController {
 
     @Autowired
 	UserLoginService ulService;
-
-    private static final String USER_FOLDER = "user";
 
     @GetMapping("/me")
 	public ResponseEntity<User> me(HttpServletRequest request) {
@@ -94,12 +90,11 @@ public class UserRestController {
         return new ResponseEntity<>(lastUser, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadImage(@RequestParam MultipartFile imageFile) throws IOException {
+    @PostMapping(path = "/image",  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> uploadImage(@RequestParam MultipartFile imageFile) {
         User user = uService.findByEmail(uDetails.getEmail());
         URI location = fromCurrentRequest().build().toUri();
         String aux= imgService.uploadImage(imageFile);
-        System.out.println(aux);
         user.setProfileSrc(aux);
         uService.save(user);
         return ResponseEntity.created(location).build();

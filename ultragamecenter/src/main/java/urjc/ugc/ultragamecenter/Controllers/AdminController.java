@@ -93,11 +93,6 @@ public class AdminController {
 	@GetMapping("/add-event")
 	public String getEventAdder(Model model) {
 		setHeader(model);
-		model.addAttribute("name", "Nombre del evento*");
-		model.addAttribute("description", "Descripción del evento");
-		model.addAttribute("labels", "SHOOTER/MOBA/MMO/PRESENTATION");
-		model.addAttribute("capacity", "");
-		model.addAttribute("date", "2021-01-24");
 		model.addAttribute("site", "EVENTO+");
 		return "EventCreatorTemplate";
 	}

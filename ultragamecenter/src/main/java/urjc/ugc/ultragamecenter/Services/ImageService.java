@@ -1,8 +1,6 @@
 package urjc.ugc.ultragamecenter.services;
 
 
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +22,7 @@ import urjc.ugc.ultragamecenter.models.User;
 public class ImageService{
 
 	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.services.ImageService");
-	private static final SimpleDateFormat FILE_NAME_FORMAT = new SimpleDateFormat("'img-'yyyyMMdd-hhmmss-SSS");
+	private static final SimpleDateFormat FILE_NAME_FORMAT =new SimpleDateFormat("'img-'yyyyMMdd-hhmmss-SSS");
 	public static final String IMG_FOLDER = "userImg/";
 	public static final String IMG_CONTROLLER_URL = "/uploadImages/userImg/";
 	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "uploadImages");
@@ -40,13 +38,11 @@ public class ImageService{
 
 	public String uploadImage(MultipartFile file) {
 		Path folder = FILES_FOLDER.resolve(IMG_FOLDER);
-		System.out.println(folder);
 		if (!Files.exists(folder)) {
 			log.warning("no folder");
 		}
 		String fileName = generateFileName();
 		Path newImage = folder.resolve(fileName+".jpg");
-		System.out.println(newImage);
 		try {
 			file.transferTo(newImage);
 		} catch (Exception e) {
@@ -61,12 +57,10 @@ public class ImageService{
 	
 	public ResponseEntity<Object> createResponseFromImage(User user) throws MalformedURLException {
 		Path folder = FILES_FOLDER.resolve(IMG_FOLDER);
-		System.out.println(folder);
 		if (!Files.exists(folder)) {
 			log.warning("no folder");
 		}
 		Path imagePath = folder.resolve(user.getProfileSrc());
-		System.out.println(imagePath);
 		
 		Resource file = new UrlResource(imagePath.toUri());
 		

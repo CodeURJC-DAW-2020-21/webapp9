@@ -45,7 +45,7 @@ public class EventsController {
 		return "events";
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/see-event")
 	public String seeEvent(@RequestParam String id, Model model) {
 		Event event = eService.getByid(Long.parseLong(id));
 		setHeader(model);

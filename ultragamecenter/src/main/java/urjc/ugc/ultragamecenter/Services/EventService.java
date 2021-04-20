@@ -65,13 +65,13 @@ public class EventService {
 
 	public void giveImages(Event event, MultipartFile file, MultipartFile[] filePack){
 		if (file != null && !file.isEmpty()) {
-			event.setBannerUrl(imageService.uploadImage(file));
+			event.setBannerUrl(ImageService.IMG_CONTROLLER_URL+imageService.uploadImage(file));
 		} else {
 			event.setBannerUrl("../uploadImages/userImg/defaultEvent.png");
 		}
 		for (MultipartFile image : filePack) {
-			if (file != null && !image.isEmpty()) {
-				event.getGallery().add(imageService.uploadImage(image));
+			if (image != null && !image.isEmpty()) {
+				event.setBannerUrl(ImageService.IMG_CONTROLLER_URL+imageService.uploadImage(image));
 			} else {
 				event.getGallery().add("../uploadImages/userImg/defaultEvent.png");
 			}

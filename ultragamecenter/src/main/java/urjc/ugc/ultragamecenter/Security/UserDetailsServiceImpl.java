@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
@@ -41,7 +40,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         
 
         // Crear y retornar Objeto de usuario soportado por Spring Security
-        //new org.springframework.security.core.userdetails.User(user.getName(), user.getEncodedPassword(), roles);
         UserDetails user = new org.springframework.security.core.userdetails.User(appUser.getEmail(), appUser.getPassword(),grantList);
         return user;
     }

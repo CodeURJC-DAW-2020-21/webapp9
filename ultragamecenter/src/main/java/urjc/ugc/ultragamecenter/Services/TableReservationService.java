@@ -39,9 +39,9 @@ public class TableReservationService {
     }
 
     public Page<TableReservation> getPageReservations(int pageNumber, int pageSize) {
-  		Pageable p = PageRequest.of(pageNumber, pageSize);
-  		return trrepository.findAll(p);
-  	}
+        Pageable p = PageRequest.of(pageNumber, pageSize);
+        return trrepository.findAll(p);
+    }
 
     public TableReservation getByid(Long id) {
         return trrepository.findByid(id);
@@ -61,33 +61,33 @@ public class TableReservationService {
 
     public Object[] getReserved(Integer hourInt, String type, String day) {
         Long tableId = 0L;
-        try{
+        try {
             java.sql.Date sqldate = java.sql.Date.valueOf(day);
-        }catch(java.lang.IllegalArgumentException aux){
-            Object[] a={null,null};
-            return a;
-        }
-        java.sql.Date sqldate = java.sql.Date.valueOf(day);
-        Object[] o = new Object[2];
-        ArrayList<Tablegame> tables = (ArrayList<Tablegame>) tService.getByTypeAndDate(type, sqldate);
-        boolean reserved = false;
-        int i = 0;
-        if(hourInt>8){
-            Object[] a={null,null};
-            return a;
-        }
-        while (!reserved && (i != tables.size())) {
-            if (tables.get(i).getState().get(hourInt) == 0) {
-                tables.get(i).setState(hourInt, 1);
-                tableId = tables.get(i).getId();
-                tService.saveAll(tables);
-                reserved = true;
+            Object[] o = new Object[2];
+            ArrayList<Tablegame> tables = (ArrayList<Tablegame>) tService.getByTypeAndDate(type, sqldate);
+            boolean reserved = false;
+            int i = 0;
+            if (hourInt > 8) {
+                Object[] a = { null, null };
+                return a;
             }
-            i++;
+            while (!reserved && (i != tables.size())) {
+                if (tables.get(i).getState().get(hourInt) == 0) {
+                    tables.get(i).setState(hourInt, 1);
+                    tableId = tables.get(i).getId();
+                    tService.saveAll(tables);
+                    reserved = true;
+                }
+                i++;
+            }
+            o[0] = reserved;
+            o[1] = tableId;
+            return o;
+        } catch (java.lang.IllegalArgumentException aux) {
+            Object[] a = { null, null };
+            return a;
         }
-        o[0] = reserved;
-        o[1] = tableId;
-        return o;
+
     }
 
     public TableReservation reserve(String email, Long tableId, Integer hourInt) {
@@ -131,7 +131,7 @@ public class TableReservationService {
 
         Integer hourInt = Integer.parseInt(hour);
         Object[] o = getReserved(hourInt, type, day);
-        if(o[0]==null){
+        if (o[0] == null) {
             return null;
         }
         boolean reserved = (Boolean) o[0];

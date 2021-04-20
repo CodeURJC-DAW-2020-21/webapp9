@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import urjc.ugc.ultragamecenter.models.User;
-import urjc.ugc.ultragamecenter.requests.UserDTO;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 import urjc.ugc.ultragamecenter.services.*;
 
