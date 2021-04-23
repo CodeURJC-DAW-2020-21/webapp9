@@ -79,8 +79,8 @@ public class EventRestController {
 
 
 
-    @PostMapping("/{id}/like")
-    public ResponseEntity<String> like(@RequestParam Long id) {
+    @PostMapping("/like/{id}")
+    public ResponseEntity<String> like(@PathVariable Long id) {
         if (eService.like(id)) {
             return new ResponseEntity<>("Well Done", HttpStatus.OK);
 		} else {
