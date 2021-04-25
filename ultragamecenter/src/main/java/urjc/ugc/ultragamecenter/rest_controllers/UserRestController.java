@@ -3,6 +3,7 @@ package urjc.ugc.ultragamecenter.rest_controllers;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -112,7 +113,11 @@ public class UserRestController {
 
     @GetMapping("/likedEvents")
     public Collection<Event> getRecomendatedEvents() {
-        return eService.transform(uService.findByEmail(uDetails.getEmail()).getEventsLiked());
+        User aux =  uService.findByEmail(uDetails.getEmail());
+        if(aux!=null){
+            return eService.transform(aux.getEventsLiked());
+        }
+        return new ArrayList<>();
     }
 
     @GetMapping("/myReservates")
