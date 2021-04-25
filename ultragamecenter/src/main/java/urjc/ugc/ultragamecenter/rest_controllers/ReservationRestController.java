@@ -27,6 +27,7 @@ public class ReservationRestController {
 
     @PostMapping("/")
     public ResponseEntity<TableReservation> reservateTable(@RequestBody ReservateTableRequest tableRequest) {
+        System.out.println(tableRequest);
         if (tableRequest.getEmail()==null && !uDetails.idLoggedUser()) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } else {

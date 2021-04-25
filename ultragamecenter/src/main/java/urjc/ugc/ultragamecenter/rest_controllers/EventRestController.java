@@ -50,17 +50,18 @@ public class EventRestController {
     @PostMapping("/")
     public Event createEvent(@RequestBody EventDTO event) throws IOException {
         Event aux= new Event(event);
-        eService.giveImages(aux,event.getBannerUrl(),event.getGallery());
+        eService.giveImages(aux,null,null);
         eService.save(aux);
         return aux;
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Event> editEvent(@PathVariable Long id, @RequestBody EventDTO newEvent) throws IOException {
+        System.out.println(id);
         Event e = eService.getByid(id);
         if(e!=null){
             e.edit(newEvent);
-            eService.giveImages(e, newEvent.getBannerUrl(), newEvent.getGallery());
+            eService.giveImages(e, null, null);
             eService.save(e);
             return new ResponseEntity<>(e, HttpStatus.OK);
 		} else {

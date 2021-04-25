@@ -75,4 +75,8 @@ public class ReservateTableRequest {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String toString(){
+        return String.format("%s %s %d %s", day,email,hour,type);
+    }
 }

@@ -339,7 +339,7 @@ public class User implements UserDetails {
 
     public void edit(UserDTO editedUser) {
         this.email=editedUser.getEmail();
-        this.name =editedUser.getLastName();
+        this.name =editedUser.getName();
         this.passwordHash=new BCryptPasswordEncoder().encode(editedUser.getPasswordHash());
         this.lastName = editedUser.getLastName();
     }

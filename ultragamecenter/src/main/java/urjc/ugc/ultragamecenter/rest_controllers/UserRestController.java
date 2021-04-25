@@ -69,7 +69,7 @@ public class UserRestController {
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody UserDTO u) {
         User newUser = new User(u);
-        if (uService.findByEmail(newUser.getEmail()) == null) {
+        if (uService.findByEmail(newUser.getEmail()) != null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         uService.save(newUser);
@@ -82,7 +82,7 @@ public class UserRestController {
         if (lastUser == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        if (uDetails.getEmail().equals(lastUser.getEmail())) {
+        if (!uDetails.getEmail().equals(lastUser.getEmail())) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         lastUser.edit(editedUser);
@@ -91,7 +91,7 @@ public class UserRestController {
     }
 
     @PostMapping(path = "/image",  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadImage(@RequestParam MultipartFile imageFile) {
+    public ResponseEntity<Object> uploadImage(@RequestBody MultipartFile imageFile) {
         User user = uService.findByEmail(uDetails.getEmail());
         URI location = fromCurrentRequest().build().toUri();
         String aux= imgService.uploadImage(imageFile);
