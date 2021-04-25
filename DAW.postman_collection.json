@@ -1,28 +1,26 @@
 {
 	"info": {
-		"_postman_id": "a6648215-4451-4545-9611-f859a9f7922c",
+		"_postman_id": "883aa884-8fc5-478e-8fed-0768b5053eab",
 		"name": "DAW",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "login",
+			"name": "User Login",
 			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "email",
-						"value": "miguel@gmail.com",
-						"type": "text"
-					},
-					{
-						"key": "password",
-						"value": "1234",
-						"type": "text"
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"alex@gmail.com\", \"password\": \"1234\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
 					}
-				],
+				},
 				"url": {
-					"raw": "https://localhost:8443/api/login",
+					"raw": "https://localhost:8443/api/auth/login",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -30,6 +28,7 @@
 					"port": "8443",
 					"path": [
 						"api",
+						"auth",
 						"login"
 					]
 				}
@@ -37,12 +36,21 @@
 			"response": []
 		},
 		{
-			"name": "recomendatedEvents",
+			"name": "Admin Login",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"daw@gmail.com\", \"password\": \"DAW\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://localhost:8443/api/recomendatedEvents",
+					"raw": "https://localhost:8443/api/auth/login",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -50,14 +58,87 @@
 					"port": "8443",
 					"path": [
 						"api",
-						"recomendatedEvents"
+						"auth",
+						"login"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "uploadImage",
+			"name": "Create new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Chloe\",\r\n    \"passwordHash\": \"noMires\",\r\n    \"lastName\": \"Cendrero\",\r\n    \"email\": \"algo@algo.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/user/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/auth/logout",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get ME",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/user/me",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"user",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload my image",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -67,12 +148,12 @@
 						{
 							"key": "imageFile",
 							"type": "file",
-							"src": []
+							"src": "/C:/Users/micen/Postman Agent/files/GKJI9278.JPG"
 						}
 					]
 				},
 				"url": {
-					"raw": "https://localhost:8443/api/image",
+					"raw": "https://localhost:8443/api/user/image",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -80,6 +161,7 @@
 					"port": "8443",
 					"path": [
 						"api",
+						"user",
 						"image"
 					]
 				}
@@ -87,12 +169,12 @@
 			"response": []
 		},
 		{
-			"name": "downloadImage",
+			"name": "Get my image",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/image",
+					"raw": "https://localhost:8443/api/user/image",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -100,6 +182,7 @@
 					"port": "8443",
 					"path": [
 						"api",
+						"user",
 						"image"
 					]
 				}
@@ -107,12 +190,12 @@
 			"response": []
 		},
 		{
-			"name": "logout",
+			"name": "Get my recomendated events",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/logout",
+					"raw": "https://localhost:8443/api/user/recomendatedEvents",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -120,114 +203,20 @@
 					"port": "8443",
 					"path": [
 						"api",
-						"logout"
+						"user",
+						"recomendatedEvents"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "password",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "password",
-						"value": "DAW",
-						"type": "text"
-					},
-					{
-						"key": "newPassword",
-						"value": "DAWCambiado",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://localhost:8443/api/pasword",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"pasword"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "createUser",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/user?name=Miguel&lastName=Cendrero&password=algo&email=micenor109@gmail.com",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"user"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "Miguel"
-						},
-						{
-							"key": "lastName",
-							"value": "Cendrero"
-						},
-						{
-							"key": "password",
-							"value": "algo"
-						},
-						{
-							"key": "email",
-							"value": "micenor109@gmail.com"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "editUser",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/user?name=nombreCambiado",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"user"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "nombreCambiado"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "myUser",
+			"name": "Get Events that I Liked",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/user",
+					"raw": "https://localhost:8443/api/user/likedEvents",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -235,19 +224,20 @@
 					"port": "8443",
 					"path": [
 						"api",
-						"user"
+						"user",
+						"likedEvents"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "events",
+			"name": "Get my reserves",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/events?page=0",
+					"raw": "https://localhost:8443/api/user/myReservates?page=0",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -255,246 +245,7 @@
 					"port": "8443",
 					"path": [
 						"api",
-						"events"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "createEvent",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/event?name=ForniteTournament&description=World-Cup21&date=2021-05-14&capacity=100&labels=FPS",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"event"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "ForniteTournament"
-						},
-						{
-							"key": "description",
-							"value": "World-Cup21"
-						},
-						{
-							"key": "date",
-							"value": "2021-05-14"
-						},
-						{
-							"key": "capacity",
-							"value": "100"
-						},
-						{
-							"key": "labels",
-							"value": "FPS"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "editEvent",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/event?id=32&capacity=150",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"event"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "32"
-						},
-						{
-							"key": "capacity",
-							"value": "150"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "seeEvent",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/event?id=32",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"event"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "32"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "eventData",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/eventData?id=32",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"eventData"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "32"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "like",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/like?id=9",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"like"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "9"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "deleteEvent",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/event?id=7",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"event"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "7"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "reservate",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/reservate?type=XBOX_ONE&day=2021-05-21&hour=1&email=m.cendrero.2017@alumnos.urjc.es",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"reservate"
-					],
-					"query": [
-						{
-							"key": "type",
-							"value": "XBOX_ONE"
-						},
-						{
-							"key": "day",
-							"value": "2021-05-21"
-						},
-						{
-							"key": "hour",
-							"value": "1"
-						},
-						{
-							"key": "email",
-							"value": "m.cendrero.2017@alumnos.urjc.es"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "myReservates",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/myReservates?page=0",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
+						"user",
 						"myReservates"
 					],
 					"query": [
@@ -502,6 +253,239 @@
 							"key": "page",
 							"value": "0"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit my user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alejandro\",\r\n    \"passwordHash\": \"1234\",\r\n    \"lastName\": \"Fernandez\",\r\n    \"email\": \"alex@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/user/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Events by page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/event/?page=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"event",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single Event",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/event/12",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"event",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Event",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/event/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"event",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new Event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Entrega de DAW\",\r\n  \"description\": \"Vive junto a nuestros amigos el momento más esperado de la semana\",\r\n  \"date\": \"2021-04-26T16:38:10.166Z\",\r\n  \"lavels\": [\r\n    \"EPIC\",\r\n    \"DAW\"\r\n  ],\r\n  \"capacity\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/event/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"event",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit event",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Fortnite\",\r\n  \"description\": \"Ahora con más cosas que hacen pum\",\r\n  \"date\": \"2021-07-25T16:38:10.166Z\",\r\n  \"lavels\": [\r\n    \"FPS\",\r\n    \"BATTLE ROYALE\"\r\n  ],\r\n  \"capacity\": 150\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/event/7",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"event",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data of an Event",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/event/DATA/11",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"event",
+						"DATA",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like Event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/event/like/11",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"event",
+						"like",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reservate Table",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": \"PS5\",\r\n  \"day\": \"2021-04-10\",\r\n  \"hour\": 1,\r\n  \"email\": \"santo2927@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/reservate/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"reservate",
+						""
 					]
 				}
 			},
