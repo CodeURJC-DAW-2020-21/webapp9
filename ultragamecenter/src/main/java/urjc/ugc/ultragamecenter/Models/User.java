@@ -105,11 +105,11 @@ public class User implements UserDetails {
 
     private Double getAffinity(Event e) {
         Double aux = 0.0;
-        for (String lavel : e.getLavels()) {
-            if (affinity.containsKey(lavel)) {
-                aux += affinity.get(lavel);
+        for (String label : e.getLabels()) {
+            if (affinity.containsKey(label)) {
+                aux += affinity.get(label);
             } else {
-                affinity.put(lavel, 0.5);
+                affinity.put(label, 0.5);
             }
         }
         return aux;
@@ -213,7 +213,7 @@ public class User implements UserDetails {
     public void likedEvent(Event e, List<Event> allEvents) {
         ArrayList<String> aux = new ArrayList<>();
         for (Event er : allEvents) {
-            for (String label : er.getLavels()) {
+            for (String label : er.getLabels()) {
                 aux.add(label);
             }
         }
@@ -224,7 +224,7 @@ public class User implements UserDetails {
         }
         this.eventsLikeIt.add(e.getId());
         for (String x : aux) {
-            if (e.getLavels().contains(x)) {
+            if (e.getLabels().contains(x)) {
                 if (this.affinity.containsKey(x)) {
                     this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
                 } else {
@@ -254,7 +254,7 @@ public class User implements UserDetails {
         if (this.affinity == null) {
             this.affinity = new HashMap<>();
         }
-        for (String label : event.getLavels()) {
+        for (String label : event.getLabels()) {
             if (this.affinity.containsKey(label)) {
                 aux += this.affinity.get(label);
             } else {

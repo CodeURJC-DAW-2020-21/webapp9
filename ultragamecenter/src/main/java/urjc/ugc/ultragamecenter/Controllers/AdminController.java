@@ -56,7 +56,7 @@ public class AdminController {
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
 		StringBuilder label = new StringBuilder();
-		for (String x : event.getLavels()) {
+		for (String x : event.getLabels()) {
 			label.append(x);
 			label.append("/");
 		}

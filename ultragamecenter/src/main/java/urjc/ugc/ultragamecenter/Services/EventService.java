@@ -57,7 +57,7 @@ public class EventService {
 		event = new Event(name, description, date, "", capacity);
 		giveImages(event, file, filePack);
 		for (String l : labels.split("/")) {
-			event.putLavel(l);
+			event.putLabel(l);
 		}
 		eventRepository.save(event);
 		return event;

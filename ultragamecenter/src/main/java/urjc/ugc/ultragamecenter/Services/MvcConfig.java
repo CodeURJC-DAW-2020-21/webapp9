@@ -1,4 +1,4 @@
-package urjc.ugc.ultragamecenter;
+package urjc.ugc.ultragamecenter.services;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
