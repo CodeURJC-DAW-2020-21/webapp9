@@ -13,20 +13,28 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { EventCreatorComponent } from './event-creator/event-creator.component';
 import { FooterComponent } from './footer/footer.component';
 import { EventGraphsComponent } from './event-graphs/event-graphs.component';
+import { RegisterComponent } from './register/register.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { SingleEventComponent } from './single-event/single-event.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GraphsTableComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
     ErrorPageComponent,
     AdminComponent,
     EditEventComponent,
     EditProfileComponent,
     EventCreatorComponent,
     FooterComponent,
-    EventGraphsComponent
+    EventGraphsComponent,
+    RegisterComponent,
+    ReservationComponent,
+    SingleEventComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
