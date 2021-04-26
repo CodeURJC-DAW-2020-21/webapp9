@@ -17,7 +17,9 @@ import { RegisterComponent } from './register/register.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { SingleEventComponent } from './single-event/single-event.component';
 import { UserComponent } from './user/user.component';
-import { IndexComponent } from './index/index.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { IndexComponent } from './index/index.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
