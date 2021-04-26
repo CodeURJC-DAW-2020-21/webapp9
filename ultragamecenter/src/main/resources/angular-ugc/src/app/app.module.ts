@@ -17,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { SingleEventComponent } from './single-event/single-event.component';
 import { UserComponent } from './user/user.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UserComponent } from './user/user.component';
     RegisterComponent,
     ReservationComponent,
     SingleEventComponent,
-    UserComponent
+    UserComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
