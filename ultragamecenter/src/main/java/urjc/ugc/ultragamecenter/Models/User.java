@@ -55,7 +55,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     private ArrayList<Long> eventsLikeIt;
-    
+
     private ArrayList<String> referencedCodes;
 
     private HashMap<String, Double> affinity;
@@ -68,7 +68,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(UserDTO u){
+    public User(UserDTO u) {
         super();
         this.eventsLikeIt = new ArrayList<>();
         this.referencedCodes = new ArrayList<>();
@@ -105,11 +105,11 @@ public class User implements UserDetails {
 
     private Double getAffinity(Event e) {
         Double aux = 0.0;
-        for (String lavel : e.getLavels()) {
-            if (affinity.containsKey(lavel)) {
-                aux += affinity.get(lavel);
+        for (String label : e.getLabels()) {
+            if (affinity.containsKey(label)) {
+                aux += affinity.get(label);
             } else {
-                affinity.put(lavel, 0.5);
+                affinity.put(label, 0.5);
             }
         }
         return aux;
@@ -142,7 +142,6 @@ public class User implements UserDetails {
         return this.email;
     }
 
-
     @JsonIgnore
     public String getPassword() {
         return this.passwordHash;
@@ -163,7 +162,6 @@ public class User implements UserDetails {
         return this.referencedCodes;
     }
 
-    
     public List<String> getRoles() {
         return this.roles;
     }
@@ -212,9 +210,12 @@ public class User implements UserDetails {
 
     public void likedEvent(Event e, List<Event> allEvents) {
         ArrayList<String> aux = new ArrayList<>();
+
         for (Event er : allEvents) {
-            for (String label : er.getLavels()) {
-                aux.add(label);
+            if (er.getLabels() != null) {
+                for (String label : er.getLabels()) {
+                    aux.add(label);
+                }
             }
         }
         Double base = 0.5;
@@ -224,7 +225,7 @@ public class User implements UserDetails {
         }
         this.eventsLikeIt.add(e.getId());
         for (String x : aux) {
-            if (e.getLavels().contains(x)) {
+            if (e.getLabels().contains(x)) {
                 if (this.affinity.containsKey(x)) {
                     this.affinity.put(x, Math.sqrt(this.affinity.get(x)));
                 } else {
@@ -237,7 +238,7 @@ public class User implements UserDetails {
     }
 
     public void setPassword(String newPassword) {
-        this.passwordHash= new BCryptPasswordEncoder().encode(newPassword);
+        this.passwordHash = new BCryptPasswordEncoder().encode(newPassword);
     }
 
     public void setLastName(String surname) {
@@ -250,11 +251,17 @@ public class User implements UserDetails {
 
     @JsonIgnore
     public double getValue(Event event) {
+        if (event == null) {
+            return 0.5;
+        }
         Double aux = 0.0;
         if (this.affinity == null) {
             this.affinity = new HashMap<>();
         }
-        for (String label : event.getLavels()) {
+        if (event.getLabels() == null) {
+            return 0.0;
+        }
+        for (String label : event.getLabels()) {
             if (this.affinity.containsKey(label)) {
                 aux += this.affinity.get(label);
             } else {
@@ -276,6 +283,7 @@ public class User implements UserDetails {
     public String getUsername() {
         return this.email;
     }
+
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
@@ -309,38 +317,38 @@ public class User implements UserDetails {
     }
 
     public void setId(Integer id2) {
-        this.id=id2;
+        this.id = id2;
     }
 
     @JsonIgnore
-    public boolean isAdmin(){
+    public boolean isAdmin() {
         return this.roles.contains("ADMIN");
     }
 
     @JsonIgnore
-    public List<Event> sort(List<Event> events, Integer c){
+    public List<Event> sort(List<Event> events, Integer c) {
         ArrayList<Event> aux = new ArrayList<>();
         ArrayList<Event> aux2 = new ArrayList<>();
-        while(!events.isEmpty()){
+        while (!events.isEmpty()) {
             int index = 0;
-            for(int x = 0; x < events.size();x++){
-                if(getValue(events.get(index))< getValue(events.get(x))){
+            for (int x = 0; x < events.size(); x++) {
+                if (getValue(events.get(index)) < getValue(events.get(x))) {
                     index = x;
                 }
             }
             aux.add(events.get(index));
             events.remove(index);
         }
-        for(int i = 0 ;i<Math.min(aux.size(),c);i++){
+        for (int i = 0; i < Math.min(aux.size(), c); i++) {
             aux2.add(aux.get(i));
         }
         return aux2;
     }
 
     public void edit(UserDTO editedUser) {
-        this.email=editedUser.getEmail();
-        this.name =editedUser.getLastName();
-        this.passwordHash=new BCryptPasswordEncoder().encode(editedUser.getPasswordHash());
+        this.email = editedUser.getEmail();
+        this.name = editedUser.getName();
+        this.passwordHash = new BCryptPasswordEncoder().encode(editedUser.getPasswordHash());
         this.lastName = editedUser.getLastName();
     }
 

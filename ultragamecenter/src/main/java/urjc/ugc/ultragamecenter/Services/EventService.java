@@ -57,7 +57,7 @@ public class EventService {
 		event = new Event(name, description, date, "", capacity);
 		giveImages(event, file, filePack);
 		for (String l : labels.split("/")) {
-			event.putLavel(l);
+			event.putLabel(l);
 		}
 		eventRepository.save(event);
 		return event;
@@ -69,10 +69,16 @@ public class EventService {
 		} else {
 			event.setBannerUrl("../uploadImages/userImg/defaultEvent.png");
 		}
-		for (MultipartFile image : filePack) {
-			if (image != null && !image.isEmpty()) {
-				event.setBannerUrl(ImageService.IMG_CONTROLLER_URL+imageService.uploadImage(image));
-			} else {
+		if(filePack!=null){
+			for (MultipartFile image : filePack) {
+				if (image != null && !image.isEmpty()) {
+					event.setBannerUrl(ImageService.IMG_CONTROLLER_URL+imageService.uploadImage(image));
+				} else {
+					event.getGallery().add("../uploadImages/userImg/defaultEvent.png");
+				}
+			}
+		} else{
+			for(int x=0;x<3;x++){
 				event.getGallery().add("../uploadImages/userImg/defaultEvent.png");
 			}
 		}

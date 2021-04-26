@@ -35,7 +35,7 @@ public class Event {
     private Integer likes;
 
     @JsonIgnore
-    private ArrayList<String> lavels;
+    private ArrayList<String> labels;
 
     @JsonIgnore
     private ArrayList<String> gallery;
@@ -55,7 +55,7 @@ public class Event {
         this.description = newEvent.getDescription();
         this.likes = 0;
         this.bannerUrl = "";
-        this.lavels = newEvent.getLavels();
+        this.labels = newEvent.getLavels();
         this.gallery = new ArrayList<>();
         this.capacity = newEvent.getCapacity();
     }
@@ -64,7 +64,7 @@ public class Event {
         this.date = newEvent.getDate();
         this.name = newEvent.getName();
         this.description = newEvent.getDescription();
-        this.lavels = newEvent.getLavels();
+        this.labels = newEvent.getLavels();
         this.capacity = newEvent.getCapacity();
     }
 
@@ -74,13 +74,13 @@ public class Event {
         this.description = description;
         this.likes = 0;
         this.bannerUrl = bannerUrl;
-        this.lavels = new ArrayList<>();
+        this.labels = new ArrayList<>();
         this.gallery = new ArrayList<>();
         this.capacity = capacity;
     }
 
-    public List<String> getLavels() {
-        return lavels;
+    public List<String> getLabels() {
+        return labels;
     }
 
     public Long getId() {
@@ -116,7 +116,7 @@ public class Event {
     @Override
     public String toString() {
         return "Event [id=" + id + ", Name=" + name + ", Description=" + description + ", likes=" + likes + ", Labels="
-                + this.lavels + "]";
+                + this.labels + "]";
     }
 
     public Date getDate() {
@@ -135,8 +135,8 @@ public class Event {
         this.bannerUrl = bannerUrl;
     }
 
-    public void putLavel(String lavel) {
-        this.lavels.add(lavel);
+    public void putLabel(String label) {
+        this.labels.add(label);
     }
 
     public void setCapacity(Integer capacity) {
