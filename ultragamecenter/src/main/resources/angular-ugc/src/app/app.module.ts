@@ -20,6 +20,7 @@ import { UserComponent } from './components/user/user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { EventComponent } from './components/event/event.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { EventComponent } from './components/event/event.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
