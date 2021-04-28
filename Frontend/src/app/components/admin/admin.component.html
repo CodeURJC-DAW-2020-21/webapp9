@@ -1,3 +1,49 @@
-
-<p>admin works!</p>
-{{events}}
+<router-outlet>
+    <div class="body-tabs-container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#eventos">Eventos</a></li>
+        </ul>
+        <div class="divider mt-0" style="margin-bottom: 30px"></div>
+    </div>
+	<div class="add-event-btn-container">
+    	<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/admin/add-event'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+    </div>
+    <ul>
+	    <li class="event-wrap" *ngFor="let event of events">
+	        <div class="card widget-content">
+	            <div class="widget-content-outer">
+	                <div class="widget-content-wrapper">
+	                    <div class="widget-content-left">
+	                        <div class="widget-heading">{{event.name}}</div>
+	                        <div class="widget-subheading">
+	                            <i class="fas fa-calendar"></i>  {{event.date}}
+	                        </div>
+	                    </div>
+	                    <div class="widget-content-right">
+	                        <div class="widget-numbers text-success">
+	                             {{event.likes}} <i class="fas fa-heart"></i>
+	                            <button
+	                                class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '/admin/event-edit?id={{id}}';">Editar</button>
+	                            <button class="btn-transition btn btn-outline-danger left-margin"
+	                                onclick="location.href= '/admin/graph-event?id={{id}}';">Gráficos</button>
+	                            <button class="btn-transition btn btn-outline-danger left-margin"
+	                                onclick="location.href= '/admin/delete-event?id={{id}}'">Eliminar</button>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </li>
+	</ul>
+	<p>No existen eventos.</p>
+    <div id="eventos" class="fade in active">
+    	<div class="add-event-btn-container">
+        	<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/Event-Adder'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+            </div>
+            <div class="event">
+                <div class="divider mt-0" style="margin-bottom: 30px"></div>
+                
+            </div>
+        </div>
+    </div>
+<router-outlet>
