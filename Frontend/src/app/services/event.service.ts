@@ -13,7 +13,7 @@ export class EventService {
   getEvents(page : number | string): Observable<Events[]> {
     return this.httpClient
       .get<Events[]>(EVENT_URL+"?page="+page)
-      .pipe(catchError(error => this.handleError(error)));
+      .pipe(catchError((error: any) => this.handleError(error)));
   }
 
   getSingleEvent(id: number | string): Observable<Events> {
