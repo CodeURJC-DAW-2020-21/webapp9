@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import urjc.ugc.ultragamecenter.models.*;
+import urjc.ugc.ultragamecenter.requests.EventDATA;
 import urjc.ugc.ultragamecenter.requests.EventDTO;
 import urjc.ugc.ultragamecenter.services.EventService;
 
@@ -73,7 +74,7 @@ public class EventRestController {
     public ResponseEntity<Object> getEventData(@PathVariable Long id) {
         Event e = eService.getByid(id);
         if (e != null) {
-            return new ResponseEntity<>(e.getDATA(), HttpStatus.OK);
+            return new ResponseEntity<>(new EventDATA(e), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

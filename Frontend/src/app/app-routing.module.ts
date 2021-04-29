@@ -6,7 +6,8 @@ import { EventComponent } from './components/event/event.component';
 
 const routes: Routes = [
   {path: 'events', component: EventComponent},
-  {path: 'admin', component: AdminComponent}
+  {path: 'admin', component: AdminComponent},
+  {path: 'profile', component: AdminComponent}
 ];
 
 @NgModule({
