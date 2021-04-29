@@ -1,1 +1,45 @@
-<p>header works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA GAMING CENTER</title>
+    <!-- scripts for icons -->
+</head>
+
+<body>
+<header id="header" class="htc-header header--3 bg__white">
+    <!-- Start Mainmenu Area -->
+    <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                    <div class="logo">
+                        <div class="logoImage">
+                            <a href="/">
+                                <img src="/images/logo/UGC1.png" alt="logo">
+                            </a>
+                        </div>
+                        <div class="pagetTitle">
+                            <h2 class="pageTitle-text"> |</h2> 
+                        </div>
+                    </div>
+                </div>
+                <!-- Start MAinmenu Ares -->
+                <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                    <nav class="mainmenu__nav hidden-xs hidden-sm">
+                        <ul class="main__menu">
+                            <li class="drop"><a href="/reservation"><i class="fas fa-desktop"></i> Mesas</a></li>
+                            <li class="drop"><a href="/events"><i class="fas fa-gamepad"></i> Eventos</a></li>
+                            <li><a href="/profile"><i class="fas fa-user-alt"></i> Perfil</a></li>
+                            <li class="drop" *ngIf="isAdmin"><a href="/admin"><i class = "fas fa-tools"></i>Admin</a></li>
+                            <li class="drop" *ngIf="isLoged"><a href="/loggout"><i class = "fas fa-sign-out-alt"></i>Cerrar Sesion</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
