@@ -4,28 +4,28 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventDTO } from '../models/eventDTO.model';
 import { EventDATA } from '../models/eventDATA.model';
-
+import { Events } from '../models/event.model';
 const EVENT_URL = 'https://localhost:8443/api/event/';
 @Injectable({ providedIn: 'root' })
 export class EventService {
   constructor(private httpClient: HttpClient) { }
 
-  getEvents(page : number | string): Observable<EventDTO[]> {
+  getEvents(page : number | string): Observable<Events[]> {
     return this.httpClient
-      .get<EventDTO[]>(EVENT_URL+"?page="+page)
-      .pipe(catchError((error: any) => this.handleError(error)));
+      .get<Events[]>(EVENT_URL+"?page="+page)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
-  getSingleEvent(id: number | string): Observable<Event> {
+  getSingleEvent(id: number | string): Observable<Events> {
     return this.httpClient
-      .get<Event>(EVENT_URL + id)
-      .pipe(catchError((error: any) => this.handleError(error)));
+      .get<Events>(EVENT_URL + id)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   getSingleEventData(id: number | string): Observable<EventDATA> {
     return this.httpClient
-      .get<EventDATA>(EVENT_URL +"DATA/"+ id)
-      .pipe(catchError((error: any) => this.handleError(error)));
+      .get<EventDATA>(EVENT_URL + "DATA/" + id)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   likeEvent(id:number | string){

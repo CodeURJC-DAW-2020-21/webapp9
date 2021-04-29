@@ -1,3 +1,5 @@
+<app-header [site]="title"></app-header>
+
 <router-outlet>
     <div class="body-tabs-container">
         <ul class="nav nav-tabs">
@@ -16,22 +18,20 @@
 	                    <div class="widget-content-left">
 	                        <div class="widget-heading">{{event.name}}</div>
 	                        <div class="widget-subheading">
-	                            <i class="fas fa-calendar"></i>  {{event.date}}
+	                            <i class="fas fa-calendar"></i> {{event.date}}
 	                        </div>
 	                    </div>
 	                    <div class="widget-content-right">
-	                        <div class="widget-numbers text-success">
 	                            <button
-	                                class="btn-transition btn btn-outline-danger left-margin" onclick="location.href= '#;'">Editar</button>
+	                                class="btn-transition btn btn-outline-danger left-margin" (click)= 'editEvent(event.id)'>Editar</button>
 	                            <button class="btn-transition btn btn-outline-danger left-margin"
-	                                onclick="location.href= '/admin';">Gráficos</button>
+	                                (click)="seeGraph(event.id)">Gráficos</button>
 	                            <button class="btn-transition btn btn-outline-danger left-margin"
-	                                onclick="location.href= '/admin'">Eliminar</button>
+	                                (click)="deleteEvent(event.id)">Eliminar</button>
 	                        </div>
 	                    </div>
 	                </div>
 	            </div>
-	        </div>
 	    </li>
 	</ul>
 	<div *ngIf="events.length == 0">

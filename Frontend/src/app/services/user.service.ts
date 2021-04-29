@@ -70,12 +70,16 @@ export class UserService {
     }
 
 
-    isLogged() {
+    isLogged():boolean {
         return this.logged;
     }
 
-    isAdmin() {
-        return this.user && this.user.roles.indexOf('ADMIN') !== -1;
+    isAdmin():boolean {
+        if (this.user && this.user.roles.indexOf('ADMIN') !== -1){
+            return true;
+        }
+        return false;
+
     }
 
     currentUser() {
