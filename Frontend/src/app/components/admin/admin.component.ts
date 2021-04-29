@@ -1,5 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { AdminService } from 'src/app/services/admin.service';
+import { EventService } from 'src/app/services/event.service';
+import { EventDTO } from '../../models/eventDTO.model';
 
 @Component({
   selector: 'app-admin',
@@ -10,10 +11,10 @@ import { AdminService } from 'src/app/services/admin.service';
 @Injectable({ providedIn: 'root'})
 export class AdminComponent implements OnInit {
 
-  events: Event[] = []
-  constructor(private service: AdminService) { } 
+  events: EventDTO[] = []
+  constructor(private service: EventService) { } 
 
   ngOnInit(){
-    this.service.getEvents().subscribe(events => this.events = events)
+    this.service.getEvents(0).subscribe(events => this.events = events);
   }
 }
