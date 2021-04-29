@@ -3,4 +3,6 @@ export interface Event {
 	name: string;
 	description: string;
     capacity: number;	
+	date:string;
+	lavels:string;
 }
