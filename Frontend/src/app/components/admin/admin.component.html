@@ -8,7 +8,7 @@
         <div class="divider mt-0" style="margin-bottom: 30px"></div>
     </div>
 	<div class="add-event-btn-container">
-    	<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/admin/add-event'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+    	<a *ngIf="events.length > 0" class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/admin/add-event'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
     </div>
     <ul>
 	    <li class="event-wrap" *ngFor="let event of events">
@@ -34,14 +34,17 @@
 	            </div>
 	    </li>
 	</ul>
-	<p>No existen eventos.</p>
-    <div id="eventos" class="fade in active">
-    	<div class="add-event-btn-container">
-        	<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/Event-Adder'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
-        </div>
-            <div class="event">
-                <div class="divider mt-0" style="margin-bottom: 30px"></div> 
-            </div>
-        </div>
-<router-outlet>
-	<app-footer></app-footer>
+	<div *ngIf="events.length == 0">
+		<p>No existen eventos.</p>
+		<div id="eventos" class="fade in active">
+			<div class="add-event-btn-container">
+				<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/Event-Adder'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+			</div>
+			<div>
+				<div class="event">
+					<div class="divider mt-0" style="margin-bottom: 30px"></div> 
+				</div>
+			</div>
+		</div>
+	</div>
+</router-outlet>

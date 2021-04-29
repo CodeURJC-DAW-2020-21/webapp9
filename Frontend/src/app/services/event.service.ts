@@ -33,23 +33,23 @@ export class EventService {
       .post(EVENT_URL +"like/"+ id,  
       { 
         withCredentials: true 
-      }).pipe(catchError(error => this.handleError(error)));
+      }).pipe(catchError((error: any) => this.handleError(error)));
   }
 
   putEvent(id:number|string, event:EventDTO){
     return this.httpClient.put(EVENT_URL+id,event)
-    .pipe(catchError(error => this.handleError(error)));
+    .pipe(catchError((error: any) => this.handleError(error)));
   }
 
   postEvent(event:EventDTO){
     return this.httpClient.post(EVENT_URL,event)
-    .pipe(catchError(error => this.handleError(error)));
+    .pipe(catchError((error: any) => this.handleError(error)));
   }
 
   deleteEvent(id: number): Observable<{}> {
     return this.httpClient
       .delete(EVENT_URL + id)
-      .pipe(catchError(error => this.handleError(error)));
+      .pipe(catchError((error: any) => this.handleError(error)));
   }
 
   private handleError(error: HttpErrorResponse) {
