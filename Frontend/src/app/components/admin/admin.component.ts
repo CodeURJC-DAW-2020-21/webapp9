@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { Events } from 'src/app/models/event.model';
-import {EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
+import { Events } from '../../models/event.model';
 
 
 @Component({
