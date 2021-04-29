@@ -1,10 +1,11 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventDTO } from '../models/eventDTO.model';
 import { EventDATA } from '../models/eventDATA.model';
 import { Events } from '../models/event.model';
+
 const EVENT_URL = 'https://localhost:8443/api/event/';
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -46,15 +47,14 @@ export class EventService {
     .pipe(catchError((error: any) => this.handleError(error)));
   }
 
-  deleteEvent(id: number): Observable<{}> {
+  deleteEvent(id: number) {
     return this.httpClient
       .delete(EVENT_URL + id)
       .pipe(catchError((error: any) => this.handleError(error)));
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.error(error);
-    return Observable.throw(
+    return throwError(
       'Server error (' + error.status + '): ' + error.message
     );
   }

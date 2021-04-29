@@ -16,6 +16,7 @@ import urjc.ugc.ultragamecenter.requests.ReservateTableRequest;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 import urjc.ugc.ultragamecenter.services.TableReservationService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/reservate")
 public class ReservationRestController {
@@ -26,7 +27,6 @@ public class ReservationRestController {
     @Autowired
     TableReservationService trService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/")
     public ResponseEntity<TableReservation> reservateTable(@RequestBody ReservateTableRequest tableRequest) {
         System.out.println(tableRequest);

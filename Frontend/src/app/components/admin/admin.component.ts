@@ -21,7 +21,7 @@ export class AdminComponent implements OnInit {
   editEvent(id:number){}
   seeGraph(id:number){}
   deleteEvent(id:number){
-    this.eService.deleteEvent(id);
+    this.eService.deleteEvent(id).subscribe(() => console.log("user deleted"));
   }
 
 

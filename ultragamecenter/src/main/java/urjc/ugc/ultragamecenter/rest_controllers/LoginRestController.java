@@ -18,6 +18,7 @@ import urjc.ugc.ultragamecenter.security.jwt.LoginRequest;
 import urjc.ugc.ultragamecenter.security.jwt.UserLoginService;
 import urjc.ugc.ultragamecenter.security.jwt.AuthResponse.Status;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
 public class LoginRestController {
@@ -25,7 +26,6 @@ public class LoginRestController {
 	@Autowired
 	private UserLoginService userService;
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/login")
 	public ResponseEntity<AuthResponse> login(
 			@CookieValue(name = "accessToken", required = false) String accessToken,
@@ -35,7 +35,6 @@ public class LoginRestController {
 		return userService.login(loginRequest, accessToken, refreshToken);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/refresh")
 	public ResponseEntity<AuthResponse> refreshToken(
 			@CookieValue(name = "refreshToken", required = false) String refreshToken) {
@@ -43,7 +42,6 @@ public class LoginRestController {
 		return userService.refresh(refreshToken);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/logout")
 	public ResponseEntity<AuthResponse> logOut(HttpServletRequest request, HttpServletResponse response) {
 

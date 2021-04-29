@@ -78,5 +78,9 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Add JWT Token filter
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
+		http.cors();
 	}
+
+
+	
 }

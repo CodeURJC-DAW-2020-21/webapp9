@@ -22,6 +22,8 @@ import urjc.ugc.ultragamecenter.requests.EventDATA;
 import urjc.ugc.ultragamecenter.requests.EventDTO;
 import urjc.ugc.ultragamecenter.services.EventService;
 
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/event")
 public class EventRestController {
@@ -29,13 +31,13 @@ public class EventRestController {
     @Autowired
     EventService eService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @GetMapping("/")
 	public Collection<Event> getEvents(@RequestParam Integer page) {
 		return eService.getPageEvents(page,3).getContent();
 	}
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEvent(@PathVariable Long id) {
         Event e = eService.getByid(id);
@@ -45,14 +47,14 @@ public class EventRestController {
         return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Event> deleteEvent(@PathVariable Long id) {
         eService.delete(eService.getByid(id));
 	    return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @PostMapping("/")
     public Event createEvent(@RequestBody EventDTO event) throws IOException {
         Event aux= new Event(event);
@@ -61,7 +63,7 @@ public class EventRestController {
         return aux;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @PutMapping("/{id}")
     public ResponseEntity<Event> editEvent(@PathVariable Long id, @RequestBody EventDTO newEvent) throws IOException {
         System.out.println(id);
@@ -76,7 +78,7 @@ public class EventRestController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @GetMapping("/DATA/{id}")
     public ResponseEntity<Object> getEventData(@PathVariable Long id) {
         Event e = eService.getByid(id);
@@ -86,7 +88,7 @@ public class EventRestController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @PostMapping("/like/{id}")
     public ResponseEntity<String> like(@PathVariable Long id) {
         if (eService.like(id)) {

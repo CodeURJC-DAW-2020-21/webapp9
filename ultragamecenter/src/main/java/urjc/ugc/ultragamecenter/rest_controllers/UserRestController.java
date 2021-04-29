@@ -34,6 +34,7 @@ import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.requests.UserDTO;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
@@ -56,7 +57,7 @@ public class UserRestController {
     @Autowired
 	UserLoginService ulService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    
     @GetMapping("/me")
 	public ResponseEntity<User> me(HttpServletRequest request) {
 		
@@ -69,7 +70,6 @@ public class UserRestController {
 		}
 	}
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody UserDTO u) {
         User newUser = new User(u);
@@ -80,7 +80,6 @@ public class UserRestController {
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/")
     public ResponseEntity<User> editUser(@RequestBody UserDTO editedUser) {
         User lastUser = uService.findByEmail(editedUser.getEmail());
@@ -95,7 +94,6 @@ public class UserRestController {
         return new ResponseEntity<>(lastUser, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/image",  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> uploadImage(@RequestBody MultipartFile imageFile) {
         User user = uService.findByEmail(uDetails.getEmail());
@@ -106,19 +104,16 @@ public class UserRestController {
         return ResponseEntity.created(location).build();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/image")
     public ResponseEntity<Object> downloadImage() throws MalformedURLException {
         return this.imgService.createResponseFromImage(uService.findByEmail(uDetails.getEmail()));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/recomendatedEvents")
     public Collection<Event> getLikedEvents() {
         return uService.getRecomendatedEvents(5);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/likedEvents")
     public Collection<Event> getRecomendatedEvents() {
         User aux =  uService.findByEmail(uDetails.getEmail());
@@ -128,7 +123,6 @@ public class UserRestController {
         return new ArrayList<>();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/myReservates")
     public Collection<String> reservations(@RequestParam Integer page) {
         return uService.findByEmail(uDetails.getEmail()).getReferencedCodes();
