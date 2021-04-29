@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'events', component: EventComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'profile', component: AdminComponent},
-  {path: '', component: IndexComponent},
+  {path: 'index', component: IndexComponent},
   {path: 'reservation', component: ReservationComponent},
   {path: 'profile', component: UserComponent},
   {path: 'login', component: LoginComponent},

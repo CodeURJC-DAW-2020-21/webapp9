@@ -1,1 +1,61 @@
-<p>reservation works!</p>
+<app-header site="RESERVA"></app-header>
+<div class="gaming-head">
+    <img class="gaming-img" src="../../../assets/images/reservation/gaming-center.jpg" alt="Gaming Center">
+    <p class="gaming-text">
+        Lo más importante y fundamental de nuestra empresa es poder ofreceros a todos un sitio, no solo de reunión,
+        sino que también de disfrute en solitario, conociendo a los mejores de todo Móstoles en títulos como League
+        of Legends, Counter Strike y muchísimos más, pudiendo tener un PC propio de forma temporal, una XBOX de
+        nueva generación o una nueva Play Station 5. Esta parte de nuestra página es para reservar la mesa para que
+        vengáis más tarde a disfrutar, sin reserva no se puede hacer nada, a si que hazla con cautela, te esperamos
+        para que disfrutes :D.</p>
+</div>
+<h1 class="gaming-h1">Reserva tu mesa</h1>
+<!--End h1-->
+<!--Start select reservation-->
+
+<form action="/trytoreserve" method="post">
+    <div class="gaming-head">
+        <div class="gaming-reservation">
+            <h3 class="gaming-select">Seleccione plataforma</h3>
+            <div class="gaming-platform">
+                <input type="radio" class="btn btn-danger" name="type" value="PC" checked>
+                <span class="iconify" data-icon="tabler:devices-pc" data-inline="false"></span> PC
+                <input type="radio" class="btn btn-primary" name="type" value="PS5"><span class="iconify"
+                    data-icon="mdi-sony-playstation" data-inline="false"></span> PlayStation 
+                <input type="radio" class="btn btn-success" name="type" value="XBOX_ONE"><span class="iconify"
+                    data-icon="cib:xbox" data-inline="false"></span> XBOX
+            </div>
+        </div>
+        <div class="gaming-reservation">
+            <h3 class="gaming-select">Seleccione fecha</h3>
+            <input type="date" id="start" name="day" min="2021-04-01" max="2021-12-31" value="2021-04-22">
+        </div>
+        <div class="gaming-reservation">
+            <h3 class="gaming-select">Seleccione hora</h3>
+            <div class="gaming-time">
+                <div class="gaming-hour">
+                    <input type="radio" class="btn btn-danger" name="hour" value="0" checked>10:00-11:00
+                    <input type="radio" class="btn btn-danger" name="hour" value="1">11:00-12:00
+                    <input type="radio" class="btn btn-danger" name="hour" value="2">12:00-13:00
+                </div>
+                <div class="gaming-hour">
+                    <input type="radio" class="btn btn-danger" name="hour" value="3">13:00-14:00
+                    <input type="radio" class="btn btn-danger" name="hour" value="4">17:00-18:00
+                    <input type="radio" class="btn btn-danger" name="hour" value="5">18:00-19:00
+                </div>
+                <div class="gaming-hour">
+                    <input type="radio" class="btn btn-danger" name="hour" value="6">19:00-20:00
+                    <input type="radio" class="btn btn-danger" name="hour" value="7">20:00-21:00
+                    <input type="radio" class="btn btn-danger" name="hour" value="8">21:00-22:00
+                </div>
+            </div>
+        </div>
+
+        <input type="email" *ngIf="isLoged" placeholder="example@email.com" name="email" required>
+
+        <div class="gaming-confirm">
+            <h3 class="full-error">{{full}}</h3>
+            <button type="submit" class="btn btn-danger">Confirmar Reserva</button>
+        </div>
+    </div>
+</form>

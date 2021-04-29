@@ -1,4 +1,31 @@
-<router-outlet>
-    <h1>hola caracola</h1>
-    <p>event works!</p>
-</router-outlet>
+<app-header site="EVENTOS"></app-header>
+<p id="pageSize" style="display: none;">3</p>
+<div class="eventContainer">
+    <div class="event">
+        <div class="divider mt-0" style="margin-bottom: 30px"></div>
+        <ul>
+            <li class="event-wrap" *ngFor="let event of events">
+                <div class="card widget-content">
+                    <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                        <img class="event-images rounded-circle" src="{{event?.bannerUrl}" alt="G2 Team">
+                        <div class="widget-content-left">
+                        <a class="widget-heading" href="/events/see-event?id={{event?.id}}">{{event?.name}}</a>
+                        <div class="widget-subheading">
+                            <i class="fas fa-calendar"></i>  {{event?.date}}
+                        </div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-success"><i class="fas fa-heart"></i>
+                                <a *ngIf="isLoged"class="widget-heading" href="/like?id={{event?.id}}">Asistir</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </li>
+        </ul>     
+    </div>
+   
+</div>
+<button id="seeMore" *ngIf="more" class="btn btn-success" (click)="nextPage()">Ver más</button>
