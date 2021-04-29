@@ -167,14 +167,4 @@ public class Event {
         this.id = id2;
     }
 
-    @JsonIgnore
-    public Map<String, String> getDATA() {
-        HashMap<String, String> h = new HashMap<>();
-        h.put("Aforo total", capacity.toString());
-        Integer aux = capacity - likes;
-        h.put("Aforo disponible", aux.toString());
-        h.put("Aforo restante", likes.toString());
-        return h;
-    }
-
 }

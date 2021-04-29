@@ -11,8 +11,6 @@ export class LoginService {
     constructor(private http: HttpClient,private userService:UserService) {
     }
 
-    
-
     logIn(user: string, pass: string) {
 
         this.http.post(BASE_URL + "/login", 
@@ -26,7 +24,6 @@ export class LoginService {
                 (response) => this.userService.getMe(),
                 (error) => alert("Wrong credentials")
             );
-
     }
 
     logOut() {

@@ -22,6 +22,8 @@ import { MatCardModule } from '@angular/material/card';
 import { EventComponent } from './components/event/event.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { IndexComponent } from './components/index/index.component';
 
 
 @NgModule({
@@ -41,14 +43,16 @@ import { HttpClientModule } from '@angular/common/http';
     ReservationComponent,
     SingleEventComponent,
     UserComponent,
-    EventComponent
+    EventComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

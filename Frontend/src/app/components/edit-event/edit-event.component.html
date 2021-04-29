@@ -1,1 +1,33 @@
-<p>edit-event works!</p>
+<app-header site="Edit Event"></app-header>
+<div class="body__overlay"></div>
+        <!-- Start Login Register Area -->
+<div class="">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <ul class="" role="">
+                <li role="presentation" class="gaming-h1 event-title"><a href="#editProfile" role="tab" data-toggle="tab"> Editar evento </a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Start Login Register Content -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="">
+                <!-- Start Single Content -->
+                <div>
+                    <form class="login" method="post" action="/admin/editEvent?id={{event?.id}}" enctype="multipart/form-data">
+                        <input class="mb-4" type="text" value="{{event?.name}}" [(ngModel)]="name">
+                        <input class="mb-4" type="text" value="{{event?.description}}" [(ngModel)]="description">
+                        <label for="description"> Pon las etiquetas separadas por /</label>
+                        <label for="capacity"> Cantidad de aforo permitido(1-500): </label>
+                        <input type="number" [(ngModel)]="capacity" min="1" max="500" value="{{event?.capacity}}">
+                        <label for="End"> Fecha de fin del evento: AAAA-MM-DD</label>
+                        <input type="text" [(ngModel)]="end" value="{{event?.date}}">
+                        <input type='submit' value='Guardar' />
+                    </form>
+                </div>
+                <!-- End Single Content -->
+            </div>
+        </div>
+    </div>
+    <!-- End Login Register Content -->
