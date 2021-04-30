@@ -5,6 +5,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { EditEventComponent } from './components/edit-event/edit-event.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { EventGraphsComponent } from './components/event-graphs/event-graphs.component';
 
 import { EventComponent } from './components/event/event.component';
 import { IndexComponent } from './components/index/index.component';
@@ -26,7 +27,9 @@ const routes: Routes = [
   {path: 'error',component:ErrorPageComponent},
   {path:'edit-profile',component:EditProfileComponent},
   {path: 'edit-event/:id', component:EditEventComponent},
-  {path:'see-event/:id',component:SingleEventComponent}
+  {path:'see-event/:id',component:SingleEventComponent},
+  {path: 'graph-event/:id', component:EventGraphsComponent}
+
 ];
 
 @NgModule({

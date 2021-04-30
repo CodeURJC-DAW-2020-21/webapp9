@@ -18,8 +18,6 @@ export class AdminComponent implements OnInit {
   ngOnInit(){
     this.eService.getEvents(0).subscribe(events => this.events = events)
   }
-  editEvent(id:number){}
-  seeGraph(id:number){}
   deleteEvent(id:number){
     this.eService.deleteEvent(id).subscribe(() => console.log("user deleted"));
   }
