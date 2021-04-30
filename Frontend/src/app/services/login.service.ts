@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
+import { LoginModel } from '../models/login.model';
 
-const BASE_URL = 'https://localhost:8443/api/auth/';
+const BASE_URL = '/api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
@@ -11,19 +12,13 @@ export class LoginService {
     constructor(private http: HttpClient,private userService:UserService) {
     }
 
-    logIn(user: string, pass: string) {
-
-        this.http.post(BASE_URL + "/login", 
-        { 
-            username: user, 
-            password: pass 
-        }, 
-        { 
-            withCredentials: true 
-        }).subscribe(
-                (response) => this.userService.getMe(),
-                (error) => alert("Wrong credentials")
+    logIn(login:LoginModel) {
+        this.http.post(BASE_URL + "/login", login)
+            .subscribe(
+                (response) => this.userService.reqIsLogged(),
+                (error) => alert("Contraseña o usuario no correctos")
             );
+
     }
 
     logOut() {

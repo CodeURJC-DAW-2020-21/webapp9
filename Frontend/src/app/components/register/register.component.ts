@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,9 +10,20 @@ import { UserService } from 'src/app/services/user.service';
 export class RegisterComponent implements OnInit {
 
   constructor(private uService:UserService) { }
-  isLoged:boolean = false;
+
   ngOnInit(): void {
-    this.isLoged=this.uService.isLogged();
+  }
+  Register(event: any, name: string, lastName: string,email:string,password:string) {
+    
+    event.preventDefault();
+
+    this.uService.postUser(
+      {
+        name:name,
+        passwordHash:password,
+        lastName:lastName,
+        email:email
+      });
   }
 
 }

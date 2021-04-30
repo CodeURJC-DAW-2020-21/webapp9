@@ -1,0 +1,33 @@
+docker: Error response from daemon: the working directory 'C:/Program Files/Git/
+usr/src/app' is invalid, it needs to be an absolute path.
+See 'docker run --help'.
+- Generating browser application bundles...
+√ Browser application bundle generation complete.
+- Copying assets...
+√ Copying assets complete.
+- Generating index html...
+√ Index html generation complete.
+
+Initial Chunk Files               | Names         |      Size
+main.356de6b8a689e5645e87.js      | main          | 591.19 kB
+styles.cf5d40f29540cc1877bc.css   | styles        |  86.29 kB
+polyfills.94daefd414b8355106ab.js | polyfills     |  35.98 kB
+runtime.7b63b9fd40098a2e8207.js   | runtime       |   1.45 kB
+
+| Initial Total | 714.91 kB
+
+Build at: 2021-04-30T01:31:23.553Z - Hash: 14eb79953dc775574ec0 - Time: 16130ms
+
+Warning: initial exceeded maximum budget. Budget 500.00 kB was not met by 214.91 kB with a total of 714.91 kB.
+
+
+cp: cannot create directory '../../../backend/src/main/resources/static/new/.': No such file or directory
+bash: cd: ultragamecenter: No such file or directory
+docker: Error response from daemon: the working directory 'C:/Program Files/Git/usr/src/app' is invalid, it needs to be an absolute path.
+See 'docker run --help'.
+mkdir: cannot create directory ‘/docker/app/’: No such file or directory
+mv: cannot stat 'backend_src-0.0.1-SNAPSHOT.jar': No such file or directory
+bash: cd: /docker/app/: No such file or directory
+mv: cannot stat 'backend_src-0.0.1-SNAPSHOT.jar': No such file or directory
+"docker build" requires exactly 1 argument.
+See 'docker build --help'.

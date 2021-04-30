@@ -6,7 +6,7 @@ import { EventDTO } from '../models/eventDTO.model';
 import { EventDATA } from '../models/eventDATA.model';
 import { Events } from '../models/event.model';
 
-const EVENT_URL = 'https://localhost:8443/api/event/';
+const EVENT_URL = '/api/event/';
 @Injectable({ providedIn: 'root' })
 export class EventService {
   constructor(private httpClient: HttpClient) { }

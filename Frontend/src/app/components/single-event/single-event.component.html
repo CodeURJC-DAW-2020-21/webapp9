@@ -1,1 +1,32 @@
-<p>single-event works!</p>
+<app-header site="EVENT"></app-header>
+<div class="eventContainer">
+    <section class="htc__store__area ptb--120 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section__title section__title--2">
+                            <img class="event-img" src="../../../assets/images/others/Foto.jpg"/>
+                        </div>
+                        <h2 class="title__line left-aligned">{{event?.name}}</h2>
+                            <div class="date">
+                                <p><i class="fas fa-calendar"></i>  {{event?.date}}</p>                           
+                            </div>
+                            <p class="left-aligned">{{event?.description}}</p>
+                            <br>
+                            <p class="availab">DISPONIBILIDAD: {{event?.capacity}} </p>
+                        <div class="store__btn left-aligned">
+                            <a href="/like?id={{event?.id}}">Like</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+
+<div class="more-images">
+    <h2 class="title__line center-aligned"> Más imágenes </h2>
+    <hr>
+    <ul class="center-aligned">
+        <li class="img-item"><img class="event-small-img" src="../../../assets/images/others/Foto.jpg"/></li>
+    </ul>
+</div>

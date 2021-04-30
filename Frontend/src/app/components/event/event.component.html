@@ -10,7 +10,7 @@
                     <div class="widget-content-wrapper">
                         <img class="event-images rounded-circle" src="{{event?.bannerUrl}" alt="G2 Team">
                         <div class="widget-content-left">
-                        <a class="widget-heading" href="/events/see-event?id={{event?.id}}">{{event?.name}}</a>
+                        <a class="widget-heading" [routerLink]="['/see-event',event?.id]">{{event?.name}}</a>
                         <div class="widget-subheading">
                             <i class="fas fa-calendar"></i>  {{event?.date}}
                         </div>

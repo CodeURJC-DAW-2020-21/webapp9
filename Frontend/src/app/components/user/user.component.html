@@ -1,18 +1,50 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <div class="eventContainer">
+        <section class="htc__store__area ptb--120 bg__white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section__title section__title--2">
+                                <img class="profile-img" src="{{image}}"/>
+                            </div>
+                            <h2 class="title__line left-aligned">Nombre: {{Me?.name}}</h2>
+                            <h2 class="title__line left-aligned">Apellidos: {{Me?.lastName}}</h2>
+                            <div class="date">
+                                <p><i class="fas fa-envelope"></i>      Correo electonico: {{Me?.email}}</p>                           
+                            </div>
+                            
+                            <div class="store__btn left-aligned">
+                                <a href="/edit-profile">Editar perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+    
+    <div class="user-info-column">
+        <div class="user-display-info">
+            <h3 class="user-info" >Mis Reservas</h3>
+            <ul *ngFor="let table in reservates">
+                <li>
+                    <p>{{table}}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="user-display-info">
+            <h3 class="user-info" >Eventos Recomendados</h3>
+            <ul *ngFor="let event in recomendatedEvents">
+                <li>
+                    <a href="/events/see-event?id={{event.id}}">{{event.id}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="user-display-info">
+            <h3 class="user-info">Mis Eventos</h3>
+            <ul *ngFor="let event in likedEvents">
+                <li>
+                    <a href="/events/see-event?id={{event.id}}">{{event.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>

@@ -1,1 +1,39 @@
-<p>login works!</p>
+<app-header site="LOGIN"></app-header>
+<div style="background-color:rgb(252, 249, 251);">
+    <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+        <div class="">
+            <div class="row d-flex">
+                <div class="col-lg-6">
+                    <div class=" pb-5">
+                        <div class="row px-4 justify-content-center mt-0 mb-0"> <img src="../../../assets/images/login/ps-controller.gif" width="500px" top=-30%> </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card2  px-4 py-5">
+                        <div class="row mb-4 px-3">
+                            <h3 class="mb-0 mr-4 mt-2 title__line">Inicia sesión</h3>
+                            
+                        </div>
+                        <form  novalidate="">
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">E-mail</h6>
+                                </label> 
+                                <input class="mb-4" #user type="text" class="form-control" name="username" placeholder="pepito@ejemplo.com"> 
+                            </div>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Contraseña</h6>
+                                </label> 
+                                <input #pass type="password" class="form-control"  name="password" placeholder="* * * * * * * * *"> 
+                            </div>
+                                <div class="row mb-3 px-3">
+                                    <button type="submit" (click)="logIn($event, user.value, pass.value)" class="btn btn-default">Sign In</button>
+                                </div>
+                        </form>
+                        <div class="row mb-4 px-3"> <small class="font-weight-bold">¿No tienes una cuenta? <a class="text-danger" [routerLink]="['/register']">Registrate</a></small> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
