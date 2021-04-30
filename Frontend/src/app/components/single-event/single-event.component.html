@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section__title section__title--2">
-                            <img class="event-img" src="../../../assets/images/others/Foto.jpg"/>
+                            <img class="event-img" src="{{principal}}"/>
                         </div>
                         <h2 class="title__line left-aligned">{{event?.name}}</h2>
                             <div class="date">
@@ -26,7 +26,7 @@
 <div class="more-images">
     <h2 class="title__line center-aligned"> Más imágenes </h2>
     <hr>
-    <ul class="center-aligned">
-        <li class="img-item"><img class="event-small-img" src="../../../assets/images/others/Foto.jpg"/></li>
+    <ul class="center-aligned" *ngFor="let image of galery">
+        <li class="img-item"><img class="event-small-img" src="{{image}}"/></li>
     </ul>
 </div>

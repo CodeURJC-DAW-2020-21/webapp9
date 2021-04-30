@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import urjc.ugc.ultragamecenter.models.*;
 import urjc.ugc.ultragamecenter.requests.EventDATA;
 import urjc.ugc.ultragamecenter.requests.EventDTO;
+import urjc.ugc.ultragamecenter.requests.EventSRC;
 import urjc.ugc.ultragamecenter.services.EventService;
 
 
@@ -96,6 +97,15 @@ public class EventRestController {
 		} else {
 			return new ResponseEntity<>("Cannot like",HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/src/{id}")
+    public ResponseEntity<EventSRC> getSrc(@PathVariable Long id){
+        Event e= eService.getByid(id);
+        if(e!=null){
+            return new ResponseEntity<>(new EventSRC(e), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
 }

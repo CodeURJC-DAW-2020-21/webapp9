@@ -70,6 +70,18 @@ public class UserRestController {
 		}
 	}
 
+    @GetMapping("/src")
+    public ResponseEntity<String> getSrc(HttpServletRequest request) {
+		
+		Principal principal = request.getUserPrincipal();
+		
+		if(principal != null) {
+			return ResponseEntity.ok(uService.findByEmail(principal.getName()).getProfileSrc());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody UserDTO u) {
         User newUser = new User(u);

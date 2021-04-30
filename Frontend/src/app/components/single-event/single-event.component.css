@@ -938,14 +938,6 @@ body {
     content: "\f11b";
 }
 
-.fa-sign-out-alt:before {
-    content: "\f2f5";
-}
-
-.fa-tools:before {
-    content: "\f7d9";
-}
-
 .fa-user-alt:before {
     content: "\f406";
 }
