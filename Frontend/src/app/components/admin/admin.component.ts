@@ -18,15 +18,19 @@ export class AdminComponent implements OnInit {
   constructor(private eService: EventService, private uService: UserService, private router: Router) { } 
 
   ngOnInit(){
-    this.eService.getEvents(0).subscribe(events => this.events = events)
-  }
+    if (this.uService.isAdmin()){
+      this.eService.getEvents(0).subscribe(events => this.events = events);
+    }else{
+        this.router.navigate([""]);
+      }
+    }
+
   deleteEvent(id:number){
     if (this.uService.isAdmin()){
       this.eService.deleteEvent(id).subscribe(() => console.log("user deleted"));
     }else{
       this.router.navigate([""]);
     }
-    
   }
 
   redirectGraphs(id: number){

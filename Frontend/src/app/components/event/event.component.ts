@@ -33,4 +33,12 @@ export class EventComponent implements OnInit {
     this.eService.getEvents(this.page + 1).subscribe(events => this.more = events.length != 0)
   }
 
+  like(id:number){
+    if(this.uService.isLogged()){
+      this.uService.like(id);
+    }else{
+      alert("No estás logeado");
+    }
+  }
+
 }

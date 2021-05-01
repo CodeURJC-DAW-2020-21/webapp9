@@ -26,7 +26,7 @@ export class EventGraphsComponent implements OnInit {
       this.eService.getSingleEventData(id).subscribe(event => this.event=event);
       this.plazasLibres = this.event?.disponible;
       this.likes = this.event?.restante;
-    } else{
+    } else {
       this.router.navigate([""]);
     }
   }
