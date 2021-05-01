@@ -16,7 +16,7 @@
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-success"><i class="fas fa-heart"></i>
-                                <a *ngIf="isLoged"class="widget-heading" href="/like?id={{event?.id}}">Asistir</a>
+                                <a *ngIf="isLoged"class="widget-heading" (click)="like(event.id)">Asistir</a>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -10,10 +11,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class EditProfileComponent implements OnInit {
 
-  constructor(private uService: UserService) { }
+constructor(private uService: UserService, private router: Router) { }
   pass: boolean = false;
   me: User | undefined;
   ngOnInit(): void {
+    if(!this.uService.isLogged()){
+        this.router.navigate([""]);
+    }else{
+        this.me = this.uService.currentUser();
+    }
     this.me = this.uService.currentUser();
   }
   setPass(aux: boolean) {

@@ -119,5 +119,12 @@ export class UserService {
           'Server error (' + error.status + '): ' + error.message
         );
       }
+
+      like(id:number){
+          this.http.post(BASE_URL+"/like",id).subscribe(
+            (response) => alert("Has dado like correctamente"),
+            (error) => alert("No has podido dar like")
+        );
+      }
     
 }
