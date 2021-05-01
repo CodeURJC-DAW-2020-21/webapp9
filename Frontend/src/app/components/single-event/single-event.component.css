@@ -1112,3 +1112,24 @@ a {
     src: url(https://localhost:8443/css/assets/fonts/fa-solid-900.eot);
     src: url(https://localhost:8443/css/assets/fonts/fa-solid-900.eot#iefix) format("embedded-opentype"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.woff2) format("woff2"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.woff) format("woff"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.ttf) format("truetype"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.svg#fontawesome) format("svg");
 }
+
+.more-images {
+    margin: -50px 20px 20px 70px;
+    text-align: center;
+}
+
+.eventGallery{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.img-item {
+    display: inline;
+    margin: 20px;
+}
+
+.event-small-img {
+    vertical-align: top;
+    border-radius: 15px;
+}
