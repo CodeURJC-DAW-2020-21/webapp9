@@ -1,6 +1,6 @@
 export interface Table {
-	id?: number;
 	type: string;
-	state: [];
+	state: number[];
 	date: string;
+	email: string;
 }
