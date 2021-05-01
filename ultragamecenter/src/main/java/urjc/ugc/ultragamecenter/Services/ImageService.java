@@ -1,6 +1,7 @@
 package urjc.ugc.ultragamecenter.services;
 
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,8 +25,8 @@ public class ImageService{
 	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.services.ImageService");
 	private static final SimpleDateFormat FILE_NAME_FORMAT =new SimpleDateFormat("'img-'yyyyMMdd-hhmmss-SSS");
 	public static final String IMG_FOLDER = "userImg/";
-	public static final String IMG_CONTROLLER_URL = "/uploadImages/userImg/";
-	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "uploadImages");
+	public static final String IMG_CONTROLLER_URL = "/images/uploadImages/userImg/";
+	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"),"GIT/ultragamecenter/src/main/resources/static/images/uploadImages");
 
 
 	public boolean isValidImage(MultipartFile file) {
@@ -38,11 +39,17 @@ public class ImageService{
 
 	public String uploadImage(MultipartFile file) {
 		Path folder = FILES_FOLDER.resolve(IMG_FOLDER);
-		if (!Files.exists(folder)) {
-			log.warning("no folder");
+		File directory = folder.toFile();
+		if (!directory.exists()) {
+			if (directory.mkdirs()) {
+                log.warning("New directory");
+            } else {
+                log.warning("Cannot create directory");
+            }
 		}
 		String fileName = generateFileName();
 		Path newImage = folder.resolve(fileName+".jpg");
+		System.out.println(newImage);
 		try {
 			file.transferTo(newImage);
 		} catch (Exception e) {
@@ -57,11 +64,17 @@ public class ImageService{
 	
 	public ResponseEntity<Object> createResponseFromImage(User user) throws MalformedURLException {
 		Path folder = FILES_FOLDER.resolve(IMG_FOLDER);
-		if (!Files.exists(folder)) {
-			log.warning("no folder");
+		File directory = folder.toFile();
+		if (!directory.exists()) {
+			if (directory.mkdirs()) {
+                log.warning("New directory");
+            } else {
+                log.warning("Cannot create directory");
+            }
 		}
 		Path imagePath = folder.resolve(user.getProfileSrc());
-		
+		System.out.println(imagePath);
+		log.warning("up is imagepath");
 		Resource file = new UrlResource(imagePath.toUri());
 		
 		if(!Files.exists(imagePath)) {

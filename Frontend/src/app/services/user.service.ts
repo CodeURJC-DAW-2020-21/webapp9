@@ -52,7 +52,7 @@ export class UserService {
 
 
     getMe() {
-        this.http.get(BASE_URL+"/me", 
+        this.http.get(BASE_URL+"me", 
           { 
             withCredentials: true 
           }).subscribe(
@@ -68,6 +68,12 @@ export class UserService {
         );
 
     }
+
+    getSrc(){
+        return this.http.get(BASE_URL+"src")
+        .pipe(catchError(error => this.handleError(error)));
+    }
+
 
     logOut(){
         this.logged=false;

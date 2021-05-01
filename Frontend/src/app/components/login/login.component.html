@@ -28,7 +28,10 @@
                                 <input #pass type="password" class="form-control"  name="password" placeholder="* * * * * * * * *"> 
                             </div>
                                 <div class="row mb-3 px-3">
-                                    <button type="submit" (click)="logIn($event, user.value, pass.value)" class="btn btn-default">Sign In</button>
+                                    <div class="row mb-3 px-3">
+                                        <input class="btn-transition btn btn-outline-danger text-center" type="submit" (click)="logIn($event, user.value, pass.value)" value='Login'/>
+                                    </div>
+                                    
                                 </div>
                         </form>
                         <div class="row mb-4 px-3"> <small class="font-weight-bold">¿No tienes una cuenta? <a class="text-danger" [routerLink]="['/register']">Registrate</a></small> </div>

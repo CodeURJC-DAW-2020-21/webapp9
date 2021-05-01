@@ -174,7 +174,6 @@ public class User implements UserDetails {
         this.referencedCodes = (ArrayList<String>) rc;
     }
 
-    @JsonIgnore
     public String getProfileSrc() {
         return profileSrc;
     }

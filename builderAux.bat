@@ -14,4 +14,4 @@ DEL /Q %newFile%
 mkdir %newFile%
 ::Construimos la aplicacion de angular y lo movemos al proyecto spring
 cd ./Frontend/dist/angular-ugc
-copy * %newFile%
+copy * %newFile% 

@@ -10,22 +10,32 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private uService:UserService) { }
-  reservates:String[]=[];
-  likedEvents:Events[]=[];
-  recomendatedEvents:Events[]=[]
-  name:String="";
-  lastName:String="";
-  email:String="";
-  image:File|undefined;
-  Me:User|undefined;
+  constructor(private uService: UserService) { }
+  reservates: String[] = [];
+  likedEvents: Events[] = [];
+  recomendatedEvents: Events[] = []
+  Me: User | undefined;
 
   ngOnInit(): void {
-    this.uService.getImage().subscribe(image => this.image=image as File)
     this.Me = this.uService.currentUser();
-    this.uService.getMyReservates().subscribe(reservates => this.reservates=reservates);
-    this.uService.getLikedEvents().subscribe(likedEvents => this.likedEvents=likedEvents);
-    this.uService.getRecomendatedEvents().subscribe(recomendatedEvents => this.recomendatedEvents=recomendatedEvents);
+    this.uService.getMyReservates().subscribe(reservates => {
+      for (let reserva in reservates) {
+        this.reservates.push(reserva);
+      }
+    });
+    this.uService.getLikedEvents().subscribe(likedEvents => {
+      likedEvents.forEach(event => {
+        this.likedEvents.push(event);
+      })
+    });
+    this.uService.getRecomendatedEvents().subscribe(recomendatedEvents => {
+      recomendatedEvents.forEach(event => {
+        this.recomendatedEvents.push(event);
+      })
+    });
+    console.log(this.Me);
+    console.log(this.recomendatedEvents);
+    console.log(this.likedEvents);
   }
 
 }

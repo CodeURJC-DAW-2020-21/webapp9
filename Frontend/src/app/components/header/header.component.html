@@ -28,7 +28,7 @@
                                 <li> <a [routerLink]="['/login']"><em class="fas fa-user-alt"></em> Perfil</a></li>
                             </ng-template>
                             <li class="drop" *ngIf="isAdmin"><a [routerLink]="['/admin']"><em class="fas fa-tools"></em> Admin</a></li>
-                            <li class="drop" *ngIf="isLoged"><a [routerLink]="['/loggout']"><em class="fas fa-sign-out-alt"></em> Cerrar Sesion</a></li>
+                            <li class="drop" *ngIf="isLoged"><a (click)="logOut()"><em class="fas fa-sign-out-alt"></em> Cerrar Sesion</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -36,3 +36,4 @@
         </div>
     </div>
 </header>
+<br>

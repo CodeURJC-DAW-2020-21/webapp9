@@ -1,11 +1,12 @@
 
+    <app-header site="PERFIL"></app-header>
     <div class="eventContainer">
         <section class="htc__store__area ptb--120 bg__white">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="section__title section__title--2">
-                                <img class="profile-img" src="{{image}}"/>
+                                <img class="profile-img" src="/images/uploadImages/userImg/{{Me?.profileSrc}}"/>
                             </div>
                             <h2 class="title__line left-aligned">Nombre: {{Me?.name}}</h2>
                             <h2 class="title__line left-aligned">Apellidos: {{Me?.lastName}}</h2>
@@ -14,7 +15,7 @@
                             </div>
                             
                             <div class="store__btn left-aligned">
-                                <a href="/edit-profile">Editar perfil</a>
+                                <a [routerLink]="['/edit-profile']">Editar perfil</a>
                             </div>
                         </div>
                     </div>
@@ -25,7 +26,7 @@
     <div class="user-info-column">
         <div class="user-display-info">
             <h3 class="user-info" >Mis Reservas</h3>
-            <ul *ngFor="let table in reservates">
+            <ul *ngFor="let table of reservates">
                 <li>
                     <p>{{table}}</p>
                 </li>
@@ -33,17 +34,17 @@
         </div>
         <div class="user-display-info">
             <h3 class="user-info" >Eventos Recomendados</h3>
-            <ul *ngFor="let event in recomendatedEvents">
+            <ul *ngFor="let event of recomendatedEvents">
                 <li>
-                    <a href="/events/see-event?id={{event.id}}">{{event.id}}</a>
+                    <a [routerLink]="['/see-event',event?.id]">{{event.name}}</a>
                 </li>
             </ul>
         </div>
         <div class="user-display-info">
             <h3 class="user-info">Mis Eventos</h3>
-            <ul *ngFor="let event in likedEvents">
+            <ul *ngFor="let event of likedEvents">
                 <li>
-                    <a href="/events/see-event?id={{event.id}}">{{event.name}}</a>
+                    <a [routerLink]="['/see-event',event?.id]">{{event.name}}</a>
                 </li>
             </ul>
         </div>

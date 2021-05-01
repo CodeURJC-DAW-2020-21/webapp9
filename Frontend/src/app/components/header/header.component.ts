@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private uService:UserService) { }
+  constructor(private uService:UserService,private router:Router) { }
   isAdmin:boolean = false;
   isLoged:boolean = false;
   @Input()
@@ -18,6 +19,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isAdmin = this.uService.isAdmin();
     this.isLoged = this.uService.isLogged();
+  }
+
+  logOut(){
+    this.uService.logOut();
+    this.router.navigate(['login']);
   }
 
 }
