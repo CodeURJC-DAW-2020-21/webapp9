@@ -274,7 +274,7 @@ Web app for a gaming center called ***Ultra Game Center***
 - [OpenAPI.html](https://raw.githack.com/CodeURJC-DAW-2020-21/webapp9/main/ultragamecenter/api-docs/api-docs.html) and [OpenApi.yaml](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/api-docs/api-docs.yaml) with information about the REST API.
 
 
-### Executing docker-compose
+### Executing docker-compose:
 Docker allows the users to run our web application without having anything installed. Follow these steps: 
 
   - Go to ./docker
@@ -387,3 +387,102 @@ To create the image, you just have to launch the script.bat file.
   3. [MvcConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/MvcConfig.java)
   4. [Api Docs](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/ultragamecenter/api-docs/api-docs.html)
   5. [AdminRestController](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/9ba8a0e0d8bbd428fabc046009efbee23ca3e866/ultragamecenter/src/main/java/urjc/ugc/ultragamecenter/Controllers/AdminController.java)
+
+## PHASE 4: Implementation of SPA architecture
+
+### Preparation of the development environment:
+
+### SPA Class Diagram:
+
+### Participation:
+
+ **Miguel Cendrero**
+
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+
+- 5 most significant commits:
+  1.
+  2.
+  3.
+  4.
+  5.
+  
+- 5 files with participation:
+  1.
+  2.
+  3.
+  4.
+  5.
+
+ **Jesús Élez**
+
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+
+- 5 most significant commits:
+  1.
+  2.
+  3.
+  4.
+  5.
+  
+- 5 files with participation:
+  1.
+  2.
+  3.
+  4.
+  5.
+
+ **Alejandro**
+
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+
+- 5 most significant commits:
+  1.
+  2.
+  3.
+  4.
+  5.
+  
+- 5 files with participation:
+  1.
+  2.
+  3.
+  4.
+  5.
+
+ **Rodrigo Díez**
+
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+
+- 5 most significant commits:
+  1.
+  2.
+  3.
+  4.
+  5.
+  
+- 5 files with participation:
+  1.
+  2.
+  3.
+  4.
+  5.
+
+ **Rodrigo de Siqueira**
+
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+
+- 5 most significant commits:
+  1.
+  2.
+  3.
+  4.
+  5.
+  
+- 5 files with participation:
+  1.
+  2.
+  3.
+  4.
+  5.
+
