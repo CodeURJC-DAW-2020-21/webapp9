@@ -38,15 +38,12 @@
                 <input type="radio" class="btn btn-danger" name="hour" value="{{hour[1]}}" (change)="radioChangeHandler($event)"><i>{{hour[0]}}</i>
                 </label>
             </div>
-            
-            <h1>{{typeSelected}}</h1>
         </div>
 
-        <input type="email" *ngIf="isLoged" placeholder="example@email.com" name="email" required>
+        <input type="email"  *ngIf="isLoged" placeholder="example@email.com" name="email" (change)="emailChangeHandler($event)">
 
         <div class="gaming-confirm">
-            <h3 class="full-error">{{full}}</h3>
-            <button type="submit" class="btn btn-danger">Confirmar Reserva</button>
+            <button type="submit" class="btn btn-danger" (click)="reserve($event)">Confirmar Reserva</button>
         </div>
     </div>
 </form>

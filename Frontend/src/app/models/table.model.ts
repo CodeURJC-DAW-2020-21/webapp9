@@ -1,6 +1,6 @@
 export interface Table {
 	type: string;
-	state: number[];
-	date: string;
+	day: string;
+	hour: number;
 	email: string;
 }

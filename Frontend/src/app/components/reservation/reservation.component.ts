@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import {ReservationService} from 'src/app/services/reservation.service'
 
 @Component({
   selector: 'app-reservation',
@@ -9,12 +10,14 @@ import { UserService } from 'src/app/services/user.service';
 export class ReservationComponent implements OnInit {
 
   hourSelected: number=0;
-  daySelected: String='';
-  typeSelected: String='';
-  hours: [String,number][] = [['9:00-10:00',0],['10:00-11:00',1],['11:00-12:00',2],['12:00-13:00',3],['13:00-14:00',4],['17:00-18:00',5],['18:00-19:00',6],['19:00-20:00',7],['20:00-21:00',8]];
-  constructor(private uService:UserService) { }
+  daySelected: string='';
+  typeSelected: string='';
+  emailSelected: string='';
+  hours: [string,number][] = [['9:00-10:00',0],['10:00-11:00',1],['11:00-12:00',2],['12:00-13:00',3],['13:00-14:00',4],['17:00-18:00',5],['18:00-19:00',6],['19:00-20:00',7],['20:00-21:00',8]];
+  
+  constructor(private uService:UserService, private rService:ReservationService) { }
   isLoged:boolean = false;
-  full:String = "";
+  full:string = "";
   ngOnInit(): void {
     this.isLoged=!this.uService.isLogged();
   }
@@ -28,4 +31,19 @@ export class ReservationComponent implements OnInit {
   typeChangeHandler (event: any){
     this.typeSelected= event.target.value
   }
+  emailChangeHandler(event: any){
+    this.emailSelected=event.target.value
+  }
+  reserve(event: any){
+      this.rService.reservate({
+        type:this.typeSelected,
+        day:this.daySelected,
+	      hour:this.hourSelected,
+	      email:this.emailSelected
+      });
+      console.log(this.typeSelected, this.hourSelected,
+	      this.daySelected,
+	      this.emailSelected)
+  }
+  
 }
