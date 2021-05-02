@@ -26,7 +26,9 @@
 <div class="more-images">
     <h2 class="title__line center-aligned"> Más imágenes </h2>
     <hr>
-    <ul class="center-aligned" *ngFor="let image of galery">
-        <li class="img-item"><img class="event-small-img" src="{{image}}"/></li>
-    </ul>
+    <div class="eventGallery">
+        <ul>
+            <li *ngFor="let image of galery" class="img-item"><img class="event-small-img" src="{{image}}"/></li>
+        </ul>
+    </div>
 </div>

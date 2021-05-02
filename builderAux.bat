@@ -3,7 +3,6 @@ SET mypath=%~dp0
 
 SET newFile=%mypath%ultragamecenter\src\main\resources\static\new\
 
-echo %newFile%
 
 cd ./Frontend
 cmd /C ng build --prod --base-href="/new/"
