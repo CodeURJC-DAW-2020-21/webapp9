@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import urjc.ugc.ultragamecenter.requests.EventDTO;
-import urjc.ugc.ultragamecenter.services.ImageService;
 
 @Entity
 @Table(name = "Event")

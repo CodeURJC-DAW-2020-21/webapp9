@@ -65,13 +65,14 @@ public class EventService {
 
 	public void giveImages(Event event, MultipartFile file, MultipartFile[] filePack){
 		if (file != null && !file.isEmpty()) {
-			imageService.uploadImageEvent(file,event.getName(),"baner.jpg");
+			imageService.uploadImageEvent(file, event.getName(), 1);
 		}
 		if(filePack!=null){
 			int auxNumber=0;
 			for (MultipartFile image : filePack) {
+				auxNumber++;
 				if (image != null && !image.isEmpty()) {
-					imageService.uploadImageEvent(image,event.getName(),"galery"+auxNumber+".jpg");
+					imageService.uploadImageEvent(image,event.getName(),auxNumber);
 				}
 			}
 		}

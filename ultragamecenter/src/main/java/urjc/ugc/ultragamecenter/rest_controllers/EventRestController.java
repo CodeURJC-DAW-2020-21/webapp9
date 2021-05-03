@@ -1,6 +1,7 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import urjc.ugc.ultragamecenter.models.*;
 import urjc.ugc.ultragamecenter.requests.EventDATA;
 import urjc.ugc.ultragamecenter.requests.EventDTO;
-import urjc.ugc.ultragamecenter.requests.EventSRC;
 import urjc.ugc.ultragamecenter.services.EventService;
+import urjc.ugc.ultragamecenter.services.ImageService;
+
+import org.springframework.http.MediaType;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,6 +37,9 @@ public class EventRestController {
 
     @Autowired
     EventService eService;
+
+    @Autowired
+    ImageService imgService;
 
     
     @GetMapping("/")
@@ -59,7 +68,7 @@ public class EventRestController {
     @PostMapping("/")
     public Event createEvent(@RequestBody EventDTO event) throws IOException {
         Event aux= new Event(event);
-        eService.giveImages(aux,null,null);
+        ImageService.CREATE_FOLDER_EVENT(aux.getName());
         eService.save(aux);
         return aux;
     }
@@ -67,7 +76,6 @@ public class EventRestController {
     
     @PutMapping("/{id}")
     public ResponseEntity<Event> editEvent(@PathVariable Long id, @RequestBody EventDTO newEvent) throws IOException {
-        System.out.println(id);
         Event e = eService.getByid(id);
         if(e!=null){
             e.edit(newEvent);
@@ -77,6 +85,13 @@ public class EventRestController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping(path = "/image/{name}/{type}",  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> uploadImage(@PathVariable String name,@PathVariable Integer type, @RequestParam("file") MultipartFile imageFile) {
+        imgService.uploadImageEvent(imageFile, name,type);
+        URI location = fromCurrentRequest().build().toUri();
+        return ResponseEntity.created(location).build();
     }
 
     

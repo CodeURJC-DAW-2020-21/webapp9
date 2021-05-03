@@ -1,19 +1,12 @@
 package urjc.ugc.ultragamecenter.services;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.Files;
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
@@ -28,8 +21,7 @@ import urjc.ugc.ultragamecenter.models.User;
 @Service
 public class ImageService {
 
-	private final static Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.services.ImageService");
-	private static final SimpleDateFormat FILE_NAME_FORMAT = new SimpleDateFormat("'img-'yyyyMMdd-hhmmss-SSS");
+	private static final Logger log = Logger.getLogger("urjc.ugc.ultragamecenter.services.ImageService");
 	public static final String IMG_FOLDER = "userImg/";
 	public static final String IMG_CONTROLLER_URL = "/images/uploadImages/userImg/";
 	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"),
@@ -53,38 +45,13 @@ public class ImageService {
 				log.warning("Cannot create directory");
 			}
 		}
-		String fileName = "fotoPerfil";
-		Path newImage = folder.resolve(fileName + ".jpg");
-		System.out.println(newImage);
+		Path newImage = folder.resolve("fotoPerfil.jpg");
 		try {
 			file.transferTo(newImage);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return fileName + ".jpg";
-	}
-
-	private synchronized String generateFileName() {
-		return FILE_NAME_FORMAT.format(new Date());
-	}
-
-	public void uploadImageEvent(MultipartFile file, String id, String name) {
-		Path folder = FILES_FOLDER.resolve(IMG_FOLDER + id);
-		File directory = folder.toFile();
-		if (!directory.exists()) {
-			if (directory.mkdirs()) {
-				log.warning("New directory");
-			} else {
-				log.warning("Cannot create directory");
-			}
-		}
-		Path newImage = folder.resolve(name + ".jpg");
-		System.out.println(newImage);
-		try {
-			file.transferTo(newImage);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		return "fotoPerfil.jpg";
 	}
 
 	public ResponseEntity<Object> createResponseFromImage(User user) throws MalformedURLException {
@@ -98,7 +65,6 @@ public class ImageService {
 			}
 		}
 		Path imagePath = folder.resolve("fotoPerfil.jpg");
-		System.out.println(imagePath);
 		log.warning("up is imagepath");
 		Resource file = new UrlResource(imagePath.toUri());
 		if (!Files.exists(imagePath)) {
@@ -107,11 +73,6 @@ public class ImageService {
 			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(file);
 		}
 	}
-
-	/*
-	 * public static String changeEmail(String email) { String last = ""; for
-	 * (String aux : email.split("@")) { last += aux; last += "_"; } return last; }
-	 */
 
 	public static void CREATE_FOLDER_USER(String email) throws IOException {
 		File original = new File(System.getProperty("user.dir"),
@@ -124,8 +85,8 @@ public class ImageService {
 			} else {
 				log.warning("Cannot create directory");
 			}
-		File newFile = new File(folder + "/fotoPerfil.jpg");
-		FileUtils.copyFile(original, newFile);
+			File newFile = new File(folder + "/fotoPerfil.jpg");
+			FileUtils.copyFile(original, newFile);
 		}
 	}
 
@@ -156,11 +117,34 @@ public class ImageService {
 		return IMG_CONTROLLER_URL + email + "/fotoPerfil.jpg";
 	}
 
-	public static Object getEventSource(Long id) {
-		return null;
-	}
-
-	public static Object getEventGalery(Long id) {
-		return null;
+	public void uploadImageEvent(MultipartFile imageFile, String name, Integer type) {
+		Path folder = FILES_FOLDER.resolve(IMG_FOLDER + name);
+		File directory = folder.toFile();
+		if (!directory.exists()) {
+			if (directory.mkdirs()) {
+				log.warning("New directory");
+			} else {
+				log.warning("Cannot create directory");
+			}
+		}
+		Path newImage = null;
+		switch (type) {
+			case 1:
+				newImage = folder.resolve("baner.jpg");
+				break;
+			case 2:
+				newImage = folder.resolve("galery1.jpg");
+				break;
+			case 3:
+				newImage = folder.resolve("galery2.jpg");
+				break;
+			default:
+				newImage = folder.resolve("galery3.jpg");
+		}
+		try {
+			imageFile.transferTo(newImage);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 }

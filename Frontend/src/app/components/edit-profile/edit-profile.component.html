@@ -17,7 +17,7 @@
             <div class="">
                 <!-- Start Single Content -->
                 <div id="editProfile" role="tabpanel" class="single__tabs__panel">
-                    <form class="login" method="post" action="/editProfile" enctype="multipart/form-data">
+                    <form class="login" enctype="multipart/form-data">
                         <input #name class="mb-4" type="text" value="{{me?.name}}" name="name">
                         <input #lastName type="text" value="{{me?.lastName}}" name="surname">
                         <input #foto multiple type='file' name='image' accept=".jpg, .jpeg" />
