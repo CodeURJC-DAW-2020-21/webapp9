@@ -393,7 +393,11 @@ To create the image, you just have to launch the script.bat file.
 ### Youtube Video
 
 ### Preparation of the development environment:
-
+1. Install [node js](https://nodejs.org/es/)
+2. Install the Angular CLI globally with the command: npm install -g @angular/cli
+3. Go to the workspace folder "frontend"
+4. To download the modules use "npm install"
+5. "ng serve" to launch the app
 ### SPA Class Diagram:
 ![Navigation_Diagram_Updated](readme-photos/diagramaF4.png)
 ### Participation:
