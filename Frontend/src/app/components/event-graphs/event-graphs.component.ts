@@ -14,21 +14,18 @@ import { EventDATA } from '../../models/eventDATA.model';
 @Injectable({ providedIn: 'root'})
 export class EventGraphsComponent implements OnInit {
 
-  likes:number | undefined;
-  plazasLibres:number | undefined;
-  
-  event: EventDATA|undefined
-  constructor(private eService: EventService, private uService: UserService,private route: ActivatedRoute, private router: Router,private lService:LoginService) {}
+  event: EventDATA | undefined
+  constructor(private eService: EventService, private route: ActivatedRoute, private router: Router,private lService:LoginService) {}
   
 
-  ngOnInit(): void {
+  ngOnInit() {
+    
     if (this.lService.isAdmin()){
       let id= this.route.snapshot.params['id'];
-      this.eService.getSingleEventData(id).subscribe(event => this.event=event);
-      this.plazasLibres = this.event?.disponible;
-      this.likes = this.event?.restante;
+      this.eService.getSingleEventData(id).subscribe(event => {this.event = event; console.log(this.event)});
+      
     } else {
-      this.router.navigate(["login"]);
+      this.router.navigate([""]);
     }
   }
 }
