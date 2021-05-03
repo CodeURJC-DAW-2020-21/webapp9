@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import urjc.ugc.ultragamecenter.requests.UserDTO;
+import urjc.ugc.ultragamecenter.services.ImageService;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -49,7 +51,6 @@ public class User implements UserDetails {
 
     private String lastName;
 
-    private String profileSrc;
 
     private String email;
 
@@ -68,34 +69,34 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(UserDTO u) {
+    public User(UserDTO u) throws IOException {
         super();
         this.eventsLikeIt = new ArrayList<>();
         this.referencedCodes = new ArrayList<>();
         this.affinity = new HashMap<>();
         this.recomendated = new ArrayList<>();
         this.name = u.getName();
-        this.profileSrc = "defaultuser.jpg";
         this.passwordHash = new BCryptPasswordEncoder().encode(u.getPasswordHash());
         this.lastName = u.getLastName();
         this.email = u.getEmail();
         this.roles = new ArrayList<>();
         this.roles.add("USER");
+        ImageService.CREATE_FOLDER_USER(this.email);
     }
 
-    public User(String name, String lastName, String password, String email) {
+    public User(String name, String lastName, String password, String email) throws IOException {
         super();
         this.eventsLikeIt = new ArrayList<>();
         this.referencedCodes = new ArrayList<>();
         this.affinity = new HashMap<>();
         this.recomendated = new ArrayList<>();
         this.name = name;
-        this.profileSrc = "defaultuser.jpg";
         this.passwordHash = new BCryptPasswordEncoder().encode(password);
         this.lastName = lastName;
         this.email = email;
         this.roles = new ArrayList<>();
         this.roles.add("USER");
+        ImageService.CREATE_FOLDER_USER(this.email);
     }
 
     public boolean matchPasword(String password) {
@@ -174,13 +175,6 @@ public class User implements UserDetails {
         this.referencedCodes = (ArrayList<String>) rc;
     }
 
-    public String getProfileSrc() {
-        return profileSrc;
-    }
-
-    public void setProfileSrc(String src) {
-        this.profileSrc = src;
-    }
 
     public void giveRoles(String role) {
         if (!this.roles.contains(role)) {

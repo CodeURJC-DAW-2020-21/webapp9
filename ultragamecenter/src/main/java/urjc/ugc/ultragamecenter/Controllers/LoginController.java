@@ -3,6 +3,8 @@ package urjc.ugc.ultragamecenter.controllers;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
@@ -57,7 +59,7 @@ public class LoginController {
 
 	@PostMapping("/register")
 	public String registerUser(@RequestParam String name, @RequestParam String lastName, @RequestParam String password,
-			@RequestParam String email, Model model) {
+			@RequestParam String email, Model model) throws IOException {
 		User u = uService.createNewUser(name, lastName, password, email);
 		if (u == null) {
 			setHeader(model);

@@ -52,7 +52,7 @@ public class InitDataBase implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... arg) {
+    public void run(String... arg) throws IOException {
 
         if (userRepository.count() == 0) {
             // create users

@@ -51,6 +51,7 @@ constructor(private lService: LoginService, private router: Router, private uSer
         )
       }
     }
+    this.lService.reqIsLogged();
   }
   
 

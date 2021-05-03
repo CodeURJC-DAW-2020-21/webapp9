@@ -16,11 +16,6 @@ public class EventSRC {
         this.galery = (ArrayList<String>) galery;
     }
 
-    public EventSRC(Event e){
-        this.principal = e.getBannerUrl();
-        this.galery=(ArrayList<String>) e.getGallery();
-    }
-
     public void setPrincipal(String principal) {
         this.principal = principal;
     }

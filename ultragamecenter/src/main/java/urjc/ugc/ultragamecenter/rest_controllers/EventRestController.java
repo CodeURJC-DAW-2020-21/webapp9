@@ -98,14 +98,4 @@ public class EventRestController {
 			return new ResponseEntity<>("Cannot like",HttpStatus.BAD_REQUEST);
         }
     }
-
-    @GetMapping("/src/{id}")
-    public ResponseEntity<EventSRC> getSrc(@PathVariable Long id){
-        Event e= eService.getByid(id);
-        if(e!=null){
-            return new ResponseEntity<>(new EventSRC(e), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
-
 }
