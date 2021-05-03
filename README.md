@@ -454,7 +454,7 @@ To create the image, you just have to launch the script.bat file.
 
  **Rodrigo Díez**
 
--  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+-  Completed tasks: Reservation tables and dockerfile.
 
 - 5 most significant commits:
   1. [Table reservation view and model](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/412a3022c588246e8255e52f151784bc7a69bea4)
