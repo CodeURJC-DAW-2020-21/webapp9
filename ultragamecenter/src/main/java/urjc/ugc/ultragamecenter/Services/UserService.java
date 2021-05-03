@@ -100,7 +100,7 @@ public class UserService {
                 recomendated.add(e);
             }
         }
-        return recomendated.subList(0, i);
+        return recomendated.subList(0, Math.min(i,recomendated.size()));
     }
 
 }

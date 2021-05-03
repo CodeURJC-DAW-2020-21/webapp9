@@ -21,12 +21,10 @@
                         <ul class="main__menu">
                             <li class="drop"><a [routerLink]="['/reservation']"><em class="fas fa-desktop"></em>  Mesas</a></li>
                             <li class="drop"><a [routerLink]="['/events']"><em class="fas fa-gamepad"></em>  Eventos</a></li>
-                            <li *ngIf="isLoged;else Login">
-                                <a [routerLink]="['/profile']"><em class="fas fa-user-alt"></em>  Perfil</a>
+                            <li>
+                                <a (click)="goProfile()"><em class="fas fa-user-alt"></em>  Perfil</a>
                             </li>
-                            <ng-template #Login>
-                                <li> <a [routerLink]="['/login']"><em class="fas fa-user-alt"></em> Perfil</a></li>
-                            </ng-template>
+                            
                             <li class="drop" *ngIf="isAdmin"><a [routerLink]="['/admin']"><em class="fas fa-tools"></em> Admin</a></li>
                             <li class="drop" *ngIf="isLoged"><a (click)="logOut()"><em class="fas fa-sign-out-alt"></em> Cerrar Sesion</a></li>
                         </ul>

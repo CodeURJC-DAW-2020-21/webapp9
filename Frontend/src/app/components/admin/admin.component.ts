@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 import { Events } from '../../models/event.model';
 
@@ -15,10 +16,10 @@ import { Events } from '../../models/event.model';
 export class AdminComponent implements OnInit {
 
   events: Events[] = [];
-  constructor(private eService: EventService, private uService: UserService, private router: Router) { } 
+  constructor(private eService: EventService, private uService: UserService, private router: Router,private lService:LoginService) { } 
 
   ngOnInit(){
-    if (this.uService.isAdmin()){
+    if (this.lService.isAdmin()){
       this.eService.getEvents(0).subscribe(events => this.events = events);
     }else{
         this.router.navigate([""]);
@@ -26,7 +27,7 @@ export class AdminComponent implements OnInit {
     }
 
   deleteEvent(id:number){
-    if (this.uService.isAdmin()){
+    if (this.lService.isAdmin()){
       this.eService.deleteEvent(id).subscribe(() => console.log("user deleted"));
     }else{
       this.router.navigate([""]);

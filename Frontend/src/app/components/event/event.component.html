@@ -15,9 +15,17 @@
                         </div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success"><i class="fas fa-heart"></i>
-                                <a *ngIf="isLoged"class="widget-heading" (click)="like(event.id)">Asistir</a>
+                        <div *ngIf="isLoged">
+                            <div class="widget-numbers text-success">
+                                <i class="fas fa-heart" (click)="like(event.id)"></i>
                             </div>
+                        </div>
+                        <div *ngIf="!isLoged">
+                            <div class="widget-numbers text-success">
+                                <i class="fas fa-heart" [routerLink]="['/login']"></i>
+                            </div>
+                        </div>
+                            
                         </div>
                     </div>
                     </div>

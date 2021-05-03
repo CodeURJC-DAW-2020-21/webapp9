@@ -6,10 +6,7 @@
         <div class="col-md-6 col-md-offset-3">
             <ul class="login__register__menu" role="tablist">
                 <li role="presentation" class="login active">
-                    <a id="eProfile" (click)="setPass(false)" role="tab" data-toggle="tab">Perfil</a>
-                </li>
-                <li role="presentation" class="register">
-                    <a id="ePass" (click)="setPass(true)" role="tab" data-toggle="tab">Contraseña</a>
+                    <a id="eProfile" role="tab" data-toggle="tab">Perfil</a>
                 </li>
             </ul>
         </div>
@@ -19,26 +16,15 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="">
                 <!-- Start Single Content -->
-                <div id="editProfile" role="tabpanel" class="single__tabs__panel" *ngIf="!pass;else Pass">
+                <div id="editProfile" role="tabpanel" class="single__tabs__panel">
                     <form class="login" method="post" action="/editProfile" enctype="multipart/form-data">
                         <input #name class="mb-4" type="text" value="{{me?.name}}" name="name">
                         <input #lastName type="text" value="{{me?.lastName}}" name="surname">
-                        <input #image type='file' name='image' accept=".jpg, .jpeg" />
-                        <input type='submit' value='Guardar' (click)="postName($event,name.value,lastName.value,image.value)" />
+                        <input #foto multiple type='file' name='image' accept=".jpg, .jpeg" />
+                        <input #pass type="password" placeholder="Contraseña*" name="password">
+                        <input type='submit' value='Guardar' (click)="postAll($event,name.value,lastName.value,pass.value)" />
                     </form>
                 </div>
-                <!-- End Single Content -->
-                <!-- Start Single Content  class=" tab-pane fade" -->
-                <ng-template #Pass>
-                    <div id="editPassword" role="tabpanel" class="single__tabs__panel">
-                        <form action="/editPassword" class="login" method="post">
-                            <input #pass type="password" placeholder="Contraseña*" name="password">
-                            <input #newPass type="password" placeholder="Contraseña nueva*" name="newPassword">
-                            <input type='submit' value='Guardar' (click)="postPassword($event,pass.value,newPass.value)"/>
-                        </form>
-                    </div>
-                </ng-template>
-                <!-- End Single Content -->
             </div>
         </div>
     </div>

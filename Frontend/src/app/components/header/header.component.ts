@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,21 +10,30 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private uService:UserService,private router:Router) { }
+  constructor(private uService:UserService,private router:Router,private lService:LoginService) { }
   isAdmin:boolean = false;
   isLoged:boolean = false;
+  
   @Input()
   site:string ="";
 
 
   ngOnInit(): void {
-    this.isAdmin = this.uService.isAdmin();
-    this.isLoged = this.uService.isLogged();
+    this.isAdmin = this.lService.isAdmin();
+    this.isLoged = this.lService.isLogged();
   }
 
   logOut(){
-    this.uService.logOut();
-    this.router.navigate(['login']);
+    this.lService.logOut();
+    this.router.navigate(['login'],{skipLocationChange:true});
+  }
+
+  goProfile(){
+    if(this.lService.isLogged()){
+      this.router.navigate(['profile']);
+    } else{
+      this.router.navigate(['login']);
+    }
   }
 
 }

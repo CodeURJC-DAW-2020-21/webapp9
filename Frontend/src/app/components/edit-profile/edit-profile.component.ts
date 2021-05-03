@@ -1,9 +1,11 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -11,41 +13,45 @@ import { Router } from '@angular/router';
 })
 export class EditProfileComponent implements OnInit {
 
-constructor(private uService: UserService, private router: Router) { }
-  pass: boolean = false;
+constructor(private lService: LoginService, private router: Router, private uService:UserService) { }
   me: User | undefined;
+  file : File|undefined;
+  
+  @ViewChild("foto", {
+    read: ElementRef
+  }) foto: ElementRef | undefined;
+
   ngOnInit(): void {
-    if(!this.uService.isLogged()){
-        this.router.navigate([""]);
+    if(!this.lService.isLogged()){
+        this.router.navigate(["login"]);
     }else{
-        this.me = this.uService.currentUser();
+        this.me = this.lService.currentUser();
     }
-    this.me = this.uService.currentUser();
-  }
-  setPass(aux: boolean) {
-    this.pass = aux;
   }
 
-  postPassword(event: any, pass: string, newPass: string) {
+  postAll(event: any,name:string, lastName:string, pass: string) {
+    event.preventDefault();
+    let archivos = this.foto?.nativeElement.files;
+    this.file = archivos.item(0);
     if(this.me!=undefined){
-      this.uService.postUser({
-        name:this.me.name,
-        lastName:this.me.lastName,
-        passwordHash:newPass,
-        email:this.me.email
-      })
-    }
-  }
-  postName(event: any, name:string, lastName:string, image:string){
-    if(this.me!=undefined){
-      this.uService.postUser({
+      this.uService.putUser({
         name:name,
         lastName:lastName,
-        passwordHash:"",
+        passwordHash:pass,
         email:this.me.email
-      })
+      }).subscribe(
+       (response) => this.router.navigate(['profile']),
+       (error) => alert("fallo")
+      );
+      console.log(this.file);
+      if(this.file!=undefined){
+        this.uService.setImage(this.file).subscribe(
+          (response) => alert("nueva imagen"),
+          (error) => alert("fallo al poner tu imagen")
+        )
+      }
     }
-    
   }
+  
 
 }

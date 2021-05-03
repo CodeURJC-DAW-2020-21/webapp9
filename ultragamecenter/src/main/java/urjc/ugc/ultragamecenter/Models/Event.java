@@ -3,9 +3,7 @@ package urjc.ugc.ultragamecenter.models;
 import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

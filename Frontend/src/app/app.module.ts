@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GraphsTableComponent } from './components/graphs-table/graphs-table.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
@@ -28,7 +27,6 @@ import { IndexComponent } from './components/index/index.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GraphsTableComponent,
     HeaderComponent,
     LoginComponent,
     ErrorPageComponent,

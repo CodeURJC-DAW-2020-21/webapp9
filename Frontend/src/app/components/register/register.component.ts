@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private uService:UserService) { }
+  constructor(private uService:UserService,private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -23,7 +24,14 @@ export class RegisterComponent implements OnInit {
         passwordHash:password,
         lastName:lastName,
         email:email
-      });
+      }).subscribe(
+        (response) => {
+          this.router.navigate(['login']);
+          alert("Bienvenido")
+      }
+        ,
+        (error) => alert("Email ya utilizado")
+    );
   }
 
 }

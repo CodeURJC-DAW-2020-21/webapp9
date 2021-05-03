@@ -124,7 +124,7 @@ public class UserRestController {
     }
 
     @GetMapping("/myReservates")
-    public Collection<String> reservations(@RequestParam Integer page) {
+    public Collection<String> reservations() {
         return uService.findByEmail(uDetails.getEmail()).getReferencedCodes();
     }
 }

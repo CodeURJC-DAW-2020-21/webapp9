@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Events } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/event.service';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class EventComponent implements OnInit {
 
-  constructor(private eService: EventService, private uService: UserService) { }
+  constructor(private eService: EventService, private uService: UserService, private lService: LoginService) { }
   page: number = 0;
   isLoged: boolean = false;
   events: Events[] = [];
@@ -19,7 +20,7 @@ export class EventComponent implements OnInit {
 
   ngOnInit(): void {
     this.eService.getEvents(this.page).subscribe(events => this.events = events)
-    this.isLoged = this.uService.isLogged();
+    this.isLoged = this.lService.isLogged();
     this.eService.getEvents(this.page + 1).subscribe(events => this.more = events.length != 0)
   }
 
@@ -34,10 +35,8 @@ export class EventComponent implements OnInit {
   }
 
   like(id:number){
-    if(this.uService.isLogged()){
-      this.uService.like(id);
-    }else{
-      alert("No estás logeado");
+    if(this.lService.isLogged()){
+      this.eService.likeEvent(id).subscribe();
     }
   }
 

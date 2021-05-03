@@ -75,7 +75,7 @@ public class User implements UserDetails {
         this.affinity = new HashMap<>();
         this.recomendated = new ArrayList<>();
         this.name = u.getName();
-        this.profileSrc = "uploadImages/userImg/defaultuser.png";
+        this.profileSrc = "defaultuser.jpg";
         this.passwordHash = new BCryptPasswordEncoder().encode(u.getPasswordHash());
         this.lastName = u.getLastName();
         this.email = u.getEmail();
@@ -90,7 +90,7 @@ public class User implements UserDetails {
         this.affinity = new HashMap<>();
         this.recomendated = new ArrayList<>();
         this.name = name;
-        this.profileSrc = "uploadImages/userImg/defaultuser.png";
+        this.profileSrc = "defaultuser.jpg";
         this.passwordHash = new BCryptPasswordEncoder().encode(password);
         this.lastName = lastName;
         this.email = email;

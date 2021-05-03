@@ -10,10 +10,14 @@ const BASE_URL = '/api/user/';
 export class UserService {
 
 
-    logged: boolean = false;
-    user: User | undefined;
+    
 
     constructor(private http: HttpClient){
+    }
+
+    setImage(file:File){
+        return this.http.post(BASE_URL+"image",file)
+        .pipe(catchError(error => this.handleError(error)));
     }
 
     getImage(){
@@ -39,34 +43,12 @@ export class UserService {
     postUser(u:UserDTO){
         console.log(u);
         return this.http.post(BASE_URL,u)
-        .subscribe(
-            (response) => alert("Bienvenido"),
-            (error) => alert("Email ya utilizado")
-        );
+        .pipe(catchError(error => this.handleError(error)));
     }
 
     putUser(u:UserDTO){
         return this.http.put(BASE_URL,u)
         .pipe(catchError(error => this.handleError(error)));
-    }
-
-
-    getMe() {
-        this.http.get(BASE_URL+"me", 
-          { 
-            withCredentials: true 
-          }).subscribe(
-            response => {
-                this.user = response as User;
-                this.logged = true;
-            },
-            error => {
-                if (error.status != 404) {
-                    console.error('Error when asking if logged: ' + JSON.stringify(error));
-                }
-            }
-        );
-
     }
 
     getSrc(){
@@ -75,43 +57,7 @@ export class UserService {
     }
 
 
-    logOut(){
-        this.logged=false;
-        this.user=undefined;
-    }
-
-
-    isLogged():boolean {
-        return this.logged;
-    }
-
-    reqIsLogged() {
-
-        this.http.get(BASE_URL+"/me", { withCredentials: true }).subscribe(
-            response => {
-                this.user = response as User;
-                this.logged = true;
-            },
-            error => {
-                if (error.status != 404) {
-                    console.error('Error when asking if logged: ' + JSON.stringify(error));
-                }
-            }
-        );
-
-    }
-
-    isAdmin():boolean {
-        if (this.user && this.user.roles.indexOf('ADMIN') !== -1){
-            return true;
-        }
-        return false;
-
-    }
-
-    currentUser() {
-        return this.user;
-    }
+    
 
     private handleError(error: HttpErrorResponse) {
         console.error(error);
@@ -121,7 +67,7 @@ export class UserService {
       }
 
       like(id:number){
-          this.http.post(BASE_URL+"/like",id).subscribe(
+          this.http.post(BASE_URL+"like",id).subscribe(
             (response) => alert("Has dado like correctamente"),
             (error) => alert("No has podido dar like")
         );

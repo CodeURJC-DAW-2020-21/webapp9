@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Table_Games")
 public class Tablegame {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

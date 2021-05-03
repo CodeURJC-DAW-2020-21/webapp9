@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private lService: LoginService,private router: Router,private uService:UserService ) {}
+  constructor(private lService: LoginService, private router: Router) { }
   ngOnInit(): void {
 
   }
@@ -18,14 +18,15 @@ export class LoginComponent implements OnInit {
   logIn(event: any, user: string, pass: string) {
     event.preventDefault();
     this.lService.logIn({
-      username:user,
-      password:pass
-    });
-    if(this.uService.isLogged()){
-      this.router.navigate(['profile']);
-    }
-    
-    
+      username: user,
+      password: pass
+    }).subscribe(
+      (response) => {
+        this.lService.reqIsLogged();
+      },
+      (error) => alert("Contraseña o usuario no correctos")
+    );
+    this.router.navigate(['']);
   }
 
 }
