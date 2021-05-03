@@ -26,9 +26,9 @@ export class UserComponent implements OnInit {
     }
     this.Me = this.lService.currentUser();
     this.uService.getMyReservates().subscribe(reservates => {
-      for (let reserva in reservates) {
-        this.reservates.push(reserva);
-      }
+      reservates.forEach(reserve => {
+        this.reservates.push(reserve);
+      })
     });
     this.uService.getLikedEvents().subscribe(likedEvents => {
       likedEvents.forEach(event => {
