@@ -428,11 +428,11 @@ To create the image, you just have to launch the script.bat file.
   5. [event gallery](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/6e66396f9ae56c9a1cd2609b145e89c7adcc70d1)
   
 - 5 files with participation:
-  1.[index component](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/index/index.component.ts)
-  2.[Event service](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/services/event.service.ts)
-  3.[Event creator](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/event-creator/event-creator.component.ts)
-  4.[header](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/index.html)
-  5.[custom css](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/styles.css) 
+  1. [index component](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/index/index.component.ts)
+  2. [Event service](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/services/event.service.ts)
+  3. [Event creator](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/event-creator/event-creator.component.ts)
+  4. [header](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/index.html)
+  5. [custom css](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/styles.css) 
 
  **Alejandro**
 
