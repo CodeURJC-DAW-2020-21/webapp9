@@ -418,21 +418,21 @@ To create the image, you just have to launch the script.bat file.
 
  **Jesús Élez**
 
--  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+-  Completed tasks: creacion de componentes, arreglo de visibilidad de iconos, diagrama.
 
 - 5 most significant commits:
-  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  1. [Model component](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/80d91163bc94ebe008f585582eb4f905277e96a1)
+  2. [Index component](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/b9ddf3ac15d9b5e4dfe9ccb28c1c7f044bf2da95)
+  3. [Components created](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/74c8765e9e912d926f00eb1f0f796671b152b0d0)
+  4. [visible icons](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/97b1e48be44959b6af27303490e184198fcbfc68)
+  5. [event gallery](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/6e66396f9ae56c9a1cd2609b145e89c7adcc70d1)
   
 - 5 files with participation:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1.[index component](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/index/index.component.ts)
+  2.[Event service](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/services/event.service.ts)
+  3.[Event creator](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/event-creator/event-creator.component.ts)
+  4.[header](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/index.html)
+  5.[custom css](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/styles.css) 
 
  **Alejandro**
 
