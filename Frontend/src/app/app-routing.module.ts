@@ -5,6 +5,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { EditEventComponent } from './components/edit-event/edit-event.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { EventCreatorComponent } from './components/event-creator/event-creator.component';
 import { EventGraphsComponent } from './components/event-graphs/event-graphs.component';
 
 import { EventComponent } from './components/event/event.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:'edit-profile',component:EditProfileComponent},
   {path: 'edit-event/:id', component:EditEventComponent},
   {path:'see-event/:id',component:SingleEventComponent},
-  {path: 'graph-event/:id', component:EventGraphsComponent}
+  {path: 'graph-event/:id', component:EventGraphsComponent},
+  {path: 'new-event',component:EventCreatorComponent}
 
 ];
 

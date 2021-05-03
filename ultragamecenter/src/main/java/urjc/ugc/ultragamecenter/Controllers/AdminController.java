@@ -1,6 +1,8 @@
 package urjc.ugc.ultragamecenter.controllers;
 
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -110,7 +112,7 @@ public class AdminController {
 	public String registrarUsuario(@RequestParam String name, @RequestParam String description,
 			@RequestParam(defaultValue = "") Integer capacity, @RequestParam String labels, @RequestParam String end,
 			@RequestParam MultipartFile image, HttpSession sesion, Model model, @RequestParam MultipartFile image1,
-			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3, HttpServletRequest request) {
+			@RequestParam MultipartFile image2, @RequestParam MultipartFile image3, HttpServletRequest request) throws IOException {
 		MultipartFile[] filePack = { image1, image2, image3 };
 		eService.createNewEvent(name, description, image, filePack, end, capacity, labels);
 		return "redirect:/admin";

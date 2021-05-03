@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -51,10 +52,9 @@ public class EventService {
 		eventRepository.save(event);
 	}
 
-	public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile[] filePack,
-			String date, Integer capacity, String labels) {
+	public Event createNewEvent(String name, String description, MultipartFile file, MultipartFile[] filePack, String date, Integer capacity, String labels) throws IOException {
 		Event event = null;
-		event = new Event(name, description, date, "",capacity);
+		event = new Event(name, description, date,capacity);
 		giveImages(event, file, filePack);
 		for (String l : labels.split("/")) {
 			event.putLabel(l);
@@ -65,13 +65,13 @@ public class EventService {
 
 	public void giveImages(Event event, MultipartFile file, MultipartFile[] filePack){
 		if (file != null && !file.isEmpty()) {
-			imageService.uploadImageEvent(file,event.getId().toString(),"baner.jpg");
+			imageService.uploadImageEvent(file,event.getName(),"baner.jpg");
 		}
 		if(filePack!=null){
 			int auxNumber=0;
 			for (MultipartFile image : filePack) {
 				if (image != null && !image.isEmpty()) {
-					imageService.uploadImageEvent(image,event.getId().toString(),"galery"+auxNumber+".jpg");
+					imageService.uploadImageEvent(image,event.getName(),"galery"+auxNumber+".jpg");
 				}
 			}
 		}

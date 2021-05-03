@@ -24,30 +24,30 @@ public class InitDataBase implements CommandLineRunner {
 
     public int maxDay(int i) {
         switch (i) {
-        case 1:
-            return 32;
-        case 2:
-            return 29;
-        case 3:
-            return 32;
-        case 4:
-            return 31;
-        case 5:
-            return 32;
-        case 6:
-            return 31;
-        case 7:
-            return 32;
-        case 8:
-            return 32;
-        case 9:
-            return 31;
-        case 10:
-            return 32;
-        case 11:
-            return 31;
-        default:
-            return 32;
+            case 1:
+                return 32;
+            case 2:
+                return 29;
+            case 3:
+                return 32;
+            case 4:
+                return 31;
+            case 5:
+                return 32;
+            case 6:
+                return 31;
+            case 7:
+                return 32;
+            case 8:
+                return 32;
+            case 9:
+                return 31;
+            case 10:
+                return 32;
+            case 11:
+                return 31;
+            default:
+                return 32;
         }
     }
 
@@ -80,44 +80,37 @@ public class InitDataBase implements CommandLineRunner {
 
         if (eventRepository.count() == 0) {
             // create events
-            Event event1 = new Event("Fornite", "Vive la colaboración entre Fortnite y Marvel.", "2021-03-21",
-                    "/images/Events/fornite0.jpg", 125);
-            event1.putLabel("SHOOTER");
-            event1.setGallery("/images/Events/fornite1.jpeg", "/images/Events/fornite2.jpg",
-                    "/images/Events/fornite3.jpg");
+            Event event = new Event("Fornite", "Vive la colaboración entre Fortnite y Marvel.", "2021-03-21", 125);
+            event.putLabel("SHOOTER");
+            event.setID(0L);
+            ImageService.CREATE_FOLDER_EVENT(event.getName());
+            eventRepository.save(event);
 
-            Event event2 = new Event("LOL", "Final del mundial 2020.", "2021-04-10", "/images/Events/LOL0.png", 150);
-            event2.putLabel("MOBA");
-            event2.setGallery("/images/Events/LOL1.png", "/images/Events/LOL2.jpg", "/images/Events/LOL3.jpg");
+            event = new Event("LOL", "Final del mundial 2020.", "2021-04-10", 150);
+            event.putLabel("MOBA");
+            ImageService.CREATE_FOLDER_EVENT(event.getName());
+            eventRepository.save(event);
 
-            Event event3 = new Event("NVIDIA", "Nueva Gráfica super potente.", "2021-04-16",
-                    "/images/Events/NVIDIA0.jpg", 50);
-            event3.putLabel("PRESENTATION");
-            event3.setGallery("/images/Events/NVIDIA1.jpg", "/images/Events/NVIDIA2.jpg", "/images/Events/NVIDIA1.jpg");
+            event = new Event("NVIDIA", "Nueva Gráfica super potente.", "2021-04-16", 50);
+            event.putLabel("PRESENTATION");
+            ImageService.CREATE_FOLDER_EVENT(event.getName());
+            eventRepository.save(event);
 
-            Event event4 = new Event("COD", "Ven a jugar con tus amigos a los mejores shooter de la franquicia.",
-                    "2021-03-25", "/images/Events/cod0.jpg", 100);
-            event4.putLabel("FPS");
-            event4.setGallery("/images/Events/cod1.jpg", "/images/Events/COD2.jpg", "/images/Events/COD3.jpg");
+            event = new Event("COD", "Ven a jugar con tus amigos a los mejores shooter de la franquicia.", "2021-03-25", 100);
+            event.putLabel("FPS");
+            ImageService.CREATE_FOLDER_EVENT(event.getName());
+            eventRepository.save(event);
 
-            Event event5 = new Event("HALO", "Presentacion de nuevo Halo 6", "2021-03-27", "/images/Events/halo0.jpg",
-                    100);
-            event5.putLabel("SHOOTER");
-            event5.putLabel("FPS");
-            event5.setGallery("/images/Events/halo1.jpg", "/images/Events/halo2.jpg", "/images/Events/halo3.jpg");
+            event = new Event("HALO", "Presentacion de nuevo Halo 6", "2021-03-27", 100);
+            event.putLabel("SHOOTER");
+            event.putLabel("FPS");
+            ImageService.CREATE_FOLDER_EVENT(event.getName());
+            eventRepository.save(event);
 
-            Event event6 = new Event("Smite", "Final internacional entre europa y USA", "2021-04-25",
-                    "/images/Events/smite0.jpg", 100);
-            event6.putLabel("MOBA");
-            event6.setGallery("/images/Events/smite1.jpg", "/images/Events/smite2.png", "/images/Events/smite3.jpg");
-
-            // save events
-            eventRepository.save(event1);
-            eventRepository.save(event2);
-            eventRepository.save(event3);
-            eventRepository.save(event4);
-            eventRepository.save(event5);
-            eventRepository.save(event6);
+            event = new Event("Smite", "Final internacional entre europa y USA", "2021-04-25", 100);
+            event.putLabel("MOBA");
+            ImageService.CREATE_FOLDER_EVENT(event.getName());
+            eventRepository.save(event);
         }
 
         if (tableRepository.count() == 0) {

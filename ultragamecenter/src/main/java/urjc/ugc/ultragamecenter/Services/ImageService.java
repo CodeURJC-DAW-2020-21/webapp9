@@ -108,14 +108,10 @@ public class ImageService {
 		}
 	}
 
-	/* public static String changeEmail(String email) {
-		String last = "";
-		for (String aux : email.split("@")) {
-			last += aux;
-			last += "_";
-		}
-		return last;
-	} */
+	/*
+	 * public static String changeEmail(String email) { String last = ""; for
+	 * (String aux : email.split("@")) { last += aux; last += "_"; } return last; }
+	 */
 
 	public static void CREATE_FOLDER_USER(String email) throws IOException {
 		File original = new File(System.getProperty("user.dir"),
@@ -128,9 +124,9 @@ public class ImageService {
 			} else {
 				log.warning("Cannot create directory");
 			}
-		}
 		File newFile = new File(folder + "/fotoPerfil.jpg");
 		FileUtils.copyFile(original, newFile);
+		}
 	}
 
 	public static void CREATE_FOLDER_EVENT(String id) throws IOException {
@@ -142,20 +138,29 @@ public class ImageService {
 			} else {
 				log.warning("Cannot create directory");
 			}
+
+			File original = new File(System.getProperty("user.dir"),
+					"GIT/ultragamecenter/src/main/resources/static/images/uploadImages/userImg/defaultEvent.png");
+			File newFile = new File(folder + "/baner.jpg");
+			FileUtils.copyFile(original, newFile);
+			newFile = new File(folder + "/galery1.jpg");
+			FileUtils.copyFile(original, newFile);
+			newFile = new File(folder + "/galery2.jpg");
+			FileUtils.copyFile(original, newFile);
+			newFile = new File(folder + "/galery3.jpg");
+			FileUtils.copyFile(original, newFile);
 		}
-		File original = new File(System.getProperty("user.dir"),
-				"GIT/ultragamecenter/src/main/resources/static/images/uploadImages/userImg/defaultuser.jpg");
-		File newFile = new File(folder + "/baner.jpg");
-		FileUtils.copyFile(original, newFile);
-		newFile = new File(folder + "/galery1.jpg");
-		FileUtils.copyFile(original, newFile);
-		newFile = new File(folder + "/galery2.jpg");
-		FileUtils.copyFile(original, newFile);
-		newFile = new File(folder + "/galery3.jpg");
-		FileUtils.copyFile(original, newFile);
 	}
 
 	public static String getSource(String email) {
 		return IMG_CONTROLLER_URL + email + "/fotoPerfil.jpg";
+	}
+
+	public static Object getEventSource(Long id) {
+		return null;
+	}
+
+	public static Object getEventGalery(Long id) {
+		return null;
 	}
 }

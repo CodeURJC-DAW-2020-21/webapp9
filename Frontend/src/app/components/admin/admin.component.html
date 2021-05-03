@@ -1,12 +1,12 @@
 <app-header site="Admin"></app-header>
     <div class="body-tabs-container">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#eventos">Eventos</a></li>
+            <li class="active"><a data-toggle="tab">Eventos</a></li>
         </ul>
         <div class="divider mt-0" style="margin-bottom: 30px"></div>
     </div>
 	<div class="add-event-btn-container">
-    	<a *ngIf="events.length > 0" class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/admin/add-event'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+    	<a *ngIf="events.length > 0" class="mb-2 mr-2 btn-transition btn btn-outline-focus" [routerLink]="['new-event']"><i class="fas fa-plus-circle"></i>Añadir Evento</a>
     </div>
     <ul>
 	    <li class="event-wrap" *ngFor="let event of events">
@@ -36,7 +36,7 @@
 		<p>No existen eventos.</p>
 		<div id="eventos" class="fade in active">
 			<div class="add-event-btn-container">
-				<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" href= '/Event-Adder'><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+				<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" [routerLink]="['new-event']"><i class="fas fa-plus-circle"></i>Añadir Evento</a>
 			</div>
 			<div>
 				<div class="event">
