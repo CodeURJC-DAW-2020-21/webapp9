@@ -5,6 +5,7 @@ import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.repositories.UserRepository;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent() ? userRepository.findByEmail(email).get(): null;
     }
 
-    public User createNewUser(String name, String lastName, String password, String email) {
+    public User createNewUser(String name, String lastName, String password, String email) throws IOException {
         User user = null;
         if (!userRepository.findByEmail(email).isPresent()) {
             user = new User(name, lastName, password, email);
@@ -65,9 +66,7 @@ public class UserService {
         User user = null;
         user = uDetails.getLogedUser();
         if (image != null && !image.isEmpty()) {
-            user.setProfileSrc(imageService.uploadImage(image));
-        } else {
-            user.setProfileSrc("uploadImages/userImg/defaultuser.png");
+            imageService.uploadImage(image,user.getEmail());
         }
         user.setName(!name.equals("") ? name : user.getName());
         user.setLastName(!lastName.equals("") ? lastName : user.getLastName());

@@ -16,7 +16,9 @@ export class UserService {
     }
 
     setImage(file:File){
-        return this.http.post(BASE_URL+"image",file)
+        let formdata: FormData = new FormData();
+        formdata.append('file', file);
+        return this.http.post(BASE_URL+"image",formdata)
         .pipe(catchError(error => this.handleError(error)));
     }
 

@@ -62,7 +62,7 @@ public class UserController {
 		model.addAttribute("name", userLogged.getName());
 		model.addAttribute("lastname", userLogged.getLastName());
 		model.addAttribute("email", userLogged.getEmail());
-		model.addAttribute("profileSrc", ImageService.IMG_CONTROLLER_URL+userLogged.getProfileSrc());
+		model.addAttribute("profileSrc", ImageService.getSource(userLogged.getEmail()));
 		model.addAttribute("events_r", uService.getRecomendatedEvents(3));
 		model.addAttribute("tables", userLogged.getReferencedCodes());
 		model.addAttribute("events", aux);
