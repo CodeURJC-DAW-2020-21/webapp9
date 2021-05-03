@@ -400,14 +400,14 @@ To create the image, you just have to launch the script.bat file.
 
  **Miguel Cendrero**
 
--  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
+-  Completed tasks: readme, admin, some security, YT video...
 
 - 5 most significant commits:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. [admin services + components](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/b3e676374f86b434adb7b519b718fd548a233818)
+  2. [list of events](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/ba8cf3ce0be0f8a1ffd9f1e04b5524cf972df177)
+  3. [Some security * methos on init](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/1c2f8b7ea47d8bad529cd6bacd34001f865757b7)
+  4. [Cors + handler error](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/6e788bde3c5a27055d3569257e89fcdba91a7bac)
+  5. [navigation](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/ec122af05fb579b07251ec4bdcb04b341e1f8904)
   
 - 5 files with participation:
   1.
@@ -421,11 +421,11 @@ To create the image, you just have to launch the script.bat file.
 -  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
 
 - 5 most significant commits:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
   
 - 5 files with participation:
   1.
@@ -439,11 +439,11 @@ To create the image, you just have to launch the script.bat file.
 -  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
 
 - 5 most significant commits:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
   
 - 5 files with participation:
   1.
@@ -457,11 +457,11 @@ To create the image, you just have to launch the script.bat file.
 -  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
 
 - 5 most significant commits:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
   
 - 5 files with participation:
   1.
@@ -475,11 +475,11 @@ To create the image, you just have to launch the script.bat file.
 -  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
 
 - 5 most significant commits:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
   
 - 5 files with participation:
   1.
