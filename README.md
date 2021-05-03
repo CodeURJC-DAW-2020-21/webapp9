@@ -390,6 +390,8 @@ To create the image, you just have to launch the script.bat file.
 
 ## PHASE 4: Implementation of SPA architecture
 
+### Youtube Video
+
 ### Preparation of the development environment:
 
 ### SPA Class Diagram:
