@@ -393,7 +393,7 @@ To create the image, you just have to launch the script.bat file.
 ### Preparation of the development environment:
 
 ### SPA Class Diagram:
-
+![Navigation_Diagram_Updated](readme-photos/diagramaF4.png)
 ### Participation:
 
  **Miguel Cendrero**
