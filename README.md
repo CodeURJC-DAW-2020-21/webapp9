@@ -410,11 +410,11 @@ To create the image, you just have to launch the script.bat file.
   5. [navigation](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/ec122af05fb579b07251ec4bdcb04b341e1f8904)
   
 - 5 files with participation:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. [admin.component.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/admin/admin.component.ts)
+  2. [admin.component.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/admin/admin.component.html)
+  3. [edit-event.component.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/edit-event/edit-event.component.ts)
+  4. [event-creator.component.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/event-creator/event-creator.component.html)
+  5. [README.md](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/main/README.md)
 
  **Jesús Élez**
 
@@ -454,21 +454,21 @@ To create the image, you just have to launch the script.bat file.
 
  **Rodrigo Díez**
 
--  Completed tasks: Reservation tables and dockerfile.
+-  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
 
 - 5 most significant commits:
-  1. [Table reservation view and model](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/412a3022c588246e8255e52f151784bc7a69bea4)
-  2. [Table reservation working](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/64111ecff42f035f116ca140f95deb20e91912fd)
-  3. [solved reservation bug](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/4e3dd8578f088cc4e64c9e96391d71f1e210585d)
-  4. [Solved profile reservations bug](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/62388c2d53c37bd698d0d40e66a8645d2672dcc0)
-  5. [mail sender properties updated](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/9718e6d893583e9ba25cf4c2dd96ec90294aa2a0)
+  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
   
 - 5 files with participation:
-  1.[reservation.component.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/reservation/reservation.component.html)
-  2.[reservation.component.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/reservation/reservation.component.ts)
-  3.[table.model.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/models/table.model.ts)
-  4.[reservation.service.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/services/reservation.service.ts)
-  5.[application.properties](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/ultragamecenter/src/main/resources/application.properties)
+  1.
+  2.
+  3.
+  4.
+  5.
 
  **Rodrigo de Siqueira**
 
