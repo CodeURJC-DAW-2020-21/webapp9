@@ -44,6 +44,14 @@ export class EventService {
       }).pipe(catchError((error: any) => this.handleError(error)));
   }
 
+  postImage(name:string, type:number | string,file:File){
+    let formdata: FormData = new FormData();
+    formdata.append('file', file);
+    console.log("FormData: ",file,type,name,EVENT_URL+"image/"+name+"/"+type)
+    return this.httpClient.post(EVENT_URL+"image/"+name+"/"+type,formdata)
+    .pipe(catchError((error: any) => this.handleError(error)));
+  }
+
   putEvent(id:number|string, event:EventDTO){
     return this.httpClient.put(EVENT_URL+id,event)
     .pipe(catchError((error: any) => this.handleError(error)));
