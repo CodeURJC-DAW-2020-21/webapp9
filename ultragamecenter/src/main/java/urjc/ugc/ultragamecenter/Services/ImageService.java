@@ -25,7 +25,7 @@ public class ImageService {
 	public static final String IMG_FOLDER = "userImg/";
 	public static final String IMG_CONTROLLER_URL = "/images/uploadImages/userImg/";
 	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"),
-			"GIT/ultragamecenter/src/main/resources/static/images/uploadImages");
+			"ultragamecenter/src/main/resources/static/images/uploadImages");
 
 	public boolean isValidImage(MultipartFile file) {
 		return file != null && !file.isEmpty();
@@ -76,7 +76,7 @@ public class ImageService {
 
 	public static void CREATE_FOLDER_USER(String email) throws IOException {
 		File original = new File(System.getProperty("user.dir"),
-				"GIT/ultragamecenter/src/main/resources/static/images/uploadImages/userImg/defaultuser.jpg");
+				"ultragamecenter/src/main/resources/static/images/uploadImages/userImg/defaultuser.jpg");
 		Path folder = FILES_FOLDER.resolve(IMG_FOLDER + email + "/");
 		File directory = folder.toFile();
 		if (!directory.exists()) {
@@ -101,7 +101,7 @@ public class ImageService {
 			}
 
 			File original = new File(System.getProperty("user.dir"),
-					"GIT/ultragamecenter/src/main/resources/static/images/uploadImages/userImg/defaultEvent.png");
+					"ultragamecenter/src/main/resources/static/images/uploadImages/userImg/defaultEvent.png");
 			File newFile = new File(folder + "/baner.jpg");
 			FileUtils.copyFile(original, newFile);
 			newFile = new File(folder + "/galery1.jpg");
