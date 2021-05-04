@@ -479,16 +479,16 @@ To create the image, you just have to launch the script.bat file.
 -  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
 
 - 5 most significant commits:
-  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  1. [New Dockerfile with Angular](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/354c523d76fb4c5653ec3c21cb2c01512f8d0a0b)
+  2. [New Dockerfile WIP](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/93ae0662170d0d82afe19042157fc7df783aefd8)
+  3. [New builder aux to run angular + spring in linux](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/f86859421be5ac05462a4a0ede76b1b1692bd4e0)
+  4. [Angular Project](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/daf0d4aec3bd6aba55a7fa8f1632bbec2ce878e5)
+  5. [Added Login, header and graphs table components](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/6a298bc24de9b75457363ec0df28c45cce7d6d27)
   
 - 5 files with participation:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1.[Dockerfile](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/ultragamecenter/docker/Dockerfile)
+  2.[app.module.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/8e552f024bad00327e4603c2c3fc514d6b2205de/ultragamecenter/src/main/resources/angular-ugc/src/app/app.module.ts)
+  3.[reservation.component.spec.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/8e552f024bad00327e4603c2c3fc514d6b2205de/ultragamecenter/src/main/resources/angular-ugc/src/app/reservation/reservation.component.spec.ts)
+  4.[header.component.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/6a298bc24de9b75457363ec0df28c45cce7d6d27/ultragamecenter/src/main/resources/angular-ugc/src/app/header/header.component.ts)
+  5.[builderAux.sh](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/f86859421be5ac05462a4a0ede76b1b1692bd4e0/builderAux.sh)
 
