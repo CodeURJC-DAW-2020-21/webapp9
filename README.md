@@ -445,18 +445,18 @@ To create the image, you just have to launch the script.bat file.
 -  Completed tasks: docker file, docker compose, upload images on docker and image push to dockerhub.
 
 - 5 most significant commits:
-  1. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  2. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  3. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  4. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
-  5. [](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/)
+  1. [Event images posted aded](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/9f573861667f89e0989d1166fa078a8b6fffab56 )
+  2. [Images to event](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/06562475d788d49bc2068d198d74ec3f6bc7b280)
+  3. [Profile images working](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/e8892c945eb48062d4a545f4f00d7991ec618416)
+  4. [Some changes to services, routeing navegate and login-register](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/118c60baec933eafa6de620751552e01a6818860  )
+  5. [Edit profile and profile](https://github.com/CodeURJC-DAW-2020-21/webapp9/commit/37e50f714cbc5db3e669b9731e11cbd09fae8a6b  )
   
 - 5 files with participation:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. [admin.component.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/admin/admin.component.ts)
+  2. [admin.component.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/admin/admin.component.html)
+  3. [edit-event.component.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/edit-event/edit-event.component.ts)
+  4. [event-creator.component.html](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/components/event-creator/event-creator.component.html)
+  5. [reservation.service.ts](https://github.com/CodeURJC-DAW-2020-21/webapp9/blob/angular/Frontend/src/app/services/reservation.service.ts)
 
  **Rodrigo Díez**
 
