@@ -17,13 +17,10 @@ cd ./Frontend/dist/angular-ugc
 copy * %newFile%
 
 ::Contruimos el dockerfile
-cd ../../../ultragamecenter
+cd ../../../
 
 cmd /C docker run --rm -v "%cd%":/data -w /data maven mvn package
 cmd /C docker build -t rodri666a/webapp9 -f docker/Dockerfile .
-
-::Pusheamos
-docker push rodri666a/webapp9
 
 cd docker
 
