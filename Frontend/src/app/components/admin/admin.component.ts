@@ -16,6 +16,8 @@ import { Events } from '../../models/event.model';
 export class AdminComponent implements OnInit {
 
   events: Events[] = [];
+  more: boolean = true;
+  page: number = 0;
   constructor(private eService: EventService, private uService: UserService, private router: Router,private lService:LoginService) { } 
 
   ngOnInit(){
@@ -40,6 +42,16 @@ export class AdminComponent implements OnInit {
 
   redirectEditEvent(id: number){
     this.router.navigate(["edit-event/"+id]);
+  }
+
+  nextPage() {
+    this.page++;
+    this.eService.getEvents(this.page).subscribe(events => {
+      for (let e of events) {
+        this.events.push(e);
+      }
+    })
+    this.eService.getEvents(this.page + 1).subscribe(events => this.more = events.length != 0)
   }
 
 }
