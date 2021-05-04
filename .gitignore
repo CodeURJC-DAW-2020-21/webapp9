@@ -26,3 +26,7 @@ hs_err_pid*
 /.metadata/
 
 .DS_Store
+
+ultragamecenter/src/main/resources/angular-ugc/package-lock.json
+
+ultragamecenter/src/main/resources/angular-ugc/package.json

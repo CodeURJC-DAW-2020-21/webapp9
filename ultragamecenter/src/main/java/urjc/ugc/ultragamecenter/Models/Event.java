@@ -1,11 +1,10 @@
 package urjc.ugc.ultragamecenter.models;
 
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,15 +29,11 @@ public class Event {
     private String description;
     private Date date;
 
-    @JsonIgnore
-    private String bannerUrl;
     private Integer likes;
 
     @JsonIgnore
     private ArrayList<String> labels;
 
-    @JsonIgnore
-    private ArrayList<String> gallery;
 
     private Integer capacity;
 
@@ -49,14 +44,12 @@ public class Event {
     public Event() {
     }
 
-    public Event(EventDTO newEvent){
+    public Event(EventDTO newEvent) throws IOException{
         this.date = newEvent.getDate();
         this.name = newEvent.getName();
         this.description = newEvent.getDescription();
         this.likes = 0;
-        this.bannerUrl = "";
         this.labels = newEvent.getLavels();
-        this.gallery = new ArrayList<>();
         this.capacity = newEvent.getCapacity();
     }
 
@@ -68,14 +61,12 @@ public class Event {
         this.capacity = newEvent.getCapacity();
     }
 
-    public Event(String name, String description, String date2, String bannerUrl, Integer capacity) {
+    public Event(String name, String description, String date2, Integer capacity) throws IOException {
         this.date = Date.valueOf(date2);
         this.name = name;
         this.description = description;
         this.likes = 0;
-        this.bannerUrl = bannerUrl;
         this.labels = new ArrayList<>();
-        this.gallery = new ArrayList<>();
         this.capacity = capacity;
     }
 
@@ -103,15 +94,6 @@ public class Event {
         return this.capacity;
     }
 
-    public List<String> getGallery() {
-        return gallery;
-    }
-
-    public void setGallery(String... gallery) {
-        for (String g : gallery) {
-            this.gallery.add(g);
-        }
-    }
 
     @Override
     public String toString() {
@@ -127,13 +109,7 @@ public class Event {
         this.date = Date.valueOf(date);
     }
 
-    public String getBannerUrl() {
-        return bannerUrl;
-    }
-
-    public void setBannerUrl(String bannerUrl) {
-        this.bannerUrl = bannerUrl;
-    }
+    
 
     public void putLabel(String label) {
         this.labels.add(label);
@@ -165,16 +141,6 @@ public class Event {
 
     public void setID(Long id2) {
         this.id = id2;
-    }
-
-    @JsonIgnore
-    public Map<String, String> getDATA() {
-        HashMap<String, String> h = new HashMap<>();
-        h.put("Aforo total", capacity.toString());
-        Integer aux = capacity - likes;
-        h.put("Aforo disponible", aux.toString());
-        h.put("Aforo restante", likes.toString());
-        return h;
     }
 
 }

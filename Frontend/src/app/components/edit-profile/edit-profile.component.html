@@ -1,0 +1,32 @@
+<app-header site="EDIT"></app-header>
+<div class="body__overlay"></div>
+<!-- Start Login Register Area -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <ul class="login__register__menu" role="tablist">
+                <li role="presentation" class="login active">
+                    <a id="eProfile" role="tab" data-toggle="tab">Perfil</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Start Login Register Content -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="">
+                <!-- Start Single Content -->
+                <div id="editProfile" role="tabpanel" class="single__tabs__panel">
+                    <form class="login" enctype="multipart/form-data">
+                        <input #name class="mb-4" type="text" value="{{me?.name}}" name="name">
+                        <input #lastName type="text" value="{{me?.lastName}}" name="surname">
+                        <input #foto multiple type='file' name='image' accept=".jpg, .jpeg" />
+                        <input #pass type="password" placeholder="Contraseña*" name="password">
+                        <input type='submit' value='Guardar' (click)="postAll($event,name.value,lastName.value,pass.value)" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Login Register Content -->
+</div>

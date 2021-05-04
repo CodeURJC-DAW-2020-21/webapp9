@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import urjc.ugc.ultragamecenter.security.jwt.LoginRequest;
 import urjc.ugc.ultragamecenter.security.jwt.UserLoginService;
 import urjc.ugc.ultragamecenter.security.jwt.AuthResponse.Status;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
 public class LoginRestController {
@@ -29,7 +31,6 @@ public class LoginRestController {
 			@CookieValue(name = "accessToken", required = false) String accessToken,
 			@CookieValue(name = "refreshToken", required = false) String refreshToken,
 			@RequestBody LoginRequest loginRequest) {
-		
 		return userService.login(loginRequest, accessToken, refreshToken);
 	}
 

@@ -8,10 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -26,6 +29,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(10, new SecureRandom());
+	}
+
+	@Bean
+	public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+		return new DefaultHttpFirewall();
+	}
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+    	super.configure(web);
+    	web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
 	}
 
 	@Override
@@ -43,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/").permitAll()
 			.antMatchers("/login").permitAll()
 			.antMatchers("/loginerror").permitAll()
-			.antMatchers("/logout").permitAll()
+			.antMatchers("/loggout").permitAll()
 			.antMatchers("/register").permitAll()
 			.antMatchers("/newUser").permitAll()
 			.antMatchers("/admin/**").hasAnyRole("ADMIN")

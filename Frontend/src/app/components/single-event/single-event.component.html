@@ -1,0 +1,36 @@
+<app-header site="EVENT"></app-header>
+<div class="eventContainer" *ngIf="event!=undefined">
+    <section class="htc__store__area ptb--120 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section__title section__title--2">
+                            <img class="event-img" src="/images/uploadImages/userImg/{{event.name}}/baner.jpg"/>
+                        </div>
+                        <h2 class="title__line left-aligned">{{event.name}}</h2>
+                            <div class="date">
+                                <p><i class="fas fa-calendar"></i>  {{event.date}}</p>                           
+                            </div>
+                            <p class="left-aligned">{{event.description}}</p>
+                            <br>
+                            <p class="availab">DISPONIBILIDAD: {{event.capacity}} </p>
+                        <div class="store__btn left-aligned" *ngIf="loged">
+                            <a class="widget-heading" (click)="like(event.id)">Like</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+
+<div class="more-images">
+    <h2 class="title__line center-aligned"> Más imágenes </h2>
+    <hr>
+    <div class="eventGallery">
+        <ul>
+            <li class="img-item"><img class="event-small-img" src="/images/uploadImages/userImg/{{event?.name}}/galery1.jpg"/></li>
+            <li class="img-item"><img class="event-small-img" src="/images/uploadImages/userImg/{{event?.name}}/galery2.jpg"/></li>
+            <li class="img-item"><img class="event-small-img" src="/images/uploadImages/userImg/{{event?.name}}/galery3.jpg"/></li>
+        </ul>
+    </div>
+</div>

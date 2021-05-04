@@ -1,0 +1,48 @@
+<app-header site="Admin"></app-header>
+    <div class="body-tabs-container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab">Eventos</a></li>
+        </ul>
+        <div class="divider mt-0" style="margin-bottom: 30px"></div>
+    </div>
+	<div class="add-event-btn-container">
+    	<a *ngIf="events.length > 0" class="mb-2 mr-2 btn-transition btn btn-outline-focus" [routerLink]="['/new-event']"><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+    </div>
+    <ul>
+	    <li class="event-wrap" *ngFor="let event of events">
+	        <div class="card widget-content">
+	            <div class="widget-content-outer">
+	                <div class="widget-content-wrapper">
+	                    <div class="widget-content-left">
+	                        <div class="widget-heading">{{event.name}}</div>
+	                        <div class="widget-subheading">
+	                            <i class="fas fa-calendar"></i> {{event.date}}
+	                        </div>
+	                    </div>
+	                    <div class="widget-content-right">
+	                            <button
+	                                class="btn-transition btn btn-outline-danger left-margin" (click)="redirectEditEvent(event.id)">Editar</button>
+	                            <button class="btn-transition btn btn-outline-danger left-margin"
+									(click)="redirectGraphs(event.id)">Gráficos</button>
+	                            <button (click)="deleteEvent(event.id)" class="btn-transition btn btn-outline-danger left-margin"
+	                                >Eliminar</button>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	    </li>
+	</ul>
+	<div *ngIf="events.length == 0">
+		<p>No existen eventos.</p>
+		<div id="eventos" class="fade in active">
+			<div class="add-event-btn-container">
+				<a class="mb-2 mr-2 btn-transition btn btn-outline-focus" [routerLink]="['/new-event']"><i class="fas fa-plus-circle"></i>Añadir Evento</a>
+			</div>
+			<div>
+				<div class="event">
+					<div class="divider mt-0" style="margin-bottom: 30px"></div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<button id="seeMore" *ngIf="more" class="btn btn-success" (click)="nextPage()">Ver más</button>

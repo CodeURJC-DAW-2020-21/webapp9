@@ -1,0 +1,51 @@
+
+    <app-header site="PERFIL"></app-header>
+    <div class="eventContainer">
+        <section class="htc__store__area ptb--120 bg__white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section__title section__title--2">
+                                <img class="profile-img" src="/images/uploadImages/userImg/{{Me?.email}}/fotoPerfil.jpg"/>
+                            </div>
+                            <h2 class="title__line left-aligned">Nombre: {{Me?.name}}</h2>
+                            <h2 class="title__line left-aligned">Apellidos: {{Me?.lastName}}</h2>
+                            <div class="date">
+                                <p><i class="fas fa-envelope"></i>      Correo electonico: {{Me?.email}}</p>                           
+                            </div>
+                            
+                            <div class="store__btn left-aligned">
+                                <a [routerLink]="['/edit-profile']">Editar perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+    
+    <div class="user-info-column">
+        <div class="user-display-info">
+            <h3 class="user-info" >Mis Reservas</h3>
+            <ul *ngFor="let table of reservates">
+                <li>
+                    <p>{{table}}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="user-display-info">
+            <h3 class="user-info" >Eventos Recomendados</h3>
+            <ul *ngFor="let event of recomendatedEvents">
+                <li>
+                    <a [routerLink]="['/see-event',event?.id]">{{event.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="user-display-info">
+            <h3 class="user-info">Mis Eventos</h3>
+            <ul *ngFor="let event of likedEvents">
+                <li>
+                    <a [routerLink]="['/see-event',event?.id]">{{event.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>

@@ -1,0 +1,37 @@
+<header id="header" class="htc-header header--3 bg__white">
+    <!-- Start Mainmenu Area -->
+    <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                    <div class="logo">
+                        <div class="logoImage">
+                            <a [routerLink]="['/']">
+                                <img src="../images/logo/UGC1.png" alt="logo">
+                            </a>
+                        </div>
+                        <div class="pagetTitle">
+                            <h2 class="pageTitle-text"> | {{site}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- Start MAinmenu Ares -->
+                <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                    <nav class="mainmenu__nav hidden-xs hidden-sm">
+                        <ul class="main__menu">
+                            <li class="drop"><a [routerLink]="['/reservation']"><em class="fas fa-desktop"></em>  Mesas</a></li>
+                            <li class="drop"><a [routerLink]="['/events']"><em class="fas fa-gamepad"></em>  Eventos</a></li>
+                            <li>
+                                <a (click)="goProfile()"><em class="fas fa-user-alt"></em>  Perfil</a>
+                            </li>
+                            
+                            <li class="drop" *ngIf="isAdmin"><a [routerLink]="['/admin']"><em class="fas fa-tools"></em> Admin</a></li>
+                            <li class="drop" *ngIf="isLoged"><a (click)="logOut()"><em class="fas fa-sign-out-alt"></em> Cerrar Sesion</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<br>

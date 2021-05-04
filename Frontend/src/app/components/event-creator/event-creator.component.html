@@ -1,0 +1,41 @@
+<app-header site="+Event"></app-header>
+<div class="body__overlay"></div>
+        <!-- Start Login Register Area -->
+<div class="">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <ul class="" role="">
+                <li role="presentation" class="gaming-h1 event-title"><a href="#editProfile" role="tab" data-toggle="tab"> Nuevo Evento</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Start Login Register Content -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="">
+                <!-- Start Single Content -->
+                <div>
+                    <form class="login" enctype="multipart/form-data">
+                        <label for="description"> Nombre: </label>
+                        <input #name class="mb-4" type="text" name="name">
+                        <label for="description"> Description: </label>
+                        <input #description type="text" name="surname">
+                        <label for="description"> Fecha del final del evento: </label>
+                        <input #date type="text" value="2021-12-31" >
+                        <input #capacity type="number" value="50">
+                        <label for="description"> Imagen principal: </label>
+                        <input #foto multiple type='file' name='image' accept=".jpg" />
+                        <label for="description"> Imagenes Secundarias: </label>
+                        <input #foto1 multiple type='file' name='image' accept=".jpg" />
+                        <input #foto2 multiple type='file' name='image' accept=".jpg" />
+                        <input #foto3 multiple type='file' name='image' accept=".jpg" />
+                        <label for="description"> Etiquetas, separadas por /: </label>
+                        <input #lavels type="text" value="ETIQUETAS/AQUI">
+                        <input type='submit' value='Guardar' (click)="postEvent($event,name.value,description.value,date.value,lavels.value)" />
+                    </form>
+                </div>
+                <!-- End Single Content -->
+            </div>
+        </div>
+    </div>
+    <!-- End Login Register Content -->

@@ -759,7 +759,7 @@ input::-moz-placeholder {
   color: #444 !important;
   opacity: 1;
 }
-input::-webkit-input-placeholder { / Chrome/Opera/Safari /
+/* input::-webkit-input-placeholder { /Chrome/Opera/Safari/
   color: #444 !important;
   opacity: 1;
 }
@@ -774,7 +774,7 @@ input:-ms-input-placeholder { / IE 10+ /
 input:-moz-placeholder { / Firefox 18- /
   color: #444 !important;
   opacity: 1;
-}
+} */
 
 
 

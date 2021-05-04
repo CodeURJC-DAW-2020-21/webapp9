@@ -1,5 +1,6 @@
 package urjc.ugc.ultragamecenter.rest_controllers;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.security.Principal;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,6 +35,7 @@ import urjc.ugc.ultragamecenter.models.User;
 import urjc.ugc.ultragamecenter.requests.UserDTO;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
@@ -55,6 +58,7 @@ public class UserRestController {
     @Autowired
 	UserLoginService ulService;
 
+    
     @GetMapping("/me")
 	public ResponseEntity<User> me(HttpServletRequest request) {
 		
@@ -68,7 +72,7 @@ public class UserRestController {
 	}
 
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody UserDTO u) {
+    public ResponseEntity<User> createUser(@RequestBody UserDTO u) throws IOException {
         User newUser = new User(u);
         if (uService.findByEmail(newUser.getEmail()) != null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -92,12 +96,9 @@ public class UserRestController {
     }
 
     @PostMapping(path = "/image",  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadImage(@RequestBody MultipartFile imageFile) {
-        User user = uService.findByEmail(uDetails.getEmail());
+    public ResponseEntity<Object> uploadImage(@RequestParam("file") MultipartFile imageFile) {
         URI location = fromCurrentRequest().build().toUri();
-        String aux= imgService.uploadImage(imageFile);
-        user.setProfileSrc(aux);
-        uService.save(user);
+        imgService.uploadImage(imageFile,uDetails.getEmail()+"/");
         return ResponseEntity.created(location).build();
     }
 
@@ -121,7 +122,7 @@ public class UserRestController {
     }
 
     @GetMapping("/myReservates")
-    public Collection<String> reservations(@RequestParam Integer page) {
+    public Collection<String> reservations() {
         return uService.findByEmail(uDetails.getEmail()).getReferencedCodes();
     }
 }

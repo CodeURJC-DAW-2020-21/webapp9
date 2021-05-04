@@ -1,0 +1,1135 @@
+/*! CSS Used from: https://localhost:8443/css/bootstrap.min.css */
+
+body {
+    margin: 0;
+}
+
+footer, header, nav, section {
+    display: block;
+}
+
+a {
+    background-color: transparent;
+}
+
+a:active, a:hover {
+    outline: 0;
+}
+
+img {
+    border: 0;
+}
+
+hr {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+}
+
+@media print {
+    *, *:before, *:after {
+        background: transparent!important;
+        color: #000!important;
+        -webkit-box-shadow: none!important;
+        box-shadow: none!important;
+        text-shadow: none!important;
+    }
+    a, a:visited {
+        text-decoration: underline;
+    }
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    img {
+        page-break-inside: avoid;
+    }
+    img {
+        max-width: 100%!important;
+    }
+    p, h2 {
+        orphans: 3;
+        widows: 3;
+    }
+    h2 {
+        page-break-after: avoid;
+    }
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+img {
+    vertical-align: middle;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+h2 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@media (min-width:768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width:992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width:1200px) {
+    .container {
+        width: 1200px;
+    }
+}
+
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-6, .col-sm-6, .col-md-8, .col-lg-8, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.col-xs-3, .col-xs-6, .col-xs-12 {
+    float: left;
+}
+
+.col-xs-12 {
+    width: 100%;
+}
+
+.col-xs-6 {
+    width: 50%;
+}
+
+.col-xs-3 {
+    width: 25%;
+}
+
+@media (min-width:768px) {
+    .col-sm-3, .col-sm-6, .col-sm-12 {
+        float: left;
+    }
+    .col-sm-12 {
+        width: 100%;
+    }
+    .col-sm-6 {
+        width: 50%;
+    }
+    .col-sm-3 {
+        width: 25%;
+    }
+}
+
+@media (min-width:992px) {
+    .col-md-2, .col-md-3, .col-md-8, .col-md-12 {
+        float: left;
+    }
+    .col-md-12 {
+        width: 100%;
+    }
+    .col-md-8 {
+        width: 66.66666667%;
+    }
+    .col-md-3 {
+        width: 25%;
+    }
+    .col-md-2 {
+        width: 16.66666667%;
+    }
+}
+
+@media (min-width:1200px) {
+    .col-lg-2, .col-lg-3, .col-lg-8, .col-lg-12 {
+        float: left;
+    }
+    .col-lg-12 {
+        width: 100%;
+    }
+    .col-lg-8 {
+        width: 66.66666667%;
+    }
+    .col-lg-3 {
+        width: 25%;
+    }
+    .col-lg-2 {
+        width: 16.66666667%;
+    }
+}
+
+.clearfix:before, .clearfix:after, .container:before, .container:after, .row:before, .row:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after, .container:after, .row:after {
+    clear: both;
+}
+
+@media (max-width:767px) {
+    .hidden-xs {
+        display: none!important;
+    }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+    .hidden-sm {
+        display: none!important;
+    }
+}
+
+/*! CSS Used from: https://localhost:8443/css/core.css */
+
+/*! @import https://localhost:8443/css/material-design-iconic-font.min.css */
+
+.zmdi {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.zmdi-email:before {
+    content: '\f15a';
+}
+
+.zmdi-pin:before {
+    content: '\f1ab';
+}
+
+.zmdi-phone-in-talk:before {
+    content: '\f2b6';
+}
+
+.zmdi-email:before {
+    content: '\f15a';
+}
+
+.zmdi-pin:before {
+    content: '\f1ab';
+}
+
+.zmdi-phone-in-talk:before {
+    content: '\f2b6';
+}
+
+/*! end @import */
+
+/*! @import https://localhost:8443/css/shortcode/default.css */
+
+*, h2, p, ul, a {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #303030;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    color: #303030;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #303030;
+    font-weight: 400;
+    font-variant-ligatures: common-ligatures;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+@media all and (max-width: 767px) {
+    h2 {
+        font-size: 24px;
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+hr {
+    margin: 1.625em 0;
+    border-color: #e6e6e6;
+}
+
+a:hover, a:focus, a:active {
+    text-decoration: none;
+    outline: none;
+}
+
+a {
+    color: #333;
+}
+
+a:hover, a:focus, a:active {
+    color: #ff4136;
+}
+
+p a:hover, p a:focus, p a:active {
+    color: #ff4136;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+a {
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+}
+
+img {
+    max-width: 100%;
+    transition: all 0.3s ease-out 0s;
+}
+
+img:last-child {
+    margin-bottom: 0;
+}
+
+body {
+    background: #fff;
+}
+
+.bg__white {
+    background: #fff;
+}
+
+.ptb--120 {
+    padding: 120px 0;
+}
+
+*::-moz-selection {
+    background: #ff4136;
+    color: #fff;
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background: #ff4136;
+    color: #fff;
+    text-shadow: none;
+}
+
+::selection {
+    background: #ff4136;
+    color: #fff;
+    text-shadow: none;
+}
+
+/*! end @import */
+
+/*! CSS Used from: https://localhost:8443/css/shortcode/shortcodes.css */
+
+/*! @import https://localhost:8443/css/shortcode/header.css */
+
+.main__menu {
+    display: flex;
+    justify-content: center;
+}
+
+.main__menu>li>a {
+    color: #666666;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 70px;
+    position: relative;
+    text-transform: capitalize;
+}
+
+.main__menu>li {
+    padding: 0 20px;
+    position: relative;
+}
+
+.logo {
+    width: 170%;
+}
+
+.logo a {
+    display: block;
+}
+
+.logoImage {
+    margin: 0px 5px 5px 0px;
+}
+
+.pageTitle-text {
+    padding: 1em;
+    font-weight: bolder;
+    font-size: 1.5em;
+    width: max-content;
+}
+
+.mainmenu__area {
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 32px;
+    width: 100%;
+}
+
+.mainmenu__area .container .row {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+}
+
+.htc-header {
+    position: relative;
+    z-index: 99;
+}
+
+.main__menu>li:hover>a {
+    color: #ff4136;
+}
+
+.main__menu li.drop {
+    position: relative;
+}
+
+.main__menu li.drop a {
+    position: relative;
+}
+
+.header--3 .mainmenu__area {
+    position: inherit;
+    top: auto;
+}
+
+.header--3 .logo {
+    align-items: center;
+    display: flex;
+    height: 134px;
+}
+
+.header--3 .main__menu>li>a {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 134px;
+}
+
+/*! end @import */
+
+/*! @import https://localhost:8443/css/shortcode/footer.css */
+
+.footer__container {
+    padding-bottom: 65px;
+    padding-top: 76px;
+}
+
+.htc__copyright__area {
+    border-top: 1px solid #d9d9d9;
+}
+
+.copyright__inner {
+    align-items: center;
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+}
+
+.ft__logo {
+    margin-bottom: 24px;
+}
+
+.copyright p {
+    color: #666666;
+    font-size: 14px;
+}
+
+.footer-address ul li {
+    display: block;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.footer-address ul li .address-text p {
+    color: #666666;
+    margin-bottom: 18px;
+    margin: 0;
+}
+
+.footer-address ul li .address-icon i {
+    color: #666666;
+    font-size: 20px;
+}
+
+.address-icon {
+    display: inline-block;
+    float: left;
+    width: 37px;
+}
+
+.gray-bg {
+    background-color: #f6f6f6;
+}
+
+.copyright a {
+    text-transform: capitalize;
+}
+
+/*! end @import */
+
+/*! CSS Used from: https://localhost:8443/css/style.css */
+
+.store__btn {
+    margin-top: 47px;
+    text-align: center;
+}
+
+.store__btn a {
+    border: 1px solid #d5d5d5;
+    display: inline-block;
+    font-size: 14px;
+    height: 45px;
+    line-height: 41px;
+    padding: 0 40px;
+    text-transform: uppercase;
+    transition: 0.4s;
+}
+
+.store__btn a:hover {
+    background: #ff4136;
+    border: 1px solid #ff4136;
+    color: #fff;
+}
+
+:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.eventContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*! CSS Used from: https://localhost:8443/css/responsive.css */
+
+@media (min-width: 992px) and (max-width: 1169px) {
+    .address-text {
+        padding-left: 37px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .smt-30 {
+        margin-top: 30px;
+    }
+    .main__menu {
+        justify-content: flex-start;
+    }
+    .header--3 .logo {
+        height: 100px;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    .header--3 .main__menu>li>a {
+        line-height: 70px;
+    }
+    .main__menu li:first-child {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        width: 300px;
+    }
+    .xmt-30 {
+        margin-top: 30px;
+    }
+    .copyright__inner {
+        display: block;
+        height: 80px;
+    }
+    .copyright {
+        margin-bottom: 7px;
+        padding-top: 10px;
+    }
+    .copyright__inner {
+        text-align: center;
+    }
+    .logo img {
+        max-width: inherit;
+    }
+    .header--3 .logo {
+        height: 100px;
+    }
+    .ptb--120 {
+        padding: 50px 0;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .container {
+        width: 450px;
+    }
+}
+
+/*! CSS Used from: https://localhost:8443/css/custom.css */
+
+.left-aligned {
+    text-align: left;
+}
+
+.center-aligned {
+    text-align: center;
+}
+
+.title__line {
+    font-weight: bolder;
+}
+
+.availab {
+    font-weight: bolder;
+    font-size: large;
+}
+
+.event-img {
+    float: left;
+    width: 500px;
+    margin: 30px 30px 30px 30px;
+    border-radius: 25px;
+}
+
+.img-item {
+    display: inline;
+    margin: 20px;
+}
+
+.event-small-img {
+    width: 15%;
+    vertical-align: top;
+    border-radius: 15px;
+}
+
+.date {
+    margin: 25px;
+    display: inline;
+}
+
+.more-images {
+    margin: -50px 20px 20px 70px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*! CSS Used from: https://localhost:8443/css/widgets.css */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+footer, header, nav, section {
+    display: block;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: .88rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: left;
+    background-color: #fff;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: #3f6ad8;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+h2 {
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.2;
+    color: inherit;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-sm-3, .col-sm-6, .col-sm-12, .col-md-2, .col-md-3, .col-md-8, .col-md-12, .col-lg-2, .col-lg-3, .col-lg-8, .col-lg-12 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 576px) {
+    .col-sm-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .col-sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+    }
+    .col-md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    .col-md-8 {
+        flex: 0 0 66.66667%;
+        max-width: 66.66667%;
+    }
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+    }
+    .col-lg-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    .col-lg-8 {
+        flex: 0 0 66.66667%;
+        max-width: 66.66667%;
+    }
+    .col-lg-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.clearfix::after {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+a {
+    outline: none!important;
+}
+
+body {
+    -webkit-backface-visibility: hidden;
+}
+
+.fas {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.fa-calendar:before {
+    content: "\f133";
+}
+
+.fa-desktop:before {
+    content: "\f108";
+}
+
+.fa-gamepad:before {
+    content: "\f11b";
+}
+
+.fa-user-alt:before {
+    content: "\f406";
+}
+
+/*! CSS Used from: https://localhost:8443/css/login-register.css */
+
+.logo {
+    width: 200px;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: 35px;
+}
+
+::placeholder {
+    color: #BDBDBD;
+    opacity: 1;
+    font-weight: 300;
+}
+
+:-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300;
+}
+
+::-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 991px) {
+    .logo {
+        margin-left: 0px;
+    }
+}
+
+/*! CSS Used fontfaces */
+
+@font-face {
+    font-family: Material-Design-Iconic-Font;
+    src: url(https://localhost:8443/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0) format('woff2'), url(https://localhost:8443/fonts/Material-Design-Iconic-Font.woff?v=2.2.0) format('woff'), url(https://localhost:8443/fonts/Material-Design-Iconic-Font.ttf?v=2.2.0) format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z11lFc-K.woff2) format('woff2');
+    unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJbecmNE.woff2) format('woff2');
+    unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJnecmNE.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z11lFc-K.woff2) format('woff2');
+    unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLEj6Z11lFc-K.woff2) format('woff2');
+    unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLCz7Z11lFc-K.woff2) format('woff2');
+    unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: 900;
+    src: url(https://localhost:8443/css/assets/fonts/fa-solid-900.eot);
+    src: url(https://localhost:8443/css/assets/fonts/fa-solid-900.eot#iefix) format("embedded-opentype"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.woff2) format("woff2"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.woff) format("woff"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.ttf) format("truetype"), url(https://localhost:8443/css/assets/fonts/fa-solid-900.svg#fontawesome) format("svg");
+}
+
+.more-images {
+    margin: -50px 20px 20px 70px;
+    text-align: center;
+}
+
+.eventGallery{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.img-item {
+    display: inline;
+    margin: 20px;
+}
+
+.event-small-img {
+    vertical-align: top;
+    border-radius: 15px;
+}

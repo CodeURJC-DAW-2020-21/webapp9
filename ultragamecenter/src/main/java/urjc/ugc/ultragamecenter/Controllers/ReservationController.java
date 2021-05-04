@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import urjc.ugc.ultragamecenter.services.*;
 import urjc.ugc.ultragamecenter.security.UserDetailsServiceImpl;
-
 @Controller
 
 public class ReservationController {

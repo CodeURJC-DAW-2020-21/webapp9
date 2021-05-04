@@ -49,13 +49,11 @@ public class EventsController {
 	public String seeEvent(@RequestParam String id, Model model) {
 		Event event = eService.getByid(Long.parseLong(id));
 		setHeader(model);
-		model.addAttribute("image", event.getBannerUrl());
 		model.addAttribute("name", event.getName());
 		model.addAttribute("description", event.getDescription());
 		model.addAttribute("date", event.getDate());
 		model.addAttribute("capacity", event.getCapacity() - event.getlikes());
 		model.addAttribute("id", event.getId());
-		model.addAttribute("gallery", event.getGallery());
 		model.addAttribute("site", "EVENTO");
 		return "SingleEventTemplate";
 	}
