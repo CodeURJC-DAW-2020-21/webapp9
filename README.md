@@ -392,6 +392,8 @@ To create the image, you just have to launch the script.bat file.
 
 ### Youtube Video
 
+[![Video DAW - Ultra Game Center](https://img.youtube.com/vi/itZl8QTZcYs/0.jpg)](https://youtu.be/itZl8QTZcYs "Video DAW - Ultra Game Center")
+
 ### Preparation of the development environment:
 1. Install [node js](https://nodejs.org/es/)
 2. Install the Angular CLI globally with the command: npm install -g @angular/cli
